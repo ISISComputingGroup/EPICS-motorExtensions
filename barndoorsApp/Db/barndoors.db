@@ -1,0 +1,41 @@
+record(motor,"$(P)$(INST)BARNDOORS") 
+{ 
+	field(DESC, "Gap on the jaws")
+    field(DTYP,"Soft Channel") 
+    field(OUT,"$(P)$(INST)convertGapToDrive.Y  PP MS") 
+    field(RDBL,"$(P)$(INST)convertDriveToGap.VAL  NPP MS") 
+    field(URIP,"Yes") 
+    field(STOO,"$(P)$(MTR).STOP  PP MS") 
+    field(DINP,"$(P)$(MTR).DMOV  NPP MS") 
+    field(MRES,"0.001") 
+    field(RRES,"1.000") 
+    field(PREC,"3") 
+    field(DHLM,"80") 
+    field(DLLM,"3") 
+    field(TWV,"5") 
+    field(RTRY,"0") 
+    field(EGU,"deg.") 
+}
+
+
+record(cvt, "$(P)$(INST)convertGapToDrive") 
+{ 
+	field(METH, "1D TABLE INVERTED")
+	field(SPEC, "$(LOOKUP_FILE)")
+	field(TDIR, "$(LOOKUP_DIR)")
+
+    field(DESC,"Convert gap distance to drive voltage") 
+ 
+    field(OUT,"$(P)$(MTR).DVAL  PP MS")
+}
+
+record(cvt,"$(P)$(INST)convertDriveToGap") 
+{
+
+	field(METH, "1D TABLE")
+	field(SPEC, "$(LOOKUP_FILE)")
+	field(TDIR, "$(LOOKUP_DIR)")
+ 
+    field(DESC,"Convert drive voltage to gap distance") 
+    field(INPX,"$(P)$(MTR).DRBV  CP MS") 
+}
