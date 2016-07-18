@@ -3,7 +3,7 @@
 #  Macros:
 #    P - base name for ioc
 #    INST - the name of the instrument (This is used as a prefix for the IOC placed after P for barndoor records)
-#    MTR - the IOC postfix of the motor that is being used to drive the
+#    MTR - the IOC postfix of the motor that is being used to drive the barndoors
 #    LOOKUP_DIR - location of the  calibration files (restrictred to 40 characters)
 #    LOOKUP_FILE - filename of the position to set lookup calibration file (restrictred to 40 characters)
 #    LOOKUP_READBACK_FILE - filename of the position lookup calibration file (restrictred to 40 characters)

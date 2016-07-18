@@ -1,0 +1,44 @@
+# Momentum Slits Soft motor record
+#
+#  Macros:
+#    P - base name for ioc
+#    MTR - the IOC postfix of the motor that is being used to drive the momentum slits
+#    HIGH_GAP_LIMIT highest gap value that can be set
+#    LOW_GAP_LIMIT lowest gap value that can be set
+#
+
+record(motor,"$(P)MOMENTUMSLITS") 
+{ 
+	field(DESC, "Gap on the jaws")
+    field(DTYP,"Soft Channel") 
+    field(OUT,"$(P)convertGapToDrive.A  PP MS") 
+    field(RDBL,"$(P)convertDriveToGap.VAL  NPP MS") 
+    field(URIP,"Yes") 
+    field(STOO,"$(P)$(MTR).STOP  PP MS") 
+    field(DINP,"$(P)$(MTR).DMOV  NPP MS") 
+    field(MRES,"0.001") 
+    field(RRES,"1.000") 
+    field(PREC,"3") 
+    field(DHLM,"$(HIGH_GAP_LIMIT)") 
+    field(DLLM,"$(LOW_GAP_LIMIT)") 
+    field(TWV,"5") 
+    field(RTRY,"0") 
+    field(EGU,"mm") 
+}
+
+
+record(calcout, "$(P)convertGapToDrive") 
+{ 
+	
+	field(DESC,"Convert gap distance to drive voltage") 
+    field(CALC,"A / 2.0") 	
+    field(OUT,"$(P)$(MTR).DVAL  PP MS")
+}
+
+record(calcout,"$(P)convertDriveToGap") 
+{
+    field(DESC,"Convert drive voltage to gap distance")
+     
+    field(INPA,"$(P)$(MTR).DRBV  CP MS")
+    field(CALC,"A * 2.0") 
+}

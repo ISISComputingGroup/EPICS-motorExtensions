@@ -12,6 +12,7 @@ include $(TOP)/configure/CONFIG
 # databases, templates, substitutions like this
 #DB += xxx.db
 DB += barndoors.db
+DB += momentum_slits.db
 
 #----------------------------------------------------
 # If <anyname>.db template is not named <anyname>*.template add
