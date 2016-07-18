@@ -9,7 +9,7 @@
 
 record(motor,"$(P)MOMENTUMSLITS") 
 { 
-	field(DESC, "Gap on the jaws")
+	field(DESC, "Gap on the momentum slits")
     field(DTYP,"Soft Channel") 
     field(OUT,"$(P)convertGapToDrive.A  PP MS") 
     field(RDBL,"$(P)convertDriveToGap.VAL  NPP MS") 
@@ -24,7 +24,13 @@ record(motor,"$(P)MOMENTUMSLITS")
     field(TWV,"5") 
     field(RTRY,"0") 
     field(EGU,"mm") 
+    info(INTEREST, "HIGH")
+    info(archive,"0.02 VAL RBV DVAL OFF MSTA DIR CNEN MOVN DMOV")
+	info(alarm,"Motors")
 }
+
+alias("$(P)MOMENTUMSLITS", "$(P):MOMENTUMSLITS:SP")
+alias("$(P)MOMENTUMSLITS", "$(P):MOMENTUMSLITS:SP:RBV")
 
 
 record(calcout, "$(P)convertGapToDrive") 

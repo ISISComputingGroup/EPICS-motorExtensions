@@ -32,8 +32,14 @@ record(motor,"$(P)$(INST)BARNDOORS")
     field(TWV,"5") 
     # set retry to 1 so that if the motor is set at a point before the minimum then it will not stop before minimum 
     field(RTRY,"1") 
-    field(EGU,"mm") 
+    field(EGU,"mm")
+    info(INTEREST, "HIGH")
+    info(archive,"0.02 VAL RBV DVAL OFF MSTA DIR CNEN MOVN DMOV")
+	info(alarm,"Motors")
 }
+
+alias("$(P)$(INST)BARNDOORS", "$(P)$(INST)BARNDOORS:SP")
+alias("$(P)$(INST)BARNDOORS", "$(P)$(INST)BARNDOORS:SP:RBV")
 
 
 record(cvt, "$(P)$(INST)convertGapToDrive") 
