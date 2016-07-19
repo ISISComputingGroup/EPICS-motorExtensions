@@ -9,8 +9,8 @@
 #    LOOKUP_READBACK_FILE - filename of the position lookup calibration file (restrictred to 40 characters)
 #        lookup and lookup_readback should be the same except that readback may contain gaps which are repeated 
 #        e.g. for inward and outard swing of the barn doors. lookup must be strictly single valued.
-#    HIGH_GAP_LIMIT highest gap value that can be set (should be covered by the looup file)
-#    LOW_GAP_LIMIT lowest gap value that can be set (should be covered by the looup file)
+#    HIGH_GAP_LIMIT highest gap value that can be set (should be covered by values in the lookup file)
+#    LOW_GAP_LIMIT lowest gap value that can be set (should be covered by values in the looukp file)
 #
 #  NB because of the way convert record work if low gap and high gap are not covered by the calibration the convert record will linearly interperlate and thus
 #   get the answer wrong. (It will allow you to set a gap of -9) 

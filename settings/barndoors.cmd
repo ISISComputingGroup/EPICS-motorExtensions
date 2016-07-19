@@ -4,13 +4,13 @@
 
 $(IFDMC01) epicsEnvSet "CALIB_DIR" "C:/Instrument/Settings/calib/barndoors"
 
-# Define a barndoors from on first controller (if present)
+# Define barndoors as soft motor records using the first galil controller, if present
 
 $(IFDMC01) dbLoadRecords("$(BARNDOORS)/db/barndoors.db", "P=$(MYPVPREFIX)MOT:,INST=EMU:,MTR=MTR0101,LOOKUP_DIR=$(CALIB_DIR),LOOKUP_READBACK_FILE=barndoors_emu_readback.txt,LOOKUP_FILE=barndoors_emu.txt,LOW_GAP_LIMIT=3.2,HIGH_GAP_LIMIT=132")
 $(IFDMC01) dbLoadRecords("$(BARNDOORS)/db/barndoors.db","P=$(MYPVPREFIX)MOT:,INST=MUSR:,MTR=MTR0102,LOOKUP_DIR=$(CALIB_DIR),LOOKUP_FILE=barndoors_musr.txt,LOOKUP_READBACK_FILE=barndoors_musr_readback.txt,LOW_GAP_LIMIT=2.7,HIGH_GAP_LIMIT=130")
 $(IFDMC01) dbLoadRecords("$(BARNDOORS)/db/barndoors.db","P=$(MYPVPREFIX)MOT:,INST=HIFI:,MTR=MTR0103,LOOKUP_DIR=$(CALIB_DIR),LOOKUP_FILE=barndoors_hifi.txt,LOOKUP_READBACK_FILE=barndoors_hifi_readback.txt,LOW_GAP_LIMIT=2.9,HIGH_GAP_LIMIT=130")
 
 
-# Define Momentum slits on first controller (if present)
+# Define momentum slits as a soft motor record using the first galil controller, if present
 
 $(IFDMC01) dbLoadRecords("$(BARNDOORS)/db/momentum_slits.db", "P=$(MYPVPREFIX)MOT:,MTR=MTR0104,LOW_GAP_LIMIT=3,HIGH_GAP_LIMIT=100")
