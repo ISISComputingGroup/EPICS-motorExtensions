@@ -46,8 +46,9 @@ alias("$(P)$(INST)BARNDOORS", "$(P)$(INST)BARNDOORS:SP:RBV")
 record(cvt, "$(P)$(INST)convertGapToDrive") 
 { 
 	field(METH, "1D TABLE INVERTED")
-	field(SPEC, "$(CALIB_DIR)/$(CALIB_FILE)")
-	field(TDIR, "$(CALIB_BASE_DIR)")
+	field(SPEC, "$(CALIB_FILE)")
+	field(TDIR, "$(CALIB_DIR)")
+	field(BDIR, "$(CALIB_BASE_DIR)")
 
     field(DESC,"Convert gap distance to drive voltage") 
  	
@@ -58,8 +59,9 @@ record(cvt,"$(P)$(INST)convertDriveToGap")
 {
 
 	field(METH, "1D TABLE")
-	field(SPEC, "$(CALIB_DIR)/$(CALIB_FILE)")
-	field(TDIR, "$(CALIB_BASE_DIR)")
+    field(SPEC, "$(CALIB_FILE)")
+	field(TDIR, "$(CALIB_DIR)")
+	field(BDIR, "$(CALIB_BASE_DIR)")
  
     field(DESC,"Convert drive voltage to gap distance") 
     field(INPX,"$(P)$(MTR).DRBV  CP MS") 
