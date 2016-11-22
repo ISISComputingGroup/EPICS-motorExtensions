@@ -4,5 +4,5 @@ README
 The calibration files for the barndoors are held in the common calibrations folder. They should be in 
 C:/Instrument/Settings/config/common/barndoors.
 
-The barndoors and empty jaws file should be copied to  C:\Instrument\Settings\config\<machine>\configurations\galil as 
-needed on the isntrument.
+The galil1, barndoors and empty jaws file should be copied to  C:\Instrument\Settings\config\<machine>\configurations\galil as 
+needed on the instrument.
