@@ -1,0 +1,13 @@
+# Polaris jaw set Soft motor record
+#
+#  Macros:
+#    P - base name for ioc
+#    INST - the name of the instrument (This is used as a prefix for the IOC placed after P for jaw set records)
+#    MTR1 - the IOC postfix of the motor that is being used to drive jaw set 1
+#    MTR2 - the IOC postfix of the motor that is being used to drive jaw set 2
+#    MTR3 - the IOC postfix of the motor that is being used to drive jaw set 3
+#    MTR4 - the IOC postfix of the motor that is being used to drive jaw set 4
+#    MTR5 - the IOC postfix of the motor that is being used to drive jaw set 5
+#
+
+
