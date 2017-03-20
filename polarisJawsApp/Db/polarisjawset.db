@@ -1,0 +1,69 @@
+# Polaris jaw set Soft motor record
+#
+#  Macros:
+#    P - base name for ioc
+#
+
+record(ai, "$(P)JAWS:HGAP:SP") {
+  field(FLNK, "$(P)JAWS:HGAP:_FAN")
+}
+
+record(ai, "$(P)JAWS:VGAP:SP") {
+  field(FLNK, "$(P)JAWS:VGAP:_FAN")
+}
+
+record(transform, "$(P)JAWS:HGAP:_FAN") {
+
+  field(OMSL, "closed_loop")
+
+  field(INPA, "$(P)JAWS:HGAP:SP")
+  field(INPB, "$(COL_HEIGHT)") # Not used, just keeps the order consistent.
+  field(INPC, "$(COL_WIDTH)")
+  field(INPD, "$(MOD_TO_SAMPLE)")
+  field(INPE, "$(MOD_TO_COL)")
+  field(INPF, "$(MOD_TO_JAWS1)")
+  field(INPG, "$(MOD_TO_JAWS2)")
+  field(INPH, "$(MOD_TO_JAWS3)")
+  field(INPI, "$(MOD_TO_JAWS4)")
+  field(INPJ, "$(MOD_TO_JAWS5)")  
+  
+  field(CLCA, "(A+((C-A)*((D-F)/(D-E))))") # Jaw set 1
+  field(CLCB, "(A+((C-A)*((D-G)/(D-E))))") # Jaw set 2
+  field(CLCC, "(A+((C-A)*((D-H)/(D-E))))") # Jaw set 3
+  field(CLCD, "(A+((C-A)*((D-I)/(D-E))))") # Jaw set 4
+  field(CLCE, "(A+((C-A)*((D-J)/(D-E))))") # Jaw set 5
+  
+  field(OUTA, "$(P)MOT:JAWS1:HGAP:SP PP")
+  field(OUTB, "$(P)MOT:JAWS2:HGAP:SP PP")
+  field(OUTC, "$(P)MOT:JAWS3:HGAP:SP PP")
+  field(OUTD, "$(P)MOT:JAWS4:HGAP:SP PP")
+  # field(OUTE, "$(P)MOT:JAWS5:HGAP:SP PP")
+}
+
+record(transform, "$(P)JAWS:VGAP:_FAN") {
+
+  field(OMSL, "closed_loop")
+
+  field(INPA, "$(P)JAWS:VGAP:SP")
+  field(INPB, "$(COL_HEIGHT)") 
+  field(INPC, "$(COL_WIDTH)") # Not used, just keeps the order consistent.
+  field(INPD, "$(MOD_TO_SAMPLE)")
+  field(INPE, "$(MOD_TO_COL)")
+  field(INPF, "$(MOD_TO_JAWS1)")
+  field(INPG, "$(MOD_TO_JAWS2)")
+  field(INPH, "$(MOD_TO_JAWS3)")
+  field(INPI, "$(MOD_TO_JAWS4)")
+  field(INPJ, "$(MOD_TO_JAWS5)") 
+  
+  field(CLCA, "(A+((B-A)*((D-F)/(D-E))))") # Jaw set 1
+  field(CLCB, "(A+((B-A)*((D-G)/(D-E))))") # Jaw set 2
+  field(CLCC, "(A+((B-A)*((D-H)/(D-E))))") # Jaw set 3
+  field(CLCD, "(A+((B-A)*((D-I)/(D-E))))") # Jaw set 4
+  field(CLCE, "(A+((B-A)*((D-J)/(D-E))))") # Jaw set 5
+  
+  field(OUTA, "$(P)MOT:JAWS1:VGAP:SP PP")
+  field(OUTB, "$(P)MOT:JAWS2:VGAP:SP PP")
+  field(OUTC, "$(P)MOT:JAWS3:VGAP:SP PP")
+  field(OUTD, "$(P)MOT:JAWS4:VGAP:SP PP")
+  # field(OUTE, "$(P)MOT:JAWS5:VGAP:SP PP")
+}
