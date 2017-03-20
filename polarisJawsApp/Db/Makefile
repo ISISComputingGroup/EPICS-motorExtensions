@@ -12,6 +12,7 @@ include $(TOP)/configure/CONFIG
 # databases, templates, substitutions like this
 #DB += xxx.db
 DB += polarisjaws.db
+DB += polarisjawset.db
 
 #----------------------------------------------------
 # If <anyname>.db template is not named <anyname>*.template add
