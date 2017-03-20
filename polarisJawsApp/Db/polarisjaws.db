@@ -10,11 +10,60 @@ record(calc,"$(P)JAWS:SET$(SET):$(DIR)")
 	field(MRES,"0.001") 
     field(RRES,"1.000") 
     field(PREC,"3")
-	field(INPA, "$(P)$(MTR) CP")
+	field(INPA, "$(P)MOT:JAWS$(SET):$(DIR) CP")
 	field(CALC, "A")
     field(EGU,"mm")
 }
 
-alias("$(P)JAWS:SET$(SET):$(DIR)", "$(P)JAWS:SET$(SET):$(DIR):SP")
-alias("$(P)JAWS:SET$(SET):$(DIR)", "$(P)JAWS:SET$(SET):$(DIR):SP:RBV")
+record(calc,"$(P)JAWS:SET$(SET):$(DIR):SP") 
+{ 
+	field(MRES,"0.001") 
+    field(RRES,"1.000") 
+    field(PREC,"3")
+	field(INPA, "$(P)MOT:JAWS$(SET):$(DIR):SP CP")
+	field(CALC, "A")
+    field(EGU,"mm")
+}
+
+alias("$(P)MOT:JAWS$(SET):$(DIR):SP", "$(P)MOT:JAWS$(SET):$(DIR):SP:RBV")
+
+record(calc,"$(P)JAWS:SET$(SET):HGAP") 
+{ 
+	field(MRES,"0.001") 
+    field(RRES,"1.000") 
+    field(PREC,"3")
+	field(INPA, "$(P)MOT:JAWS$(SET):HGAP CP")
+	field(CALC, "A")
+    field(EGU,"mm")
+}
+
+record(calc,"$(P)JAWS:SET$(SET):VGAP") 
+{ 
+	field(MRES,"0.001") 
+    field(RRES,"1.000") 
+    field(PREC,"3")
+	field(INPA, "$(P)MOT:JAWS$(SET):VGAP CP")
+	field(CALC, "A")
+    field(EGU,"mm")
+}
+
+record(calc,"$(P)JAWS:SET$(SET):HGAP:SP") 
+{ 
+	field(MRES,"0.001") 
+    field(RRES,"1.000") 
+    field(PREC,"3")
+	field(INPA, "$(P)MOT:JAWS$(SET):HGAP:SP CP")
+	field(CALC, "A")
+    field(EGU,"mm")
+}
+
+record(calc,"$(P)JAWS:SET$(SET):VGAP:SP") 
+{ 
+	field(MRES,"0.001") 
+    field(RRES,"1.000") 
+    field(PREC,"3")
+	field(INPA, "$(P)MOT:JAWS$(SET):VGAP:SP CP")
+	field(CALC, "A")
+    field(EGU,"mm")
+}
 
