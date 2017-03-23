@@ -3,11 +3,6 @@
 #  Macros:
 #    P - base name for ioc
 #
-
-record(ai, "$(P)JAWS:ISADMIN"){
-  field(ASG, "MANAGER")
-}
-
 record(ai, "$(P)JAWS:HGAP:SP") {
   field(FLNK, "$(P)JAWS:HGAP:_FAN")
 }
@@ -28,23 +23,17 @@ record(transform, "$(P)JAWS:HGAP:_FAN") {
   field(INPH, "$(MOD_TO_JAWS3)")
   field(INPI, "$(MOD_TO_JAWS4)")
   field(INPJ, "$(MOD_TO_JAWS5)")  
-  field(INPP, "$(P)JAWS:ISADMIN")
   
   field(CLCK, "(A+((A-C)*((D-F)/(D-E))))") # Jaw set 1
   field(CLCL, "(A+((A-C)*((D-G)/(D-E))))") # Jaw set 2
   field(CLCM, "(A+((A-C)*((D-H)/(D-E))))") # Jaw set 3
   field(CLCN, "(A+((A-C)*((D-I)/(D-E))))") # Jaw set 4
-  field(CLCO, "P?(A+((A-C)*((D-J)/(D-E)))):B") # Jaw set 5 can only be set if ISADMIN, otherwise "set" it to the current value (i.e. no-op)
-  
-  field(CLCP, "P?0:1")
   
   field(OUTK, "$(P)MOT:JAWS1:HGAP:SP PP")
   field(OUTL, "$(P)MOT:JAWS2:HGAP:SP PP")
   field(OUTM, "$(P)MOT:JAWS3:HGAP:SP PP")
   field(OUTN, "$(P)MOT:JAWS4:HGAP:SP PP")
-  field(OUTO, "$(P)MOT:JAWS5:HGAP:SP PP")
   
-  field(OUTP, "$(P)JAWS:DISABLEJAWSET5 PP")
 }
 
 record(transform, "$(P)JAWS:VGAP:_FAN") {
@@ -59,30 +48,16 @@ record(transform, "$(P)JAWS:VGAP:_FAN") {
   field(INPH, "$(MOD_TO_JAWS3)")
   field(INPI, "$(MOD_TO_JAWS4)")
   field(INPJ, "$(MOD_TO_JAWS5)") 
-  field(INPP, "$(P)JAWS:ISADMIN")
   
   field(CLCK, "(A+((A-C)*((D-F)/(D-E))))") # Jaw set 1
   field(CLCL, "(A+((A-C)*((D-G)/(D-E))))") # Jaw set 2
   field(CLCM, "(A+((A-C)*((D-H)/(D-E))))") # Jaw set 3
   field(CLCN, "(A+((A-C)*((D-I)/(D-E))))") # Jaw set 4
-  field(CLCO, "P?(A+((A-C)*((D-J)/(D-E)))):B") # Jaw set 5 can only be set if ISADMIN, otherwise "set" it to the current value (i.e. no-op)
-  
-  field(CLCP, "P?0:1")
   
   field(OUTK, "$(P)MOT:JAWS1:VGAP:SP PP")
   field(OUTL, "$(P)MOT:JAWS2:VGAP:SP PP")
   field(OUTM, "$(P)MOT:JAWS3:VGAP:SP PP")
   field(OUTN, "$(P)MOT:JAWS4:VGAP:SP PP")
-  field(OUTO, "$(P)MOT:JAWS5:VGAP:SP PP")
   
-  field(OUTP, "$(P)JAWS:DISABLEJAWSET5 PP")
 }
 
-field(dfanout, "$(P)JAWS:DISABLEJAWSET5")
-{
-  field(DOL, "$(P)JAWS:ISADMIN")
-  field(OUTA, "$(P)MOT:JAWS5:VGAP:SP.DISP PP")
-  field(OUTB, "$(P)MOT:JAWS5:HGAP:SP.DISP PP")
-  field(OUTC, "$(P)MOT:JAWS5:VCENT:SP.DISP PP")
-  field(OUTD, "$(P)MOT:JAWS5:HCENT:SP.DISP PP")
-}
