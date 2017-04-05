@@ -2,19 +2,18 @@
 #
 #  Macros:
 #    P - base name for ioc
-#    N - name of this jaw set e.g. "POLJAWSE"
 #
-record(ai, "$(P)JAWS:HGAP:SP") {
-  field(FLNK, "$(P)JAWS:HGAP:_FAN")
+record(ai, "$(P)HGAP:SP") {
+  field(FLNK, "$(P)HGAP:_FAN")
 }
 
-record(ai, "$(P)JAWS:VGAP:SP") {
-  field(FLNK, "$(P)JAWS:VGAP:_FAN")
+record(ai, "$(P)VGAP:SP") {
+  field(FLNK, "$(P)VGAP:_FAN")
 }
 
-record(transform, "$(P)JAWS:HGAP:_FAN") {
+record(transform, "$(P)HGAP:_FAN") {
 
-  field(INPA, "$(P)JAWS:HGAP:SP")
+  field(INPA, "$(P)HGAP:SP")
   field(INPB, "$(P)MOT:JAWS5:HGAP:SP")
   field(INPC, "$(COL_WIDTH)")
   field(INPD, "$(MOD_TO_SAMPLE)")
@@ -37,9 +36,9 @@ record(transform, "$(P)JAWS:HGAP:_FAN") {
   
 }
 
-record(transform, "$(P)JAWS:VGAP:_FAN") {
+record(transform, "$(P)VGAP:_FAN") {
 
-  field(INPA, "$(P)JAWS:VGAP:SP")
+  field(INPA, "$(P)VGAP:SP")
   field(INPB, "$(P)MOT:JAWS5:VGAP:SP")
   field(INPC, "$(COL_HEIGHT)") 
   field(INPD, "$(MOD_TO_SAMPLE)")
