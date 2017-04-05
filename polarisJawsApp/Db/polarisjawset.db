@@ -2,6 +2,7 @@
 #
 #  Macros:
 #    P - base name for ioc
+#    N - name of this jaw set e.g. "POLJAWSE"
 #
 record(ai, "$(P)JAWS:HGAP:SP") {
   field(FLNK, "$(P)JAWS:HGAP:_FAN")
