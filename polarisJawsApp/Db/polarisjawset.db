@@ -1,0 +1,64 @@
+# Polaris jaw set Soft motor record
+#
+#  Macros:
+#    P - base name for ioc
+#    N - name of this jaw set e.g. "POLJAWSE"
+#
+record(ai, "$(P)POLJAWSET:HGAP:SP") {
+  field(FLNK, "$(P)POLJAWSET:HGAP:_FAN")
+}
+
+record(ai, "$(P)POLJAWSET:VGAP:SP") {
+  field(FLNK, "$(P)POLJAWSET:VGAP:_FAN")
+}
+
+record(transform, "$(P)POLJAWSET:HGAP:_FAN") {
+
+  field(INPA, "$(P)POLJAWSET:HGAP:SP")
+  field(INPB, "$(P)MOT:JAWS5:HGAP:SP")
+  field(INPC, "$(COL_WIDTH)")
+  field(INPD, "$(MOD_TO_SAMPLE)")
+  field(INPE, "$(MOD_TO_COL)")
+  field(INPF, "$(MOD_TO_JAWS1)")
+  field(INPG, "$(MOD_TO_JAWS2)")
+  field(INPH, "$(MOD_TO_JAWS3)")
+  field(INPI, "$(MOD_TO_JAWS4)")
+  field(INPJ, "$(MOD_TO_JAWS5)")  
+  
+  field(CLCK, "(A+((A-C)*((D-F)/(D-E))))") # Jaw set 1
+  field(CLCL, "(A+((A-C)*((D-G)/(D-E))))") # Jaw set 2
+  field(CLCM, "(A+((A-C)*((D-H)/(D-E))))") # Jaw set 3
+  field(CLCN, "(A+((A-C)*((D-I)/(D-E))))") # Jaw set 4
+  
+  field(OUTK, "$(P)MOT:JAWS1:HGAP:SP PP")
+  field(OUTL, "$(P)MOT:JAWS2:HGAP:SP PP")
+  field(OUTM, "$(P)MOT:JAWS3:HGAP:SP PP")
+  field(OUTN, "$(P)MOT:JAWS4:HGAP:SP PP")
+  
+}
+
+record(transform, "$(P)POLJAWSET:VGAP:_FAN") {
+
+  field(INPA, "$(P)POLJAWSET:VGAP:SP")
+  field(INPB, "$(P)MOT:JAWS5:VGAP:SP")
+  field(INPC, "$(COL_HEIGHT)") 
+  field(INPD, "$(MOD_TO_SAMPLE)")
+  field(INPE, "$(MOD_TO_COL)")
+  field(INPF, "$(MOD_TO_JAWS1)")
+  field(INPG, "$(MOD_TO_JAWS2)")
+  field(INPH, "$(MOD_TO_JAWS3)")
+  field(INPI, "$(MOD_TO_JAWS4)")
+  field(INPJ, "$(MOD_TO_JAWS5)") 
+  
+  field(CLCK, "(A+((A-C)*((D-F)/(D-E))))") # Jaw set 1
+  field(CLCL, "(A+((A-C)*((D-G)/(D-E))))") # Jaw set 2
+  field(CLCM, "(A+((A-C)*((D-H)/(D-E))))") # Jaw set 3
+  field(CLCN, "(A+((A-C)*((D-I)/(D-E))))") # Jaw set 4
+  
+  field(OUTK, "$(P)MOT:JAWS1:VGAP:SP PP")
+  field(OUTL, "$(P)MOT:JAWS2:VGAP:SP PP")
+  field(OUTM, "$(P)MOT:JAWS3:VGAP:SP PP")
+  field(OUTN, "$(P)MOT:JAWS4:VGAP:SP PP")
+  
+}
+
