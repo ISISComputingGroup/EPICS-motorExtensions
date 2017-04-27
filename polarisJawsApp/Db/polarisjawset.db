@@ -62,3 +62,38 @@ record(transform, "$(P)POLJAWSET:VGAP:_FAN") {
   
 }
 
+record(ao, "$(P)POLJAWSET:VCENT:SP") {
+  field(ASG, "$(ASG=DEFAULT)")
+  field(DESC, "Global Vertical Setpoint")
+  field(FLNK, "$(P)POLJAWSET:VCENT:_FAN")
+  field(PREC, "3")
+  field(EGU, "")
+}
+
+record(ao, "$(P)POLJAWSET:HCENT:SP") {
+  field(ASG, "$(ASG=DEFAULT)")
+  field(DESC, "Global Horizontal Setpoint")
+  field(FLNK, "$(P)POLJAWSET:HCENT:_FAN")
+  field(PREC, "3")
+  field(EGU, "")  
+}
+
+record(dfanout,"$(P)POLJAWSET:VCENT:_FAN") {
+  field(DOL, "$(P)POLJAWSET:VCENT:SP PP")
+  field(OMSL, "closed_loop")
+ 
+  field(OUTA, "$(P)MOT:JAWS1:VCENT:SP PP")
+  field(OUTB, "$(P)MOT:JAWS2:VCENT:SP PP")
+  field(OUTC, "$(P)MOT:JAWS3:VCENT:SP PP")
+  field(OUTD, "$(P)MOT:JAWS4:VCENT:SP PP")
+}
+
+record(dfanout,"$(P)POLJAWSET:HCENT:_FAN") {
+  field(DOL, "$(P)POLJAWSET:HCENT:SP PP")
+  field(OMSL, "closed_loop")
+    
+  field(OUTA, "$(P)MOT:JAWS1:HCENT:SP PP")
+  field(OUTB, "$(P)MOT:JAWS2:HCENT:SP PP")
+  field(OUTC, "$(P)MOT:JAWS3:HCENT:SP PP")
+  field(OUTD, "$(P)MOT:JAWS4:HCENT:SP PP")
+}
