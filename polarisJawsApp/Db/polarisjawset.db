@@ -35,7 +35,7 @@ record(transform, "$(P)POLJAWSET:HGAP:_FAN") {
   field(OUTL, "$(P)MOT:JAWS2:HGAP:SP PP")
   field(OUTM, "$(P)MOT:JAWS3:HGAP:SP PP")
   field(OUTN, "$(P)MOT:JAWS4:HGAP:SP PP")
-  field(OUTO, "$(P)POLJAWSET:JAWS5:HGAP")
+  field(OUTO, "$(P)POLJAWSET:JAWS5:HGAP PP")
   
 }
 
@@ -62,7 +62,7 @@ record(transform, "$(P)POLJAWSET:VGAP:_FAN") {
   field(OUTL, "$(P)MOT:JAWS2:VGAP:SP PP")
   field(OUTM, "$(P)MOT:JAWS3:VGAP:SP PP")
   field(OUTN, "$(P)MOT:JAWS4:VGAP:SP PP")
-  field(OUTO, "$(P)POLJAWSET:JAWS5:VGAP")
+  field(OUTO, "$(P)POLJAWSET:JAWS5:VGAP PP")
   
 }
 
