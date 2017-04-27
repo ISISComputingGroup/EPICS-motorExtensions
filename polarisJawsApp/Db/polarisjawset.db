@@ -29,11 +29,13 @@ record(transform, "$(P)POLJAWSET:HGAP:_FAN") {
   field(CLCL, "(A+((A-C)*((D-G)/(D-E))))") # Jaw set 2
   field(CLCM, "(A+((A-C)*((D-H)/(D-E))))") # Jaw set 3
   field(CLCN, "(A+((A-C)*((D-I)/(D-E))))") # Jaw set 4
+  field(CLCO, "(A+((A-C)*((D-J)/(D-E))))") # Jaw set 5
   
   field(OUTK, "$(P)MOT:JAWS1:HGAP:SP PP")
   field(OUTL, "$(P)MOT:JAWS2:HGAP:SP PP")
   field(OUTM, "$(P)MOT:JAWS3:HGAP:SP PP")
   field(OUTN, "$(P)MOT:JAWS4:HGAP:SP PP")
+  field(OUTO, "$(P)POLJAWSET:JAWS5:HGAP")
   
 }
 
@@ -54,11 +56,13 @@ record(transform, "$(P)POLJAWSET:VGAP:_FAN") {
   field(CLCL, "(A+((A-C)*((D-G)/(D-E))))") # Jaw set 2
   field(CLCM, "(A+((A-C)*((D-H)/(D-E))))") # Jaw set 3
   field(CLCN, "(A+((A-C)*((D-I)/(D-E))))") # Jaw set 4
+  field(CLCO, "(A+((A-C)*((D-J)/(D-E))))") # Jaw set 5
   
   field(OUTK, "$(P)MOT:JAWS1:VGAP:SP PP")
   field(OUTL, "$(P)MOT:JAWS2:VGAP:SP PP")
   field(OUTM, "$(P)MOT:JAWS3:VGAP:SP PP")
   field(OUTN, "$(P)MOT:JAWS4:VGAP:SP PP")
+  field(OUTO, "$(P)POLJAWSET:JAWS5:VGAP")
   
 }
 
@@ -86,6 +90,7 @@ record(dfanout,"$(P)POLJAWSET:VCENT:_FAN") {
   field(OUTB, "$(P)MOT:JAWS2:VCENT:SP PP")
   field(OUTC, "$(P)MOT:JAWS3:VCENT:SP PP")
   field(OUTD, "$(P)MOT:JAWS4:VCENT:SP PP")
+  field(OUTE, "$(P)POLJAWSET:JAWS5:VCENT PP")
 }
 
 record(dfanout,"$(P)POLJAWSET:HCENT:_FAN") {
@@ -96,4 +101,42 @@ record(dfanout,"$(P)POLJAWSET:HCENT:_FAN") {
   field(OUTB, "$(P)MOT:JAWS2:HCENT:SP PP")
   field(OUTC, "$(P)MOT:JAWS3:HCENT:SP PP")
   field(OUTD, "$(P)MOT:JAWS4:HCENT:SP PP")
+  field(OUTE, "$(P)POLJAWSET:JAWS5:HCENT PP")
+}
+
+record(ao, "$(P)POLJAWSET:JAWS5:VGAP") {
+  field(DESC, "Calculated value for Jaws 5 vertical gap")
+  field(PREC, "3")
+  field(EGU, "")
+}
+
+record(ao, "$(P)POLJAWSET:JAWS5:HGAP") {
+  field(DESC, "Calculated value for Jaws 5 horizontal gap")
+  field(PREC, "3")
+  field(EGU, "")
+}
+
+record(ao, "$(P)POLJAWSET:JAWS5:VCENT") {
+  field(DESC, "Calculated value for Jaws 5 vertical centre")
+  field(PREC, "3")
+  field(EGU, "")
+}
+
+record(ao, "$(P)POLJAWSET:JAWS5:HCENT") {
+  field(DESC, "Calculated value for Jaws 5 horizontal centre")
+  field(FLNK, "$(P)POLJAWSET:VCENT:_FAN")
+  field(PREC, "3")
+  field(EGU, "")
+}
+  
+record(seq, "$(P)POLJAWSET:JAWS5:SET") {
+  field(DOL1, "$(P)POLJAWSET:JAWS5:VGAP")
+  field(DOL2, "$(P)POLJAWSET:JAWS5:HGAP")
+  field(DOL3, "$(P)POLJAWSET:JAWS5:VCENT")
+  field(DOL4, "$(P)POLJAWSET:JAWS5:HCENT")
+  
+  field(LNK1, "$(P)MOT:JAWS5:VGAP:SP PP")
+  field(LNK2, "$(P)MOT:JAWS5:HGAP:SP PP")
+  field(LNK3, "$(P)MOT:JAWS5:VCENT:SP PP")
+  field(LNK4, "$(P)MOT:JAWS5:HCENT:SP PP")
 }
