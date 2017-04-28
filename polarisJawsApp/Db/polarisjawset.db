@@ -105,31 +105,44 @@ record(dfanout,"$(P)POLJAWSET:HCENT:_FAN") {
 }
 
 record(ao, "$(P)POLJAWSET:JAWS5:VGAP") {
+  field(ASG, "$(ASG=Manager)")
   field(DESC, "Calculated value for Jaws 5 vertical gap")
+  field(SCAN, "Passive")
+  field(PINI, "YES")
   field(PREC, "3")
   field(EGU, "")
 }
 
 record(ao, "$(P)POLJAWSET:JAWS5:HGAP") {
+  field(ASG, "$(ASG=Manager)")
   field(DESC, "Calculated value for Jaws 5 horizontal gap")
+  field(SCAN, "Passive")
+  field(PINI, "YES")
   field(PREC, "3")
   field(EGU, "")
 }
 
 record(ao, "$(P)POLJAWSET:JAWS5:VCENT") {
+  field(ASG, "$(ASG=Manager)")
   field(DESC, "Calculated value for Jaws 5 vertical centre")
+  field(SCAN, "Passive")
+  field(PINI, "YES")
   field(PREC, "3")
   field(EGU, "")
 }
 
 record(ao, "$(P)POLJAWSET:JAWS5:HCENT") {
+  field(ASG, "$(ASG=Manager)")
   field(DESC, "Calculated value for Jaws 5 horizontal centre")
-  field(FLNK, "$(P)POLJAWSET:VCENT:_FAN")
+  field(SCAN, "Passive")
+  field(PINI, "YES")
   field(PREC, "3")
   field(EGU, "")
 }
   
 record(seq, "$(P)POLJAWSET:JAWS5:SET") {
+  field(ASG, "$(ASG=Manager)")
+  
   field(DOL1, "$(P)POLJAWSET:JAWS5:VGAP")
   field(DOL2, "$(P)POLJAWSET:JAWS5:HGAP")
   field(DOL3, "$(P)POLJAWSET:JAWS5:VCENT")
