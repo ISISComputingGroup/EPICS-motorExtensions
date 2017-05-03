@@ -13,4 +13,4 @@ $(IFDMC04) dbLoadRecords("$(JAWS)/db/jaws.db","P=$(MYPVPREFIX)MOT:,JAWS=JAWS5:,m
 
 # Define jaws as soft motor records using the second galil controller, if present
 
-$(IFDMC02) dbLoadRecords("C:/Instrument/Apps/EPICS/support/motorExtensions/master/db/polarisjawset.db", "P=$(MYPVPREFIX), COL_HEIGHT=39.7, COL_WIDTH=41.1, MOD_TO_SAMPLE=14000, MOD_TO_COL=1610, MOD_TO_JAWS1=6502, MOD_TO_JAWS2=9440, MOD_TO_JAWS3=11085, MOD_TO_JAWS4=11735, MOD_TO_JAWS5=13175")
+$(IFDMC02) dbLoadRecords("C:/Instrument/Apps/EPICS/support/motorExtensions/master/db/polarisjawset.db", "P=$(MYPVPREFIX), COL_HEIGHT=79.4, COL_WIDTH=82.2, MOD_TO_SAMPLE=14000, MOD_TO_COL=1610, MOD_TO_JAWS1=6502, MOD_TO_JAWS2=9440, MOD_TO_JAWS3=11085, MOD_TO_JAWS4=11735, MOD_TO_JAWS5=13175")

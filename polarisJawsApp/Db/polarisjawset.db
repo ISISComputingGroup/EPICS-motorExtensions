@@ -5,7 +5,12 @@
 #
 #  Macros:
 #    P - base name for ioc
+#    COL_HEIGHT - Height of the collimator
+#    COL_WIDTH  - Width of the collimator
+#    MOD_TO_SAMPLE - Dist from moderator to sample
+#    MOD_TO_JAWSX - (X 1 to 5) Distance from moderator to jaw set X
 #
+
 
 record(ai, "$(P)POLJAWSET:HGAP:SP") {
   field(DESC, "Set width at the sample")
