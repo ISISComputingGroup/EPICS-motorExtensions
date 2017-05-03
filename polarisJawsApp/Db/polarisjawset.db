@@ -1,15 +1,26 @@
 # Polaris jaw set Soft motor record
 #
+#  Record that allows calculation of the gaps and centre of jaws set 1-4 which are under user control
+#  Also provides management access to set jaw set 5. For more info see the wiki
+#
 #  Macros:
 #    P - base name for ioc
-#    N - name of this jaw set e.g. "POLJAWSE"
 #
+
 record(ai, "$(P)POLJAWSET:HGAP:SP") {
+  field(DESC, "Set width at the sample")
+  field(PREC, "2")
   field(FLNK, "$(P)POLJAWSET:HGAP:_FAN")
+  field(EGU, "")
+  info(archive, "VAL")
 }
 
 record(ai, "$(P)POLJAWSET:VGAP:SP") {
+  field(DESC, "Set height at the sample")
+  field(PREC, "2")
   field(FLNK, "$(P)POLJAWSET:VGAP:_FAN")
+  field(EGU, "")
+  info(archive, "VAL")
 }
 
 record(transform, "$(P)POLJAWSET:HGAP:_FAN") {
@@ -25,11 +36,11 @@ record(transform, "$(P)POLJAWSET:HGAP:_FAN") {
   field(INPI, "$(MOD_TO_JAWS4)")
   field(INPJ, "$(MOD_TO_JAWS5)")  
   
-  field(CLCK, "(A+((A-C)*((D-F)/(D-E))))") # Jaw set 1
-  field(CLCL, "(A+((A-C)*((D-G)/(D-E))))") # Jaw set 2
-  field(CLCM, "(A+((A-C)*((D-H)/(D-E))))") # Jaw set 3
-  field(CLCN, "(A+((A-C)*((D-I)/(D-E))))") # Jaw set 4
-  field(CLCO, "(A+((A-C)*((D-J)/(D-E))))") # Jaw set 5
+  field(CLCK, "(A+((C-A)*((D-F)/(D-E))))") # Jaw set 1
+  field(CLCL, "(A+((C-A)*((D-G)/(D-E))))") # Jaw set 2
+  field(CLCM, "(A+((C-A)*((D-H)/(D-E))))") # Jaw set 3
+  field(CLCN, "(A+((C-A)*((D-I)/(D-E))))") # Jaw set 4
+  field(CLCO, "(A+((C-A)*((D-J)/(D-E))))") # Jaw set 5
   
   field(OUTK, "$(P)MOT:JAWS1:HGAP:SP PP")
   field(OUTL, "$(P)MOT:JAWS2:HGAP:SP PP")
@@ -52,11 +63,11 @@ record(transform, "$(P)POLJAWSET:VGAP:_FAN") {
   field(INPI, "$(MOD_TO_JAWS4)")
   field(INPJ, "$(MOD_TO_JAWS5)") 
   
-  field(CLCK, "(A+((A-C)*((D-F)/(D-E))))") # Jaw set 1
-  field(CLCL, "(A+((A-C)*((D-G)/(D-E))))") # Jaw set 2
-  field(CLCM, "(A+((A-C)*((D-H)/(D-E))))") # Jaw set 3
-  field(CLCN, "(A+((A-C)*((D-I)/(D-E))))") # Jaw set 4
-  field(CLCO, "(A+((A-C)*((D-J)/(D-E))))") # Jaw set 5
+  field(CLCK, "(A+((C-A)*((D-F)/(D-E))))") # Jaw set 1
+  field(CLCL, "(A+((C-A)*((D-G)/(D-E))))") # Jaw set 2
+  field(CLCM, "(A+((C-A)*((D-H)/(D-E))))") # Jaw set 3
+  field(CLCN, "(A+((C-A)*((D-I)/(D-E))))") # Jaw set 4
+  field(CLCO, "(A+((C-A)*((D-J)/(D-E))))") # Jaw set 5
   
   field(OUTK, "$(P)MOT:JAWS1:VGAP:SP PP")
   field(OUTL, "$(P)MOT:JAWS2:VGAP:SP PP")
@@ -67,18 +78,16 @@ record(transform, "$(P)POLJAWSET:VGAP:_FAN") {
 }
 
 record(ao, "$(P)POLJAWSET:VCENT:SP") {
-  field(ASG, "$(ASG=DEFAULT)")
   field(DESC, "Global Vertical Setpoint")
   field(FLNK, "$(P)POLJAWSET:VCENT:_FAN")
-  field(PREC, "3")
+  field(PREC, "2")
   field(EGU, "")
 }
 
 record(ao, "$(P)POLJAWSET:HCENT:SP") {
-  field(ASG, "$(ASG=DEFAULT)")
   field(DESC, "Global Horizontal Setpoint")
   field(FLNK, "$(P)POLJAWSET:HCENT:_FAN")
-  field(PREC, "3")
+  field(PREC, "2")
   field(EGU, "")  
 }
 
@@ -105,43 +114,47 @@ record(dfanout,"$(P)POLJAWSET:HCENT:_FAN") {
 }
 
 record(ao, "$(P)POLJAWSET:JAWS5:VGAP") {
-  field(ASG, "$(ASG=Manager)")
-  field(DESC, "Calculated value for Jaws 5 vertical gap")
+  field(ASG, "MANAGER")
+  field(DESC, "Jaws 5 calculated height")
   field(SCAN, "Passive")
   field(PINI, "YES")
   field(PREC, "3")
   field(EGU, "")
+  info(archive, "VAL")
 }
 
 record(ao, "$(P)POLJAWSET:JAWS5:HGAP") {
-  field(ASG, "$(ASG=Manager)")
-  field(DESC, "Calculated value for Jaws 5 horizontal gap")
+  field(ASG, "MANAGER")
+  field(DESC, "Jaws 5 calculated width")
   field(SCAN, "Passive")
   field(PINI, "YES")
   field(PREC, "3")
   field(EGU, "")
+  info(archive, "VAL")
 }
 
 record(ao, "$(P)POLJAWSET:JAWS5:VCENT") {
-  field(ASG, "$(ASG=Manager)")
-  field(DESC, "Calculated value for Jaws 5 vertical centre")
+  field(ASG, "MANAGER")
+  field(DESC, "Jaws 5 calculated verti centre")
   field(SCAN, "Passive")
   field(PINI, "YES")
   field(PREC, "3")
   field(EGU, "")
+  info(archive, "VAL")
 }
 
 record(ao, "$(P)POLJAWSET:JAWS5:HCENT") {
-  field(ASG, "$(ASG=Manager)")
-  field(DESC, "Calculated value for Jaws 5 horizontal centre")
+  field(ASG, "MANAGER")
+  field(DESC, "Jaws 5 calculated horiz centre")
   field(SCAN, "Passive")
   field(PINI, "YES")
   field(PREC, "3")
   field(EGU, "")
+  info(archive, "VAL")
 }
   
 record(seq, "$(P)POLJAWSET:JAWS5:SET") {
-  field(ASG, "$(ASG=Manager)")
+  field(ASG, "MANAGER")
   
   field(DOL1, "$(P)POLJAWSET:JAWS5:VGAP")
   field(DOL2, "$(P)POLJAWSET:JAWS5:HGAP")
