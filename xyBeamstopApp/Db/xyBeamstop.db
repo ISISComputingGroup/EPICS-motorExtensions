@@ -108,15 +108,22 @@ record(transform, "$(P)ARM:MOTORS:STOP") {
 
     field(OUTC, "$(P)$(MTR1).STOP PP")
     field(OUTD, "$(P)$(MTR2).STOP PP")
+    # Must include MDEL to avoid a race condition when setting
+    # either of the soft motors to the position they're already at
+    field(MDEL, "-1") 
     field(PINI, "YES")
 }
 
 record(calc, "$(P)ARM:MOTORS:DMOV") {
     field(SCAN, "Passive")
-    field(INPA, "$(P)$(MTR1).DMOV NPP")
-    field(INPB, "$(P)$(MTR2).DMOV NPP")
-    
+    field(INPA, "$(P)$(MTR1).DMOV CP")
+    field(INPB, "$(P)$(MTR2).DMOV CP")
+
     field(CALC, "A && B")
+
+    # Must include MDEL to avoid a race condition when setting
+    # either of the soft motors to the position they're already at
+    field(MDEL, "-1") 
     field(PINI, "YES")
 }
 
@@ -129,7 +136,7 @@ record(motor, "$(P)ARM:X")
     field(OUT,"$(P)FROMOFFSET.A PP MS") 
     field(RDBL,"$(P)TOOFFSET.C  CP MS") 
     field(STOO,"$(P)ARM:MOTORS:STOP.A  PP MS") 
-    field(DINP,"$(P)ARM:MOTORS:DMOV NPP MS") 
+    field(DINP,"$(P)ARM:MOTORS:DMOV CP MS") 
     field(URIP, "Yes") 
     field(MRES,"0.001") 
     field(RRES,"1.000") 
@@ -152,7 +159,7 @@ record(motor,"$(P)ARM:Y")
     field(OUT,"$(P)FROMOFFSET.B PP MS") 
     field(RDBL,"$(P)TOOFFSET.D  CP MS") 
     field(STOO,"$(P)ARM:MOTORS:STOP.B  PP MS") 
-    field(DINP,"$(P)ARM:MOTORS:DMOV NPP MS") 
+    field(DINP,"$(P)ARM:MOTORS:DMOV CP MS") 
     field(URIP, "Yes") 
     field(MRES,"0.001") 
     field(RRES,"1.000") 
