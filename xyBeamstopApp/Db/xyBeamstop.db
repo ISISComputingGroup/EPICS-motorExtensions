@@ -1,0 +1,198 @@
+# XY Beamstop Soft motor record
+#
+#  Record that allows calculation of the XY position of a beamstop
+#  from w-theta coordinates. For more info see the wiki.
+#
+#  Macros:
+#    P - base name for ioc
+#    MTR1 - the IOC postfix of the motor that is being used to drive the horizontal axis
+#    MTR2 - the IOC postfix of the motor that is being used to drive the vertical axis
+#    ARMLEN - the length of the arm attached to the horizontal axis
+#    SHUTTER_PORT - the name of the digital port used to open and close the shutter
+#    X_MAX_LIMIT - the highest value x can take
+#    X_MIN_LIMIT - the lowest value x can take
+#    Y_MAX_LIMIT - the highest value y can take 
+#    Y_MIN_LIMIT - the lowest value y can take 
+
+# record(motor, "$(P)ARM:X") 
+# { 
+#     field(DTYP,"Soft Channel") 
+#     field(OUT,"$(P)$(MTR1).DVAL PP MS") 
+#     field(RDBL,"$(P)$(MTR1).DRBV  CP MS") 
+#     field(URIP,"Yes") 
+#     field(STOO,"$(P)$(MTR1).STOP  PP MS") 
+#     field(DINP,"$(P)ARM:MOTORS:DMOV NPP MS") 
+#     field(MRES,"0.001") 
+#     field(RRES,"1.000") 
+#     field(PREC,"3") 
+#     field(TWV,"5") 
+#     field(RTRY,"0") 
+#     field(EGU,"mm") 
+#     info(INTEREST, "HIGH")
+#     info(archive,"0.02 VAL RBV DVAL OFF MSTA DIR CNEN MOVN DMOV")
+# 	info(alarm,"Motors")
+# }
+
+
+# Conversion Records
+
+record(transform, "$(P)FROMTHETA") {
+    field(DESC,"Convert theta to motor axis")
+    field(ASG, "READONLY")
+
+    field(CLCB, "A")
+    field(OUTB, "$(P)$(MTR1).DVAL  PP MS")
+}
+
+record(transform, "$(P)TOWTHETA") {
+    field(DESC,"Convert X-Y to W-Theta")
+    field(ASG, "READONLY")
+    field(INPC, "$(ARMLEN)")
+
+    field(CLCD, "ASIN(B/C)")
+    field(CLCE, "A - SQRT(C**2 - B**2)")
+
+    field(OUTD, "$(P)FROMTHETA.A  PP MS")
+    field(OUTE, "$(P)$(MTR2).DVAL  PP MS")
+}
+
+record(transform, "$(P)FROMOFFSET") {
+	field(DESC, "Remove the coordinate system offset") 
+    field(ASG, "READONLY")
+    
+    field(CLCC, "A - $(X_OFFSET)")
+    field(CLCD, "B - $(Y_OFFSET)")
+
+    field(OUTC, "$(P)TOWTHETA.A PP")
+    field(OUTD, "$(P)TOWTHETA.B PP")
+}
+
+record(transform, "$(P)TOTHETA") {
+    field(DESC,"Convert from motor axis to theta")
+    field(ASG, "READONLY")
+
+    field(INPA, "$(P)$(MTR1).DRBV CP MS")
+    field(CLCB, "A")
+}
+
+record(transform, "$(P)TOXY") {
+	field(DESC, "Convert W-Theta to X-Y") 
+    field(ASG, "READONLY")
+
+    field(INPA, "$(P)TOTHETA.B CP MS")
+    field(INPB, "$(P)$(MTR2).DRBV CP MS")
+    field(INPC, "$(ARMLEN)")
+
+    field(CLCD, "COS(A)*C + B")
+    field(CLCE, "SIN(A)*C")
+}
+
+record(transform, "$(P)TOOFFSET") {
+	field(DESC, "Add the coordinate system offset") 
+    field(ASG, "READONLY")
+
+    field(INPA, "$(P)TOXY.D CP MS")
+    field(INPB, "$(P)TOXY.E CP MS")
+    
+    field(CLCC, "A + $(X_OFFSET)")
+    field(CLCD, "B + $(Y_OFFSET)")
+}
+
+
+# We need these two record to propagate the STOP and DMOV
+# status of the underlying motors to the simulated motor axes
+record(transform, "$(P)ARM:MOTORS:STOP") {
+    
+    field(CLCC, "A || B")
+    field(CLCD, "A || B")
+
+    field(OUTC, "$(P)$(MTR1).STOP PP")
+    field(OUTD, "$(P)$(MTR2).STOP PP")
+    field(PINI, "YES")
+}
+
+record(calc, "$(P)ARM:MOTORS:DMOV") {
+    field(SCAN, "Passive")
+    field(INPA, "$(P)$(MTR1).DMOV NPP")
+    field(INPB, "$(P)$(MTR2).DMOV NPP")
+    
+    field(CALC, "A && B")
+    field(PINI, "YES")
+}
+
+# X-Y Motor Records
+
+record(motor, "$(P)ARM:X") 
+{ 
+    field(SCAN, "Passive")
+    field(DTYP,"Soft Channel") 
+    field(OUT,"$(P)FROMOFFSET.A PP MS") 
+    field(RDBL,"$(P)TOOFFSET.C  CP MS") 
+    field(STOO,"$(P)ARM:MOTORS:STOP.A  PP MS") 
+    field(DINP,"$(P)ARM:MOTORS:DMOV NPP MS") 
+    field(URIP, "Yes") 
+    field(MRES,"0.001") 
+    field(RRES,"1.000") 
+    field(PREC,"3") 
+    field(TWV,"5") 
+    field(RTRY,"0") 
+    field(EGU,"mm") 
+    info(INTEREST, "HIGH")
+    info(archive,"0.02 VAL RBV DVAL OFF MSTA DIR CNEN MOVN DMOV")
+	info(alarm,"Motors")
+}
+
+alias("$(P)ARM:X", "$(P)ARM:X:SP")
+alias("$(P)ARM:X", "$(P)ARM:X:SP:RBV")
+
+record(motor,"$(P)ARM:Y") 
+{ 
+    field(SCAN, "Passive")
+    field(DTYP,"Soft Channel") 
+    field(OUT,"$(P)FROMOFFSET.B PP MS") 
+    field(RDBL,"$(P)TOOFFSET.D  CP MS") 
+    field(STOO,"$(P)ARM:MOTORS:STOP.B  PP MS") 
+    field(DINP,"$(P)ARM:MOTORS:DMOV NPP MS") 
+    field(URIP, "Yes") 
+    field(MRES,"0.001") 
+    field(RRES,"1.000") 
+    field(PREC,"3") 
+    field(TWV,"5") 
+    field(RTRY,"0") 
+    field(EGU,"mm") 
+    info(INTEREST, "HIGH")
+    info(archive,"0.02 VAL RBV DVAL OFF MSTA DIR CNEN MOVN DMOV")
+	info(alarm,"Motors")
+}
+
+alias("$(P)ARM:Y", "$(P)ARM:Y:SP")
+alias("$(P)ARM:Y", "$(P)ARM:Y:SP:RBV")
+
+record(bo, "$(P)ARM:STORE:SP") {
+    field(ZNAM, "ACTIVE")
+    field(ONAM, "STORED")
+    field(DTYP, "Raw Soft Channel")
+    field(FLNK, "$(P)ARM:STORE:CALC")
+}
+
+alias("$(P)ARM:STORE:SP", "$(P)ARM:STORE")
+
+record(transform, "$(P)ARM:STORE:CALC") {
+    field(INPA, "$(P)ARM:STORE:SP")
+
+    field(CLCB, "(A=1) ? 0 : $(X_MIN_LIMIT)")
+    field(CLCC, "(A=1) ? 0 : $(X_MIN_LIMIT)")
+    field(CLCD, "(A=1) ? $(STORE_X) : $(ACTIVE_X)")
+    field(CLCE, "(A=1) ? $(STORE_Y) : $(ACTIVE_Y)")
+
+    field(OUTB, "$(P)ARM:X.LLM PP MS")
+    field(OUTC, "$(P)ARM:X.DLLM PP MS")
+    field(OUTD, "$(P)ARM:X PP MS")
+    field(OUTE, "$(P)ARM:Y PP MS")
+}
+
+# Beamstop Shutters
+record(bo, "$(P)SHUTTERS:SP") {
+    field(DTYP, "Raw Soft Channel")
+    field(FLNK, "$(P)$(SHUTTER_PORT)")
+}
