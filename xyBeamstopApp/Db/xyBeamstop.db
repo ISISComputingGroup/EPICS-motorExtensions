@@ -16,6 +16,21 @@
 #    Y_MAX_LIMIT - the highest value y can take 
 #    Y_MIN_LIMIT - the lowest value y can take 
 
+# Set limits on motor records
+record(motor, "$(P)$(MTR1)") {
+    field(LLM, "$(THETA_MIN_LIMIT)")
+    field(HLM, "$(THETA_MAX_LIMIT)")
+    field(DLLM, "$(THETA_MIN_LIMIT)")
+    field(DHLM, "$(THETA_MAX_LIMIT)")
+}
+
+record(motor, "$(P)$(MTR2)") {
+    field(LLM, "$(W_MIN_LIMIT)")
+    field(HLM, "$(W_MAX_LIMIT)")
+    field(DLLM, "$(W_MIN_LIMIT)")
+    field(DHLM, "$(W_MAX_LIMIT)")
+}
+
 # Conversion records from x-y to w-theta coordinate system
 
 record(transform, "$(P)FROMTHETA") {
@@ -93,10 +108,6 @@ record(motor, "$(P)ARM:X")
     field(STOO, "$(P)ARM:MOTORS:STOP.A  PP MS") 
     field(DINP, "$(P)ARM:MOTORS:DMOV CP MS") 
     field(OFF, "$(X_OFFSET)")
-    field(LLM, "$(X_MIN_LIMIT)")
-    field(HLM, "$(X_MAX_LIMIT)")
-    field(DLLM, "$(X_MIN_LIMIT)")
-    field(DHLM, "$(X_MAX_LIMIT)")
     field(URIP, "Yes") 
     field(MRES,"0.001") 
     field(RRES,"1.000") 
@@ -123,10 +134,6 @@ record(motor,"$(P)ARM:Y")
     field(STOO,"$(P)ARM:MOTORS:STOP.B  PP MS") 
     field(DINP,"$(P)ARM:MOTORS:DMOV CP MS") 
     field(OFF, "$(Y_OFFSET)")
-    field(LLM, "$(Y_MIN_LIMIT)")
-    field(HLM, "$(Y_MAX_LIMIT)")
-    field(DLLM, "$(Y_MIN_LIMIT)")
-    field(DHLM, "$(Y_MAX_LIMIT)")
     field(URIP, "Yes") 
     field(MRES,"0.001") 
     field(RRES,"1.000") 
@@ -217,39 +224,20 @@ record(transform, "$(P)ARM:STORE:CALC") {
     field(INPA, "$(P)ARM:STORE:SP")
 
     # Add/remove limits so we can move to active/store position
-    field(CLCB, "(A=1) ? 0 : $(X_MIN_LIMIT)")
-    field(CLCC, "(A=1) ? 0 : $(X_MIN_LIMIT)")
-    field(CLCD, "(A=1) ? 0 : $(X_MAX_LIMIT)")
-    field(CLCE, "(A=1) ? 0 : $(X_MAX_LIMIT)")
-
-    field(CLCF, "(A=1) ? 0 : $(Y_MIN_LIMIT)")
-    field(CLCG, "(A=1) ? 0 : $(Y_MIN_LIMIT)")
-    field(CLCH, "(A=1) ? 0 : $(Y_MAX_LIMIT)")
-    field(CLCI, "(A=1) ? 0 : $(Y_MAX_LIMIT)")
 
     # Move to store/active position
-    field(CLCJ, "(A=1) ? $(STORE_X) : $(ACTIVE_X)")
-    field(CLCK, "(A=1) ? $(STORE_Y) : $(ACTIVE_Y)")
+    field(CLCB, "(A=1) ? $(STORE_X) : $(ACTIVE_X)")
+    field(CLCC, "(A=1) ? $(STORE_Y) : $(ACTIVE_Y)")
 
     # Enable/disable put access to X/Y motors
-    field(CLCL, "A")
-    field(CLCM, "A")
+    field(CLCD, "A")
+    field(CLCE, "A")
 
-    field(OUTB, "$(P)ARM:X.LLM PP MS")
-    field(OUTC, "$(P)ARM:X.DLLM PP MS")
-    field(OUTD, "$(P)ARM:X.HLM PP MS")
-    field(OUTE, "$(P)ARM:X.DHLM PP MS")
+    field(OUTB, "$(P)ARM:X PP MS")
+    field(OUTC, "$(P)ARM:Y PP MS")
 
-    field(OUTF, "$(P)ARM:Y.LLM PP MS")
-    field(OUTG, "$(P)ARM:Y.DLLM PP MS")
-    field(OUTH, "$(P)ARM:Y.HLM PP MS")
-    field(OUTI, "$(P)ARM:Y.DHLM PP MS")
-
-    field(OUTJ, "$(P)ARM:X PP MS")
-    field(OUTK, "$(P)ARM:Y PP MS")
-
-    field(OUTL, "$(P)ARM:X.DISP PP MS")
-    field(OUTM, "$(P)ARM:Y.DISP PP MS")
+    field(OUTD, "$(P)ARM:X.DISP PP MS")
+    field(OUTE, "$(P)ARM:Y.DISP PP MS")
 }
 
 # Beamstop Shutters
