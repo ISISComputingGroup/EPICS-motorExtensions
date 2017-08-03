@@ -6,8 +6,8 @@
 #    MTR - the IOC postfix of the motor that is being used to drive the slits
 #    HIGH_GAP_LIMIT highest gap value that can be set
 #    LOW_GAP_LIMIT lowest gap value that can be set
-#	 MTR_TO_GAP the equation to change the motor reading to a gap
-#	 MTR_FROM_GAP the equation to change the gap to the motor set point
+#	 MTR_TO_GAP the initial equation to change the motor reading to a gap
+#	 MTR_FROM_GAP the initial equation to change the gap to the motor set point
 
 record(motor,"$(P)$(JAWS)$(DIR)GAP") 
 { 
@@ -35,17 +35,22 @@ record(motor,"$(P)$(JAWS)$(DIR)GAP")
 alias("$(P)$(JAWS)$(DIR)GAP", "$(P)$(JAWS)$(DIR)GAP:SP")
 alias("$(P)$(JAWS)$(DIR)GAP", "$(P)$(JAWS)$(DIR)GAP:SP:RBV")
 
-
+# Note that this will be changed by scientists
 record(calcout, "$(P)$(JAWS)$(DIR)MFRMGAP") 
 { 
 	field(DESC,"Convert gap distance to steps") 
     field(CALC,"$(MTR_FROM_GAP)") 	
     field(OUT,"$(P)$(MTR).DVAL  PP MS")
+	info(autosaveFields, "CALC")
+	info(INTEREST, "MEDIUM")
 }
 
+# Note that this will be changed by scientists
 record(calcout,"$(P)$(JAWS)$(DIR)MTOGAP") 
 {
     field(DESC,"Convert steps to gap distance")
     field(INPA,"$(P)$(MTR).DRBV  CP MS")
-    field(CALC,"$(MTR_TO_GAP)") 
+    field(CALC,"$(MTR_TO_GAP)")
+	info(autosaveFields, "CALC")
+	info(INTEREST, "MEDIUM")
 }
