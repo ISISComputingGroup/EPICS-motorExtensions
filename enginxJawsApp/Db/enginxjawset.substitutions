@@ -1,7 +1,7 @@
 
 file enginxjawset.template { 
   pattern 
-    {DIR,           dir_name,		P,       JAWS,			MTR,  			HIGH_GAP_LIMIT, 		LOW_GAP_LIMIT, 		MTR_TO_GAP, 					MTR_FROM_GAP}
-    {"V", 		"Vertical",		"\$(P)", "\$(JAWS)",	"\$(NS_MTR)", 		"25", 					"0.5", 				"-0.0358*A*A+2.0167*A+2.0091", 	"0.0138*A*A+0.4146*A-1.1885"}
-    {"H", 		"Horizontal",	"\$(P)", "\$(JAWS)",	"\$(EW_MTR)", 		"10", 					"0.5",				"0.0434*A*A+0.4519*A+0.8232",  "-0.0776*A*A-1.9001*A+8.9105"}
+    {DIR,           dir_name,		P,       JAWS,			MTR,  		HIGH_GAP_LIMIT, LOW_GAP_LIMIT, 		MTR_TO_GAP_A, 	MTR_TO_GAP_B, 	MTR_TO_GAP_C,			MTR_FRM_GAP_A, 	MTR_FRM_GAP_B, 	MTR_FRM_GAP_C}
+    {"V", 		"Vertical",		"\$(P)", "\$(JAWS)",	"\$(NS_MTR)", 	"25", 			"0.5", 				-0.0358, 		2.0167,			2.0091, 				0.0138,			0.4146,			-1.1885}
+    {"H", 		"Horizontal",	"\$(P)", "\$(JAWS)",	"\$(EW_MTR)", 	"10", 			"0.5",				0.0434,			0.4519,			0.8232,  				-0.0776,		-1.9001,		8.9105}
 }
