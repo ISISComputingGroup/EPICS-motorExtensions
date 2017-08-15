@@ -72,7 +72,7 @@ record(calcout, "$(P)$(JAWS)$(DIR)MFRMGAP")
 	info(INTEREST, "MEDIUM")
 }
 
-# The quadratic for calibration is separated out so writing does not affect motor
+# The quadratic for calibration is separated out to match the other record. However, we do want the gap to update when the read coeffs are updated
 record(ao, "$(P)$(JAWS)$(DIR)MTOGAP:A:SP")
 {
 	field(DESC,"The A coeff to conv steps to gap")
@@ -102,9 +102,9 @@ record(calcout,"$(P)$(JAWS)$(DIR)MTOGAP")
 {
     field(DESC,"Convert steps to gap distance")
     field(INPA,"$(P)$(MTR).DRBV  CP MS")
-	field(INPB, "$(P)$(JAWS)$(DIR)MTOGAP:A:SP")
-	field(INPC, "$(P)$(JAWS)$(DIR)MTOGAP:B:SP")
-	field(INPD, "$(P)$(JAWS)$(DIR)MTOGAP:C:SP")
+	field(INPB, "$(P)$(JAWS)$(DIR)MTOGAP:A:SP CP")
+	field(INPC, "$(P)$(JAWS)$(DIR)MTOGAP:B:SP CP")
+	field(INPD, "$(P)$(JAWS)$(DIR)MTOGAP:C:SP CP")
     field(CALC,"B*A*A+C*A+D")
 	info(INTEREST, "MEDIUM")
 }
