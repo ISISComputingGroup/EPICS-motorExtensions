@@ -1,0 +1,110 @@
+# Coupled Slit soft motor record (half a jaw)
+#
+#  Macros:
+#    P - base name for ioc
+#	 DIR - the axis direction
+#    MTR - the IOC postfix of the motor that is being used to drive the slits
+#    HIGH_GAP_LIMIT highest gap value that can be set
+#    LOW_GAP_LIMIT lowest gap value that can be set
+#	 MTR_TO_GAP the initial equation to change the motor reading to a gap
+#	 MTR_FROM_GAP the initial equation to change the gap to the motor set point
+
+record(motor,"$(P)$(JAWS)$(DIR)GAP") 
+{ 
+	field(DESC, "$(dir_name) gap on the jaws")
+    field(DTYP,"Soft Channel") 
+    field(OUT,"$(P)$(JAWS)$(DIR)MFRMGAP.A  PP MS") 
+    field(RDBL,"$(P)$(JAWS)$(DIR)MTOGAP.VAL  NPP MS") 
+    field(URIP,"Yes") 
+    field(STOO,"$(P)$(MTR).STOP  PP MS") 
+    field(DINP,"$(P)$(MTR).DMOV  NPP MS") 
+    field(MRES,"1.000") 
+    field(RRES,"1.000")
+    field(PREC,"3") 
+    field(DHLM,"$(HIGH_GAP_LIMIT)") 
+    field(DLLM,"$(LOW_GAP_LIMIT)") 
+    field(TWV,"5") 
+	field(RDBD,"1")
+    field(RTRY,"0") 
+    field(EGU,"mm") 
+    info(INTEREST, "HIGH")
+    info(archive,"0.02 VAL RBV DVAL OFF MSTA DIR CNEN MOVN DMOV")
+	info(alarm,"Motors")
+}
+
+alias("$(P)$(JAWS)$(DIR)GAP", "$(P)$(JAWS)$(DIR)GAP:SP")
+alias("$(P)$(JAWS)$(DIR)GAP", "$(P)$(JAWS)$(DIR)GAP:SP:RBV")
+
+# The quadratic for calibration is separated out so writing does not affect motor
+record(ao, "$(P)$(JAWS)$(DIR)MFRMGAP:A:SP")
+{
+	field(DESC,"The A coeff to conv gap to steps")
+	field(VAL, "$(MTR_FRM_GAP_A)")
+	field(PREC, "4")
+	info(autosaveFields, "VAL")
+}
+
+record(ao, "$(P)$(JAWS)$(DIR)MFRMGAP:B:SP")
+{
+	field(DESC,"The B coeff to conv gap to steps")
+	field(VAL, "$(MTR_FRM_GAP_B)")
+	field(PREC, "4")
+	info(autosaveFields, "VAL")
+}
+
+record(ao, "$(P)$(JAWS)$(DIR)MFRMGAP:C:SP")
+{
+	field(DESC,"The C coeff to conv gap to steps")
+	field(VAL, "$(MTR_FRM_GAP_C)")
+	field(PREC, "4")
+	info(autosaveFields, "VAL")
+}
+
+# Note that this will be changed by scientists
+record(calcout, "$(P)$(JAWS)$(DIR)MFRMGAP") 
+{ 
+	field(DESC,"Convert gap distance to steps")
+	field(INPB, "$(P)$(JAWS)$(DIR)MFRMGAP:A:SP")
+	field(INPC, "$(P)$(JAWS)$(DIR)MFRMGAP:B:SP")
+	field(INPD, "$(P)$(JAWS)$(DIR)MFRMGAP:C:SP")
+    field(CALC,"B*A*A+C*A+D")
+    field(OUT,"$(P)$(MTR).DVAL  PP MS")
+	info(INTEREST, "MEDIUM")
+}
+
+# The quadratic for calibration is separated out to match the other record. However, we do want the gap to update when the read coeffs are updated
+record(ao, "$(P)$(JAWS)$(DIR)MTOGAP:A:SP")
+{
+	field(DESC,"The A coeff to conv steps to gap")
+	field(VAL, "$(MTR_TO_GAP_A)")
+	field(PREC, "4")
+	info(autosaveFields, "VAL")
+}
+
+record(ao, "$(P)$(JAWS)$(DIR)MTOGAP:B:SP")
+{
+	field(DESC,"The B coeff to conv steps to gap")
+	field(VAL, "$(MTR_TO_GAP_B)")
+	field(PREC, "4")
+	info(autosaveFields, "VAL")
+}
+
+record(ao, "$(P)$(JAWS)$(DIR)MTOGAP:C:SP")
+{
+	field(DESC,"The C coeff to conv steps to gap")
+	field(VAL, "$(MTR_TO_GAP_C)")
+	field(PREC, "4")
+	info(autosaveFields, "VAL")
+}
+
+# Note that this will be changed by scientists
+record(calcout,"$(P)$(JAWS)$(DIR)MTOGAP") 
+{
+    field(DESC,"Convert steps to gap distance")
+    field(INPA,"$(P)$(MTR).DRBV  CP MS")
+	field(INPB, "$(P)$(JAWS)$(DIR)MTOGAP:A:SP CP")
+	field(INPC, "$(P)$(JAWS)$(DIR)MTOGAP:B:SP CP")
+	field(INPD, "$(P)$(JAWS)$(DIR)MTOGAP:C:SP CP")
+    field(CALC,"B*A*A+C*A+D")
+	info(INTEREST, "MEDIUM")
+}
