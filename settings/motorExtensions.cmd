@@ -3,5 +3,5 @@
 # Copy this file to C:\Instrument\Settings\config\<machine>\configurations\galil
 
 $(IFNOTTESTDEVSIM) < $(GALILCONFIG)/xyBeamstop.cmd
-$(IFTESTDEVSIM) < $(MOTOREXTENSIONS)/settings/xyBeamstop/xyBeamstop.cmd
+$(IFTESTDEVSIM) < $(MOTOREXT)/settings/xyBeamstop/xyBeamstop.cmd
 
