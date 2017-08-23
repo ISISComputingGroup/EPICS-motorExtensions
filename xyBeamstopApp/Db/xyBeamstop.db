@@ -18,17 +18,13 @@
 
 # Set limits on motor records
 record(motor, "$(P)$(MTR1)") {
-    field(LLM, "$(THETA_MIN_LIMIT)")
-    field(HLM, "$(THETA_MAX_LIMIT)")
-    field(DLLM, "$(THETA_MIN_LIMIT)")
-    field(DHLM, "$(THETA_MAX_LIMIT)")
+    field(MDEL, "-1") 
+    field(DLY, "3")
 }
 
 record(motor, "$(P)$(MTR2)") {
-    field(LLM, "$(W_MIN_LIMIT)")
-    field(HLM, "$(W_MAX_LIMIT)")
-    field(DLLM, "$(W_MIN_LIMIT)")
-    field(DHLM, "$(W_MAX_LIMIT)")
+    field(MDEL, "-1") 
+    field(DLY, "3")
 }
 
 # Conversion records from x-y to w-theta coordinate system
@@ -83,9 +79,9 @@ record(transform, "$(P)ARM:MOTORS:STOP") {
 }
 
 record(calc, "$(P)ARM:MOTORS:DMOV") {
-    field(SCAN, "Passive")
-    field(INPA, "$(P)$(MTR1).DMOV CP")
-    field(INPB, "$(P)$(MTR2).DMOV CP")
+    field(SCAN, "1 second")
+    field(INPA, "$(P)$(MTR1).DMOV PP")
+    field(INPB, "$(P)$(MTR2).DMOV PP")
 
     field(CALC, "A && B")
 
@@ -105,8 +101,8 @@ record(motor, "$(P)ARM:X")
     field(DTYP, "Soft Channel") 
     field(OUT, "$(P)CONVERTXY.C PP MS") 
     field(RDBL, "$(P)CONVERTXY.F CP MS") 
-    field(STOO, "$(P)ARM:MOTORS:STOP.A  PP MS") 
-    field(DINP, "$(P)ARM:MOTORS:DMOV CP MS") 
+    field(STOO, "$(P)ARM:MOTORS:STOP.A  PP") 
+    field(DINP, "$(P)ARM:MOTORS:DMOV CP") 
     field(OFF, "$(X_OFFSET)")
     field(URIP, "Yes") 
     field(MRES,"0.001") 
@@ -115,6 +111,7 @@ record(motor, "$(P)ARM:X")
     field(TWV,"5") 
     field(RTRY,"0") 
     field(EGU,"mm") 
+    field(MDEL, "-1") 
     info(INTEREST, "HIGH")
     info(archive,"0.02 VAL RBV DVAL OFF MSTA DIR CNEN MOVN DMOV")
 	info(alarm,"Motors")
@@ -141,6 +138,7 @@ record(motor,"$(P)ARM:Y")
     field(TWV,"5") 
     field(RTRY,"0") 
     field(EGU,"mm") 
+    field(MDEL, "-1") 
     info(INTEREST, "HIGH")
     info(archive,"0.02 VAL RBV DVAL OFF MSTA DIR CNEN MOVN DMOV")
 	info(alarm,"Motors")
@@ -210,7 +208,6 @@ record(bo, "$(P)ARM:STORE:SP") {
     field(DTYP, "Raw Soft Channel")
     field(FLNK, "$(P)ARM:STORE:CALC")
     field(VAL, "0")
-    field(PINI, "YES")
 }
 
 alias("$(P)ARM:STORE:SP", "$(P)ARM:STORE")
@@ -223,8 +220,6 @@ record(calc, "$(P)ARM:STORE:INV") {
 record(transform, "$(P)ARM:STORE:CALC") {
     field(INPA, "$(P)ARM:STORE:SP")
 
-    # Add/remove limits so we can move to active/store position
-
     # Move to store/active position
     field(CLCB, "(A=1) ? $(STORE_X) : $(ACTIVE_X)")
     field(CLCC, "(A=1) ? $(STORE_Y) : $(ACTIVE_Y)")
@@ -233,8 +228,8 @@ record(transform, "$(P)ARM:STORE:CALC") {
     field(CLCD, "A")
     field(CLCE, "A")
 
-    field(OUTB, "$(P)ARM:X PP MS")
-    field(OUTC, "$(P)ARM:Y PP MS")
+    field(OUTB, "$(P)ARM:X PP")
+    field(OUTC, "$(P)ARM:Y PP")
 
     field(OUTD, "$(P)ARM:X.DISP PP MS")
     field(OUTE, "$(P)ARM:Y.DISP PP MS")
