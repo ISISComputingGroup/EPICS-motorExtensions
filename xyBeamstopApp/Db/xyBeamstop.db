@@ -5,26 +5,30 @@
 #
 #  Macros:
 #    P - base name for ioc
-#    MTR1 - the IOC postfix of the motor that is being used to drive the horizontal axis
-#    MTR2 - the IOC postfix of the motor that is being used to drive the vertical axis
+#    MTR1 - the IOC postfix of the motor that is being used to drive the horizontal (W) axis
+#    MTR2 - the IOC postfix of the motor that is being used to drive the vertical (Theta) axis
 #    ARMLEN - the length of the arm attached to the horizontal axis
 #    SHUTTER_PORT - the name of the digital port used to open and close the shutter
 #    X_OFFSET -  the X-Y coordinate offset from the motors 0 positions
 #    Y_OFFSET -  the X-Y coordinate offset from the motors 0 positions
-#    X_MAX_LIMIT - the highest value x can take
-#    X_MIN_LIMIT - the lowest value x can take
-#    Y_MAX_LIMIT - the highest value y can take 
-#    Y_MIN_LIMIT - the lowest value y can take 
+#    W_MAX_LIMIT - the highest value the w motor can move to
+#    W_MIN_LIMIT - the lowest value the w motor can move to
+#    THETA_MAX_LIMIT - the highest value the theta motor can move to
+#    THETA_MIN_LIMIT - the lowest value the theta motor can move to
 
 # Set limits on motor records
 record(motor, "$(P)$(MTR1)") {
     field(MDEL, "-1") 
     field(DLY, "3")
+    field(DLLM, "$(THETA_MIN_LIMIT)")
+    field(DHLM, "$(THETA_MAX_LIMIT)")
 }
 
 record(motor, "$(P)$(MTR2)") {
     field(MDEL, "-1") 
     field(DLY, "3")
+    field(DLLM, "$(W_MIN_LIMIT)")
+    field(DHLM, "$(W_MAX_LIMIT)")
 }
 
 # Conversion records from x-y to w-theta coordinate system
