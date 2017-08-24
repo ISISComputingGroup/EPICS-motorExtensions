@@ -155,7 +155,6 @@ alias("$(P)ARM:Y", "$(P)ARM:Y:SP:RBV")
 record(ao, "$(P)ARM:X:TWEAK") {
     field(DESC, "Move arm X relative")
     field(VAL, "0")
-    field(FLNK, "$(P)ARM:X:TWEAK:CALC")
     field(PREC,"3") 
     field(EGU,"mm") 
     info(INTEREST, "HIGH")
@@ -181,7 +180,6 @@ record(calcout, "$(P)ARM:X:TWEAK:DECREMENT") {
 record(ao, "$(P)ARM:Y:TWEAK") {
     field(DESC, "Move arm Y relative")
     field(VAL, "0")
-    field(FLNK, "$(P)ARM:Y:TWEAK:CALC")
     field(PREC,"3") 
     field(EGU,"mm") 
     info(INTEREST, "HIGH")
