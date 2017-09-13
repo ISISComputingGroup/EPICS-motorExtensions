@@ -20,6 +20,7 @@ record(ao, "$(P)$(JAWS)$(DIR)GAP:SP")
 record(ai, "$(P)$(JAWS)$(DIR)GAP")
 {
 	field(EGU, "mm")
+	field(PREC, "3")
 }
 
 # The quadratic for calibration is separated out so writing does not affect motor
