@@ -9,31 +9,18 @@
 #	 MTR_TO_GAP the initial equation to change the motor reading to a gap
 #	 MTR_FROM_GAP the initial equation to change the gap to the motor set point
 
-record(motor,"$(P)$(JAWS)$(DIR)GAP") 
-{ 
-	field(DESC, "$(dir_name) gap on the jaws")
-    field(DTYP,"Soft Channel") 
-    field(OUT,"$(P)$(JAWS)$(DIR)MFRMGAP.A  PP MS") 
-    field(RDBL,"$(P)$(JAWS)$(DIR)MTOGAP.VAL  NPP MS") 
-    field(URIP,"Yes") 
-    field(STOO,"$(P)$(MTR).STOP  PP MS") 
-    field(DINP,"$(P)$(MTR).DMOV  NPP MS") 
-    field(MRES,"1.000") 
-    field(RRES,"1.000")
-    field(PREC,"3") 
-    field(DHLM,"$(HIGH_GAP_LIMIT)") 
-    field(DLLM,"$(LOW_GAP_LIMIT)") 
-    field(TWV,"5") 
-	field(RDBD,"1")
-    field(RTRY,"0") 
-    field(EGU,"mm") 
-    info(INTEREST, "HIGH")
-    info(archive,"0.02 VAL RBV DVAL OFF MSTA DIR CNEN MOVN DMOV")
-	info(alarm,"Motors")
+record(ao, "$(P)$(JAWS)$(DIR)GAP:SP")
+{
+	field(EGU, "mm")
+	field(DRVH, "$(HIGH_GAP_LIMIT)")
+	field(DRVL, "$(LOW_GAP_LIMIT)")
+	field(OUT, "$(P)$(JAWS)$(DIR)MFRMGAP.A  PP MS")
 }
 
-alias("$(P)$(JAWS)$(DIR)GAP", "$(P)$(JAWS)$(DIR)GAP:SP")
-alias("$(P)$(JAWS)$(DIR)GAP", "$(P)$(JAWS)$(DIR)GAP:SP:RBV")
+record(ai, "$(P)$(JAWS)$(DIR)GAP")
+{
+	field(EGU, "mm")
+}
 
 # The quadratic for calibration is separated out so writing does not affect motor
 record(ao, "$(P)$(JAWS)$(DIR)MFRMGAP:A:SP")
@@ -101,10 +88,11 @@ record(ao, "$(P)$(JAWS)$(DIR)MTOGAP:C:SP")
 record(calcout,"$(P)$(JAWS)$(DIR)MTOGAP") 
 {
     field(DESC,"Convert steps to gap distance")
-    field(INPA,"$(P)$(MTR).VAL  CP MS")
+    field(INPA,"$(P)$(MTR).RBV CP MS")
 	field(INPB, "$(P)$(JAWS)$(DIR)MTOGAP:A:SP CP")
 	field(INPC, "$(P)$(JAWS)$(DIR)MTOGAP:B:SP CP")
 	field(INPD, "$(P)$(JAWS)$(DIR)MTOGAP:C:SP CP")
+	field(OUT, "$(P)$(JAWS)$(DIR)GAP PP MS")
     field(CALC,"B*A*A+C*A+D")
 	info(INTEREST, "MEDIUM")
 }
