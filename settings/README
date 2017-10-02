@@ -9,3 +9,5 @@ For the barndoors the contents of the barndoors folder should be copied from bar
 For the polaris jaws the contents of polaris jaws should be copied to  C:\Instrument\Settings\config\<machine>\configurations\galil.
 
 For the xyBeamStop, the contents of xybeamstop and motorExtensions.cmd should be copied to C:\Instrument\Settings\config\<machine>\configurations\galil.
+
+For the oscillating collimator, the contents of oscillatingCollimator and motorExtensions.cmd should be copied to C:\Instrument\Settings\config\<machine>\configurations\galil.

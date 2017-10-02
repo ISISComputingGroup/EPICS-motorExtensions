@@ -5,3 +5,6 @@
 $(IFNOTTESTDEVSIM) < $(GALILCONFIG)/xyBeamstop.cmd
 $(IFTESTDEVSIM) < $(MOTOREXT)/settings/xyBeamstop/xyBeamstop.cmd
 
+$(IFNOTTESTDEVSIM) < $(GALILCONFIG)/oscillatingCollimator.cmd
+$(IFTESTDEVSIM) < $(MOTOREXT)/settings/oscillatingCollimator/oscillatingCollimator.cmd
+
