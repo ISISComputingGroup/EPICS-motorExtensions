@@ -38,7 +38,7 @@ record(calcout, "$(P)$(O):POS:SP:_CALC") {
 	field(INPA, "$(P)$(O):POS:SP")
 	field(INPB, "$(P)$(O):RADIUS")
 	field(CALC, "B*TAN(A/R2D)")
-	field(OUT, "(P)$(M).VAL PP")
+	field(OUT, "$(P)$(M).VAL PP")
 	field(OOPT, "Every Time")
 }
 
