@@ -7,11 +7,15 @@
 #    P - base name for ioc
 #    MTR - Target motor
 
+# Start/stop
+
 record(bo, "$(P)$(O):START:SP") {
 }
 
 record(bo, "$(P)$(O):STOP:SP") {
 }
+
+# Motor position
 
 record(calcout, "$(P)$(O):POS:_CALC") {
 	field(SCAN, "1 second")
@@ -44,19 +48,32 @@ record(calcout, "$(P)$(O):POS:SP:_CALC") {
 
 alias("$(P)$(O):POS:SP", "$(P)$(O):POS:SP:RBV")
 
-record(stringin, "$(P)$(O):MODE") {
-    field(VAL, "Awaiting mode...")
+# Operating mode
+
+record(mbbi, "$(P)$(O):MODE") {
+    field(INP, "$(P)$(O):MODE:_READ")
+	field(ZRST, "Initializing")
+	field(ONST, "Homing")
+	field(TWST, "Oscillating")
 }
 alias("$(P)$(O):MODE", "$(P)$(O):MODE:SP")
 alias("$(P)$(O):MODE", "$(P)$(O):MODE:SP:RBV")
 
+# Frequency
+
+record(calcout, "$(P)$(O):FREQ:_CALC") {
+	field(INPA, "$(P)$(O):TIME")
+	field(CALC, "1/A")
+	field(OUT, "$(P)$(O):FREQ PP")
+	field(OOPT, "Every Time")
+}
+
 record(ai, "$(P)$(O):FREQ") {
     field(PREC, "2")
     field(EGU, "Hz")
-    field(VAL, "-1")
 }
-alias("$(P)$(O):FREQ", "$(P)$(O):FREQ:SP")
-alias("$(P)$(O):FREQ", "$(P)$(O):FREQ:SP:RBV")
+
+# Cycle
 
 record(ai, "$(P)$(O):CYCLE") {
     field(EGU, "")
@@ -118,13 +135,16 @@ record(ao, "$(P)$(O):DIST:SP") {
 # Variables read directly from the Galil program
 
 record(ai, "$(P)$(O):TIME") {
-	field(VAL, "1")
+	field(VAL, "10")
+	field(PINI, "YES")
+	field(FLNK, "$(P)$(O):FREQ:_CALC")
 }
 
-record(ai, "$(P)$(O):MODE") {
+record(ai, "$(P)$(O):MODE:_READ") {
 	field(VAL, "1")
+	field(PINI, "YES")
+	field(FLNK, "$(P)$(O):MODE")
 }
 
 record(ai, "$(P)$(O):COUNT") {
-	field(VAL, "1")
 }
