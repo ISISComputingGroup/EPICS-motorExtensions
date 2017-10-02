@@ -20,7 +20,7 @@ record(bo, "$(P)$(O):STOP:SP") {
 record(calcout, "$(P)$(O):POS:_CALC") {
 	field(SCAN, "1 second")
 	field(INPA, "$(P)$(M).RBV")
-	field(INPB, "$(P)$(O):RADIUS")
+	field(INPB, "$(P)$(O):RADIUS:SP")
 	field(CALC, "R2D*ATAN(A/B)")
 	field(OUT, "$(P)$(O):POS PP")	
 	field(OOPT, "Every Time")
@@ -40,7 +40,7 @@ record(ai, "$(P)$(O):POS:SP") {
 
 record(calcout, "$(P)$(O):POS:SP:_CALC") {
 	field(INPA, "$(P)$(O):POS:SP")
-	field(INPB, "$(P)$(O):RADIUS")
+	field(INPB, "$(P)$(O):RADIUS:SP")
 	field(CALC, "B*TAN(A/R2D)")
 	field(OUT, "$(P)$(M).VAL PP")
 	field(OOPT, "Every Time")
@@ -61,17 +61,15 @@ alias("$(P)$(O):MODE", "$(P)$(O):MODE:SP:RBV")
 
 # Frequency
 
-record(calcout, "$(P)$(O):FREQ:_CALC") {
-	field(INPA, "$(P)$(O):TIME")
-	field(CALC, "1/A")
-	field(OUT, "$(P)$(O):FREQ PP")
-	field(OOPT, "Every Time")
-}
-
-record(ai, "$(P)$(O):FREQ") {
+record(ai, "$(P)$(O):FREQ:SP") {
+	field(PINI, "YES")
+	field(VAL, "0.1")
     field(PREC, "2")
     field(EGU, "Hz")
+	field(FLNK, "$(P)$(O):ANGLE:_TRIG")
 }
+
+alias("$(P)$(O):FREQ:SP", "$(P)$(O):FREQ:SP:RBV")
 
 # Cycle
 
@@ -83,14 +81,14 @@ record(ai, "$(P)$(O):CYCLE") {
 
 # Mounting radius
 
-record(ai, "$(P)$(O):RADIUS") {
+record(ai, "$(P)$(O):RADIUS:SP") {
     field(EGU, "mm")
     field(PREC, "2")
-    field(VAL, "-1")
+    field(VAL, "10")
 	field(FLNK, "$(P)$(O):ANGLE:_TRIG")
 }
-alias("$(P)$(O):RADIUS", "$(P)$(O):RADIUS:SP")
-alias("$(P)$(O):RADIUS", "$(P)$(O):RADIUS:SP:RBV")
+alias("$(P)$(O):RADIUS:SP", "$(P)$(O):RADIUS")
+alias("$(P)$(O):RADIUS:SP", "$(P)$(O):RADIUS:SP:RBV")
 
 # Motor steps
 
@@ -107,8 +105,6 @@ record(ai, "$(P)$(O):STEPS") {
     field(EGU, "1/mm")
     field(PREC, "0")
 }
-alias("$(P)$(O):STEPS", "$(P)$(O):STEPS:SP")
-alias("$(P)$(O):STEPS", "$(P)$(O):STEPS:SP:RBV")
 
 # Thread
 
@@ -125,105 +121,160 @@ alias("$(P)$(O):THREAD", "$(P)$(O):THREAD:SP:RBV")
 record(ao, "$(P)$(O):ANGLE:SP") {
     field(EGU, "deg")
     field(PREC, "2")
-    field(VAL, "0")
+    field(VAL, "1")
 	field(PINI, "YES")
 	field(FLNK, "$(P)$(O):ANGLE:_TRIG")
 }
 
+alias("$(P)$(O):ANGLE:SP", "$(P)$(O):ANGLE:SP:RBV")
+
 record(fanout, "$(P)$(O):ANGLE:_TRIG") {
-	field(LNK1, "$(P)$(O):DIST:PART")
+	field(LNK1, "$(P)$(O):DIST:PART:SP")
 }
 
-record(calc, "$(P)$(O):DIST:PART") {
-	field(INPA, "$(P)$(O):RADIUS")
+record(calc, "$(P)$(O):DIST:PART:SP") {
+	field(INPA, "$(P)$(O):RADIUS:SP")
 	field(INPB, "$(P)$(O):STEPS")
 	field(INPC, "$(P)$(O):ANGLE:SP")
 	field(CALC, "2*A*B*TAN(C*D2R)")
-	field(FLNK, "$(P)$(O):CYCLE:TIME:HALF")
+	field(FLNK, "$(P)$(O):CYCLE:TIME:HALF:SP")
     field(EGU, "steps")
     field(PREC, "0")
 }
 
-record(calc, "$(P)$(O):CYCLE:TIME:HALF") {
-	field(INPA, "$(P)$(O):FREQ")
+record(calc, "$(P)$(O):CYCLE:TIME:HALF:SP") {
+	field(INPA, "$(P)$(O):FREQ:SP")
 	field(CALC, "1/(2*A)")
-	field(FLNK, "$(P)$(O):ACC")
+	field(FLNK, "$(P)$(O):ACC:SP")
     field(EGU, "s")
     field(PREC, "2")
 }
 
-record(ao, "$(P)$(O):ACC") {
+record(ao, "$(P)$(O):ACC:SP") {
 	field(VAL, "49152")
-	field(FLNK, "$(P)$(O):VEL")
+	field(FLNK, "$(P)$(O):VEL:SP")
     field(EGU, "steps/s/s")
     field(PREC, "0")
 }
 
-record(calc, "$(P)$(O):VEL") {
-	field(INPA, "$(P)$(O):ACC")
-	field(INPB, "$(P)$(O):DIST:PART")
-	field(INPC, "$(P)$(O):CYCLE:TIME:HALF")
+record(calc, "$(P)$(O):VEL:SP") {
+	field(INPA, "$(P)$(O):ACC:SP")
+	field(INPB, "$(P)$(O):DIST:PART:SP")
+	field(INPC, "$(P)$(O):CYCLE:TIME:HALF:SP")
 	field(CALC, "A*(C-SQR(C*C-8*B/A))/4")
-	field(FLNK, "$(P)$(O):TIME:ACC")
+	field(FLNK, "$(P)$(O):TIME:ACC:SP")
     field(EGU, "steps/s")
     field(PREC, "0")
 }
 
-record(calc, "$(P)$(O):TIME:ACC") {
-	field(INPA, "$(P)$(O):ACC")
-	field(INPB, "$(P)$(O):VEL")
+record(calc, "$(P)$(O):TIME:ACC:SP") {
+	field(INPA, "$(P)$(O):ACC:SP")
+	field(INPB, "$(P)$(O):VEL:SP")
 	field(CALC, "B/A")
-	field(FLNK, "$(P)$(O):TIME:VEL")
+	field(FLNK, "$(P)$(O):TIME:VEL:SP")
     field(EGU, "s")
     field(PREC, "2")
 }
 
-record(calc, "$(P)$(O):TIME:VEL") {
-	field(INPA, "$(P)$(O):DIST:PART")
-	field(INPB, "$(P)$(O):VEL")
+record(calc, "$(P)$(O):TIME:VEL:SP") {
+	field(INPA, "$(P)$(O):DIST:PART:SP")
+	field(INPB, "$(P)$(O):VEL:SP")
 	field(CALC, "A/B")
-	field(FLNK, "$(P)$(O):TIME:TOTAL")
+	field(FLNK, "$(P)$(O):TIME:TOTAL:SP")
     field(EGU, "s")
     field(PREC, "2")
 }
 
-record(calc, "$(P)$(O):TIME:TOTAL") {
-	field(INPA, "$(P)$(O):TIME:ACC")
-	field(INPB, "$(P)$(O):TIME:VEL")
+record(calc, "$(P)$(O):TIME:TOTAL:SP") {
+	field(INPA, "$(P)$(O):TIME:ACC:SP")
+	field(INPB, "$(P)$(O):TIME:VEL:SP")
 	field(CALC, "2*A+B")
-	field(FLNK, "$(P)$(O):DIST:VEL")
+	field(FLNK, "$(P)$(O):DIST:VEL:SP")
     field(EGU, "s")
     field(PREC, "2")
+}
+
+record(calc, "$(P)$(O):DIST:VEL:SP") {
+	field(INPA, "$(P)$(O):ACC:SP")
+	field(INPB, "$(P)$(O):VEL:SP")
+	field(CALC, "B*B/A")
+	field(FLNK, "$(P)$(O):DIST:SP")
+    field(EGU, "steps")
+    field(PREC, "2")
+}
+
+record(calc, "$(P)$(O):DIST:SP") {
+	field(INPA, "$(P)$(O):DIST:VEL:SP")
+	field(INPB, "$(P)$(O):DIST:PART:SP")
+	field(CALC, "2*A+B")
+    field(EGU, "steps")
+    field(PREC, "2")
+}
+
+# Setpoint readbacks are just SP alias
+# We can't recover the set value from the device
+alias("$(P)$(O):VEL:SP", "$(P)$(O):VEL:SP:RBV")
+alias("$(P)$(O):ACC:SP", "$(P)$(O):ACC:SP:RBV")
+alias("$(P)$(O):DIST:SP", "$(P)$(O):DIST:SP:RBV")
+
+# Recover the variables set in the Galil
+
+# Temporary alias
+alias("$(P)$(O):VEL:SP", "$(P)$(O):VEL")
+alias("$(P)$(O):ACC:SP", "$(P)$(O):ACC")
+alias("$(P)$(O):DIST:SP", "$(P)$(O):DIST")
+
+record(fanout, "$(P)$(O):ANGLE:INV:_TRIG") {
+	field(SCAN, "1 second")
+	field(LNK1, "$(P)$(O):DIST:VEL")
 }
 
 record(calc, "$(P)$(O):DIST:VEL") {
+    field(EGU, "steps")
+    field(PREC, "0")
 	field(INPA, "$(P)$(O):ACC")
 	field(INPB, "$(P)$(O):VEL")
 	field(CALC, "B*B/A")
-	field(FLNK, "$(P)$(O):DIST:TOTAL")
-    field(EGU, "steps")
-    field(PREC, "2")
+	field(FLNK, "$(P)$(O):DIST:PART")
 }
 
-record(calc, "$(P)$(O):DIST:TOTAL") {
-	field(INPA, "$(P)$(O):DIST:VEL")
-	field(INPB, "$(P)$(O):DIST:PART")
-	field(CALC, "2*A+B")
+record(calc, "$(P)$(O):DIST:PART") {
     field(EGU, "steps")
-    field(PREC, "2")
+    field(PREC, "0")
+	field(INPA, "$(P)$(O):DIST")
+	field(INPB, "$(P)$(O):DIST:VEL")
+	field(CALC, "A-2*B")
+	field(FLNK, "$(P)$(O):ANGLE")
 }
 
-alias("$(P)$(O):ANGLE:SP", "$(P)$(O):ANGLE")
-alias("$(P)$(O):ANGLE:SP", "$(P)$(O):ANGLE:SP:RBV")
+record(calc, "$(P)$(O):ANGLE") {
+    field(EGU, "deg")
+    field(PREC, "2")
+	field(INPA, "$(P)$(O):DIST:PART")
+	field(INPB, "$(P)$(O):RADIUS")
+	field(INPC, "$(P)$(O):STEPS")
+	field(CALC, "R2D*ATAN(A/(2*B*C))")
+	field(FLNK, "$(P)$(O):CYCLE:TIME:HALF")
+}
+
+record(calc, "$(P)$(O):CYCLE:TIME:HALF") {
+    field(EGU, "s")
+    field(PREC, "2")
+	field(INPA, "$(P)$(O):ACC")
+	field(INPB, "$(P)$(O):VEL")
+	field(INPC, "$(P)$(O):DIST")
+	field(CALC, "2*B/A+C/B")
+	field(FLNK, "$(P)$(O):FREQ")
+}
+
+record(calc, "$(P)$(O):FREQ") {
+    field(EGU, "Hz")
+    field(PREC, "2")
+	field(INPA, "$(P)$(O):CYCLE:TIME:HALF")
+	field(CALC, "1/(2*A)")
+}
 
 # Variables read directly from the Galil program
-
-record(ai, "$(P)$(O):TIME") {
-	field(SCAN, "1 second")
-	field(VAL, "10")
-	field(PINI, "YES")
-	field(FLNK, "$(P)$(O):FREQ:_CALC")
-}
 
 record(ai, "$(P)$(O):MODE:_READ") {
 	field(SCAN, "1 second")
