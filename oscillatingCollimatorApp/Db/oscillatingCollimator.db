@@ -97,3 +97,34 @@ record(ai, "$(P)$(O):ANGLE") {
 }
 alias("$(P)$(O):ANGLE", "$(P)$(O):ANGLE:SP")
 alias("$(P)$(O):ANGLE", "$(P)$(O):ANGLE:SP:RBV")
+
+record(ao, "$(P)$(O):A:SP") {
+	field(VAL, "49152")
+}
+
+# Variables set directly in the Galil program
+
+record(ao, "$(P)$(O):VEL:SP") {
+	field(VAL, "1")
+}
+record(ao, "$(P)$(O):ACC:SP") {
+	field(VAL, "49152")
+}
+
+record(ao, "$(P)$(O):DIST:SP") {
+	field(VAL, "1")
+}
+
+# Variables read directly from the Galil program
+
+record(ai, "$(P)$(O):TIME") {
+	field(VAL, "1")
+}
+
+record(ai, "$(P)$(O):MODE") {
+	field(VAL, "1")
+}
+
+record(ai, "$(P)$(O):COUNT") {
+	field(VAL, "1")
+}
