@@ -14,37 +14,63 @@ record(bo, "$(P)STOP:SP") {
 }
 
 record(ai, "$(P)POS") {
+    field(PREC, "2")
+    field(EGU, "deg")
     field(VAL, "-1")
 }
 alias("$(P)POS", "$(P)POS:SP")
 alias("$(P)POS", "$(P)POS:SP:RBV")
 
-record(stringin, "$(P)MODE"){
+record(stringin, "$(P)MODE") {
     field(VAL, "Awaiting mode...")
 }
 alias("$(P)MODE", "$(P)MODE:SP")
 alias("$(P)MODE", "$(P)MODE:SP:RBV")
 
-record(ai "$(P)ANGLE") {
-    field(VAL, "-1")
-}
-alias("$(P)ANGLE", "$(P)ANGLE:SP")
-alias("$(P)ANGLE", "$(P)ANGLE:SP:RBV")
-
 record(ai, "$(P)FREQ") {
+    field(PREC, "2")
+    field(EGU, "Hz")
     field(VAL, "-1")
 }
 alias("$(P)FREQ", "$(P)FREQ:SP")
 alias("$(P)FREQ", "$(P)FREQ:SP:RBV")
 
 record(ai, "$(P)CYCLE") {
+    field(EGU, "")
+    field(PREC, "0")
     field(VAL, "-1")
 }
 alias("$(P)CYCLE", "$(P)CYCLE:SP")
 alias("$(P)CYCLE", "$(P)CYCLE:SP:RBV")
 
 record(ai, "$(P)THREAD") {
+    field(EGU, "")
+    field(PREC, "0")
     field(VAL, "-1")
 }
 alias("$(P)THREAD", "$(P)THREAD:SP")
 alias("$(P)THREAD", "$(P)THREAD:SP:RBV")
+
+record(ai, "$(P)STEPS") {
+    field(EGU, "")
+    field(PREC, "0")
+    field(VAL, "-1")
+}
+alias("$(P)STEPS", "$(P)STEPS:SP")
+alias("$(P)STEPS", "$(P)STEPS:SP:RBV")
+
+record(ai, "$(P)RADIUS") {
+    field(EGU, "mm")
+    field(PREC, "2")
+    field(VAL, "-1")
+}
+alias("$(P)RADIUS", "$(P)RADIUS:SP")
+alias("$(P)RADIUS", "$(P)RADIUS:SP:RBV")
+
+record(ai, "$(P)ANGLE") {
+    field(EGU, "deg")
+    field(PREC, "2")
+    field(VAL, "-1")
+}
+alias("$(P)ANGLE", "$(P)ANGLE:SP")
+alias("$(P)ANGLE", "$(P)ANGLE:SP:RBV")
