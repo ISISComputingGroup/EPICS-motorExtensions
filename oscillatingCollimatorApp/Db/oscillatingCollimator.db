@@ -7,70 +7,93 @@
 #    P - base name for ioc
 #    MTR - Target motor
 
-record(bo, "$(P)START:SP") {
+record(bo, "$(P)$(O):START:SP") {
 }
 
-record(bo, "$(P)STOP:SP") {
+record(bo, "$(P)$(O):STOP:SP") {
 }
 
-record(ai, "$(P)POS") {
+record(calcout, "$(P)$(O):POS:_CALC") {
+	field(SCAN, "1 second")
+	field(INPA, "$(P)$(M).RBV")
+	field(INPB, "$(P)$(O):RADIUS")
+	field(CALC, "R2D*ATAN(A/B)")
+	field(OUT, "$(P)$(O):POS PP")	
+	field(OOPT, "Every Time")
+}
+
+record(ai, "$(P)$(O):POS") {
+    field(PREC, "2")
+    field(EGU, "deg")
+}
+
+record(ai, "$(P)$(O):POS:SP") {
     field(PREC, "2")
     field(EGU, "deg")
     field(VAL, "-1")
+	field(FLNK, "$(P)$(O):POS:SP:_CALC")
 }
-alias("$(P)POS", "$(P)POS:SP")
-alias("$(P)POS", "$(P)POS:SP:RBV")
 
-record(stringin, "$(P)MODE") {
+record(calcout, "$(P)$(O):POS:SP:_CALC") {
+	field(INPA, "$(P)$(O):POS:SP")
+	field(INPB, "$(P)$(O):RADIUS")
+	field(CALC, "B*TAN(A/R2D)")
+	field(OUT, "(P)$(M).VAL PP")
+	field(OOPT, "Every Time")
+}
+
+alias("$(P)$(O):POS:SP", "$(P)$(O):POS:SP:RBV")
+
+record(stringin, "$(P)$(O):MODE") {
     field(VAL, "Awaiting mode...")
 }
-alias("$(P)MODE", "$(P)MODE:SP")
-alias("$(P)MODE", "$(P)MODE:SP:RBV")
+alias("$(P)$(O):MODE", "$(P)$(O):MODE:SP")
+alias("$(P)$(O):MODE", "$(P)$(O):MODE:SP:RBV")
 
-record(ai, "$(P)FREQ") {
+record(ai, "$(P)$(O):FREQ") {
     field(PREC, "2")
     field(EGU, "Hz")
     field(VAL, "-1")
 }
-alias("$(P)FREQ", "$(P)FREQ:SP")
-alias("$(P)FREQ", "$(P)FREQ:SP:RBV")
+alias("$(P)$(O):FREQ", "$(P)$(O):FREQ:SP")
+alias("$(P)$(O):FREQ", "$(P)$(O):FREQ:SP:RBV")
 
-record(ai, "$(P)CYCLE") {
+record(ai, "$(P)$(O):CYCLE") {
     field(EGU, "")
     field(PREC, "0")
     field(VAL, "-1")
 }
-alias("$(P)CYCLE", "$(P)CYCLE:SP")
-alias("$(P)CYCLE", "$(P)CYCLE:SP:RBV")
+alias("$(P)$(O):CYCLE", "$(P)$(O):CYCLE:SP")
+alias("$(P)$(O):CYCLE", "$(P)$(O):CYCLE:SP:RBV")
 
-record(ai, "$(P)THREAD") {
+record(ai, "$(P)$(O):THREAD") {
     field(EGU, "")
     field(PREC, "0")
     field(VAL, "-1")
 }
-alias("$(P)THREAD", "$(P)THREAD:SP")
-alias("$(P)THREAD", "$(P)THREAD:SP:RBV")
+alias("$(P)$(O):THREAD", "$(P)$(O):THREAD:SP")
+alias("$(P)$(O):THREAD", "$(P)$(O):THREAD:SP:RBV")
 
-record(ai, "$(P)STEPS") {
+record(ai, "$(P)$(O):STEPS") {
     field(EGU, "")
     field(PREC, "0")
     field(VAL, "-1")
 }
-alias("$(P)STEPS", "$(P)STEPS:SP")
-alias("$(P)STEPS", "$(P)STEPS:SP:RBV")
+alias("$(P)$(O):STEPS", "$(P)$(O):STEPS:SP")
+alias("$(P)$(O):STEPS", "$(P)$(O):STEPS:SP:RBV")
 
-record(ai, "$(P)RADIUS") {
+record(ai, "$(P)$(O):RADIUS") {
     field(EGU, "mm")
     field(PREC, "2")
     field(VAL, "-1")
 }
-alias("$(P)RADIUS", "$(P)RADIUS:SP")
-alias("$(P)RADIUS", "$(P)RADIUS:SP:RBV")
+alias("$(P)$(O):RADIUS", "$(P)$(O):RADIUS:SP")
+alias("$(P)$(O):RADIUS", "$(P)$(O):RADIUS:SP:RBV")
 
-record(ai, "$(P)ANGLE") {
+record(ai, "$(P)$(O):ANGLE") {
     field(EGU, "deg")
     field(PREC, "2")
     field(VAL, "-1")
 }
-alias("$(P)ANGLE", "$(P)ANGLE:SP")
-alias("$(P)ANGLE", "$(P)ANGLE:SP:RBV")
+alias("$(P)$(O):ANGLE", "$(P)$(O):ANGLE:SP")
+alias("$(P)$(O):ANGLE", "$(P)$(O):ANGLE:SP:RBV")
