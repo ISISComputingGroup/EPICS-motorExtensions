@@ -87,6 +87,7 @@ record(ai, "$(P)$(O):RADIUS") {
     field(EGU, "mm")
     field(PREC, "2")
     field(VAL, "-1")
+	field(FLNK, "$(P)$(O):ANGLE:_TRIG")
 }
 alias("$(P)$(O):RADIUS", "$(P)$(O):RADIUS:SP")
 alias("$(P)$(O):RADIUS", "$(P)$(O):RADIUS:SP:RBV")
@@ -119,59 +120,120 @@ record(ai, "$(P)$(O):THREAD") {
 alias("$(P)$(O):THREAD", "$(P)$(O):THREAD:SP")
 alias("$(P)$(O):THREAD", "$(P)$(O):THREAD:SP:RBV")
 
-record(ai, "$(P)$(O):ANGLE") {
+# Swept angle
+
+record(ao, "$(P)$(O):ANGLE:SP") {
     field(EGU, "deg")
     field(PREC, "2")
-    field(VAL, "-1")
-}
-alias("$(P)$(O):ANGLE", "$(P)$(O):ANGLE:SP")
-alias("$(P)$(O):ANGLE", "$(P)$(O):ANGLE:SP:RBV")
-
-record(ao, "$(P)$(O):A:SP") {
-	field(VAL, "49152")
+    field(VAL, "0")
+	field(PINI, "YES")
+	field(FLNK, "$(P)$(O):ANGLE:_TRIG")
 }
 
-# Variables set directly in the Galil program
-
-record(ao, "$(P)$(O):VEL:SP") {
-	field(VAL, "1")
-}
-record(ao, "$(P)$(O):ACC:SP") {
-	field(VAL, "49152")
+record(fanout, "$(P)$(O):ANGLE:_TRIG") {
+	field(LNK1, "$(P)$(O):DIST:PART")
 }
 
-record(ao, "$(P)$(O):DIST:SP") {
-	field(VAL, "1")
+record(calc, "$(P)$(O):DIST:PART") {
+	field(INPA, "$(P)$(O):RADIUS")
+	field(INPB, "$(P)$(O):STEPS")
+	field(INPC, "$(P)$(O):ANGLE:SP")
+	field(CALC, "2*A*B*TAN(C*D2R)")
+	field(FLNK, "$(P)$(O):CYCLE:TIME:HALF")
+    field(EGU, "steps")
+    field(PREC, "0")
 }
 
-# Readback for the set variables
-
-record(ao, "$(P)$(O):VEL") {
-	field(VAL, "1")
+record(calc, "$(P)$(O):CYCLE:TIME:HALF") {
+	field(INPA, "$(P)$(O):FREQ")
+	field(CALC, "1/(2*A)")
+	field(FLNK, "$(P)$(O):ACC")
+    field(EGU, "s")
+    field(PREC, "2")
 }
+
 record(ao, "$(P)$(O):ACC") {
 	field(VAL, "49152")
+	field(FLNK, "$(P)$(O):VEL")
+    field(EGU, "steps/s/s")
+    field(PREC, "0")
 }
 
-record(ao, "$(P)$(O):DIST") {
-	field(VAL, "1")
+record(calc, "$(P)$(O):VEL") {
+	field(INPA, "$(P)$(O):ACC")
+	field(INPB, "$(P)$(O):DIST:PART")
+	field(INPC, "$(P)$(O):CYCLE:TIME:HALF")
+	field(CALC, "A*(C-SQR(C*C-8*B/A))/4")
+	field(FLNK, "$(P)$(O):TIME:ACC")
+    field(EGU, "steps/s")
+    field(PREC, "0")
 }
+
+record(calc, "$(P)$(O):TIME:ACC") {
+	field(INPA, "$(P)$(O):ACC")
+	field(INPB, "$(P)$(O):VEL")
+	field(CALC, "B/A")
+	field(FLNK, "$(P)$(O):TIME:VEL")
+    field(EGU, "s")
+    field(PREC, "2")
+}
+
+record(calc, "$(P)$(O):TIME:VEL") {
+	field(INPA, "$(P)$(O):DIST:PART")
+	field(INPB, "$(P)$(O):VEL")
+	field(CALC, "A/B")
+	field(FLNK, "$(P)$(O):TIME:TOTAL")
+    field(EGU, "s")
+    field(PREC, "2")
+}
+
+record(calc, "$(P)$(O):TIME:TOTAL") {
+	field(INPA, "$(P)$(O):TIME:ACC")
+	field(INPB, "$(P)$(O):TIME:VEL")
+	field(CALC, "2*A+B")
+	field(FLNK, "$(P)$(O):DIST:VEL")
+    field(EGU, "s")
+    field(PREC, "2")
+}
+
+record(calc, "$(P)$(O):DIST:VEL") {
+	field(INPA, "$(P)$(O):ACC")
+	field(INPB, "$(P)$(O):VEL")
+	field(CALC, "B*B/A")
+	field(FLNK, "$(P)$(O):DIST:TOTAL")
+    field(EGU, "steps")
+    field(PREC, "2")
+}
+
+record(calc, "$(P)$(O):DIST:TOTAL") {
+	field(INPA, "$(P)$(O):DIST:VEL")
+	field(INPB, "$(P)$(O):DIST:PART")
+	field(CALC, "2*A+B")
+    field(EGU, "steps")
+    field(PREC, "2")
+}
+
+alias("$(P)$(O):ANGLE:SP", "$(P)$(O):ANGLE")
+alias("$(P)$(O):ANGLE:SP", "$(P)$(O):ANGLE:SP:RBV")
 
 # Variables read directly from the Galil program
 
 record(ai, "$(P)$(O):TIME") {
+	field(SCAN, "1 second")
 	field(VAL, "10")
 	field(PINI, "YES")
 	field(FLNK, "$(P)$(O):FREQ:_CALC")
 }
 
 record(ai, "$(P)$(O):MODE:_READ") {
+	field(SCAN, "1 second")
 	field(VAL, "1")
 	field(PINI, "YES")
 	field(FLNK, "$(P)$(O):MODE")
 }
 
 record(ai, "$(P)$(O):COUNT:_READ") {
+	field(SCAN, "1 second")
 	field(VAL, "9999")
 	field(PINI, "YES")
 	field(FLNK, "$(P)$(O):CYCLE")
