@@ -133,7 +133,7 @@ record(calc, "$(P)$(O):DIST:PART:SP") {
 	field(INPC, "$(P)$(O):ANGLE:SP")
 	field(CALC, "2*A*B*TAN(C*D2R)")
 	field(FLNK, "$(P)$(O):CYCLE:TIME:HALF:SP")
-    field(EGU, "steps")
+    field(EGU, "stp")
     field(PREC, "0")
 }
 
@@ -148,7 +148,7 @@ record(calc, "$(P)$(O):CYCLE:TIME:HALF:SP") {
 record(ao, "$(P)$(O):ACC:SP") {
 	field(VAL, "49152")
 	field(FLNK, "$(P)$(O):VEL:SP:DISC")
-    field(EGU, "steps/s^2")
+    field(EGU, "stp/s^2")
     field(PREC, "0")
 }
 
@@ -171,7 +171,7 @@ record(calc, "$(P)$(O):VEL:SP") {
 	field(INPD, "$(P)$(O):VEL:SP:DISC MS")
 	field(CALC, "A*(C-SQR(MAX(D,0)))/4")
 	field(FLNK, "$(P)$(O):TIME:ACC:SP")
-    field(EGU, "steps/s")
+    field(EGU, "stp/s")
     field(PREC, "0")
 }
 
@@ -207,7 +207,7 @@ record(calc, "$(P)$(O):DIST:VEL:SP") {
 	field(INPB, "$(P)$(O):VEL:SP MS")
 	field(CALC, "B*B/A")
 	field(FLNK, "$(P)$(O):DIST:SP")
-    field(EGU, "steps")
+    field(EGU, "stp")
     field(PREC, "2")
 }
 
@@ -215,7 +215,7 @@ record(calc, "$(P)$(O):DIST:SP") {
 	field(INPA, "$(P)$(O):DIST:VEL:SP MS")
 	field(INPB, "$(P)$(O):DIST:PART:SP")
 	field(CALC, "2*A+B")
-    field(EGU, "steps")
+    field(EGU, "stp")
     field(PREC, "2")
 }
 
@@ -238,7 +238,7 @@ record(fanout, "$(P)$(O):ANGLE:INV:_TRIG") {
 }
 
 record(calc, "$(P)$(O):DIST:VEL") {
-    field(EGU, "steps")
+    field(EGU, "stp")
     field(PREC, "0")
 	field(INPA, "$(P)$(O):ACC")
 	field(INPB, "$(P)$(O):VEL")
@@ -247,7 +247,7 @@ record(calc, "$(P)$(O):DIST:VEL") {
 }
 
 record(calc, "$(P)$(O):DIST:PART") {
-    field(EGU, "steps")
+    field(EGU, "stp")
     field(PREC, "0")
 	field(INPA, "$(P)$(O):DIST")
 	field(INPB, "$(P)$(O):DIST:VEL")
