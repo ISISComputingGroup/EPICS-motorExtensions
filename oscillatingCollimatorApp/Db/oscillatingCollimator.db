@@ -62,8 +62,6 @@ alias("$(P)$(O):MODE", "$(P)$(O):MODE:SP:RBV")
 # Frequency
 
 record(ai, "$(P)$(O):FREQ:SP") {
-	field(PINI, "YES")
-	field(VAL, "0.1")
     field(PREC, "2")
     field(EGU, "Hz")
 	field(FLNK, "$(P)$(O):ANGLE:_TRIG")
@@ -84,7 +82,6 @@ record(ai, "$(P)$(O):CYCLE") {
 record(ai, "$(P)$(O):RADIUS:SP") {
     field(EGU, "mm")
     field(PREC, "2")
-    field(VAL, "10")
 	field(FLNK, "$(P)$(O):ANGLE:_TRIG")
 }
 alias("$(P)$(O):RADIUS:SP", "$(P)$(O):RADIUS")
@@ -121,8 +118,6 @@ alias("$(P)$(O):THREAD", "$(P)$(O):THREAD:SP:RBV")
 record(ao, "$(P)$(O):ANGLE:SP") {
     field(EGU, "deg")
     field(PREC, "2")
-    field(VAL, "1")
-	field(PINI, "YES")
 	field(FLNK, "$(P)$(O):ANGLE:_TRIG")
 }
 
@@ -152,8 +147,20 @@ record(calc, "$(P)$(O):CYCLE:TIME:HALF:SP") {
 
 record(ao, "$(P)$(O):ACC:SP") {
 	field(VAL, "49152")
+	field(FLNK, "$(P)$(O):VEL:SP:DISC")
+    field(EGU, "steps/s^2")
+    field(PREC, "0")
+}
+
+record(calc, "$(P)$(O):VEL:SP:DISC") {
+	field(INPA, "$(P)$(O):ACC:SP")
+	field(INPB, "$(P)$(O):DIST:PART:SP")
+	field(INPC, "$(P)$(O):CYCLE:TIME:HALF:SP")
+	field(CALC, "C*C-8*B/A")
+	field(LOW, "0")
+	field(LSV, "MAJOR")
 	field(FLNK, "$(P)$(O):VEL:SP")
-    field(EGU, "steps/s/s")
+    field(EGU, "")
     field(PREC, "0")
 }
 
@@ -161,7 +168,8 @@ record(calc, "$(P)$(O):VEL:SP") {
 	field(INPA, "$(P)$(O):ACC:SP")
 	field(INPB, "$(P)$(O):DIST:PART:SP")
 	field(INPC, "$(P)$(O):CYCLE:TIME:HALF:SP")
-	field(CALC, "A*(C-SQR(C*C-8*B/A))/4")
+	field(INPD, "$(P)$(O):VEL:SP:DISC MS")
+	field(CALC, "A*(C-SQR(MAX(D,0)))/4")
 	field(FLNK, "$(P)$(O):TIME:ACC:SP")
     field(EGU, "steps/s")
     field(PREC, "0")
@@ -169,7 +177,7 @@ record(calc, "$(P)$(O):VEL:SP") {
 
 record(calc, "$(P)$(O):TIME:ACC:SP") {
 	field(INPA, "$(P)$(O):ACC:SP")
-	field(INPB, "$(P)$(O):VEL:SP")
+	field(INPB, "$(P)$(O):VEL:SP MS")
 	field(CALC, "B/A")
 	field(FLNK, "$(P)$(O):TIME:VEL:SP")
     field(EGU, "s")
@@ -178,7 +186,7 @@ record(calc, "$(P)$(O):TIME:ACC:SP") {
 
 record(calc, "$(P)$(O):TIME:VEL:SP") {
 	field(INPA, "$(P)$(O):DIST:PART:SP")
-	field(INPB, "$(P)$(O):VEL:SP")
+	field(INPB, "$(P)$(O):VEL:SP MS")
 	field(CALC, "A/B")
 	field(FLNK, "$(P)$(O):TIME:TOTAL:SP")
     field(EGU, "s")
@@ -186,8 +194,8 @@ record(calc, "$(P)$(O):TIME:VEL:SP") {
 }
 
 record(calc, "$(P)$(O):TIME:TOTAL:SP") {
-	field(INPA, "$(P)$(O):TIME:ACC:SP")
-	field(INPB, "$(P)$(O):TIME:VEL:SP")
+	field(INPA, "$(P)$(O):TIME:ACC:SP MS")
+	field(INPB, "$(P)$(O):TIME:VEL:SP MS")
 	field(CALC, "2*A+B")
 	field(FLNK, "$(P)$(O):DIST:VEL:SP")
     field(EGU, "s")
@@ -196,7 +204,7 @@ record(calc, "$(P)$(O):TIME:TOTAL:SP") {
 
 record(calc, "$(P)$(O):DIST:VEL:SP") {
 	field(INPA, "$(P)$(O):ACC:SP")
-	field(INPB, "$(P)$(O):VEL:SP")
+	field(INPB, "$(P)$(O):VEL:SP MS")
 	field(CALC, "B*B/A")
 	field(FLNK, "$(P)$(O):DIST:SP")
     field(EGU, "steps")
@@ -204,7 +212,7 @@ record(calc, "$(P)$(O):DIST:VEL:SP") {
 }
 
 record(calc, "$(P)$(O):DIST:SP") {
-	field(INPA, "$(P)$(O):DIST:VEL:SP")
+	field(INPA, "$(P)$(O):DIST:VEL:SP MS")
 	field(INPB, "$(P)$(O):DIST:PART:SP")
 	field(CALC, "2*A+B")
     field(EGU, "steps")
