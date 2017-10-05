@@ -86,7 +86,7 @@ record(ai,"$(P)$(O):TIME") {
 record(calcout, "$(P)$(O):FREQ:_CALC") {
     field(PREC, "2")
     field(EGU, "Hz")
-    field(INPA, "$(P)$(O):TIME:_READ")
+    field(INPA, "$(P)$(O):TIME")
 	field(CALC, "1/A")
 	field(OUT, "$(P)$(O):FREQ PP")
 }
@@ -250,65 +250,6 @@ record(calcout, "$(P)$(O):DIST:SP:_CALC") {
     field(EGU, "stp")
     field(PREC, "2")
 }
-
-# The fields set by the calculations
-
-record(ao,"$(P)$(O):VEL:SP") {
-	field(DESC, "Velocity setpoint")
-	field(DTYP, "asynFloat64")	
-	field(EGU, "stp/s")
-	field(PREC, "2")
-	field(PINI,"YES")
-	field(OUT, "@asyn(Galil,0)USER_VAR vel")
-}
-
-record(ao,"$(P)$(O):ACC:SP") {
-	field(DESC, "Acceleration setpoint")
-	field(VAL, "49152")
-	field(DTYP, "asynFloat64")	
-	field(EGU, "stp/s^2")
-	field(PREC, "2")
-	field(PINI,"YES")
-	field(OUT, "@asyn(Galil,0)USER_VAR accel")
-}
-
-record(ao,"$(P)$(O):DIST:SP") {
-	field(DESC, "Total swept distance setpoint")
-	field(DTYP, "asynFloat64")	
-	field(EGU, "stp")
-	field(PREC, "2")
-	field(PINI,"YES")
-	field(OUT, "@asyn(Galil,0)USER_VAR dist")
-}
-
-# Recover the variables set in the Galil
-
-record(ai,"$(P)$(O):VEL") {
-	field(DESC,"Velocity")
-	field(SCAN,"1 second")
-	field(DTYP,"asynFloat64")
-	field(INP, "@asyn(Galil,0)USER_VAR vel")
-    field(EGU, "stp/s")
-    field(PREC, "2")
-}
-	
-record(ai,"$(P)$(O):ACC") {
-	field(DESC,"Acceleration")
-	field(SCAN,"1 second")
-	field(DTYP,"asynFloat64")
-	field(INP, "@asyn(Galil,0)USER_VAR accel")
-    field(EGU, "stp/s^2")
-    field(PREC, "2")
-}
-	
-record(ai,"$(P)$(O):DIST") {
-	field(DESC,"Total swept distance")
-	field(SCAN,"1 second")
-	field(DTYP,"asynFloat64")
-	field(INP, "@asyn(Galil,0)USER_VAR dist")
-    field(EGU, "stp")
-    field(PREC, "2")
-}
 	
 # Calculate the actual swept distance
 
@@ -360,4 +301,66 @@ record(calc, "$(P)$(O):FREQ:SP:RBV") {
     field(PREC, "2")
 	field(INPA, "$(P)$(O):CYCLE:TIME:HALF")
 	field(CALC, "1/(2*A)")
+}
+
+# The fields set by the calculations
+
+record(ao,"$(P)$(O):VEL:SP") {
+	field(DESC, "Velocity setpoint")
+	field(DTYP, "asynFloat64")	
+	field(EGU, "stp/s")
+	field(PREC, "2")
+	field(PINI,"YES")
+	field(OUT, "@asyn(Galil,0)USER_VAR vel")
+}
+
+record(ao,"$(P)$(O):ACC:SP") {
+	field(DESC, "Acceleration setpoint")
+	field(VAL, "49152")
+	field(DTYP, "asynFloat64")	
+	field(EGU, "stp/s^2")
+	field(PREC, "2")
+	field(PINI,"YES")
+	field(OUT, "@asyn(Galil,0)USER_VAR accel")
+}
+
+record(ao,"$(P)$(O):DIST:SP") {
+	field(DESC, "Total swept distance setpoint")
+	field(DTYP, "asynFloat64")	
+	field(EGU, "stp")
+	field(PREC, "2")
+	field(PINI,"YES")
+	field(OUT, "@asyn(Galil,0)USER_VAR dist")
+}
+
+# Recover the variables set in the Galil
+
+record(ai,"$(P)$(O):VEL") {
+	field(DESC,"Velocity")
+	field(SCAN,"1 second")
+	field(DTYP,"asynFloat64")
+	field(INP, "@asyn(Galil,0)USER_VAR vel")
+    field(EGU, "stp/s")
+    field(PREC, "2")
+	field(PINI,"YES")
+}
+	
+record(ai,"$(P)$(O):ACC") {
+	field(DESC,"Acceleration")
+	field(SCAN,"1 second")
+	field(DTYP,"asynFloat64")
+	field(INP, "@asyn(Galil,0)USER_VAR accel")
+    field(EGU, "stp/s^2")
+    field(PREC, "2")
+	field(PINI,"YES")
+}
+	
+record(ai,"$(P)$(O):DIST") {
+	field(DESC,"Total swept distance")
+	field(SCAN,"1 second")
+	field(DTYP,"asynFloat64")
+	field(INP, "@asyn(Galil,0)USER_VAR dist")
+    field(EGU, "stp")
+    field(PREC, "2")
+	field(PINI,"YES")
 }
