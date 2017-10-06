@@ -119,7 +119,6 @@ alias("$(P)$(O):POS:SP", "$(P)$(O):POS:SP:RBV")
 record(ai, "$(P)$(O):MODE:_READ") {
 	field(SCAN,"1 second")
 	field(DTYP,"asynFloat64")
-	field(PINI,"YES")
 	field(EGU, "")
 	field(FLNK,"$(P)$(O):MODE")
 	field(INP, "@asyn(Galil,0)USER_VAR mode")
@@ -138,7 +137,6 @@ record(mbbi, "$(P)$(O):MODE") {
 record(ai, "$(P)$(O):FREQ:SP") {
     field(PREC, "2")
     field(EGU, "Hz")
-	field(VAL, 1)
 	field(FLNK, "$(P)$(O):ANGLE:_TRIG")
 }
 
@@ -179,7 +177,6 @@ record(ai,"$(P)$(O):CYCLE") {
 record(ai, "$(P)$(O):RADIUS:SP") {
     field(EGU, "mm")
     field(PREC, "2")
-	field(VAL, 1)
 	field(FLNK, "$(P)$(O):ANGLE:_TRIG")
 }
 alias("$(P)$(O):RADIUS:SP", "$(P)$(O):RADIUS")
@@ -214,7 +211,6 @@ alias("$(P)$(O):THREAD", "$(P)$(O):THREAD:SP:RBV")
 record(ao, "$(P)$(O):ANGLE:SP") {
     field(EGU, "deg")
     field(PREC, "2")
-	field(VAL, 1)
 	field(FLNK, "$(P)$(O):ANGLE:_TRIG")
 }
 alias("$(P)$(O):ANGLE:SP", "$(P)$(O):ANGLE:SP:RBV")
@@ -253,9 +249,7 @@ record(calc, "$(P)$(O):VEL:SP:DISC") {
 	field(INPA, "$(P)$(O):ACC:SP")
 	field(INPB, "$(P)$(O):DIST:PART:SP")
 	field(INPC, "$(P)$(O):CYCLE:TIME:HALF:SP")
-	field(CALC, "C*C-8*B/A")
-	field(LOW, "0")
-	field(LSV, "MAJOR")
+	field(CALC, "C*C-8*B/A<0")
     field(EGU, "")
     field(PREC, "0")
 	field(FLNK, "$(P)$(O):VEL:SP:_CALC")
@@ -265,8 +259,8 @@ record(calcout, "$(P)$(O):VEL:SP:_CALC") {
 	field(INPA, "$(P)$(O):ACC:SP")
 	field(INPB, "$(P)$(O):DIST:PART:SP")
 	field(INPC, "$(P)$(O):CYCLE:TIME:HALF:SP")
-	field(INPD, "$(P)$(O):VEL:SP:DISC MS")
-	field(CALC, "A*(C-SQR(MAX(D,0)))/4")
+	field(INPD, "$(P)$(O):VEL:SP:DISC")
+	field(CALC, "A*(C-SQR(C*C-8*B/A))/4")
 	field(OUT, "$(P)$(O):VEL:SP PP")
     field(EGU, "stp/s")
     field(PREC, "0")
@@ -275,7 +269,7 @@ record(calcout, "$(P)$(O):VEL:SP:_CALC") {
 
 record(calc, "$(P)$(O):TIME:ACC:SP") {
 	field(INPA, "$(P)$(O):ACC:SP")
-	field(INPB, "$(P)$(O):VEL:SP MS")
+	field(INPB, "$(P)$(O):VEL:SP")
 	field(CALC, "B/A")
     field(EGU, "s")
     field(PREC, "2")
@@ -284,7 +278,7 @@ record(calc, "$(P)$(O):TIME:ACC:SP") {
 
 record(calc, "$(P)$(O):TIME:VEL:SP") {
 	field(INPA, "$(P)$(O):DIST:PART:SP")
-	field(INPB, "$(P)$(O):VEL:SP MS")
+	field(INPB, "$(P)$(O):VEL:SP")
 	field(CALC, "A/B")
     field(EGU, "s")
     field(PREC, "2")
@@ -292,8 +286,8 @@ record(calc, "$(P)$(O):TIME:VEL:SP") {
 }
 
 record(calc, "$(P)$(O):TIME:TOTAL:SP") {
-	field(INPA, "$(P)$(O):TIME:ACC:SP MS")
-	field(INPB, "$(P)$(O):TIME:VEL:SP MS")
+	field(INPA, "$(P)$(O):TIME:ACC:SP")
+	field(INPB, "$(P)$(O):TIME:VEL:SP")
 	field(CALC, "2*A+B")
     field(EGU, "s")
     field(PREC, "2")
@@ -302,7 +296,7 @@ record(calc, "$(P)$(O):TIME:TOTAL:SP") {
 
 record(calc, "$(P)$(O):DIST:VEL:SP") {
 	field(INPA, "$(P)$(O):ACC:SP")
-	field(INPB, "$(P)$(O):VEL:SP MS")
+	field(INPB, "$(P)$(O):VEL:SP")
 	field(CALC, "B*B/A")
     field(EGU, "stp")
     field(PREC, "2")
@@ -310,7 +304,7 @@ record(calc, "$(P)$(O):DIST:VEL:SP") {
 }
 
 record(calcout, "$(P)$(O):DIST:SP:_CALC") {
-	field(INPA, "$(P)$(O):DIST:VEL:SP MS")
+	field(INPA, "$(P)$(O):DIST:VEL:SP")
 	field(INPB, "$(P)$(O):DIST:PART:SP")
 	field(CALC, "2*A+B")
 	field(OUT, "$(P)$(O):DIST:SP PP")
@@ -358,7 +352,7 @@ record(calc, "$(P)$(O):CYCLE:TIME:HALF") {
     field(PREC, "2")
 	field(INPA, "$(P)$(O):ACC")
 	field(INPB, "$(P)$(O):VEL")
-	field(INPC, "$(P)$(O):DIST")
+	field(INPC, "$(P)$(O):DIST:PART")
 	field(CALC, "2*B/A+C/B")
 	field(FLNK, "$(P)$(O):FREQ:SP:RBV")
 }
@@ -377,7 +371,6 @@ record(ao,"$(P)$(O):VEL:SP") {
 	field(DTYP, "asynFloat64")	
 	field(EGU, "stp/s")
 	field(PREC, "2")
-	field(PINI,"YES")
 	field(OUT, "@asyn(Galil,0)USER_VAR vel")
 }
 
@@ -387,7 +380,6 @@ record(ao,"$(P)$(O):ACC:SP") {
 	field(DTYP, "asynFloat64")	
 	field(EGU, "stp/s^2")
 	field(PREC, "2")
-	field(PINI,"YES")
 	field(OUT, "@asyn(Galil,0)USER_VAR accel")
 }
 
@@ -396,7 +388,6 @@ record(ao,"$(P)$(O):DIST:SP") {
 	field(DTYP, "asynFloat64")	
 	field(EGU, "stp")
 	field(PREC, "2")
-	field(PINI,"YES")
 	field(OUT, "@asyn(Galil,0)USER_VAR dist")
 }
 
@@ -409,7 +400,6 @@ record(ai,"$(P)$(O):VEL") {
 	field(INP, "@asyn(Galil,0)USER_VAR vel")
     field(EGU, "stp/s")
     field(PREC, "2")
-	field(PINI,"YES")
 }
 	
 record(ai,"$(P)$(O):ACC") {
@@ -419,7 +409,6 @@ record(ai,"$(P)$(O):ACC") {
 	field(INP, "@asyn(Galil,0)USER_VAR accel")
     field(EGU, "stp/s^2")
     field(PREC, "2")
-	field(PINI,"YES")
 }
 	
 record(ai,"$(P)$(O):DIST") {
@@ -429,5 +418,4 @@ record(ai,"$(P)$(O):DIST") {
 	field(INP, "@asyn(Galil,0)USER_VAR dist")
     field(EGU, "stp")
     field(PREC, "2")
-	field(PINI,"YES")
 }
