@@ -134,9 +134,11 @@ record(mbbi, "$(P)$(O):MODE") {
 
 # Frequency
 
-record(ai, "$(P)$(O):FREQ:SP") {
+record(ao, "$(P)$(O):FREQ:SP") {
     field(PREC, "2")
     field(EGU, "Hz")
+	field(DRVH, "0.5")
+	field(DRVL, "0")
 	field(FLNK, "$(P)$(O):ANGLE:_TRIG")
 }
 
@@ -174,9 +176,11 @@ record(ai,"$(P)$(O):CYCLE") {
 
 # Mounting radius
 
-record(ai, "$(P)$(O):RADIUS:SP") {
+record(ao, "$(P)$(O):RADIUS:SP") {
     field(EGU, "mm")
     field(PREC, "2")
+	field(DRVL, "0")
+	field(DRVH, "Inf")
 	field(FLNK, "$(P)$(O):ANGLE:_TRIG")
 }
 alias("$(P)$(O):RADIUS:SP", "$(P)$(O):RADIUS")
@@ -211,6 +215,8 @@ alias("$(P)$(O):THREAD", "$(P)$(O):THREAD:SP:RBV")
 record(ao, "$(P)$(O):ANGLE:SP") {
     field(EGU, "deg")
     field(PREC, "2")
+	field(DRVH, "2")
+	field(DRVL, "0")
 	field(FLNK, "$(P)$(O):ANGLE:_TRIG")
 }
 alias("$(P)$(O):ANGLE:SP", "$(P)$(O):ANGLE:SP:RBV")
@@ -249,7 +255,15 @@ record(calc, "$(P)$(O):VEL:SP:DISC") {
 	field(INPA, "$(P)$(O):ACC:SP")
 	field(INPB, "$(P)$(O):DIST:PART:SP")
 	field(INPC, "$(P)$(O):CYCLE:TIME:HALF:SP")
-	field(CALC, "C*C-8*B/A<0")
+	field(CALC, "C*C-8*B/A")
+    field(EGU, "s^2")
+    field(PREC, "2")
+	field(FLNK, "$(P)$(O):VEL:SP:DISC:CHECK")
+}
+
+record(calc, "$(P)$(O):VEL:SP:DISC:CHECK") {
+	field(INPA, "$(P)$(O):VEL:SP:DISC")
+	field(CALC, "A<0")
     field(EGU, "")
     field(PREC, "0")
 	field(FLNK, "$(P)$(O):VEL:SP:_CALC")
@@ -260,7 +274,7 @@ record(calcout, "$(P)$(O):VEL:SP:_CALC") {
 	field(INPB, "$(P)$(O):DIST:PART:SP")
 	field(INPC, "$(P)$(O):CYCLE:TIME:HALF:SP")
 	field(INPD, "$(P)$(O):VEL:SP:DISC")
-	field(CALC, "A*(C-SQR(C*C-8*B/A))/4")
+	field(CALC, "A*(C-SQR(D))/4")
 	field(OUT, "$(P)$(O):VEL:SP PP")
     field(EGU, "stp/s")
     field(PREC, "0")
@@ -297,7 +311,7 @@ record(calc, "$(P)$(O):TIME:TOTAL:SP") {
 record(calc, "$(P)$(O):DIST:VEL:SP") {
 	field(INPA, "$(P)$(O):ACC:SP")
 	field(INPB, "$(P)$(O):VEL:SP")
-	field(CALC, "B*B/A")
+	field(CALC, "B*B/(2*A)")
     field(EGU, "stp")
     field(PREC, "2")
 	field(FLNK, "$(P)$(O):DIST:SP:_CALC")
@@ -324,7 +338,7 @@ record(calc, "$(P)$(O):DIST:VEL") {
     field(PREC, "0")
 	field(INPA, "$(P)$(O):ACC")
 	field(INPB, "$(P)$(O):VEL")
-	field(CALC, "B*B/A")
+	field(CALC, "B*B/(2*A)")
 	field(FLNK, "$(P)$(O):DIST:PART")
 }
 
