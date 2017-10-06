@@ -1,0 +1,58 @@
+README
+------
+
+This folder contains several example settings files used to set up the radial osciallting collimator from LET. It contains two files:
+
+- galil1.cmd
+- oscillatingCollimator.cmd
+- motorExtensions.cmd
+
+To use the files, they should both be placed in the galil folder of the main settings directory (e.g. C:\Instrument\Settings\config\NDXINST\configurations\galil)
+
+-----------
+galil1.cmd
+-----------
+
+This file loads the control program onto the Galil. This is for galil using motor control number 1 (i.e. for motors with prefix IN:[INST]:MOT:MTR01*). You will need a similar galilN.cmd if using another controller.
+
+The 2nd argument of the GalilStartController method is functionally very important for the oscillating collimator. You may find that an instrument you're working on already has a galil1.cmd file so you can't just overwrite it. The argument takes the following form:
+
+"[Path(s) to header];[Path(s) to body];[Path(s) to footer]"
+
+Each of the paths list is a !-separated list (e.g. $(GALIL)/gmc/galil_Default_Footer.gmc!$(GALIL)/gmc/galil_Oscillating_Collimator.gmc). it is essential that the oscillating collimator program comes after the footer, as in the example, or it will be run as part of the homing routines or could cause homing on particular axes to fail. Not good!
+
+The body of the uploaded code in the example is a !-separated list with 8 entries of "$(GALIL)/gmc/galil_Home_Dummy_Do_Nothing.gmc". Each entry is for a different axis starting at A (01 in EPICS speak) through to H (08). Each of these entries describes the homing routine for the given axis. You should not overwrite these on an active instrument, except for the one corresponding to the oscillating collimator.
+
+Assuming you are modifying an instrument with an existing galil file, the homing routine for the oscillating collimator should be set to "$(GALIL)/gmc/galil_Home_Dummy_Do_Nothing.gmc". For example, if I have an instrument where the collimator is *MTR:MOT0105, I would 
+
+- replace the 5th entry in the list with "$(GALIL)/gmc/galil_Home_Dummy_Do_Nothing.gmc". 
+- add "!$(GALIL)/gmc/galil_Oscillating_Collimator.gmc" after the footer (note the exclamation mark).
+
+--------------------------
+oscillatingCollimator.cmd
+--------------------------
+
+There are 3 parameters in the header of this file:
+
+```
+epicsEnvSet "CONTROLLER_NUMBER" "1"
+epicsEnvSet "MOTOR_NUMBER" "3"
+epicsEnvSet "COLLIMATOR_PV_PREFIX" "OSCCOL"
+```
+
+Everything else is derived from them. These arguments should be changed depending on the instrument setup:
+
+- CONTROLLER_NUMBER: The controller the collimator is on
+- MOTOR_NUMBER: The axis number the motor is on
+
+For example, if the PV for the motor of the collimator is *MOT:MTR0406 then CONTROLLER_NUMBER should be set to 4 and MOTOR_NUMBER should be set to 6.
+
+- COLLIMATOR_PV_PREFIX: The name used for PVs associated with the oscillating collimator.
+
+--------------------
+motorExtensions.cmd
+--------------------
+
+Put this in the Galil directory with your other 2 files. It tells the IOC where to look for the oscillatingCollimator.cmd file.
+
+

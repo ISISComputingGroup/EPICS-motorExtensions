@@ -1,18 +1,84 @@
 # (LET) Radial oscillating collimator
-#
-#  Record that allows calculation of the XY position of a beamstop
-#  from w-theta coordinates. For more info see the wiki.
-#
-#  Macros:
-#    P - base name for ioc
-#    MTR - Target motor
 
 # Start/stop
 
 record(bo, "$(P)$(O):START:SP") {
+    field(DESC, "Start the code execution")
+    field(FLNK, "$(P)$(O):START:SEQ")
+}
+
+record(seq, "$(P)$(O):START:SEQ") {
+	field(DO1, "1")
+	field(LNK1, "$(P)$(O):AXIS:CMD.PROC")
+	
+	field(DO2, "1")
+	field(LNK2, "$(P)$(O):START:CMD.PROC")
+	field(DLY2, "3.0")
+	
+	field(SELM, "All")
+}
+
+record(mbbi, "$(P)$(O):AXIS") {
+	field(VAL, "$(AXIS)")
+	field(PINI, "YES")
+	field(ONST, "A")
+	field(TWST, "B")
+	field(THST, "C")
+	field(FRST, "D")
+	field(FVST, "E")
+}
+
+record(scalcout, "$(P)$(O):AXIS:CMD") {
+	field(DESC, "Set axis in GMC")
+	field(INAA, "$(P)$(O):AXIS")
+	field(BB, "~a=\"")
+	field(CC, "\"")
+	field(CALC, "BB+AA+CC")
+	field(OUT, "$(P)$(D):SEND_STR_CMD PP")
+}
+
+record(scalcout, "$(P)$(O):START:CMD") {
+	field(INAA, "$(P)$(O):THREAD")
+	field(BB, "XQ #HOMER,")
+	field(CALC, "BB+AA")
+	field(OUT, "$(P)$(D):SEND_STR_CMD PP")
+}
+
+record(scalcout, "$(P)$(O):START:CMD") {
+	field(INAA, "$(P)$(O):THREAD")
+	field(BB, "XQ #HOMER,")
+	field(CALC, "BB+AA")
+	field(OUT, "$(P)$(D):SEND_STR_CMD PP")
 }
 
 record(bo, "$(P)$(O):STOP:SP") {
+    field(DESC, "Stop the code execution")
+    field(FLNK, "$(P)$(O):STOP:SEQ")
+}
+
+record(seq, "$(P)$(O):STOP:SEQ") {
+	field(DO1, "0.5")
+	field(LNK1, "$(P)$(O):HALT:CMD.PROC")
+	field(DLY1, "1")
+	
+	field(DO2, "1")
+	field(LNK2, "$(P)$(O):STOP:CMD.PROC")
+	field(DLY2, "1")
+	
+	field(SELM, "All")
+}
+
+record(scalcout, "$(P)$(O):HALT:CMD") {
+	field(INAA, "$(P)$(O):THREAD")
+	field(BB, "HX ")
+	field(CALC, "BB+AA")
+	field(OUT, "$(P)$(D):SEND_STR_CMD PP")
+}
+
+record(scalcout, "$(P)$(O):STOP:CMD") {
+	field(BB, "ST")
+	field(CALC, "BB")
+	field(OUT, "$(P)$(D):SEND_STR_CMD PP")
 }
 
 # Motor position
@@ -72,6 +138,7 @@ record(mbbi, "$(P)$(O):MODE") {
 record(ai, "$(P)$(O):FREQ:SP") {
     field(PREC, "2")
     field(EGU, "Hz")
+	field(VAL, 1)
 	field(FLNK, "$(P)$(O):ANGLE:_TRIG")
 }
 
@@ -112,6 +179,7 @@ record(ai,"$(P)$(O):CYCLE") {
 record(ai, "$(P)$(O):RADIUS:SP") {
     field(EGU, "mm")
     field(PREC, "2")
+	field(VAL, 1)
 	field(FLNK, "$(P)$(O):ANGLE:_TRIG")
 }
 alias("$(P)$(O):RADIUS:SP", "$(P)$(O):RADIUS")
@@ -135,10 +203,8 @@ record(ai, "$(P)$(O):STEPS") {
 
 # Thread
 
-record(ai, "$(P)$(O):THREAD") {
-    field(EGU, "")
-    field(PREC, "0")
-    field(VAL, "1")
+record(stringin, "$(P)$(O):THREAD") {
+    field(VAL, "2")
 }
 alias("$(P)$(O):THREAD", "$(P)$(O):THREAD:SP")
 alias("$(P)$(O):THREAD", "$(P)$(O):THREAD:SP:RBV")
@@ -148,6 +214,7 @@ alias("$(P)$(O):THREAD", "$(P)$(O):THREAD:SP:RBV")
 record(ao, "$(P)$(O):ANGLE:SP") {
     field(EGU, "deg")
     field(PREC, "2")
+	field(VAL, 1)
 	field(FLNK, "$(P)$(O):ANGLE:_TRIG")
 }
 alias("$(P)$(O):ANGLE:SP", "$(P)$(O):ANGLE:SP:RBV")
