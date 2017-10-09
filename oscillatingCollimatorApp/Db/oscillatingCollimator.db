@@ -133,6 +133,7 @@ record(ao, "$(P)$(O):FREQ:SP") {
 record(ai,"$(P)$(O):TIME") {
 	field(DESC,"Time between oscillations")
 	field(SCAN,"1 second")
+    field(EGU, "ms")
 	field(DTYP,"asynFloat64")
 	field(INP, "@asyn(Galil,0)USER_VAR time")
 	field(FLNK, "$(P)$(O):FREQ:_CALC")
