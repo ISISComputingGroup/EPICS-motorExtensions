@@ -144,7 +144,7 @@ record(calcout, "$(P)$(O):FREQ:_CALC") {
     field(PREC, "2")
     field(EGU, "Hz")
     field(INPA, "$(P)$(O):TIME")
-	field(CALC, "1/A")
+	field(CALC, "1000/A")
 	field(OUT, "$(P)$(O):FREQ PP")
 }
 
