@@ -81,9 +81,9 @@ record(scalcout, "$(P)$(O):STOP:CMD") {
 # Motor position
 
 record(calcout, "$(P)$(O):POS:_CALC") {
-	field(SCAN, "1 second")
+	field(SCAN, ".2 second")
 	field(INPA, "$(P)$(M).RBV")
-	field(INPB, "$(P)$(O):RADIUS:SP")
+	field(INPB, "$(P)$(O):RADIUS:SP:RBV")
 	field(CALC, "R2D*ATAN(A/B)")
 	field(OUT, "$(P)$(O):POS PP")	
 	field(OOPT, "Every Time")
@@ -124,7 +124,7 @@ record(ao, "$(P)$(O):FREQ:SP") {
     field(PREC, "2")
     field(EGU, "Hz")
 	field(DRVH, "0.5")
-	field(DRVL, "0")
+	field(DRVL, "0")	
 	field(FLNK, "$(P)$(O):ANGLE:_TRIG")
     info(INTEREST, "MEDIUM")
 	info(archive, "VAL")
@@ -173,17 +173,31 @@ record(ai,"$(P)$(O):CYCLE") {
 # Mounting radius
 
 record(ao, "$(P)$(O):RADIUS:SP") {
+    # This doesn't need to be stored on the device, but it is useful
+	# to retain the value on the hardware in case the IOC restarts
     field(DESC, "Mounting radius setpoint")
+	field(DTYP, "asynFloat64")	
     field(EGU, "mm")
     field(PREC, "2")
 	field(DRVL, "0")
 	field(DRVH, "Inf")
+	field(OUT, "@asyn(Galil,0)USER_VAR radius")
 	field(FLNK, "$(P)$(O):ANGLE:_TRIG")
     info(INTEREST, "MEDIUM")
 	info(archive, "VAL")
 }
-alias("$(P)$(O):RADIUS:SP", "$(P)$(O):RADIUS")
-alias("$(P)$(O):RADIUS:SP", "$(P)$(O):RADIUS:SP:RBV")
+
+record(ai,"$(P)$(O):RADIUS") {
+    field(DESC, "Mounting radius")
+	field(SCAN,"1 second")
+	field(DTYP,"asynFloat64")	
+    field(EGU, "mm")
+    field(PREC, "2")
+	field(INP, "@asyn(Galil,0)USER_VAR radius")
+    info(INTEREST, "HIGH")
+	info(archive, "VAL")
+}
+alias("$(P)$(O):RADIUS", "$(P)$(O):RADIUS:SP:RBV")
 
 # Motor steps
 
@@ -218,11 +232,21 @@ record(ao, "$(P)$(O):ANGLE:SP") {
     field(PREC, "2")
 	field(DRVH, "2")
 	field(DRVL, "0")
+	field(DTYP,"asynFloat64")	
+	field(OUT, "@asyn(Galil,0)USER_VAR angle")
 	field(FLNK, "$(P)$(O):ANGLE:_TRIG")
     info(INTEREST, "MEDIUM")
 	info(archive, "VAL")
 }
-alias("$(P)$(O):ANGLE:SP", "$(P)$(O):ANGLE:SP:RBV")
+
+record(ai,"$(P)$(O):ANGLE:SP:RBV") {
+    field(DESC, "Swept angle setpoint readback")
+	field(SCAN,"1 second")
+	field(DTYP,"asynFloat64")	
+    field(EGU, "deg")
+    field(PREC, "2")
+	field(INP, "@asyn(Galil,0)USER_VAR angle")
+}
 
 record(fanout, "$(P)$(O):ANGLE:_TRIG") {
 	field(LNK1, "$(P)$(O):DIST:PART:SP")
