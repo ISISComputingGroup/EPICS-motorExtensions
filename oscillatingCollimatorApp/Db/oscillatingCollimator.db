@@ -375,6 +375,7 @@ record(calc, "$(P)$(O):ANGLE") {
 	field(FLNK, "$(P)$(O):CYCLE:TIME:HALF")
     info(INTEREST, "HIGH")
 	info(archive, "VAL")
+    field(ASG, "READONLY")
 }
 
 record(calc, "$(P)$(O):CYCLE:TIME:HALF") {
