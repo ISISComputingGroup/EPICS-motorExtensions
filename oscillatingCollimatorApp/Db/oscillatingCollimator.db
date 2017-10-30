@@ -81,8 +81,7 @@ record(scalcout, "$(P)$(O):STOP:CMD") {
 # Motor position
 
 record(calcout, "$(P)$(O):POS:_CALC") {
-	field(SCAN, ".2 second")
-	field(INPA, "$(P)$(M).RBV")
+	field(INPA, "$(P)$(M).RBV CP")
 	field(INPB, "$(P)$(O):RADIUS:SP:RBV")
 	field(CALC, "R2D*ATAN(A/B)")
 	field(OUT, "$(P)$(O):POS PP")	
