@@ -126,6 +126,7 @@ record(ao, "$(P)$(O):FREQ:SP") {
 	field(FLNK, "$(P)$(O):ANGLE:_TRIG")
     info(INTEREST, "MEDIUM")
 	info(archive, "VAL")
+    info(autosaveFields, "VAL")
 }
 
 record(ai,"$(P)$(O):TIME") {
@@ -183,6 +184,7 @@ record(ao, "$(P)$(O):RADIUS:SP") {
 	field(FLNK, "$(P)$(O):ANGLE:_TRIG")
     info(INTEREST, "MEDIUM")
 	info(archive, "VAL")
+    info(autosaveFields, "VAL")
 }
 
 record(ai,"$(P)$(O):RADIUS") {
@@ -218,6 +220,7 @@ record(ai, "$(P)$(O):STEPS") {
 record(stringin, "$(P)$(O):THREAD") {
     field(DESC, "Thread col program will run on")
     field(VAL, "2")
+    info(autosaveFields, "VAL")
 }
 alias("$(P)$(O):THREAD", "$(P)$(O):THREAD:SP")
 alias("$(P)$(O):THREAD", "$(P)$(O):THREAD:SP:RBV")
@@ -235,6 +238,7 @@ record(ao, "$(P)$(O):ANGLE:SP") {
 	field(FLNK, "$(P)$(O):ANGLE:_TRIG")
     info(INTEREST, "MEDIUM")
 	info(archive, "VAL")
+    info(autosaveFields, "VAL")
 }
 
 record(ai,"$(P)$(O):ANGLE:SP:RBV") {
