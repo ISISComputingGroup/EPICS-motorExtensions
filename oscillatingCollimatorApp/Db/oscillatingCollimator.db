@@ -94,7 +94,6 @@ record(ai, "$(P)$(O):POS") {
     field(PREC, "2")
     field(EGU, "deg")
     info(INTEREST, "MEDIUM")
-	info(archive, "VAL")
 }
 
 # Operating mode
