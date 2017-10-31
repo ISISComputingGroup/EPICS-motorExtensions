@@ -22,7 +22,7 @@ record(seq, "$(P)$(O):START:SEQ") {
 }
 
 record(calcout, "$(P)$(O):DEADBAND") {
-    field(DESC, "Sets a large deadband on the underlying motor")
+    field(DESC, "Large deadband for underlying motor")
 	field(CALC, "99999")
 	field(OUT, "$(P)$(M).ADEL PP")
 }
