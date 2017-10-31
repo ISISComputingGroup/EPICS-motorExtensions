@@ -23,8 +23,8 @@ record(seq, "$(P)$(O):START:SEQ") {
 
 record(calcout, "$(P)$(O):DEADBAND") {
     field(DESC, "Sets a large deadband on the underlying motor")
-	field(VAL, "99999")
-	field(OUT, "$(P)$(M).ADEL")
+	field(CALC, "99999")
+	field(OUT, "$(P)$(M).ADEL PP")
 }
 
 record(mbbi, "$(P)$(O):AXIS") {
@@ -309,6 +309,7 @@ record(calc, "$(P)$(O):VEL:SP:DISC:CHECK") {
     field(EGU, "")
     field(PREC, "0")
 	field(FLNK, "$(P)$(O):VEL:SP:_CALC")
+    info(autosaveFields, "VAL")
 }
 
 record(calcout, "$(P)$(O):VEL:SP:_CALC") {
@@ -473,6 +474,7 @@ record(ai,"$(P)$(O):VEL") {
     field(PREC, "2")
     info(INTEREST, "HIGH")
 	info(archive, "VAL")
+    info(autosaveFields, "VAL")
 }
 	
 record(ai,"$(P)$(O):ACC") {
@@ -495,4 +497,5 @@ record(ai,"$(P)$(O):DIST") {
     field(PREC, "2")
     info(INTEREST, "HIGH")
 	info(archive, "VAL")
+    info(autosaveFields, "VAL")
 }
