@@ -442,6 +442,7 @@ record(ao,"$(P)$(O):VEL:SP") {
 	field(PREC, "2")
 	field(OUT, "@asyn(Galil,0)USER_VAR vel")
 	info(archive, "VAL")
+    info(autosaveFields, "VAL")
 }
 
 record(ao,"$(P)$(O):ACC:SP") {
@@ -461,6 +462,7 @@ record(ao,"$(P)$(O):DIST:SP") {
 	field(PREC, "2")
 	field(OUT, "@asyn(Galil,0)USER_VAR dist")
 	info(archive, "VAL")
+    info(autosaveFields, "VAL")
 }
 
 # Recover the variables set in the Galil
@@ -474,7 +476,6 @@ record(ai,"$(P)$(O):VEL") {
     field(PREC, "2")
     info(INTEREST, "HIGH")
 	info(archive, "VAL")
-    info(autosaveFields, "VAL")
 }
 	
 record(ai,"$(P)$(O):ACC") {
@@ -485,7 +486,6 @@ record(ai,"$(P)$(O):ACC") {
     field(EGU, "stp/s^2")
     field(PREC, "2")
     info(INTEREST, "HIGH")
-	info(archive, "VAL")
 }
 	
 record(ai,"$(P)$(O):DIST") {
@@ -497,5 +497,4 @@ record(ai,"$(P)$(O):DIST") {
     field(PREC, "2")
     info(INTEREST, "HIGH")
 	info(archive, "VAL")
-    info(autosaveFields, "VAL")
 }
