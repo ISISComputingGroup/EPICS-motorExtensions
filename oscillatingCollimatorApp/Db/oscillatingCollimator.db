@@ -244,7 +244,7 @@ record(ao, "$(P)$(O):ANGLE:SP") {
 	field(DRVL, "0")
 	field(DTYP,"asynFloat64")	
 	field(OUT, "@asyn(Galil,0)USER_VAR angle")
-	field(FLNK, "$(P)$(O):ANGLE:_TRIG")
+	field(FLNK, "$(P)$(O):DIST:PART:SP")
     info(INTEREST, "MEDIUM")
 	info(archive, "VAL")
     info(autosaveFields, "VAL")
@@ -257,10 +257,6 @@ record(ai,"$(P)$(O):ANGLE:SP:RBV") {
     field(EGU, "deg")
     field(PREC, "2")
 	field(INP, "@asyn(Galil,0)USER_VAR angle")
-}
-
-record(fanout, "$(P)$(O):ANGLE:_TRIG") {
-	field(LNK1, "$(P)$(O):DIST:PART:SP")
 }
 
 record(calc, "$(P)$(O):DIST:PART:SP") {
