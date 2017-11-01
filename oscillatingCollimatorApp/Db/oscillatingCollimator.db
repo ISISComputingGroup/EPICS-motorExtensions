@@ -1,5 +1,14 @@
 # (LET) Radial oscillating collimator
 
+record(bo, "$(P)$(O):SIM")
+{
+    field(SCAN, "Passive")
+    field(DTYP, "Soft Channel")
+    field(ZNAM, "NO")
+    field(ONAM, "YES")
+    field(VAL, "$(RECSIM=0)")
+}
+
 # Start/stop
 
 record(bo, "$(P)$(O):START:SP") {
@@ -190,10 +199,15 @@ record(ao, "$(P)$(O):RADIUS:SP") {
 	field(DRVL, "0")
 	field(DRVH, "Inf")
 	field(OUT, "@asyn(Galil,0)USER_VAR radius")
+    field(SIML, "$(P)$(O):SIM")
+    field(SIOL, "$(P)$(O):SIM:RADIUS:SP")
 	field(FLNK, "$(P)$(O):ANGLE:_TRIG")
     info(INTEREST, "MEDIUM")
 	info(archive, "VAL")
     info(autosaveFields, "VAL")
+}
+
+record(ao, "$(P)$(O):SIM:RADIUS:SP") {
 }
 
 record(ai,"$(P)$(O):RADIUS") {
@@ -244,10 +258,15 @@ record(ao, "$(P)$(O):ANGLE:SP") {
 	field(DRVL, "0")
 	field(DTYP,"asynFloat64")	
 	field(OUT, "@asyn(Galil,0)USER_VAR angle")
+    field(SIML, "$(P)$(O):SIM")
+    field(SIOL, "$(P)$(O):SIM:ANGLE:SP")
 	field(FLNK, "$(P)$(O):DIST:PART:SP")
     info(INTEREST, "MEDIUM")
 	info(archive, "VAL")
     info(autosaveFields, "VAL")
+}
+
+record(ao, "$(P)$(O):SIM:ANGLE:SP") {
 }
 
 record(ai,"$(P)$(O):ANGLE:SP:RBV") {
@@ -437,8 +456,13 @@ record(ao,"$(P)$(O):VEL:SP") {
 	field(EGU, "stp/s")
 	field(PREC, "2")
 	field(OUT, "@asyn(Galil,0)USER_VAR vel")
+    field(SIML, "$(P)$(O):SIM")
+    field(SIOL, "$(P)$(O):SIM:VEL:SP")
 	info(archive, "VAL")
     info(autosaveFields, "VAL")
+}
+
+record(ao, "$(P)$(O):SIM:VEL:SP") {
 }
 
 record(ao,"$(P)$(O):ACC:SP") {
@@ -448,7 +472,12 @@ record(ao,"$(P)$(O):ACC:SP") {
 	field(EGU, "stp/s^2")
 	field(PREC, "2")
 	field(OUT, "@asyn(Galil,0)USER_VAR accel")
+    field(SIML, "$(P)$(O):SIM")
+    field(SIOL, "$(P)$(O):SIM:ACC:SP")
 	info(archive, "VAL")
+}
+
+record(ao, "$(P)$(O):SIM:ACC:SP") {
 }
 
 record(ao,"$(P)$(O):DIST:SP") {
@@ -457,8 +486,13 @@ record(ao,"$(P)$(O):DIST:SP") {
 	field(EGU, "stp")
 	field(PREC, "2")
 	field(OUT, "@asyn(Galil,0)USER_VAR dist")
+    field(SIML, "$(P)$(O):SIM")
+    field(SIOL, "$(P)$(O):SIM:DIST:SP")
 	info(archive, "VAL")
     info(autosaveFields, "VAL")
+}
+
+record(ao, "$(P)$(O):SIM:DIST:SP") {
 }
 
 # Recover the variables set in the Galil
