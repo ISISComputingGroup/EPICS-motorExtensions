@@ -35,6 +35,7 @@ record(mbbi, "$(P)CHOPLIFT:STATUS") {
 
     field(ZRVL, "0")
     field(ZRST, "Unknown")
+	field(ZRSV, "MAJOR")
 	
 	field(ONVL, "1")
 	field(ONST, "Clamped in beam")
@@ -50,4 +51,5 @@ record(mbbi, "$(P)CHOPLIFT:STATUS") {
 	
 	field(FVVL, "5")
 	field(FVST, "Error")
+	field(FVSV, "MAJOR")
 }
