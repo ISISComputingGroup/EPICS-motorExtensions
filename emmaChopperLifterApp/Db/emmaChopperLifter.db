@@ -2,24 +2,36 @@
 #
 # Macros:
 #   P - The pv prefix.
-#   MTR - The motor that the chopper lifter uses.
+#   D - The controller being used e.g. DMC01, DMC02 etc.
 #
 
-record(scalcout, "$(P)LIFT:OUT") {
-    field(AA, "#Park")
-	field(OUT, "$(P)$(MTR):SEND_STR_CMD PP")
+record(bo, "$(P)CHOPLIFT:OUT") {
+    field(FLNK, "$(P)CHOPLIFT:OUT:RAW")
 }
 
-record(scalcout, "$(P)LIFT:IN") {
-    field(AA, "#Clamp")
-	field(OUT, "$(P)$(MTR):SEND_STR_CMD PP")
+record(stringout, "$(P)CHOPLIFT:OUT:RAW") {
+    field(VAL, "#Park")
+	field(OUT, "$(P)$(D):SEND_STR_CMD PP")
 }
 
-record(mbbi, "$(P)STATUS") {
+record(bo, "$(P)CHOPLIFT:IN") {
+    field(FLNK, "$(P)CHOPLIFT:IN:RAW")
+}
 
+record(stringout, "$(P)CHOPLIFT:IN:RAW") {
+    field(VAL, "#Clamp")
+	field(OUT, "$(P)$(D):SEND_STR_CMD PP")
+}
+
+record(ai, "$(P)CHOPLIFT:STATUS:RAW") {
     field(SCAN, "1 second")
-	field(DTYP,"asynInt32")
+	field(DTYP, "asynFloat64")
 	field(INP, "@asyn(Galil,0)USER_VAR status")
+}
+
+record(mbbi, "$(P)CHOPLIFT:STATUS") {
+
+    field(INP, "$(P)CHOPLIFT:STATUS:RAW CP MS")
 
     field(ZRVL, "0")
     field(ZRST, "Unknown")
