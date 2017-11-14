@@ -52,4 +52,7 @@ record(mbbi, "$(P)CHOPLIFT:STATUS") {
 	field(FVVL, "5")
 	field(FVST, "Error")
 	field(FVSV, "MAJOR")
+	
+	info(interest, "HIGH")
+	info(archive, "VAL")
 }
