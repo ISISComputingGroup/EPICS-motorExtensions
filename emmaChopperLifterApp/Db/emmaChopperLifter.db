@@ -10,7 +10,7 @@ record(bo, "$(P)CHOPLIFT:OUT") {
 }
 
 record(stringout, "$(P)CHOPLIFT:OUT:RAW") {
-    field(VAL, "#Park")
+    field(VAL, "XQ #Park,5")
 	field(OUT, "$(P)$(D):SEND_STR_CMD PP")
 }
 
@@ -19,7 +19,7 @@ record(bo, "$(P)CHOPLIFT:IN") {
 }
 
 record(stringout, "$(P)CHOPLIFT:IN:RAW") {
-    field(VAL, "#Clamp")
+    field(VAL, "XQ #Clamp,5")
 	field(OUT, "$(P)$(D):SEND_STR_CMD PP")
 }
 
