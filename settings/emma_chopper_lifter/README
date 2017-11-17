@@ -15,6 +15,6 @@ This file loads the control program onto the Galil. This is for galil using moto
 motorExtensions.cmd
 --------------------
 
-Put this in the Galil directory with your other 2 files. It tells the IOC where to look for the oscillatingCollimator.cmd file.
+Put this in the Galil directory with your other 2 files. It tells the IOC where to look for the emma_chopper_lifter.cmd file.
 
 
