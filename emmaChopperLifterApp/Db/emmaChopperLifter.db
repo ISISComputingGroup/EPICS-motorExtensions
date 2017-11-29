@@ -1,0 +1,58 @@
+# DB file for the EMMA fermi chopper lifter.
+#
+# Macros:
+#   P - The pv prefix.
+#   D - The controller being used e.g. DMC01, DMC02 etc.
+#
+
+record(bo, "$(P)CHOPLIFT:OUT") {
+    field(FLNK, "$(P)CHOPLIFT:OUT:RAW")
+}
+
+record(stringout, "$(P)CHOPLIFT:OUT:RAW") {
+    field(VAL, "XQ #Park,5")
+	field(OUT, "$(P)$(D):SEND_STR_CMD PP")
+}
+
+record(bo, "$(P)CHOPLIFT:IN") {
+    field(FLNK, "$(P)CHOPLIFT:IN:RAW")
+}
+
+record(stringout, "$(P)CHOPLIFT:IN:RAW") {
+    field(VAL, "XQ #Clamp,5")
+	field(OUT, "$(P)$(D):SEND_STR_CMD PP")
+}
+
+record(ai, "$(P)CHOPLIFT:STATUS:RAW") {
+    field(SCAN, "1 second")
+	field(DTYP, "asynFloat64")
+	field(INP, "@asyn(Galil,0)USER_VAR status")
+}
+
+record(mbbi, "$(P)CHOPLIFT:STATUS") {
+
+    field(INP, "$(P)CHOPLIFT:STATUS:RAW CP MS")
+
+    field(ZRVL, "0")
+    field(ZRST, "Unknown")
+	field(ZRSV, "MAJOR")
+	
+	field(ONVL, "1")
+	field(ONST, "Clamped in beam")
+	
+	field(TWVL, "2")
+	field(TWST, "Parked out of beam")
+	
+	field(THVL, "3")
+	field(THST, "Moving up")
+	
+	field(FRVL, "4")
+	field(FRST, "Moving down")
+	
+	field(FVVL, "5")
+	field(FVST, "Error")
+	field(FVSV, "MAJOR")
+	
+	info(interest, "HIGH")
+	info(archive, "VAL")
+}

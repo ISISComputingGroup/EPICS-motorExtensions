@@ -1,0 +1,20 @@
+README
+------
+
+This folder contains several example settings files used to set up the emma chopper lifter.
+
+To use the files, they should both be placed in the galil folder of the main settings directory (e.g. C:\Instrument\Settings\config\NDXINST\configurations\galil)
+
+-----------
+galil1.cmd
+-----------
+
+This file loads the control program onto the Galil. This is for galil using motor control number 1 (i.e. for motors with prefix IN:[INST]:MOT:MTR01*). You will need a similar galilN.cmd if using another controller.
+
+--------------------
+motorExtensions.cmd
+--------------------
+
+Put this in the Galil directory with your other 2 files. It tells the IOC where to look for the emma_chopper_lifter.cmd file.
+
+

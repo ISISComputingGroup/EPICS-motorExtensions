@@ -3,8 +3,11 @@
 # Copy this file to C:\Instrument\Settings\config\<machine>\configurations\galil
 
 $(IFNOTTESTDEVSIM) < $(GALILCONFIG)/xyBeamstop.cmd
-$(IFTESTDEVSIM) < $(MOTOREXT)/settings/xyBeamstop/xyBeamstop.cmd
+$(IFTESTDEVSIM) $(IFXYBEAMSTOP=#) < $(MOTOREXT)/settings/xyBeamstop/xyBeamstop.cmd
 
 $(IFNOTTESTDEVSIM) < $(GALILCONFIG)/oscillatingCollimator.cmd
-$(IFTESTDEVSIM) < $(MOTOREXT)/settings/oscillatingCollimator/oscillatingCollimator.cmd
+$(IFTESTDEVSIM) $(IFOSCCOL=#) < $(MOTOREXT)/settings/oscillatingCollimator/oscillatingCollimator.cmd
+
+$(IFNOTTESTDEVSIM) < $(GALILCONFIG)/emma_chopper_lifter.cmd
+$(IFTESTDEVSIM) $(IFCHOPLIFT=#) < $(MOTOREXT)/settings/emma_chopper_lifter/emma_chopper_lifter.cmd
 
