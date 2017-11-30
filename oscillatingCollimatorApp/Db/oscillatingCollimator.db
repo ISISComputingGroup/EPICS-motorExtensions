@@ -300,9 +300,9 @@ record(calc, "$(P)$(O):VEL:SP:DISC:CHECK") {
 }
 
 record(calcout, "$(P)$(O):VEL:SP:_CALC") {
-	field(INPA, "$(P)$(O):ACC:SP CP")
-	field(INPB, "$(P)$(O):DIST:PART:SP CP")
-	field(INPC, "$(P)$(O):CYCLE:TIME:HALF:SP CP")
+	field(INPA, "$(P)$(O):ACC:SP")
+	field(INPB, "$(P)$(O):DIST:PART:SP")
+	field(INPC, "$(P)$(O):CYCLE:TIME:HALF:SP")
 	field(INPD, "$(P)$(O):VEL:SP:DISC CP")
 	field(CALC, "A*(C-SQR(D))/4")
 	field(OUT, "$(P)$(O):VEL:SP PP")
