@@ -5,22 +5,36 @@
 #   D - The controller being used e.g. DMC01, DMC02 etc.
 #
 
+record(scalcout, "$(P)CHOPLIFT:MANAGERMODE")
+{
+    field(ASG, "READONLY")
+    field(DESC, "Non-zero if manager is required for this IOC")
+    field(PINI, "YES")
+    field(INPA, "$(PV_PREFIX)CS:MANAGER CP")
+    field(CALC, "A = 0")
+    field(OOPT, "Every Time")
+}
+
 record(bo, "$(P)CHOPLIFT:OUT") {
     field(FLNK, "$(P)CHOPLIFT:OUT:RAW")
+	field(ASG, "MANAGER")
 }
 
 record(stringout, "$(P)CHOPLIFT:OUT:RAW") {
     field(VAL, "XQ #Park,5")
 	field(OUT, "$(P)$(D):SEND_STR_CMD PP")
+	field(ASG, "MANAGER")
 }
 
 record(bo, "$(P)CHOPLIFT:IN") {
     field(FLNK, "$(P)CHOPLIFT:IN:RAW")
+	field(ASG, "MANAGER")
 }
 
 record(stringout, "$(P)CHOPLIFT:IN:RAW") {
     field(VAL, "XQ #Clamp,5")
 	field(OUT, "$(P)$(D):SEND_STR_CMD PP")
+	field(ASG, "MANAGER")
 }
 
 record(ai, "$(P)CHOPLIFT:STATUS:RAW") {
