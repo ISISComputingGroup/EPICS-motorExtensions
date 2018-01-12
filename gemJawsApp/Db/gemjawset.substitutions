@@ -1,0 +1,14 @@
+
+file quadaxis.template { 
+  pattern 
+    {P,       CAL_AXIS,			MTR,  			HIGH_LIMIT, 	LOW_LIMIT, 			READ_A, 		READ_B, 		READ_C}
+    {"\$(P)", "\$(E_CAL_MTR)",	"\$(E_MTR)", 	"25", 			"0.2", 				0.03331, 		0.07169,		-0.13376}
+    {"\$(P)", "\$(W_CAL_MTR)",	"\$(W_MTR)", 	"25", 			"0.2", 				0.03331, 		0.07169,		-0.13376}
+}
+
+file linearaxis.template { 
+  pattern 
+    {P,       CAL_AXIS,			MTR,  			HIGH_LIMIT, 	LOW_LIMIT, 	 		READ_B, 		READ_C}
+    {"\$(P)", "\$(N_CAL_MTR)",	"\$(N_MTR)", 	"25", 			"0.2", 		 		1.025,		0}
+    {"\$(P)", "\$(W_CAL_MTR)",	"\$(W_MTR)", 	"25", 			"0.2", 				1.025,		0}
+}
