@@ -6,34 +6,40 @@
 #    MTR - the IOC suffix of the motor that is being used to drive the axis
 #    HIGH_LIMIT highest value that can be set
 #    LOW_LIMIT lowest value that can be set
+#	 TOLERANCE the tolerance of the soft motor
 #	 READ_B the initial B coeff to change the actual position to the value the user sees 
 #	 READ_C the initial C coeff to change the actual position to the value the user sees
 
-record(ao, "$(P)$(CAL_AXIS):SP")
+record(motor, "$(P)$(CAL_AXIS)")
 {
-	field(EGU, "mm")
-	field(DRVH, "$(HIGH_LIMIT)")
-	field(DRVL, "$(LOW_LIMIT)")
-	field(OUT, "$(P)$(CAL_AXIS)WRITE.D  PP MS")
+	field(DTYP, "Soft Channel")
+	field(OUT, "$(P)$(CAL_AXIS):WRITE.D  PP MS")
+	field(RDBL, "$(P)$(CAL_AXIS):READ.VAL NPP MS") 
+    field(URIP, "Yes") 
+    field(STOO, "$(P)$(MTR).STOP PP MS") 
+    field(DINP, "$(P)$(MTR).DMOV NPP MS") 
+    field(MRES, "1.0") 
+    field(RRES, "1.0") 
+    field(PREC, "3") 
+    field(DHLM, "$(HIGH_LIMIT)") 
+    field(DLLM, "$(LOW_LIMIT)") 
+    field(TWV, "1")
+	field(RDBD, "$(TOLERANCE)")
+    field(RTRY, "0") 
+    field(EGU, "mm") 	
 }
 
-record(ai, "$(P)$(CAL_AXIS)")
-{
-	field(EGU, "mm")
-	field(PREC, "3")
-}
-
-record(calcout, "$(P)$(CAL_AXIS)WRITE") 
+record(calcout, "$(P)$(CAL_AXIS):WRITE") 
 { 
 	field(DESC,"Convert user value to steps")
-	field(INPB, "$(P)$(CAL_AXIS)READ:B:SP")
-	field(INPC, "$(P)$(CAL_AXIS)READ:C:SP")
+	field(INPB, "$(P)$(CAL_AXIS):READ:B:SP")
+	field(INPC, "$(P)$(CAL_AXIS):READ:C:SP")
     field(CALC,"(D-C)/B")
     field(OUT,"$(P)$(MTR).VAL  PP MS")
 	info(INTEREST, "MEDIUM")
 }
 
-record(ao, "$(P)$(CAL_AXIS)READ:B:SP")
+record(ao, "$(P)$(CAL_AXIS):READ:B:SP")
 {
 	field(DESC,"The B coeff to conv the read mtr val")
 	field(VAL, "$(READ_B)")
@@ -41,7 +47,7 @@ record(ao, "$(P)$(CAL_AXIS)READ:B:SP")
 	info(autosaveFields, "VAL")
 }
 
-record(ao, "$(P)$(CAL_AXIS)READ:C:SP")
+record(ao, "$(P)$(CAL_AXIS):READ:C:SP")
 {
 	field(DESC,"The C coeff to conv the read mtr val")
 	field(VAL, "$(READ_C)")
@@ -49,11 +55,11 @@ record(ao, "$(P)$(CAL_AXIS)READ:C:SP")
 	info(autosaveFields, "VAL")
 }
 
-record(calcout,"$(P)$(CAL_AXIS)READ") 
+record(calcout,"$(P)$(CAL_AXIS):READ") 
 {
     field(DESC,"Convert steps to user readback")
-	field(INPB, "$(P)$(CAL_AXIS)READ:B:SP CP")
-	field(INPC, "$(P)$(CAL_AXIS)READ:C:SP CP")
+	field(INPB, "$(P)$(CAL_AXIS):READ:B:SP CP")
+	field(INPC, "$(P)$(CAL_AXIS):READ:C:SP CP")
 	field(INPD,"$(P)$(MTR).RBV CP MS")
 	field(OUT, "$(P)$(CAL_AXIS) PP MS")
     field(CALC,"B*D+C")
