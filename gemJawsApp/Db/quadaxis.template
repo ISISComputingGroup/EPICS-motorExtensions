@@ -27,52 +27,72 @@ record(motor, "$(P)$(CAL_AXIS)")
     field(TWV, "1")
 	field(RDBD, "$(TOLERANCE)")
     field(RTRY, "0") 
-    field(EGU, "mm") 	
+    field(EGU, "mm") 
+	info(INTEREST, "MEDIUM")	
 }
 
 record(calcout, "$(P)$(CAL_AXIS):WRITE") 
 { 
 	field(DESC,"Convert user value to steps")
-	field(INPA, "$(P)$(CAL_AXIS):READ:A:SP")
-	field(INPB, "$(P)$(CAL_AXIS):READ:B:SP")
-	field(INPC, "$(P)$(CAL_AXIS):READ:C:SP")
+	field(INPA, "$(P)$(CAL_AXIS):READ:A")
+	field(INPB, "$(P)$(CAL_AXIS):READ:B")
+	field(INPC, "$(P)$(CAL_AXIS):READ:C")
     field(CALC,"(-B+SQR(4*A*(D-C)+B**2))/(2*A)")
-    field(OUT,"$(P)$(MTR).VAL PP MS")
-	info(INTEREST, "MEDIUM")
+    field(OUT,"$(P)$(MTR).VAL PP MS")	
 }
 
-record(ao, "$(P)$(CAL_AXIS):READ:A:SP")
+record(ao, "$(P)$(CAL_AXIS):READ:A")
 {
 	field(DESC,"The A coeff to conv the read mtr val")
 	field(VAL, "$(READ_A)")
 	field(PREC, "4")
-	info(autosaveFields, "VAL")
 }
 
-record(ao, "$(P)$(CAL_AXIS):READ:B:SP")
+record(ao, "$(P)$(CAL_AXIS):READ:B")
 {
 	field(DESC,"The B coeff to conv the read mtr val")
 	field(VAL, "$(READ_B)")
 	field(PREC, "4")
-	info(autosaveFields, "VAL")
 }
 
-record(ao, "$(P)$(CAL_AXIS):READ:C:SP")
+record(ao, "$(P)$(CAL_AXIS):READ:C")
 {
 	field(DESC,"The C coeff to conv the read mtr val")
 	field(VAL, "$(READ_C)")
 	field(PREC, "4")
-	info(autosaveFields, "VAL")
 }
 
 record(calcout,"$(P)$(CAL_AXIS):READ") 
 {
-    field(DESC,"Convert steps to user readback")
-	field(INPA, "$(P)$(CAL_AXIS):READ:A:SP CP")
-	field(INPB, "$(P)$(CAL_AXIS):READ:B:SP CP")
-	field(INPC, "$(P)$(CAL_AXIS):READ:C:SP CP")
-    field(INPD,"$(P)$(MTR).RBV CP MS")
+    field(DESC, "Convert steps to user readback")
+	field(INPA, "$(P)$(CAL_AXIS):READ:A CP")
+	field(INPB, "$(P)$(CAL_AXIS):READ:B CP")
+	field(INPC, "$(P)$(CAL_AXIS):READ:C CP")
+    field(INPD, "$(P)$(CAL_AXIS):MTR:RBV CP MS")
 	field(OUT, "$(P)$(CAL_AXIS) PP MS")
-    field(CALC,"A*D*D+B*D+C")
-	info(INTEREST, "MEDIUM")
+    field(CALC, "A*D*D+B*D+C")
+}
+
+# Separated out to easily test
+record(ai, "$(P)$(CAL_AXIS):MTR:RBV")
+{
+	field(INP, "$(P)$(MTR).RBV CP MS")
+    field(SIML, "$(P)$(CAL_AXIS):SIM")
+    field(SIOL, "$(P)$(CAL_AXIS):SIM:MTR:RBV CP MS")
+}
+
+### SIM RECORDS ###
+record(bo, "$(P)$(CAL_AXIS):SIM")
+{
+    field(SCAN, "Passive")
+    field(DTYP, "Soft Channel")
+    field(ZNAM, "NO")
+    field(ONAM, "YES")
+    field(VAL, "$(RECSIM=0)")
+}
+
+record(ai, "$(P)$(CAL_AXIS):SIM:MTR:RBV")
+{
+    field(SCAN, "Passive")
+    field(DTYP, "Soft Channel")
 }
