@@ -26,7 +26,18 @@ record(motor, "$(P)$(CAL_AXIS)")
     field(TWV, "1")
 	field(RDBD, "$(TOLERANCE)")
     field(RTRY, "0") 
-    field(EGU, "mm") 	
+    field(EGU, "mm")
+	info(archive, "VAL")
+	info(INTEREST, "MEDIUM")
+}
+
+record (longin, "$(P)$(CAL_AXIS):DMOV")
+{
+    field(DESC, "Axis done move")
+    field(INP, "$(P)$(MTR).DMOV CP")
+    field(EGU, "")
+    info(archive, "VAL")
+    info(INTEREST, "MEDIUM")
 }
 
 record(calcout, "$(P)$(CAL_AXIS):WRITE") 
