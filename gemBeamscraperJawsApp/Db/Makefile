@@ -11,7 +11,7 @@ include $(TOP)/configure/CONFIG
 # Create and install (or just install) into <top>/db
 # databases, templates, substitutions like this
 #DB += xxx.db
-DB += gemjawset.db
+DB += gem_beamscraper_jawset.db
 
 #----------------------------------------------------
 # If <anyname>.db template is not named <anyname>*.template add

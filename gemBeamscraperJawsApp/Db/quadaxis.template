@@ -1,0 +1,108 @@
+#  Calibrates an axis based on a quadratic calibration curve (user_val = a*mtr_val**2 + b*mtr_val + c).
+#
+#  Macros:
+#    P - base name for ioc
+#	 CAL_AXIS - the calibrated axis name
+#    MTR - the IOC suffix of the motor that is being used to drive the axis
+#    HIGH_LIMIT highest value that can be set on the soft motor
+#    LOW_LIMIT lowest value that can be set on the soft motor
+#	 TOLERANCE the tolerance of the soft motor
+#	 READ_A the initial A coeff to change the actual position to the value the user sees
+#	 READ_B the initial B coeff to change the actual position to the value the user sees 
+#	 READ_C the initial C coeff to change the actual position to the value the user sees
+
+record(motor, "$(P)$(CAL_AXIS)")
+{
+	field(DTYP, "Soft Channel")
+	field(OUT, "$(P)$(CAL_AXIS):WRITE.D  PP MS")
+	field(RDBL, "$(P)$(CAL_AXIS):READ.VAL NPP MS") 
+    field(URIP, "Yes") 
+    field(STOO, "$(P)$(MTR).STOP PP MS") 
+    field(DINP, "$(P)$(MTR).DMOV NPP MS") 
+    field(MRES, "1.0") 
+    field(RRES, "1.0") 
+    field(PREC, "3") 
+    field(DHLM, "$(HIGH_LIMIT)") 
+    field(DLLM, "$(LOW_LIMIT)") 
+    field(TWV, "1")
+	field(RDBD, "$(TOLERANCE)")
+    field(RTRY, "0") 
+    field(EGU, "mm")
+	info(archive, "VAL")
+	info(INTEREST, "MEDIUM")	
+}
+
+record (longin, "$(P)$(CAL_AXIS):DMOV")
+{
+    field(DESC, "Axis done move")
+    field(INP, "$(P)$(MTR).DMOV CP")
+    field(EGU, "")
+    info(archive, "VAL")
+    info(INTEREST, "MEDIUM")
+}
+
+record(calcout, "$(P)$(CAL_AXIS):WRITE") 
+{ 
+	field(DESC,"Convert user value to steps")
+	field(INPA, "$(P)$(CAL_AXIS):READ:A")
+	field(INPB, "$(P)$(CAL_AXIS):READ:B")
+	field(INPC, "$(P)$(CAL_AXIS):READ:C")
+    field(CALC,"(-B+SQR(4*A*(D-C)+B**2))/(2*A)")
+    field(OUT,"$(P)$(MTR).VAL PP MS")	
+}
+
+record(ao, "$(P)$(CAL_AXIS):READ:A")
+{
+	field(DESC,"The A coeff to conv the read mtr val")
+	field(VAL, "$(READ_A)")
+	field(PREC, "4")
+}
+
+record(ao, "$(P)$(CAL_AXIS):READ:B")
+{
+	field(DESC,"The B coeff to conv the read mtr val")
+	field(VAL, "$(READ_B)")
+	field(PREC, "4")
+}
+
+record(ao, "$(P)$(CAL_AXIS):READ:C")
+{
+	field(DESC,"The C coeff to conv the read mtr val")
+	field(VAL, "$(READ_C)")
+	field(PREC, "4")
+}
+
+record(calcout,"$(P)$(CAL_AXIS):READ") 
+{
+    field(DESC, "Convert steps to user readback")
+	field(INPA, "$(P)$(CAL_AXIS):READ:A CP")
+	field(INPB, "$(P)$(CAL_AXIS):READ:B CP")
+	field(INPC, "$(P)$(CAL_AXIS):READ:C CP")
+    field(INPD, "$(P)$(CAL_AXIS):MTR:RBV CP MS")
+	field(OUT, "$(P)$(CAL_AXIS) PP MS")
+    field(CALC, "A*D*D+B*D+C")
+}
+
+# Separated out to easily test
+record(ai, "$(P)$(CAL_AXIS):MTR:RBV")
+{
+	field(INP, "$(P)$(MTR).RBV CP MS")
+    field(SIML, "$(P)$(CAL_AXIS):SIM")
+    field(SIOL, "$(P)$(CAL_AXIS):SIM:MTR:RBV CP MS")
+}
+
+### SIM RECORDS ###
+record(bo, "$(P)$(CAL_AXIS):SIM")
+{
+    field(SCAN, "Passive")
+    field(DTYP, "Soft Channel")
+    field(ZNAM, "NO")
+    field(ONAM, "YES")
+    field(VAL, "$(RECSIM=0)")
+}
+
+record(ai, "$(P)$(CAL_AXIS):SIM:MTR:RBV")
+{
+    field(SCAN, "Passive")
+    field(DTYP, "Soft Channel")
+}
