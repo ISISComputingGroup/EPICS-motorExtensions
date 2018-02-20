@@ -1,0 +1,78 @@
+#  Calibrates an axis based on a linear calibration curve (user_val = b*mtr_val + c).
+#
+#  Macros:
+#    P - base name for ioc
+#	 CAL_AXIS - the calibrated axis name
+#    MTR - the IOC suffix of the motor that is being used to drive the axis
+#    HIGH_LIMIT highest value that can be set
+#    LOW_LIMIT lowest value that can be set
+#	 TOLERANCE the tolerance of the soft motor
+#	 READ_B the initial B coeff to change the actual position to the value the user sees 
+#	 READ_C the initial C coeff to change the actual position to the value the user sees
+
+record(motor, "$(P)$(CAL_AXIS)")
+{
+	field(DTYP, "Soft Channel")
+	field(OUT, "$(P)$(CAL_AXIS):WRITE.D  PP MS")
+	field(RDBL, "$(P)$(CAL_AXIS):READ.VAL NPP MS") 
+    field(URIP, "Yes") 
+    field(STOO, "$(P)$(MTR).STOP PP MS") 
+    field(DINP, "$(P)$(MTR).DMOV NPP MS") 
+    field(MRES, "1.0") 
+    field(RRES, "1.0") 
+    field(PREC, "3") 
+    field(DHLM, "$(HIGH_LIMIT)") 
+    field(DLLM, "$(LOW_LIMIT)") 
+    field(TWV, "1")
+	field(RDBD, "$(TOLERANCE)")
+    field(RTRY, "0") 
+    field(EGU, "mm")
+	info(archive, "VAL")
+	info(INTEREST, "MEDIUM")
+}
+
+record (longin, "$(P)$(CAL_AXIS):DMOV")
+{
+    field(DESC, "Axis done move")
+    field(INP, "$(P)$(MTR).DMOV CP")
+    field(EGU, "")
+    info(archive, "VAL")
+    info(INTEREST, "MEDIUM")
+}
+
+record(calcout, "$(P)$(CAL_AXIS):WRITE") 
+{ 
+	field(DESC,"Convert user value to steps")
+	field(INPB, "$(P)$(CAL_AXIS):READ:B:SP")
+	field(INPC, "$(P)$(CAL_AXIS):READ:C:SP")
+    field(CALC,"(D-C)/B")
+    field(OUT,"$(P)$(MTR).VAL  PP MS")
+	info(INTEREST, "MEDIUM")
+}
+
+record(ao, "$(P)$(CAL_AXIS):READ:B:SP")
+{
+	field(DESC,"The B coeff to conv the read mtr val")
+	field(VAL, "$(READ_B)")
+	field(PREC, "4")
+	info(autosaveFields, "VAL")
+}
+
+record(ao, "$(P)$(CAL_AXIS):READ:C:SP")
+{
+	field(DESC,"The C coeff to conv the read mtr val")
+	field(VAL, "$(READ_C)")
+	field(PREC, "4")
+	info(autosaveFields, "VAL")
+}
+
+record(calcout,"$(P)$(CAL_AXIS):READ") 
+{
+    field(DESC,"Convert steps to user readback")
+	field(INPB, "$(P)$(CAL_AXIS):READ:B:SP CP")
+	field(INPC, "$(P)$(CAL_AXIS):READ:C:SP CP")
+	field(INPD,"$(P)$(MTR).RBV CP MS")
+	field(OUT, "$(P)$(CAL_AXIS) PP MS")
+    field(CALC,"B*D+C")
+	info(INTEREST, "MEDIUM")
+}

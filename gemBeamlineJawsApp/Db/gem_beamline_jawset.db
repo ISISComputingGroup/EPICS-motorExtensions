@@ -1,0 +1,123 @@
+# Gem jaw set Soft motor record
+#
+# Calculates positions for jaw sets
+#
+# Macros:
+#    P - base name for ioc
+#    J1_SCALE - the scale factor for jaws 1 (0.627 on old jaws)
+#    J2_SCALE - the scale factor for jaws 2 (0.521 on old jaws)
+#    J3_SCALE - the scale factor for jaws 3 (0.396 on old jaws)
+#    J4_SCALE - the scale factor for jaws 4 (0.2545 on old jaws)
+#    J5_SCALE - the scale factor for jaws 5 (0.097 on old jaws)
+#
+# In each case, scale is a multiplier for an expression of the form:
+#    setpoint = sample_height + (mod_height-sample_height) * scale
+# And an analogous formula for width.
+#
+
+
+record(ai, "$(P)GEMJAWSET:SAMPLE:HGAP:SP") {
+  field(DESC, "Set width at the sample")
+  field(PREC, "2")
+  field(FLNK, "$(P)GEMJAWSET:HGAP:_FAN")
+  field(EGU, "")
+  info(archive, "VAL")
+}
+
+record(ai, "$(P)GEMJAWSET:SAMPLE:VGAP:SP") {
+  field(DESC, "Set height at the sample")
+  field(PREC, "2")
+  field(FLNK, "$(P)GEMJAWSET:VGAP:_FAN")
+  field(EGU, "")
+  info(archive, "VAL")
+}
+
+record(ai, "$(P)GEMJAWSET:MOD:HGAP:SP") {
+  field(DESC, "Set width at the moderator")
+  field(PREC, "2")
+  field(FLNK, "$(P)GEMJAWSET:HGAP:_FAN")
+  field(EGU, "")
+  info(archive, "VAL")
+}
+
+record(ai, "$(P)GEMJAWSET:MOD:VGAP:SP") {
+  field(DESC, "Set height at the moderator")
+  field(PREC, "2")
+  field(FLNK, "$(P)GEMJAWSET:VGAP:_FAN")
+  field(EGU, "")
+  info(archive, "VAL")
+}
+
+record(transform, "$(P)GEMJAWSET:HGAP:_FAN") {
+
+  field(INPA, "$(P)GEMJAWSET:SAMPLE:HGAP:SP")
+  field(INPB, "$(P)GEMJAWSET:MOD:HGAP:SP")
+  
+  field(CLCC, "A+(B-A)*$(J1_SCALE)") 
+  field(CLCD, "A+(B-A)*$(J2_SCALE)") 
+  field(CLCE, "A+(B-A)*$(J3_SCALE)") 
+  field(CLCF, "A+(B-A)*$(J4_SCALE)") 
+  field(CLCG, "A+(B-A)*$(J5_SCALE)") 
+  
+  field(OUTC, "$(P)MOT:JAWS1:HGAP:SP PP")
+  field(OUTD, "$(P)MOT:JAWS2:HGAP:SP PP")
+  field(OUTE, "$(P)MOT:JAWS3:HGAP:SP PP")
+  field(OUTF, "$(P)MOT:JAWS4:HGAP:SP PP")
+  field(OUTG, "$(P)MOT:JAWS5:HGAP:SP PP")
+  
+}
+
+record(transform, "$(P)GEMJAWSET:VGAP:_FAN") {
+
+  field(INPA, "$(P)GEMJAWSET:SAMPLE:VGAP:SP")
+  field(INPB, "$(P)GEMJAWSET:MOD:VGAP:SP")
+  
+  field(CLCC, "A+(B-A)*$(J1_SCALE)") 
+  field(CLCD, "A+(B-A)*$(J2_SCALE)") 
+  field(CLCE, "A+(B-A)*$(J3_SCALE)") 
+  field(CLCF, "A+(B-A)*$(J4_SCALE)") 
+  field(CLCG, "A+(B-A)*$(J5_SCALE)") 
+  
+  field(OUTC, "$(P)MOT:JAWS1:VGAP:SP PP")
+  field(OUTD, "$(P)MOT:JAWS2:VGAP:SP PP")
+  field(OUTE, "$(P)MOT:JAWS3:VGAP:SP PP")
+  field(OUTF, "$(P)MOT:JAWS4:VGAP:SP PP")
+  field(OUTG, "$(P)MOT:JAWS5:VGAP:SP PP")
+  
+}
+
+record(ao, "$(P)GEMJAWSET:VCENT:SP") {
+  field(DESC, "Global Vertical Setpoint")
+  field(FLNK, "$(P)GEMJAWSET:VCENT:_FAN")
+  field(PREC, "2")
+  field(EGU, "")
+}
+
+record(ao, "$(P)GEMJAWSET:HCENT:SP") {
+  field(DESC, "Global Horizontal Setpoint")
+  field(FLNK, "$(P)GEMJAWSET:HCENT:_FAN")
+  field(PREC, "2")
+  field(EGU, "")  
+}
+
+record(dfanout,"$(P)GEMJAWSET:VCENT:_FAN") {
+  field(DOL, "$(P)GEMJAWSET:VCENT:SP PP")
+  field(OMSL, "closed_loop")
+ 
+  field(OUTA, "$(P)MOT:JAWS1:VCENT:SP PP")
+  field(OUTB, "$(P)MOT:JAWS2:VCENT:SP PP")
+  field(OUTC, "$(P)MOT:JAWS3:VCENT:SP PP")
+  field(OUTD, "$(P)MOT:JAWS4:VCENT:SP PP")
+  field(OUTE, "$(P)MOT:JAWS5:VCENT:SP PP")
+}
+
+record(dfanout,"$(P)GEMJAWSET:HCENT:_FAN") {
+  field(DOL, "$(P)GEMJAWSET:HCENT:SP PP")
+  field(OMSL, "closed_loop")
+    
+  field(OUTA, "$(P)MOT:JAWS1:HCENT:SP PP")
+  field(OUTB, "$(P)MOT:JAWS2:HCENT:SP PP")
+  field(OUTC, "$(P)MOT:JAWS3:HCENT:SP PP")
+  field(OUTD, "$(P)MOT:JAWS4:HCENT:SP PP")
+  field(OUTE, "$(P)MOT:JAWS5:HCENT:SP PP")
+}
