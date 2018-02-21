@@ -12,6 +12,7 @@
 
 record(motor, "$(P)$(CAL_AXIS)")
 {
+	field(DESC, "A linearly calibrated soft motor")
 	field(DTYP, "Soft Channel")
 	field(OUT, "$(P)$(CAL_AXIS):WRITE.D  PP MS")
 	field(RDBL, "$(P)$(CAL_AXIS):READ.VAL NPP MS") 
@@ -37,7 +38,7 @@ record (longin, "$(P)$(CAL_AXIS):DMOV")
     field(INP, "$(P)$(MTR).DMOV CP")
     field(EGU, "")
     info(archive, "VAL")
-    info(INTEREST, "MEDIUM")
+    info(INTEREST, "LOW")
 }
 
 record(calcout, "$(P)$(CAL_AXIS):WRITE") 
@@ -47,7 +48,7 @@ record(calcout, "$(P)$(CAL_AXIS):WRITE")
 	field(INPC, "$(P)$(CAL_AXIS):READ:C:SP")
     field(CALC,"(D-C)/B")
     field(OUT,"$(P)$(MTR).VAL  PP MS")
-	info(INTEREST, "MEDIUM")
+	info(INTEREST, "LOW")
 }
 
 record(ao, "$(P)$(CAL_AXIS):READ:B:SP")
@@ -74,5 +75,5 @@ record(calcout,"$(P)$(CAL_AXIS):READ")
 	field(INPD,"$(P)$(MTR).RBV CP MS")
 	field(OUT, "$(P)$(CAL_AXIS) PP MS")
     field(CALC,"B*D+C")
-	info(INTEREST, "MEDIUM")
+	info(INTEREST, "LOW")
 }
