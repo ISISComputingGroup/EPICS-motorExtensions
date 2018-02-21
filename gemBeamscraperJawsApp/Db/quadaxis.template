@@ -13,6 +13,7 @@
 
 record(motor, "$(P)$(CAL_AXIS)")
 {
+	field(DESC, "A quadratically calibrated soft motor")
 	field(DTYP, "Soft Channel")
 	field(OUT, "$(P)$(CAL_AXIS):WRITE.D  PP MS")
 	field(RDBL, "$(P)$(CAL_AXIS):READ.VAL NPP MS") 
@@ -38,7 +39,7 @@ record (longin, "$(P)$(CAL_AXIS):DMOV")
     field(INP, "$(P)$(MTR).DMOV CP")
     field(EGU, "")
     info(archive, "VAL")
-    info(INTEREST, "MEDIUM")
+    info(INTEREST, "LOW")
 }
 
 record(calcout, "$(P)$(CAL_AXIS):WRITE") 
