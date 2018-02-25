@@ -11,4 +11,4 @@ $(IFTESTDEVSIM) $(IFOSCCOL=#) < $(MOTOREXT)/settings/oscillatingCollimator/oscil
 $(IFNOTTESTDEVSIM) < $(GALILCONFIG)/emma_chopper_lifter.cmd
 $(IFTESTDEVSIM) $(IFCHOPLIFT=#) < $(MOTOREXT)/settings/emma_chopper_lifter/emma_chopper_lifter.cmd
 
-$(IFTESTDEVSIM) $(IFGEMJAWS=#) < $(MOTOREXT)/settings/gem_jaws/jaws.cmd
+$(IFTESTRECSIM) $(IFGEMJAWS=#) < $(MOTOREXT)/settings/gem_jaws/jaws.cmd
