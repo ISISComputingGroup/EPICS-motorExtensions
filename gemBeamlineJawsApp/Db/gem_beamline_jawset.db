@@ -99,6 +99,10 @@ record(ao, "$(P)GEMJAWSET:VCENT:SP") {
   field(FLNK, "$(P)GEMJAWSET:VCENT:_FAN")
   field(PREC, "2")
   field(EGU, "")
+  
+  info(archive, "VAL")
+  info(INTEREST, "HIGH")
+  info(autosaveFields, "VAL")
 }
 
 record(ao, "$(P)GEMJAWSET:HCENT:SP") {
@@ -106,6 +110,10 @@ record(ao, "$(P)GEMJAWSET:HCENT:SP") {
   field(FLNK, "$(P)GEMJAWSET:HCENT:_FAN")
   field(PREC, "2")
   field(EGU, "")  
+  
+  info(archive, "VAL")
+  info(INTEREST, "HIGH")
+  info(autosaveFields, "VAL")
 }
 
 record(dfanout,"$(P)GEMJAWSET:VCENT:_FAN") {
@@ -117,10 +125,6 @@ record(dfanout,"$(P)GEMJAWSET:VCENT:_FAN") {
   field(OUTC, "$(P)MOT:JAWS3:VCENT:SP PP")
   field(OUTD, "$(P)MOT:JAWS4:VCENT:SP PP")
   field(OUTE, "$(P)MOT:JAWS5:VCENT:SP PP")
-  
-  info(archive, "VAL")
-  info(INTEREST, "HIGH")
-  info(autosaveFields, "VAL")
 }
 
 record(dfanout,"$(P)GEMJAWSET:HCENT:_FAN") {
@@ -132,8 +136,4 @@ record(dfanout,"$(P)GEMJAWSET:HCENT:_FAN") {
   field(OUTC, "$(P)MOT:JAWS3:HCENT:SP PP")
   field(OUTD, "$(P)MOT:JAWS4:HCENT:SP PP")
   field(OUTE, "$(P)MOT:JAWS5:HCENT:SP PP")
-  
-  info(archive, "VAL")
-  info(INTEREST, "HIGH")
-  info(autosaveFields, "VAL")
 }
