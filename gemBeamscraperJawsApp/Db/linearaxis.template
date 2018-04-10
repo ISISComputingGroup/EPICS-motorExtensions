@@ -67,12 +67,34 @@ record(ao, "$(P)$(CAL_AXIS):READ:C:SP")
 	info(autosaveFields, "VAL")
 }
 
+record(calcout, "$(P)$(CAL_AXIS):SET:MTR:HI:LIM")
+{
+	field(DESC, "Set the HLM for the underlying mtr")
+	field(PINI, "1")
+	field(INPB, "$(P)$(CAL_AXIS):READ:B:SP")
+	field(INPC, "$(P)$(CAL_AXIS):READ:C:SP")
+	field(D,    "$(HIGH_LIMIT)")
+    field(CALC, "(D-C)/B")
+    field(OUT,  "$(P)$(MTR).DHLM PP MS")
+}
+
+record(calcout, "$(P)$(CAL_AXIS):SET:MTR:LO:LIM")
+{
+	field(DESC, "Set the LLM for the underlying mtr")
+	field(PINI, "1")
+	field(INPB, "$(P)$(CAL_AXIS):READ:B:SP")
+	field(INPC, "$(P)$(CAL_AXIS):READ:C:SP")
+	field(D,    "$(LOW_LIMIT)")
+    field(CALC, "(D-C)/B")
+    field(OUT,  "$(P)$(MTR).DLLM PP MS")
+}
+
 record(calcout,"$(P)$(CAL_AXIS):READ") 
 {
     field(DESC,"Convert steps to user readback")
 	field(INPB, "$(P)$(CAL_AXIS):READ:B:SP CP")
 	field(INPC, "$(P)$(CAL_AXIS):READ:C:SP CP")
-	field(INPD,"$(P)$(CAL_AXIS):MTR:RBV CP MS")
+	field(INPD,"$(P)$(MTR).RBV CP MS")
 	field(OUT, "$(P)$(CAL_AXIS) PP MS")
     field(CALC,"B*D+C")
 	info(INTEREST, "LOW")
