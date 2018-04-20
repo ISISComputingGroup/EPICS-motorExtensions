@@ -97,13 +97,12 @@ record(calcout, "$(P)$(CAL_AXIS):SET:MTR:LO:LIM")
     field(OUT,  "$(P)$(MTR).LLM  PP MS")
 }
 
-record(calcout,"$(P)$(CAL_AXIS):READ") 
+record(calc,"$(P)$(CAL_AXIS):READ") 
 {
     field(DESC, "Convert steps to user readback")
 	field(INPA, "$(P)$(CAL_AXIS):READ:A CP")
 	field(INPB, "$(P)$(CAL_AXIS):READ:B CP")
 	field(INPC, "$(P)$(CAL_AXIS):READ:C CP")
     field(INPD, "$(P)$(MTR).RBV CP MS")
-	field(OUT, "$(P)$(CAL_AXIS) PP MS")
     field(CALC, "A*D*D+B*D+C")
 }
