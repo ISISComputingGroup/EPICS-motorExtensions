@@ -96,5 +96,4 @@ record(calc,"$(P)$(CAL_AXIS):READ")
 	field(INPC, "$(P)$(CAL_AXIS):READ:C:SP CP")
 	field(INPD,"$(P)$(MTR).RBV CP MS")
     field(CALC,"B*D+C")
-	info(INTEREST, "LOW")
 }
