@@ -1,0 +1,17 @@
+record(calc, "$(P)BUMPSTRIP:ANY:CALC") {
+    field(INPA, "$(P)BUMPSTRIP:DETECTOR:NEG CP MS")
+    field(INPB, "$(P)BUMPSTRIP:DETECTOR:POS CP MS")
+    field(INPC, "$(P)BUMPSTRIP:BAFFLE:NEG CP MS")
+    field(INPD, "$(P)BUMPSTRIP:BAFFLE:POS CP MS")
+    field(CALC, "A|B|C|D")
+}
+
+record(bi, "$(P)BUMPSTRIP:ANY") {
+    field(DESC, "Overall status of all bump strips")
+    field(INP, "$(P)BUMPSTRIP:ANY:CALC CP MS")
+	field(ZNAM, "Healthy")
+	field(ONAM, "Tripped")
+	field(OSV, "MAJOR")
+	info(archive, "VAL")
+	info(interest, "HIGH")
+}
