@@ -1,0 +1,15 @@
+record(calc, "$(P)BUMPSTRIP:$(BUMPSTRIP):CALC") {
+    field(INPA, "$(P)MOT:DMC05:Galil0Bi$(GALIL_INPUT)_STATUS CP MS")
+	field(CALC, "!A")
+}
+
+record(bi, "$(P)BUMPSTRIP:$(BUMPSTRIP)") {
+    field(DESC, "Bump strip status for $(BUMPSTRIP)")
+    field(INP, "$(P)BUMPSTRIP:$(BUMPSTRIP):CALC CP MS")
+	field(ZNAM, "Healthy")
+	field(ONAM, "Tripped")
+	field(OSV, "MAJOR")
+	info(archive, "VAL")
+	info(interest, "HIGH")
+}
+
