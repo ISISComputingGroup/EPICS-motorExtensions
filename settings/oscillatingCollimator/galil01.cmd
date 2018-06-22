@@ -1,6 +1,6 @@
 ## configure galil crate 1
 
-GalilCreateController("Galil", "$(GALILADDR01)", 20)
+GalilCreateController("Galil", "$(GALILADDR01)", 20, 1)
  
 GalilCreateAxis("Galil","A",0,"",1)
 GalilCreateAxis("Galil","B",0,"",1)
