@@ -91,7 +91,7 @@ record(scalcout, "$(P)$(O):STOP:CMD") {
 
 record(calcout, "$(P)$(O):POS:_CALC") {
 	field(INPA, "$(P)$(M).RBV CP")
-	field(INPB, "$(P)$(O):RADIUS:SP:RBV")
+	field(INPB, "$(P)$(O):RADIUS")
 	field(CALC, "R2D*ATAN(A/B)")
 	field(OUT, "$(P)$(O):POS PP")	
 	field(OOPT, "Every Time")
@@ -175,34 +175,16 @@ record(ai,"$(P)$(O):CYCLE") {
 	info(archive, "VAL")
 }
 
-# Mounting radius
-
-record(ao, "$(P)$(O):RADIUS:SP") {
-    # This doesn't need to be stored on the device, but it is useful
-	# to retain the value on the hardware in case the IOC restarts
-    field(DESC, "Mounting radius setpoint")
-	field(DTYP, "$(OTYP)")	
-    field(EGU, "mm")
-    field(PREC, "2")
-	field(DRVL, "0")
-	field(DRVH, "Inf")
-	field(OUT, "@asyn(Galil,0)USER_VAR radius")
-    info(INTEREST, "MEDIUM")
-	info(archive, "VAL")
-    info(autosaveFields, "VAL")
-}
+# Mounting radius is the distance between the pivot and the encoder on the collimator
 
 record(ai,"$(P)$(O):RADIUS") {
     field(DESC, "Mounting radius")
-	field(SCAN,"1 second")
-	field(DTYP,"$(OTYP)")	
+	field(VAL, "$(RADIUS)")
     field(EGU, "mm")
     field(PREC, "2")
-	field(INP, "@asyn(Galil,0)USER_VAR radius")
-    info(INTEREST, "HIGH")
+    info(INTEREST, "LOW")
 	info(archive, "VAL")
 }
-alias("$(P)$(O):RADIUS", "$(P)$(O):RADIUS:SP:RBV")
 
 # Motor steps
 
@@ -256,7 +238,7 @@ record(ai,"$(P)$(O):ANGLE:SP:RBV") {
 
 record(calc, "$(P)$(O):DIST:PART:SP") {
     field(DESC, "Swept distance, setpoint")
-	field(INPA, "$(P)$(O):RADIUS:SP CP")
+	field(INPA, "$(P)$(O):RADIUS CP")
 	field(INPB, "$(P)$(O):STEPS CP")
 	field(INPC, "$(P)$(O):ANGLE:SP CP")
 	field(CALC, "2*A*B*TAN(C*D2R)")
