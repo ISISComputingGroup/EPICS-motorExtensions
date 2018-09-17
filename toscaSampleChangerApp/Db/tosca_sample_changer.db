@@ -1,12 +1,12 @@
 record(ao, "$(P)$(MM):COARSE_STEP") {
-    info(autosave, "VAL")
+    info(autosaveFields, "VAL")
     info(archive, "VAL")
 }
 
 alias("$(P)$(MM):COARSE_STEP", "$(P)$(MM):COARSE_STEP:SP")
 
 record(ao, "$(P)$(MM):FINE_STEP") {
-    info(autosave, "VAL")
+    info(autosaveFields, "VAL")
     info(archive, "VAL")
 }
 
