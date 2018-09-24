@@ -1,0 +1,46 @@
+record(longout, "$(P)$(MM):COARSE_STEP") {
+    info(autosaveFields, "VAL")
+    info(archive, "VAL")
+    info(interest, "HIGH")
+    field(DRVH, "999999999")
+    field(DRVL, "0")
+    field(EGU, "steps")
+}
+
+alias("$(P)$(MM):COARSE_STEP", "$(P)$(MM):COARSE_STEP:SP")
+
+record(calcout, "$(P)$(MM):COARSE_STEP:MOVE_FORWARDS") {
+    field(CALC, "A")
+    field(INPA, "$(P)$(MM):COARSE_STEP")
+    field(OUT, "$(P)$(MM).RLV PP")
+}
+
+record(calcout, "$(P)$(MM):COARSE_STEP:MOVE_BACKWARDS") {
+    field(CALC, "-A")
+    field(INPA, "$(P)$(MM):COARSE_STEP")
+    field(OUT, "$(P)$(MM).RLV PP")
+}
+
+
+record(longout, "$(P)$(MM):FINE_STEP") {
+    info(autosaveFields, "VAL")
+    info(archive, "VAL")
+    info(interest, "HIGH")
+    field(DRVH, "999999999")
+    field(DRVL, "0")
+    field(EGU, "steps")
+}
+
+alias("$(P)$(MM):FINE_STEP", "$(P)$(MM):FINE_STEP:SP")
+
+record(calcout, "$(P)$(MM):FINE_STEP:MOVE_FORWARDS") {
+    field(CALC, "A")
+    field(INPA, "$(P)$(MM):FINE_STEP")
+    field(OUT, "$(P)$(MM).RLV PP")
+}
+
+record(calcout, "$(P)$(MM):FINE_STEP:MOVE_BACKWARDS") {
+    field(CALC, "-A")
+    field(INPA, "$(P)$(MM):FINE_STEP")
+    field(OUT, "$(P)$(MM).RLV PP")
+}
