@@ -1,0 +1,17 @@
+# If position index is odd, then current location is shutter
+# If index is even and less than 4 (i.e. 2), closest shutter is current index + 1
+# If index even and greater than or equal to 4 (i.e. 4,6), closest shutter is current index - 1
+record(calc, "$(P)APERTURE:CLOSESTSHUTTER")
+{
+    field(DESC, "Returns closest aperture beam stop")
+    field(CALC, "A%2==1? 0: ( (A<4)? A+1 : A-1)")
+    field(INPA, "$(SETPTAXIS)IPOSN CP MS")
+}
+
+record(dfanout, "$(P)APERTURE:CLOSEAPERTURE")
+{
+    field(DESC, "Sends move instruction to shut aperture")
+    field(OMSL, "closed_loop")
+    field(DOL, "$(P)APERTURE:CLOSESTSHUTTER")
+    field(OUTA, "$(SETPTAXIS)IPOSN:SP PP")
+}
