@@ -4,7 +4,7 @@
 record(calc, "$(P)APERTURE:CLOSESTSHUTTER")
 {
     field(DESC, "Returns closest aperture beam stop")
-    field(CALC, "A==0? 1 : (A==2|A==4)? 3 : A ")
+    field(CALC, "A==0? 1 : (A==2 || A==4)? 3 : A ")
     field(INPA, "$(SETPTAXIS)IPOSN CP MS")
 }
 
