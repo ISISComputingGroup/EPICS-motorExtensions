@@ -8,10 +8,10 @@ record(calc, "$(P)APERTURE:CLOSESTSHUTTER")
     field(INPA, "$(SETPTAXIS)NIPOSN CP MS")
 }
 
-record(dfanout, "$(P)APERTURE:CLOSEAPERTURE")
+record(longout, "$(P)APERTURE:CLOSEAPERTURE")
 {
     field(DESC, "Sends move instruction to shut aperture")
     field(OMSL, "closed_loop")
     field(DOL, "$(P)APERTURE:CLOSESTSHUTTER")
-    field(OUTA, "$(SETPTAXIS)IPOSN:SP PP")
+    field(OUT, "$(SETPTAXIS)IPOSN:SP PP")
 }
