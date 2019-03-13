@@ -104,6 +104,34 @@ record(ai, "$(P)$(O):POS") {
     info(INTEREST, "MEDIUM")
 }
 
+# We want to know if we are oscillating but:
+# * It doesn't have an encoder we can read
+# * If the thread is stopped the mode from the gmc will not change
+# * We can't just look at the MOVN of the motor as it does stop occasionally
+# So we check that the position is different from the last or that the motor is moving
+record(calcout, "$(P)$(O):MOVING_CALC") {
+    field(DESC, "Calculates if moving")
+    field(SCAN, "1 second")
+    field(INPA, "$(P)$(O):POS")
+    field(INPB, "$(P)$(O):LAST:POS")
+    field(INPC, "$(P)$(M).MOVN")
+    field(CALC, "(A!=B)||C")
+    field(OUT, "$(P)$(O):MOVING PP")
+    field(FLNK, "$(P)$(O):LAST:POS")
+}
+
+record(ai, "$(P)$(O):LAST:POS")
+{
+    field(INP, "$(P)$(O):POS")
+}
+
+record(bi, "$(P)$(O):MOVING") {
+    field(DESC, "Is the collimator moving")
+    field(ZNAM, "Not Moving")
+    field(ONAM, "Moving")
+    info(INTEREST, "MEDIUM")
+}
+
 # Operating mode
 
 record(ai, "$(P)$(O):MODE:_READ") {
