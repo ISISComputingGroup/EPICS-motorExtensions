@@ -53,11 +53,13 @@ record(scalcout, "$(P)$(O):START:CMD") {
 	field(BB, "XQ #HOMER,")
 	field(CALC, "BB+AA")
 	field(OUT, "$(P)$(D):SEND_STR_CMD PP")
+    field(TPRO, "1")
 }
 
 record(bo, "$(P)$(O):STOP:SP") {
     field(DESC, "Stop the code execution")
     field(FLNK, "$(P)$(O):STOP:SEQ")
+    field(TPRO, "1")
 }
 
 record(seq, "$(P)$(O):STOP:SEQ") {
@@ -70,6 +72,7 @@ record(seq, "$(P)$(O):STOP:SEQ") {
 	field(DLY2, "1")
 	
 	field(SELM, "All")
+    field(TPRO, "1")
 }
 
 record(scalcout, "$(P)$(O):HALT:CMD") {
@@ -78,6 +81,7 @@ record(scalcout, "$(P)$(O):HALT:CMD") {
 	field(BB, "HX ")
 	field(CALC, "BB+AA")
 	field(OUT, "$(P)$(D):SEND_STR_CMD PP")
+    field(TPRO, "1")
 }
 
 record(scalcout, "$(P)$(O):STOP:CMD") {
@@ -85,22 +89,71 @@ record(scalcout, "$(P)$(O):STOP:CMD") {
 	field(BB, "ST")
 	field(CALC, "BB")
 	field(OUT, "$(P)$(D):SEND_STR_CMD PP")
+    field(TPRO, "1")
 }
 
 # Motor position
 
-record(calcout, "$(P)$(O):POS:_CALC") {
-	field(INPA, "$(P)$(M).RBV CP")
-	field(INPB, "$(P)$(O):RADIUS")
+record(calc, "$(P)$(O):POS:_CALC") {
+    field(SCAN, ".1 second")
+	field(INPA, "$(P)$(M).RBV MS")
+	field(INPB, "$(P)$(O):RADIUS CP MS")
 	field(CALC, "R2D*ATAN(A/B)")
-	field(OUT, "$(P)$(O):POS PP")	
-	field(OOPT, "Every Time")
 }
 
 record(ai, "$(P)$(O):POS") {
+    field(INP, "$(P)$(O):POS:_CALC CP MS")
     field(DESC, "Current motor position")
     field(PREC, "2")
     field(EGU, "deg")
+    info(INTEREST, "MEDIUM")
+}
+
+# We want to know if we are oscillating but:
+# * It doesn't have an encoder we can read
+# * If the thread is stopped the mode from the gmc will not change
+# * We can't just look at the MOVN of the motor as it does stop occasionally
+# 
+# So instead, check that (largest motor position in last 10s) != (smallest motor position in last 10s)
+record(calcout, "$(P)$(O):MOVING_CALC") {
+    field(DESC, "Calculates if moving")
+    field(SCAN, ".1 second")
+    field(INPA, "$(P)$(O):MOVING:_STABILITY:LOW")
+    field(INPB, "$(P)$(O):MOVING:_STABILITY:HIGH")
+    field(CALC, "(B-A)>0.1")  # Tolerance of 0.1 degrees, when collimator moves intentionally it is ~2 deg.
+    field(OUT, "$(P)$(O):MOVING PP")
+    field(FLNK, "$(P)$(O):LAST:POS")
+}
+
+record(compress, "$(P)$(O):MOVING:_STABILITY:BUF") {
+  field(INP, "$(P)$(O):POS")
+  field(ALG, "Circular Buffer")
+  field(SCAN, ".1 second")
+  field(NSAM, "100")  # 10s at 10Hz = 100 samples
+  field(FLNK, "$(P)$(O):MOVING:_STABILITY:LOW")
+}
+
+# Smallest motor position value in the last 10 seconds
+record(compress, "$(P)$(O):MOVING:_STABILITY:LOW") {
+  field(INP, "$(P)$(O):MOVING:_STABILITY:BUF")
+  field(ALG, "N to 1 Low Value")
+  field(NSAM, "1")
+  field(N, "100")  # Should match NSAM in _STABILITY:BUF
+  field(FLNK, "$(P)$(O):MOVING:_STABILITY:HIGH")
+}
+
+# Largest motor position value in the last 10 seconds
+record(compress, "$(P)$(O):MOVING:_STABILITY:HIGH") {
+  field(INP, "$(P)$(O):MOVING:_STABILITY:BUF")
+  field(ALG, "N to 1 High Value")
+  field(NSAM, "1")
+  field(N, "100")  # Should match NSAM in _STABILITY:BUF
+}
+
+record(bi, "$(P)$(O):MOVING") {
+    field(DESC, "Is the collimator moving")
+    field(ZNAM, "Not Moving")
+    field(ONAM, "Moving")
     info(INTEREST, "MEDIUM")
 }
 
@@ -113,12 +166,19 @@ record(ai, "$(P)$(O):MODE:_READ") {
 	field(INP, "@asyn(Galil,0)USER_VAR mode")
 }
 
+record(calc, "$(P)$(O):MODE:_CALC") {
+    field(INPA, "$(P)$(O):MODE:_READ CP MS")
+    field(INPB, "$(P)$(O):MOVING CP MS")
+    field(CALC, "(A=2&&B=0)?3:A")
+}
+
 record(mbbi, "$(P)$(O):MODE") {
 	field(DESC,"Control mode")
-	field(INP, "$(P)$(O):MODE:_READ CP")
+	field(INP, "$(P)$(O):MODE:_CALC CP MS")
 	field(ZRST, "Initializing")
 	field(ONST, "Homing")
 	field(TWST, "Oscillating")
+	field(THST, "Stopped")
     info(INTEREST, "HIGH")
 	info(archive, "VAL")
 }
@@ -134,6 +194,12 @@ record(ao, "$(P)$(O):FREQ:SP") {
     info(INTEREST, "MEDIUM")
 	info(archive, "VAL")
     info(autosaveFields, "VAL")
+    field(FLNK, "$(P)$(O):FREQ:SP:_FAN")
+}
+
+record(fanout, "$(P)$(O):FREQ:SP:_FAN") {
+    field(LNK1, "$(P)$(O):CYCLE:TIME:HALF:SP PP")
+    field(LNK2, "$(P)$(O):ANGLE:SP PP")
 }
 
 record(ai,"$(P)$(O):TIME") {
@@ -149,7 +215,7 @@ record(ai,"$(P)$(O):TIME") {
 record(calcout, "$(P)$(O):FREQ:_CALC") {
     field(PREC, "2")
     field(EGU, "Hz")
-    field(INPA, "$(P)$(O):TIME CP")
+    field(INPA, "$(P)$(O):TIME CP MS")
 	field(CALC, "A==0?0:1000/A")
 	field(OUT, "$(P)$(O):FREQ PP")
 }
@@ -180,6 +246,7 @@ record(ai,"$(P)$(O):CYCLE") {
 record(ai,"$(P)$(O):RADIUS") {
     field(DESC, "Mounting radius")
 	field(VAL, "$(RADIUS)")
+    field(PINI, "YES")
     field(EGU, "mm")
     field(PREC, "2")
     info(INTEREST, "LOW")
@@ -225,12 +292,19 @@ record(ao, "$(P)$(O):ANGLE:SP") {
     info(INTEREST, "MEDIUM")
 	info(archive, "VAL")
     info(autosaveFields, "VAL")
+    field(FLNK, "$(P)$(O):ANGLE:SP:_FAN")
+}
+
+record(fanout, "$(P)$(O):ANGLE:SP:_FAN") {
+    
+    field(LNK1, "$(P)$(O):FREQ:SP PP")  # It only makes sense to set angle and freq "together".
+    field(LNK2, "$(P)$(O):DIST:PART:SP PP")
 }
 
 record(ai,"$(P)$(O):ANGLE:SP:RBV") {
     field(DESC, "Swept angle setpoint readback")
-	field(SCAN,"1 second")
-	field(DTYP,"$(OTYP)")	
+	field(SCAN, "1 second")
+	field(DTYP, "$(OTYP)")	
     field(EGU, "deg")
     field(PREC, "2")
 	field(INP, "@asyn(Galil,0)USER_VAR angle")
@@ -238,43 +312,43 @@ record(ai,"$(P)$(O):ANGLE:SP:RBV") {
 
 record(calc, "$(P)$(O):DIST:PART:SP") {
     field(DESC, "Swept distance, setpoint")
-	field(INPA, "$(P)$(O):RADIUS CP")
-	field(INPB, "$(P)$(O):STEPS CP")
-	field(INPC, "$(P)$(O):ANGLE:SP CP")
+	field(INPA, "$(P)$(O):RADIUS")  # Constant.
+	field(INPB, "$(P)$(O):STEPS")  # Constant.
+	field(INPC, "$(P)$(O):ANGLE:SP")
 	field(CALC, "2*A*B*TAN(C*D2R)")
     field(EGU, "stp")
     field(PREC, "0")
+    field(FLNK, "$(P)$(O):VEL:SP:DISC")
 }
 
 record(calc, "$(P)$(O):CYCLE:TIME:HALF:SP") {
     field(DESC, "Half cycle time, setpoint")
-	field(INPA, "$(P)$(O):FREQ:SP CP")
+	field(INPA, "$(P)$(O):FREQ:SP")
 	field(CALC, "1/(2*A)")
     field(EGU, "s")
     field(PREC, "2")
-}
-
-record(calcout, "$(P)$(O):ACC:SP:_CALC") {
-    field(EGU, "stp/s^2")
-    field(PREC, "0")
-	field(CALC, "49152")
-	field(PINI, "YES")
-	field(OUT, "$(P)$(O):ACC:SP PP")
+    field(FLNK, "$(P)$(O):VEL:SP:DISC")
 }
 
 record(calc, "$(P)$(O):VEL:SP:DISC") {
     field(DESC, "Velocity calculation discriminant")
-	field(INPA, "$(P)$(O):ACC:SP CP")
-	field(INPB, "$(P)$(O):DIST:PART:SP CP")
-	field(INPC, "$(P)$(O):CYCLE:TIME:HALF:SP CP")
+	field(INPA, "$(P)$(O):ACC:SP")  # Constant.
+	field(INPB, "$(P)$(O):DIST:PART:SP")
+	field(INPC, "$(P)$(O):CYCLE:TIME:HALF:SP")
 	field(CALC, "C*C-8*B/A")
     field(EGU, "s^2")
     field(PREC, "2")
+    field(FLNK, "$(P)$(O):VEL:SP:_FANOUT")
+}
+
+record(fanout, "$(P)$(O):VEL:SP:_FANOUT") {
+    field(LNK1, "$(P)$(O):VEL:SP:DISC:CHECK")
+    field(LNK2, "$(P)$(O):VEL:SP:_CALC")
 }
 
 record(calc, "$(P)$(O):VEL:SP:DISC:CHECK") {
     field(DESC, "0 if discriminant valid, else 1")
-	field(INPA, "$(P)$(O):VEL:SP:DISC CP")
+	field(INPA, "$(P)$(O):VEL:SP:DISC")
 	field(CALC, "A<0")
     field(EGU, "")
     field(PREC, "0")
@@ -282,10 +356,10 @@ record(calc, "$(P)$(O):VEL:SP:DISC:CHECK") {
 }
 
 record(calcout, "$(P)$(O):VEL:SP:_CALC") {
-	field(INPA, "$(P)$(O):ACC:SP")
+	field(INPA, "$(P)$(O):ACC:SP")  # Constant.
 	field(INPB, "$(P)$(O):DIST:PART:SP")
 	field(INPC, "$(P)$(O):CYCLE:TIME:HALF:SP")
-	field(INPD, "$(P)$(O):VEL:SP:DISC CP")
+	field(INPD, "$(P)$(O):VEL:SP:DISC")
 	field(CALC, "A*(C-SQR(D))/4")
 	field(OUT, "$(P)$(O):VEL:SP PP")
     field(EGU, "stp/s")
@@ -294,8 +368,8 @@ record(calcout, "$(P)$(O):VEL:SP:_CALC") {
 
 record(calc, "$(P)$(O):TIME:ACC:SP") {
     field(DESC, "Acceleration time setpoint")
-	field(INPA, "$(P)$(O):ACC:SP CP")
-	field(INPB, "$(P)$(O):VEL:SP CP")
+	field(INPA, "$(P)$(O):ACC:SP")
+	field(INPB, "$(P)$(O):VEL:SP")
 	field(CALC, "B/A")
     field(EGU, "s")
     field(PREC, "2")
@@ -303,8 +377,8 @@ record(calc, "$(P)$(O):TIME:ACC:SP") {
 
 record(calc, "$(P)$(O):TIME:VEL:SP") {
     field(DESC, "Time to velocity setpoint")
-	field(INPA, "$(P)$(O):DIST:PART:SP CP")
-	field(INPB, "$(P)$(O):VEL:SP CP")
+	field(INPA, "$(P)$(O):DIST:PART:SP CP MS")
+	field(INPB, "$(P)$(O):VEL:SP CP MS")
 	field(CALC, "A/B")
     field(EGU, "s")
     field(PREC, "2")
@@ -312,8 +386,8 @@ record(calc, "$(P)$(O):TIME:VEL:SP") {
 
 record(calc, "$(P)$(O):TIME:TOTAL:SP") {
     field(DESC, "Total time setpoint")
-	field(INPA, "$(P)$(O):TIME:ACC:SP CP")
-	field(INPB, "$(P)$(O):TIME:VEL:SP CP")
+	field(INPA, "$(P)$(O):TIME:ACC:SP CP MS")
+	field(INPB, "$(P)$(O):TIME:VEL:SP CP MS")
 	field(CALC, "2*A+B")
     field(EGU, "s")
     field(PREC, "2")
@@ -321,16 +395,16 @@ record(calc, "$(P)$(O):TIME:TOTAL:SP") {
 
 record(calc, "$(P)$(O):DIST:VEL:SP") {
     field(DESC, "Distance to velocity setpoint")
-	field(INPA, "$(P)$(O):ACC:SP CP")
-	field(INPB, "$(P)$(O):VEL:SP CP")
+	field(INPA, "$(P)$(O):ACC:SP CP MS")
+	field(INPB, "$(P)$(O):VEL:SP CP MS")
 	field(CALC, "B*B/(2*A)")
     field(EGU, "stp")
     field(PREC, "2")
 }
 
 record(calcout, "$(P)$(O):DIST:SP:_CALC") {
-	field(INPA, "$(P)$(O):DIST:VEL:SP CP")
-	field(INPB, "$(P)$(O):DIST:PART:SP CP")
+	field(INPA, "$(P)$(O):DIST:VEL:SP")
+	field(INPB, "$(P)$(O):DIST:PART:SP")
 	field(CALC, "2*A+B")
 	field(OUT, "$(P)$(O):DIST:SP PP")
     field(EGU, "stp")
@@ -339,17 +413,12 @@ record(calcout, "$(P)$(O):DIST:SP:_CALC") {
 	
 # Calculate the actual swept distance
 
-record(fanout, "$(P)$(O):ANGLE:INV:_TRIG") {
-	field(SCAN, "1 second")
-	field(LNK1, "$(P)$(O):DIST:VEL")
-}
-
 record(calc, "$(P)$(O):DIST:VEL") {
     field(DESC, "Actual distance to velocity")
     field(EGU, "stp")
     field(PREC, "0")
-	field(INPA, "$(P)$(O):ACC CP")
-	field(INPB, "$(P)$(O):VEL CP")
+	field(INPA, "$(P)$(O):ACC CP MS")
+	field(INPB, "$(P)$(O):VEL CP MS")
 	field(CALC, "B*B/(2*A)")
 }
 
@@ -357,8 +426,8 @@ record(calc, "$(P)$(O):DIST:PART") {
     field(DESC, "Actual swept distance")
     field(EGU, "stp")
     field(PREC, "0")
-	field(INPA, "$(P)$(O):DIST CP")
-	field(INPB, "$(P)$(O):DIST:VEL CP")
+	field(INPA, "$(P)$(O):DIST CP MS")
+	field(INPB, "$(P)$(O):DIST:VEL CP MS")
 	field(CALC, "A-2*B")
 }
 
@@ -366,9 +435,9 @@ record(calc, "$(P)$(O):ANGLE") {
     field(DESC, "Actual swept angle")
     field(EGU, "deg")
     field(PREC, "2")
-	field(INPA, "$(P)$(O):DIST:PART CP")
-	field(INPB, "$(P)$(O):RADIUS CP")
-	field(INPC, "$(P)$(O):STEPS CP")
+	field(INPA, "$(P)$(O):DIST:PART CP MS")
+	field(INPB, "$(P)$(O):RADIUS CP MS")
+	field(INPC, "$(P)$(O):STEPS CP MS")
 	field(CALC, "R2D*ATAN(A/(2*B*C))")
     info(INTEREST, "HIGH")
 	info(archive, "VAL")
@@ -379,9 +448,9 @@ record(calc, "$(P)$(O):CYCLE:TIME:HALF") {
     field(DESC, "Actual half cycle time")
     field(EGU, "s")
     field(PREC, "2")
-	field(INPA, "$(P)$(O):ACC CP")
-	field(INPB, "$(P)$(O):VEL CP")
-	field(INPC, "$(P)$(O):DIST:PART CP")
+	field(INPA, "$(P)$(O):ACC CP MS")
+	field(INPB, "$(P)$(O):VEL CP MS")
+	field(INPC, "$(P)$(O):DIST:PART CP MS")
 	field(CALC, "2*B/A+C/B")
 }
 
@@ -389,7 +458,7 @@ record(calc, "$(P)$(O):FREQ:SP:RBV") {
     field(DESC, "Expected operating frequency")
     field(EGU, "Hz")
     field(PREC, "2")
-	field(INPA, "$(P)$(O):CYCLE:TIME:HALF CP")
+	field(INPA, "$(P)$(O):CYCLE:TIME:HALF CP MS")
 	field(CALC, "1/(2*A)")
 }
 
@@ -402,12 +471,14 @@ record(ao,"$(P)$(O):VEL:SP") {
 	field(PREC, "2")
 	field(OUT, "@asyn(Galil,0)USER_VAR vel")
 	info(archive, "VAL")
+    field(TPRO, "1")
     info(autosaveFields, "VAL")
 }
 
 record(ao,"$(P)$(O):ACC:SP") {
 	field(DESC, "Acceleration setpoint")
 	field(VAL, "49152")
+    field(PINI, "YES")
 	field(DTYP, "$(OTYP)")	
 	field(EGU, "stp/s^2")
 	field(PREC, "2")
@@ -429,7 +500,7 @@ record(ao,"$(P)$(O):DIST:SP") {
 
 record(ai,"$(P)$(O):VEL") {
 	field(DESC,"Velocity")
-	field(SCAN,"1 second")
+	field(SCAN,".1 second")
 	field(DTYP,"$(OTYP)")
 	field(INP, "@asyn(Galil,0)USER_VAR vel")
     field(EGU, "stp/s")
@@ -440,7 +511,7 @@ record(ai,"$(P)$(O):VEL") {
 	
 record(ai,"$(P)$(O):ACC") {
 	field(DESC,"Acceleration")
-	field(SCAN,"1 second")
+	field(SCAN,".1 second")
 	field(DTYP,"$(OTYP)")
 	field(INP, "@asyn(Galil,0)USER_VAR accel")
     field(EGU, "stp/s^2")
@@ -449,9 +520,9 @@ record(ai,"$(P)$(O):ACC") {
 }
 	
 record(ai,"$(P)$(O):DIST") {
-	field(DESC,"Total swept distance")
-	field(SCAN,"1 second")
-	field(DTYP,"$(OTYP)")
+	field(DESC, "Total swept distance")
+	field(SCAN, ".1 second")
+	field(DTYP, "$(OTYP)")
 	field(INP, "@asyn(Galil,0)USER_VAR dist")
     field(EGU, "stp")
     field(PREC, "2")
