@@ -53,13 +53,11 @@ record(scalcout, "$(P)$(O):START:CMD") {
     field(BB, "XQ #HOMER,")
     field(CALC, "BB+AA")
     field(OUT, "$(P)$(D):SEND_STR_CMD PP")
-    field(TPRO, "1")
 }
 
 record(bo, "$(P)$(O):STOP:SP") {
     field(DESC, "Stop the code execution")
     field(FLNK, "$(P)$(O):STOP:SEQ")
-    field(TPRO, "1")
 }
 
 record(seq, "$(P)$(O):STOP:SEQ") {
@@ -72,7 +70,6 @@ record(seq, "$(P)$(O):STOP:SEQ") {
     field(DLY2, "1")
 
     field(SELM, "All")
-    field(TPRO, "1")
 }
 
 record(scalcout, "$(P)$(O):HALT:CMD") {
@@ -81,7 +78,6 @@ record(scalcout, "$(P)$(O):HALT:CMD") {
     field(BB, "HX ")
     field(CALC, "BB+AA")
     field(OUT, "$(P)$(D):SEND_STR_CMD PP")
-    field(TPRO, "1")
 }
 
 record(scalcout, "$(P)$(O):STOP:CMD") {
@@ -89,7 +85,6 @@ record(scalcout, "$(P)$(O):STOP:CMD") {
     field(BB, "ST")
     field(CALC, "BB")
     field(OUT, "$(P)$(D):SEND_STR_CMD PP")
-    field(TPRO, "1")
 }
 
 # Motor position
@@ -471,7 +466,6 @@ record(ao,"$(P)$(O):VEL:SP") {
     field(PREC, "2")
     field(OUT, "@asyn(Galil,0)USER_VAR vel")
     info(archive, "VAL")
-    field(TPRO, "1")
     info(autosaveFields, "VAL")
 }
 
