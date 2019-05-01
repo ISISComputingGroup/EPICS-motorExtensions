@@ -286,7 +286,7 @@ record(ao, "$(P)$(O):ANGLE:SP") {
     info(INTEREST, "MEDIUM")
     info(archive, "VAL")
     info(autosaveFields, "VAL")
-    field(FLNK, "$(P)$(O):DIST:PART:SP")
+    field(FLNK, "$(P)$(O):CYCLE:TIME:HALF:SP")
 }
 
 record(ai,"$(P)$(O):ANGLE:SP:RBV") {
@@ -296,6 +296,15 @@ record(ai,"$(P)$(O):ANGLE:SP:RBV") {
     field(EGU, "deg")
     field(PREC, "2")
     field(INP, "@asyn(Galil,0)USER_VAR angle")
+}
+
+record(calc, "$(P)$(O):CYCLE:TIME:HALF:SP") {
+    field(DESC, "Half cycle time, setpoint")
+    field(INPA, "$(P)$(O):FREQ:SP")
+    field(CALC, "1/(2*A)")
+    field(EGU, "s")
+    field(PREC, "2")
+    field(FLNK, "$(P)$(O):DIST:PART:SP")
 }
 
 record(calc, "$(P)$(O):DIST:PART:SP") {
@@ -309,15 +318,6 @@ record(calc, "$(P)$(O):DIST:PART:SP") {
     field(FLNK, "$(P)$(O):VEL:SP:DISC")
 }
 
-record(calc, "$(P)$(O):CYCLE:TIME:HALF:SP") {
-    field(DESC, "Half cycle time, setpoint")
-    field(INPA, "$(P)$(O):FREQ:SP")
-    field(CALC, "1/(2*A)")
-    field(EGU, "s")
-    field(PREC, "2")
-    field(FLNK, "$(P)$(O):VEL:SP:DISC")
-}
-
 record(calc, "$(P)$(O):VEL:SP:DISC") {
     field(DESC, "Velocity calculation discriminant")
     field(INPA, "$(P)$(O):ACC:SP")  # Constant.
@@ -326,12 +326,7 @@ record(calc, "$(P)$(O):VEL:SP:DISC") {
     field(CALC, "C*C-8*B/A")
     field(EGU, "s^2")
     field(PREC, "2")
-    field(FLNK, "$(P)$(O):VEL:SP:_FANOUT")
-}
-
-record(fanout, "$(P)$(O):VEL:SP:_FANOUT") {
-    field(LNK1, "$(P)$(O):VEL:SP:DISC:CHECK")
-    field(LNK2, "$(P)$(O):VEL:SP:_CALC")
+    field(FLNK, "$(P)$(O):VEL:SP:DISC:CHECK")
 }
 
 record(calc, "$(P)$(O):VEL:SP:DISC:CHECK") {
@@ -341,6 +336,7 @@ record(calc, "$(P)$(O):VEL:SP:DISC:CHECK") {
     field(EGU, "")
     field(PREC, "0")
     info(autosaveFields, "VAL")
+    field(FLNK, "$(P)$(O):VEL:SP:_CALC")
 }
 
 record(calcout, "$(P)$(O):VEL:SP:_CALC") {
