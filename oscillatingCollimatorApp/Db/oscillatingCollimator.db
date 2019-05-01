@@ -7,16 +7,20 @@ record(bo, "$(P)$(O):START:SP") {
     field(FLNK, "$(P)$(O):START:SEQ")
 }
 
-record(seq, "$(P)$(O):START:SEQ") {
+record(sseq, "$(P)$(O):START:SEQ") {
     field(DO1, "1")
-    field(LNK1, "$(P)$(O):AXIS:CMD.PROC")
-
+    field(LNK1, "$(P)$(O):STOP:SP.PROC")
+    field(WAIT1, "Wait")
+    
     field(DO2, "1")
-    field(LNK2, "$(P)$(O):DEADBAND.PROC")
+    field(LNK2, "$(P)$(O):AXIS:CMD.PROC")
 
     field(DO3, "1")
-    field(LNK3, "$(P)$(O):START:CMD.PROC")
-    field(DLY3, "3.0")
+    field(LNK3, "$(P)$(O):DEADBAND.PROC")
+
+    field(DO4, "1")
+    field(LNK4, "$(P)$(O):START:CMD.PROC")
+    field(DLY4, "3.0")
 
     field(SELM, "All")
 }
@@ -124,7 +128,7 @@ record(compress, "$(P)$(O):MOVING:_STABILITY:BUF") {
     field(INP, "$(P)$(O):POS")
     field(ALG, "Circular Buffer")
     field(SCAN, ".1 second")
-    field(NSAM, "100")  # 10s at 10Hz = 100 samples
+    field(NSAM, "50")  # 5s at 10Hz = 50 samples
     field(FLNK, "$(P)$(O):MOVING:_STABILITY:LOW")
 }
 
@@ -133,7 +137,7 @@ record(compress, "$(P)$(O):MOVING:_STABILITY:LOW") {
     field(INP, "$(P)$(O):MOVING:_STABILITY:BUF")
     field(ALG, "N to 1 Low Value")
     field(NSAM, "1")
-    field(N, "100")  # Should match NSAM in _STABILITY:BUF
+    field(N, "50")  # Should match NSAM in _STABILITY:BUF
     field(FLNK, "$(P)$(O):MOVING:_STABILITY:HIGH")
 }
 
@@ -142,7 +146,7 @@ record(compress, "$(P)$(O):MOVING:_STABILITY:HIGH") {
     field(INP, "$(P)$(O):MOVING:_STABILITY:BUF")
     field(ALG, "N to 1 High Value")
     field(NSAM, "1")
-    field(N, "100")  # Should match NSAM in _STABILITY:BUF
+    field(N, "50")  # Should match NSAM in _STABILITY:BUF
 }
 
 record(bi, "$(P)$(O):MOVING") {
@@ -189,12 +193,7 @@ record(ao, "$(P)$(O):FREQ:SP") {
     info(INTEREST, "MEDIUM")
     info(archive, "VAL")
     info(autosaveFields, "VAL")
-    field(FLNK, "$(P)$(O):FREQ:SP:_FAN")
-}
-
-record(fanout, "$(P)$(O):FREQ:SP:_FAN") {
-    field(LNK1, "$(P)$(O):CYCLE:TIME:HALF:SP PP")
-    field(LNK2, "$(P)$(O):ANGLE:SP PP")
+    field(FLNK, "$(P)$(O):CYCLE:TIME:HALF:SP")
 }
 
 record(ai,"$(P)$(O):TIME") {
@@ -287,13 +286,7 @@ record(ao, "$(P)$(O):ANGLE:SP") {
     info(INTEREST, "MEDIUM")
     info(archive, "VAL")
     info(autosaveFields, "VAL")
-    field(FLNK, "$(P)$(O):ANGLE:SP:_FAN")
-}
-
-record(fanout, "$(P)$(O):ANGLE:SP:_FAN") {
-    
-    field(LNK1, "$(P)$(O):FREQ:SP PP")  # It only makes sense to set angle and freq "together".
-    field(LNK2, "$(P)$(O):DIST:PART:SP PP")
+    field(FLNK, "$(P)$(O):DIST:PART:SP")
 }
 
 record(ai,"$(P)$(O):ANGLE:SP:RBV") {
@@ -359,42 +352,17 @@ record(calcout, "$(P)$(O):VEL:SP:_CALC") {
     field(OUT, "$(P)$(O):VEL:SP PP")
     field(EGU, "stp/s")
     field(PREC, "0")
-}
-
-record(calc, "$(P)$(O):TIME:ACC:SP") {
-    field(DESC, "Acceleration time setpoint")
-    field(INPA, "$(P)$(O):ACC:SP")
-    field(INPB, "$(P)$(O):VEL:SP")
-    field(CALC, "B/A")
-    field(EGU, "s")
-    field(PREC, "2")
-}
-
-record(calc, "$(P)$(O):TIME:VEL:SP") {
-    field(DESC, "Time to velocity setpoint")
-    field(INPA, "$(P)$(O):DIST:PART:SP CP MS")
-    field(INPB, "$(P)$(O):VEL:SP CP MS")
-    field(CALC, "A/B")
-    field(EGU, "s")
-    field(PREC, "2")
-}
-
-record(calc, "$(P)$(O):TIME:TOTAL:SP") {
-    field(DESC, "Total time setpoint")
-    field(INPA, "$(P)$(O):TIME:ACC:SP CP MS")
-    field(INPB, "$(P)$(O):TIME:VEL:SP CP MS")
-    field(CALC, "2*A+B")
-    field(EGU, "s")
-    field(PREC, "2")
+    field(FLNK, "$(P)$(O):DIST:VEL:SP")
 }
 
 record(calc, "$(P)$(O):DIST:VEL:SP") {
     field(DESC, "Distance to velocity setpoint")
-    field(INPA, "$(P)$(O):ACC:SP CP MS")
-    field(INPB, "$(P)$(O):VEL:SP CP MS")
+    field(INPA, "$(P)$(O):ACC:SP")
+    field(INPB, "$(P)$(O):VEL:SP")
     field(CALC, "B*B/(2*A)")
     field(EGU, "stp")
     field(PREC, "2")
+    field(FLNK, "$(P)$(O):DIST:SP:_CALC")
 }
 
 record(calcout, "$(P)$(O):DIST:SP:_CALC") {
@@ -494,7 +462,7 @@ record(ao,"$(P)$(O):DIST:SP") {
 
 record(ai,"$(P)$(O):VEL") {
     field(DESC,"Velocity")
-    field(SCAN,".1 second")
+    field(SCAN,"1 second")
     field(DTYP,"$(OTYP)")
     field(INP, "@asyn(Galil,0)USER_VAR vel")
     field(EGU, "stp/s")
@@ -505,7 +473,7 @@ record(ai,"$(P)$(O):VEL") {
 
 record(ai,"$(P)$(O):ACC") {
     field(DESC,"Acceleration")
-    field(SCAN,".1 second")
+    field(SCAN,"1 second")
     field(DTYP,"$(OTYP)")
     field(INP, "@asyn(Galil,0)USER_VAR accel")
     field(EGU, "stp/s^2")
@@ -515,7 +483,7 @@ record(ai,"$(P)$(O):ACC") {
 
 record(ai,"$(P)$(O):DIST") {
     field(DESC, "Total swept distance")
-    field(SCAN, ".1 second")
+    field(SCAN, "1 second")
     field(DTYP, "$(OTYP)")
     field(INP, "@asyn(Galil,0)USER_VAR dist")
     field(EGU, "stp")
