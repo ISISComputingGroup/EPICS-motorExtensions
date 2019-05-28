@@ -1,0 +1,42 @@
+# Polaris jaw set Soft motor record
+#
+#  Records for the 
+#
+#  Macros:
+#    P - base name for ioc
+#    JAW - The jaw that this corresponds to
+#	 JAW_VGAP_SP - The vertical gap setpoint of the jaw
+#	 JAW_HGAP_SP - The horizontal gap setpoint of the jaw
+#	 SAMPLE_VGAP - The sample vertical gap set point
+#	 SAMPLE_HGAP - The sample horizontal gap set point
+#    MOD_TO_SAMPLE - Distance from moderator to sample
+#    MOD_OFFSET - Distance from moderator to an offest position where collimation should start from
+#    MOD_TO_JAW - Distance from moderator to this jaw set
+#	 MOD_WIDTH - Width of the moderator
+#	 MOD_HEIGHT - Height of the moderator
+
+record(transform, "$(P)JAWMAN:$(JAW):HGAP:_CALC") {
+
+  field(INPA, "$(SAMPLE_HGAP)")
+  field(INPB, "$(MOD_WIDTH)")
+  field(INPC, "$(MOD_TO_SAMPLE)")
+  field(INPD, "$(MOD_OFFSET=0)")  
+  field(INPE, "$(MOD_TO_JAW)") 
+  
+  field(CLCK, "(A+((B-A)*((C-E)/(C-D))))")
+  
+  field(OUTK, "$(JAW_HGAP_SP) PP")
+}
+
+record(transform, "$(P)JAWMAN:$(JAW):VGAP:_CALC") {
+
+  field(INPA, "$(SAMPLE_VGAP)")
+  field(INPB, "$(MOD_HEIGHT)")
+  field(INPC, "$(MOD_TO_SAMPLE)")
+  field(INPD, "$(MOD_OFFSET=0)")  
+  field(INPE, "$(MOD_TO_JAW)") 
+  
+  field(CLCK, "(A+((B-A)*((C-E)/(C-D))))")
+  
+  field(OUTK, "$(JAW_VGAP_SP) PP")
+}

@@ -1,0 +1,13 @@
+file "$(TOP)/polarisJawsApp/Db/common.template" {
+    { P=\$(P) }
+}
+
+file "$(TOP)/polarisJawsApp/Db/jawsmanager.template" {
+  pattern
+	{P, JAW, JAW_VGAP_SP, JAW_HGAP_SP, SAMPLE_VGAP, SAMPLE_HGAP, MOD_TO_SAMPLE, MOD_OFFSET, MOD_TO_JAW, MOD_WIDTH, MOD_HEIGHT}
+    { "\$(P)", "JAWS1", "\$(P)MOT:JAWS1:VGAP:SP", "\$(P)MOT:JAWS1:HGAP:SP", "\$(P)POLJAWSET:VGAP:SP", "\$(P)POLJAWSET:HGAP:SP", "\$(MOD_TO_SAMPLE)", "\$(MOD_TO_COL)", "\$(MOD_TO_JAWS1)", "\$(COL_WIDTH)", "\$(COL_HEIGHT)"}
+    { "\$(P)", "JAWS2", "\$(P)MOT:JAWS2:VGAP:SP", "\$(P)MOT:JAWS2:HGAP:SP", "\$(P)POLJAWSET:VGAP:SP", "\$(P)POLJAWSET:HGAP:SP", "\$(MOD_TO_SAMPLE)", "\$(MOD_TO_COL)", "\$(MOD_TO_JAWS2)", "\$(COL_WIDTH)", "\$(COL_HEIGHT)"}
+    { "\$(P)", "JAWS3", "\$(P)MOT:JAWS3:VGAP:SP", "\$(P)MOT:JAWS3:HGAP:SP", "\$(P)POLJAWSET:VGAP:SP", "\$(P)POLJAWSET:HGAP:SP", "\$(MOD_TO_SAMPLE)", "\$(MOD_TO_COL)", "\$(MOD_TO_JAWS3)", "\$(COL_WIDTH)", "\$(COL_HEIGHT)"}
+    { "\$(P)", "JAWS4", "\$(P)MOT:JAWS4:VGAP:SP", "\$(P)MOT:JAWS4:HGAP:SP", "\$(P)POLJAWSET:VGAP:SP", "\$(P)POLJAWSET:HGAP:SP", "\$(MOD_TO_SAMPLE)", "\$(MOD_TO_COL)", "\$(MOD_TO_JAWS4)", "\$(COL_WIDTH)", "\$(COL_HEIGHT)"}
+    { "\$(P)", "JAWS5", "\$(P)POLJAWSET:JAWS5:VGAP", "\$(P)POLJAWSET:JAWS5:HGAP", "\$(P)POLJAWSET:VGAP:SP", "\$(P)POLJAWSET:HGAP:SP", "\$(MOD_TO_SAMPLE)", "\$(MOD_TO_COL)", "\$(MOD_TO_JAWS5)", "\$(COL_WIDTH)", "\$(COL_HEIGHT)"}
+}
