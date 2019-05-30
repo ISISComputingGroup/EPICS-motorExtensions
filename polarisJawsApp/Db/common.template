@@ -1,135 +1,44 @@
-# Polaris jaw set Soft motor record
+# The top level records for the jaws manager
 #
-#  Record that allows calculation of the gaps and centre of jaws set 1-4 which are under user control
-#  Also provides management access to set jaw set 5. For more info see the wiki
+#  Records fan out to individual jaws to do the maths of gaps
 #
 #  Macros:
 #    P - base name for ioc
-#    SAMPLE_HGAP - the pv for the horizontal gap
-#    SAMPLE_VGAP - the pv for the vertical gap
-#    HCENT_SP - the pv for the horizontal centre
-#    VCENT_SP - the pv for the vertical centre
+#    DIR - the direction of the gap (H or V)
+#    SAMPLE_JAW - the pv for the imaginary jawset at the sample
 
-record(ai, "$(SAMPLE_HGAP)") {
-  field(DESC, "Set width at the sample")
+record(ai, "$(P)$(SAMPLE_JAW):$(DIR)GAP:SP") {
+  field(DESC, "Set gap at the sample")
   field(PREC, "2")
-  field(FLNK, "$(P)JAWMAN:HGAP:_FAN")
+  field(FLNK, "$(P)JAWMAN:$(DIR)GAP:_FAN")
   field(EGU, "")
   info(archive, "VAL")
 }
 
-record(ai, "$(SAMPLE_VGAP)") {
-  field(DESC, "Set height at the sample")
-  field(PREC, "2")
-  field(FLNK, "$(P)JAWMAN:VGAP:_FAN")
-  field(EGU, "")
-  info(archive, "VAL")
+record(fanout,"$(P)JAWMAN:$(DIR)GAP:_FAN") {
+  field(LNK1, "$(P)JAWMAN:JAWS1:$(DIR)GAP:_CALC PP")
+  field(LNK2, "$(P)JAWMAN:JAWS2:$(DIR)GAP:_CALC PP")
+  field(LNK3, "$(P)JAWMAN:JAWS3:$(DIR)GAP:_CALC PP")
+  field(LNK4, "$(P)JAWMAN:JAWS4:$(DIR)GAP:_CALC PP")
+  field(LNK5, "$(P)JAWMAN:JAWS5:$(DIR)GAP:_CALC PP")
+  field(LNK6, "$(P)JAWMAN:JAWS6:$(DIR)GAP:_CALC PP")
 }
 
-record(fanout,"$(P)JAWMAN:HGAP:_FAN") {
-  field(LNK1, "$(P)JAWMAN:JAWS1:HGAP:_CALC PP")
-  field(LNK2, "$(P)JAWMAN:JAWS2:HGAP:_CALC PP")
-  field(LNK3, "$(P)JAWMAN:JAWS3:HGAP:_CALC PP")
-  field(LNK4, "$(P)JAWMAN:JAWS4:HGAP:_CALC PP")
-  field(LNK5, "$(P)JAWMAN:JAWS5:HGAP:_CALC PP")
-  field(LNK6, "$(P)JAWMAN:JAWS6:HGAP:_CALC PP")
-}
-
-record(fanout,"$(P)JAWMAN:VGAP:_FAN") {
-  field(LNK1, "$(P)JAWMAN:JAWS1:VGAP:_CALC PP")
-  field(LNK2, "$(P)JAWMAN:JAWS2:VGAP:_CALC PP")
-  field(LNK3, "$(P)JAWMAN:JAWS3:VGAP:_CALC PP")
-  field(LNK4, "$(P)JAWMAN:JAWS4:VGAP:_CALC PP")
-  field(LNK5, "$(P)JAWMAN:JAWS5:VGAP:_CALC PP")
-  field(LNK6, "$(P)JAWMAN:JAWS6:VGAP:_CALC PP")
-}
-
-record(ao, "$(VCENT_SP)") {
-  field(DESC, "Global Vertical Setpoint")
-  field(FLNK, "$(P)JAWMAN:VCENT:_FAN")
+record(ao, "$(P)$(SAMPLE_JAW):$(DIR)CENT:SP") {
+  field(DESC, "Global centre Setpoint")
+  field(FLNK, "$(P)JAWMAN:$(DIR)CENT:_FAN")
   field(PREC, "2")
   field(EGU, "")
 }
 
-record(ao, "$(HCENT_SP)") {
-  field(DESC, "Global Horizontal Setpoint")
-  field(FLNK, "$(P)JAWMAN:HCENT:_FAN")
-  field(PREC, "2")
-  field(EGU, "")  
-}
-
-record(dfanout,"$(P)JAWMAN:VCENT:_FAN") {
-  field(DOL, "$(VCENT_SP) PP")
+record(dfanout,"$(P)JAWMAN:$(DIR)CENT:_FAN") {
+  field(DOL, "$(P)$(SAMPLE_JAW):$(DIR)CENT:SP PP")
   field(OMSL, "closed_loop")
  
-  field(OUTA, "$(P)MOT:JAWS1:VCENT:SP PP")
-  field(OUTB, "$(P)MOT:JAWS2:VCENT:SP PP")
-  field(OUTC, "$(P)MOT:JAWS3:VCENT:SP PP")
-  field(OUTD, "$(P)MOT:JAWS4:VCENT:SP PP")
-  field(OUTE, "$(P)POLJAWSET:JAWS5:VCENT PP")
-}
-
-record(dfanout,"$(P)JAWMAN:HCENT:_FAN") {
-  field(DOL, "$(HCENT_SP) PP")
-  field(OMSL, "closed_loop")
-    
-  field(OUTA, "$(P)MOT:JAWS1:HCENT:SP PP")
-  field(OUTB, "$(P)MOT:JAWS2:HCENT:SP PP")
-  field(OUTC, "$(P)MOT:JAWS3:HCENT:SP PP")
-  field(OUTD, "$(P)MOT:JAWS4:HCENT:SP PP")
-  field(OUTE, "$(P)POLJAWSET:JAWS5:HCENT PP")
-}
-
-record(ao, "$(P)POLJAWSET:JAWS5:VGAP") {
-  field(ASG, "MANAGER")
-  field(DESC, "Jaws 5 calculated height")
-  field(SCAN, "Passive")
-  field(PINI, "YES")
-  field(PREC, "3")
-  field(EGU, "")
-  info(archive, "VAL")
-}
-
-record(ao, "$(P)POLJAWSET:JAWS5:HGAP") {
-  field(ASG, "MANAGER")
-  field(DESC, "Jaws 5 calculated width")
-  field(SCAN, "Passive")
-  field(PINI, "YES")
-  field(PREC, "3")
-  field(EGU, "")
-  info(archive, "VAL")
-}
-
-record(ao, "$(P)POLJAWSET:JAWS5:VCENT") {
-  field(ASG, "MANAGER")
-  field(DESC, "Jaws 5 calculated verti centre")
-  field(SCAN, "Passive")
-  field(PINI, "YES")
-  field(PREC, "3")
-  field(EGU, "")
-  info(archive, "VAL")
-}
-
-record(ao, "$(P)POLJAWSET:JAWS5:HCENT") {
-  field(ASG, "MANAGER")
-  field(DESC, "Jaws 5 calculated horiz centre")
-  field(SCAN, "Passive")
-  field(PINI, "YES")
-  field(PREC, "3")
-  field(EGU, "")
-  info(archive, "VAL")
-}
-  
-record(seq, "$(P)POLJAWSET:JAWS5:SET") {
-  field(ASG, "MANAGER")
-  
-  field(DOL1, "$(P)POLJAWSET:JAWS5:VGAP")
-  field(DOL2, "$(P)POLJAWSET:JAWS5:HGAP")
-  field(DOL3, "$(P)POLJAWSET:JAWS5:VCENT")
-  field(DOL4, "$(P)POLJAWSET:JAWS5:HCENT")
-  
-  field(LNK1, "$(P)MOT:JAWS5:VGAP:SP PP")
-  field(LNK2, "$(P)MOT:JAWS5:HGAP:SP PP")
-  field(LNK3, "$(P)MOT:JAWS5:VCENT:SP PP")
-  field(LNK4, "$(P)MOT:JAWS5:HCENT:SP PP")
+  field(OUTA, "$(P)JAWMAN:JAWS1:$(DIR)CENT:SP PP")
+  field(OUTB, "$(P)JAWMAN:JAWS2:$(DIR)CENT:SP PP")
+  field(OUTC, "$(P)JAWMAN:JAWS3:$(DIR)CENT:SP PP")
+  field(OUTD, "$(P)JAWMAN:JAWS4:$(DIR)CENT:SP PP")
+  field(OUTE, "$(P)JAWMAN:JAWS5:$(DIR)CENT:SP PP")
+  field(OUTF, "$(P)JAWMAN:JAWS6:$(DIR)CENT:SP PP")
 }
