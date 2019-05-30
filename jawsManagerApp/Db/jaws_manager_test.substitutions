@@ -1,4 +1,4 @@
-global {P=\$(P), SAMPLE_JAW=SAMPLE, MOD_TO_SAMPLE=100, MOD_WIDTH=20, MOD_HEIGHT=10}
+global {P=\$(P), SAMPLE_JAW=SAMPLE, MOD_TO_SAMPLE=100}
 
 file "$(TOP)/jawsManagerApp/Db/common.template" {
 	{DIR=H}
@@ -6,6 +6,6 @@ file "$(TOP)/jawsManagerApp/Db/common.template" {
 }
 
 file "$(TOP)/jawsManagerApp/Db/jaws_manager_single.template" {
-    { JAW="JAWS1", MOD_TO_JAW="20"}
-    { JAW="JAWS2", MOD_TO_JAW="50"}
+    {JAW="JAWS1", MOD_TO_JAW="20"}
+    {JAW="JAWS2", MOD_TO_JAW="50"}
 }
