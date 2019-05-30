@@ -1,11 +1,11 @@
 global {P=\$(P), SAMPLE_JAW=POLJAWSET, MOD_TO_SAMPLE=\$(MOD_TO_SAMPLE), MOD_OFFSET=\$(MOD_TO_COL), MOD_WIDTH=\$(COL_WIDTH), MOD_HEIGHT=\$(COL_HEIGHT)}
 
-file "$(TOP)/polarisJawsApp/Db/common.template" {
+file "$(TOP)/jawsManagerApp/Db/common.template" {
 	{DIR=H}
 	{DIR=V}
 }
 
-file "$(TOP)/polarisJawsApp/Db/jawsmanager.template" {
+file "$(TOP)/jawsManagerApp/Db/jawsmanager.template" {
     { JAW="JAWS1", MOD_TO_JAW="\$(MOD_TO_JAWS1)"}
     { JAW="JAWS2", MOD_TO_JAW="\$(MOD_TO_JAWS2)"}
     { JAW="JAWS3", MOD_TO_JAW="\$(MOD_TO_JAWS3)"}
