@@ -5,56 +5,61 @@
 #
 #  Macros:
 #    P - base name for ioc
-#
+#    SAMPLE_HGAP - the pv for the horizontal gap
+#    SAMPLE_VGAP - the pv for the vertical gap
+#    HCENT_SP - the pv for the horizontal centre
+#    VCENT_SP - the pv for the vertical centre
 
-record(ai, "$(P)POLJAWSET:HGAP:SP") {
+record(ai, "$(SAMPLE_HGAP)") {
   field(DESC, "Set width at the sample")
   field(PREC, "2")
-  field(FLNK, "$(P)POLJAWSET:HGAP:_FAN")
+  field(FLNK, "$(P)JAWMAN:HGAP:_FAN")
   field(EGU, "")
   info(archive, "VAL")
 }
 
-record(ai, "$(P)POLJAWSET:VGAP:SP") {
+record(ai, "$(SAMPLE_VGAP)") {
   field(DESC, "Set height at the sample")
   field(PREC, "2")
-  field(FLNK, "$(P)POLJAWSET:VGAP:_FAN")
+  field(FLNK, "$(P)JAWMAN:VGAP:_FAN")
   field(EGU, "")
   info(archive, "VAL")
 }
 
-record(fanout,"$(P)POLJAWSET:HGAP:_FAN") {
+record(fanout,"$(P)JAWMAN:HGAP:_FAN") {
   field(LNK1, "$(P)JAWMAN:JAWS1:HGAP:_CALC PP")
   field(LNK2, "$(P)JAWMAN:JAWS2:HGAP:_CALC PP")
   field(LNK3, "$(P)JAWMAN:JAWS3:HGAP:_CALC PP")
   field(LNK4, "$(P)JAWMAN:JAWS4:HGAP:_CALC PP")
   field(LNK5, "$(P)JAWMAN:JAWS5:HGAP:_CALC PP")
+  field(LNK6, "$(P)JAWMAN:JAWS6:HGAP:_CALC PP")
 }
 
-record(fanout,"$(P)POLJAWSET:VGAP:_FAN") {
+record(fanout,"$(P)JAWMAN:VGAP:_FAN") {
   field(LNK1, "$(P)JAWMAN:JAWS1:VGAP:_CALC PP")
   field(LNK2, "$(P)JAWMAN:JAWS2:VGAP:_CALC PP")
   field(LNK3, "$(P)JAWMAN:JAWS3:VGAP:_CALC PP")
   field(LNK4, "$(P)JAWMAN:JAWS4:VGAP:_CALC PP")
   field(LNK5, "$(P)JAWMAN:JAWS5:VGAP:_CALC PP")
+  field(LNK6, "$(P)JAWMAN:JAWS6:VGAP:_CALC PP")
 }
 
-record(ao, "$(P)POLJAWSET:VCENT:SP") {
+record(ao, "$(VCENT_SP)") {
   field(DESC, "Global Vertical Setpoint")
-  field(FLNK, "$(P)POLJAWSET:VCENT:_FAN")
+  field(FLNK, "$(P)JAWMAN:VCENT:_FAN")
   field(PREC, "2")
   field(EGU, "")
 }
 
-record(ao, "$(P)POLJAWSET:HCENT:SP") {
+record(ao, "$(HCENT_SP)") {
   field(DESC, "Global Horizontal Setpoint")
-  field(FLNK, "$(P)POLJAWSET:HCENT:_FAN")
+  field(FLNK, "$(P)JAWMAN:HCENT:_FAN")
   field(PREC, "2")
   field(EGU, "")  
 }
 
-record(dfanout,"$(P)POLJAWSET:VCENT:_FAN") {
-  field(DOL, "$(P)POLJAWSET:VCENT:SP PP")
+record(dfanout,"$(P)JAWMAN:VCENT:_FAN") {
+  field(DOL, "$(VCENT_SP) PP")
   field(OMSL, "closed_loop")
  
   field(OUTA, "$(P)MOT:JAWS1:VCENT:SP PP")
@@ -64,8 +69,8 @@ record(dfanout,"$(P)POLJAWSET:VCENT:_FAN") {
   field(OUTE, "$(P)POLJAWSET:JAWS5:VCENT PP")
 }
 
-record(dfanout,"$(P)POLJAWSET:HCENT:_FAN") {
-  field(DOL, "$(P)POLJAWSET:HCENT:SP PP")
+record(dfanout,"$(P)JAWMAN:HCENT:_FAN") {
+  field(DOL, "$(HCENT_SP) PP")
   field(OMSL, "closed_loop")
     
   field(OUTA, "$(P)MOT:JAWS1:HCENT:SP PP")
