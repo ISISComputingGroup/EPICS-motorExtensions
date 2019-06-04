@@ -7,7 +7,8 @@
 #    P - base name for ioc
 #    JAW - The jaw that this corresponds to
 #	 UNDERLYING_JAW - The pv for the underlying jaw (defaults to the jaw given by JAW e.g. MOT:JAW1:)
-#	 SAMPLE_JAW - The pv for the imaginary jawset at the sample
+#    SAMPLE_JAW - the pv for the (potentially imaginary) jawset at the sample
+#    MOD_JAW - the pv for the (potentially imaginary) jawset at the moderator
 #    MOD_TO_SAMPLE - Distance from moderator to sample
 #    MOD_OFFSET - Distance from moderator to an offest position where collimation should start from (Defaults to zero)
 #    MOD_TO_JAW - Distance from moderator to this jaw set
@@ -15,7 +16,7 @@
 record(transform, "$(P)JAWMAN:$(JAW):HGAP:_CALC") {
 
   field(INPA, "$(P)$(SAMPLE_JAW):HGAP:SP")
-  field(INPB, "$(P)JAWMAN:MOD:HGAP:SP")
+  field(INPB, "$(P)$(MOD_JAW=JAWMAN:MOD):HGAP:SP")
   field(INPC, "$(MOD_TO_SAMPLE)")
   field(INPD, "$(MOD_OFFSET=0)")  
   field(INPE, "$(MOD_TO_JAW)") 
@@ -28,7 +29,7 @@ record(transform, "$(P)JAWMAN:$(JAW):HGAP:_CALC") {
 record(transform, "$(P)JAWMAN:$(JAW):VGAP:_CALC") {
 
   field(INPA, "$(P)$(SAMPLE_JAW):VGAP:SP")
-  field(INPB, "$(P)JAWMAN:MOD:VGAP:SP")
+  field(INPB, "$(P)$(MOD_JAW=JAWMAN:MOD):VGAP:SP")
   field(INPC, "$(MOD_TO_SAMPLE)")
   field(INPD, "$(MOD_OFFSET=0)")  
   field(INPE, "$(MOD_TO_JAW)") 

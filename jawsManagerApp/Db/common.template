@@ -5,16 +5,19 @@
 #  Macros:
 #    P - base name for ioc
 #    DIR - the direction of the gap (H or V)
-#    SAMPLE_JAW - the pv for the imaginary jawset at the sample
+#    SAMPLE_JAW - the pv for the (potentially imaginary) jawset at the sample
+#    MOD_JAW - the pv for the (potentially imaginary) jawset at the moderator
 #    INIT_MOD_GAP - the initial gap at the moderator
 
-record(ai, "$(P)JAWMAN:MOD:$(DIR)GAP:SP") {
+record(ai, "$(P)$(MOD_JAW=JAWMAN:MOD):$(DIR)GAP:SP") {
   field(DESC, "Set gap at the moderator")
   field(PREC, "2")
   field(VAL, "$(INIT_MOD_GAP=0)")
   field(FLNK, "$(P)JAWMAN:$(DIR)GAP:_FAN")
   field(EGU, "")
   info(archive, "VAL")
+  info(INTEREST, "HIGH")
+  info(autosaveFields, "VAL")
 }
 
 record(ai, "$(P)$(SAMPLE_JAW):$(DIR)GAP:SP") {
@@ -23,6 +26,8 @@ record(ai, "$(P)$(SAMPLE_JAW):$(DIR)GAP:SP") {
   field(FLNK, "$(P)JAWMAN:$(DIR)GAP:_FAN")
   field(EGU, "")
   info(archive, "VAL")
+  info(INTEREST, "HIGH")
+  info(autosaveFields, "VAL")
 }
 
 record(fanout,"$(P)JAWMAN:$(DIR)GAP:_FAN") {
