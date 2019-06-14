@@ -15,7 +15,7 @@
 
 record(transform, "$(P)JAWMAN:$(JAW):HGAP:_CALC") {
 
-  field(INPA, "$(P)$(SAMPLE_JAW):HGAP:SP")
+  field(INPA, "$(P)$(SAMPLE_JAW=JAWMAN:SAMPLE):HGAP:SP")
   field(INPB, "$(P)$(MOD_JAW=JAWMAN:MOD):HGAP:SP")
   field(INPC, "$(MOD_TO_SAMPLE)")
   field(INPD, "$(MOD_OFFSET=0)")  
@@ -28,7 +28,7 @@ record(transform, "$(P)JAWMAN:$(JAW):HGAP:_CALC") {
 
 record(transform, "$(P)JAWMAN:$(JAW):VGAP:_CALC") {
 
-  field(INPA, "$(P)$(SAMPLE_JAW):VGAP:SP")
+  field(INPA, "$(P)$(SAMPLE_JAW=JAWMAN:SAMPLE):VGAP:SP")
   field(INPB, "$(P)$(MOD_JAW=JAWMAN:MOD):VGAP:SP")
   field(INPC, "$(MOD_TO_SAMPLE)")
   field(INPD, "$(MOD_OFFSET=0)")  
@@ -44,7 +44,7 @@ record(ao, "$(P)JAWMAN:$(JAW):HGAP:SP") {
   field(SCAN, "Passive")
   field(PREC, "3")
   field(EGU, "")
-  field(OUT, "$(UNDERLYING_JAW=$(P)MOT:$(JAW):)HGAP:SP")
+  field(OUT, "$(UNDERLYING_JAW=$(P)MOT:$(JAW):)HGAP:SP PP")
 }
 
 record(ao, "$(P)JAWMAN:$(JAW):VGAP:SP") {
@@ -52,7 +52,7 @@ record(ao, "$(P)JAWMAN:$(JAW):VGAP:SP") {
   field(SCAN, "Passive")
   field(PREC, "3")
   field(EGU, "")
-  field(OUT, "$(UNDERLYING_JAW=$(P)MOT:$(JAW):)VGAP:SP")
+  field(OUT, "$(UNDERLYING_JAW=$(P)MOT:$(JAW):)VGAP:SP PP")
 }
 
 record(ao, "$(P)JAWMAN:$(JAW):HCENT:SP") {
@@ -60,7 +60,7 @@ record(ao, "$(P)JAWMAN:$(JAW):HCENT:SP") {
   field(SCAN, "Passive")
   field(PREC, "3")
   field(EGU, "")
-  field(OUT, "$(UNDERLYING_JAW=$(P)MOT:$(JAW):)HCENT:SP")
+  field(OUT, "$(UNDERLYING_JAW=$(P)MOT:$(JAW):)HCENT:SP PP")
 }
 
 record(ao, "$(P)JAWMAN:$(JAW):VCENT:SP") {
@@ -68,5 +68,5 @@ record(ao, "$(P)JAWMAN:$(JAW):VCENT:SP") {
   field(SCAN, "Passive")
   field(PREC, "3")
   field(EGU, "")
-  field(OUT, "$(UNDERLYING_JAW=$(P)MOT:$(JAW):)VCENT:SP")
+  field(OUT, "$(UNDERLYING_JAW=$(P)MOT:$(JAW):)VCENT:SP PP")
 }

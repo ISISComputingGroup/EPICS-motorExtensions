@@ -1,4 +1,4 @@
-global {P=\$(P), SAMPLE_JAW=GEMJAWSET:SAMPLE, MOD_TO_SAMPLE=\$(MOD_TO_SAMPLE), MOD_JAW=GEMJAWSET:MOD}
+global {P=\$(P), MOD_TO_SAMPLE=\$(MOD_TO_SAMPLE)}
 
 file "$(TOP)/jawsManagerApp/Db/common.template" {
 	{DIR=H}

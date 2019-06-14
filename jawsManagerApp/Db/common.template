@@ -20,7 +20,7 @@ record(ai, "$(P)$(MOD_JAW=JAWMAN:MOD):$(DIR)GAP:SP") {
   info(autosaveFields, "VAL")
 }
 
-record(ai, "$(P)$(SAMPLE_JAW):$(DIR)GAP:SP") {
+record(ai, "$(P)$(SAMPLE_JAW=JAWMAN:SAMPLE):$(DIR)GAP:SP") {
   field(DESC, "Set gap at the sample")
   field(PREC, "2")
   field(FLNK, "$(P)JAWMAN:$(DIR)GAP:_FAN")
@@ -39,7 +39,7 @@ record(fanout,"$(P)JAWMAN:$(DIR)GAP:_FAN") {
   field(LNK6, "$(P)JAWMAN:JAWS6:$(DIR)GAP:_CALC PP")
 }
 
-record(ao, "$(P)$(SAMPLE_JAW):$(DIR)CENT:SP") {
+record(ao, "$(P)$(SAMPLE_JAW=JAWMAN):$(DIR)CENT:SP") {
   field(DESC, "Global centre Setpoint")
   field(FLNK, "$(P)JAWMAN:$(DIR)CENT:_FAN")
   field(PREC, "2")
@@ -47,7 +47,7 @@ record(ao, "$(P)$(SAMPLE_JAW):$(DIR)CENT:SP") {
 }
 
 record(dfanout,"$(P)JAWMAN:$(DIR)CENT:_FAN") {
-  field(DOL, "$(P)$(SAMPLE_JAW):$(DIR)CENT:SP PP")
+  field(DOL, "$(P)$(SAMPLE_JAW=JAWMAN):$(DIR)CENT:SP PP")
   field(OMSL, "closed_loop")
  
   field(OUTA, "$(P)JAWMAN:JAWS1:$(DIR)CENT:SP PP")
