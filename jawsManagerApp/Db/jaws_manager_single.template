@@ -1,0 +1,72 @@
+# Jaws manager single jawset
+#
+#  Records for a single jawset in the jawsmanager. Provides the maths for the collimation and aliases to create a managed jawset
+#  These aliases provide an abstraction layer for the top manager (see wiki for details)
+#
+#  Macros:
+#    P - base name for ioc
+#    JAW - The jaw that this corresponds to
+#	 UNDERLYING_JAW - The pv for the underlying jaw (defaults to the jaw given by JAW e.g. MOT:JAW1:)
+#    SAMPLE_JAW - the pv for the (potentially imaginary) jawset at the sample
+#    MOD_JAW - the pv for the (potentially imaginary) jawset at the moderator
+#    MOD_TO_SAMPLE - Distance from moderator to sample
+#    MOD_OFFSET - Distance from moderator to an offest position where collimation should start from (Defaults to zero)
+#    MOD_TO_JAW - Distance from moderator to this jaw set
+
+record(transform, "$(P)JAWMAN:$(JAW):HGAP:_CALC") {
+
+  field(INPA, "$(P)$(SAMPLE_JAW=JAWMAN:SAMPLE):HGAP:SP")
+  field(INPB, "$(P)$(MOD_JAW=JAWMAN:MOD):HGAP:SP")
+  field(INPC, "$(MOD_TO_SAMPLE)")
+  field(INPD, "$(MOD_OFFSET=0)")  
+  field(INPE, "$(MOD_TO_JAW)") 
+  
+  field(CLCK, "(A+((B-A)*((C-E)/(C-D))))")
+  
+  field(OUTK, "$(P)JAWMAN:$(JAW):HGAP:SP PP")
+}
+
+record(transform, "$(P)JAWMAN:$(JAW):VGAP:_CALC") {
+
+  field(INPA, "$(P)$(SAMPLE_JAW=JAWMAN:SAMPLE):VGAP:SP")
+  field(INPB, "$(P)$(MOD_JAW=JAWMAN:MOD):VGAP:SP")
+  field(INPC, "$(MOD_TO_SAMPLE)")
+  field(INPD, "$(MOD_OFFSET=0)")  
+  field(INPE, "$(MOD_TO_JAW)") 
+  
+  field(CLCK, "(A+((B-A)*((C-E)/(C-D))))")
+  
+  field(OUTK, "$(P)JAWMAN:$(JAW):VGAP:SP PP")
+}
+
+record(ao, "$(P)JAWMAN:$(JAW):HGAP:SP") {
+  field(DESC, "Alias for HGAP of jawset")
+  field(SCAN, "Passive")
+  field(PREC, "3")
+  field(EGU, "")
+  field(OUT, "$(UNDERLYING_JAW=$(P)MOT:$(JAW):)HGAP:SP PP")
+}
+
+record(ao, "$(P)JAWMAN:$(JAW):VGAP:SP") {
+  field(DESC, "Alias for VGAP of jawset")
+  field(SCAN, "Passive")
+  field(PREC, "3")
+  field(EGU, "")
+  field(OUT, "$(UNDERLYING_JAW=$(P)MOT:$(JAW):)VGAP:SP PP")
+}
+
+record(ao, "$(P)JAWMAN:$(JAW):HCENT:SP") {
+  field(DESC, "Alias for HCENT of jawset")
+  field(SCAN, "Passive")
+  field(PREC, "3")
+  field(EGU, "")
+  field(OUT, "$(UNDERLYING_JAW=$(P)MOT:$(JAW):)HCENT:SP PP")
+}
+
+record(ao, "$(P)JAWMAN:$(JAW):VCENT:SP") {
+  field(DESC, "Alias for VCENT of jawset")
+  field(SCAN, "Passive")
+  field(PREC, "3")
+  field(EGU, "")
+  field(OUT, "$(UNDERLYING_JAW=$(P)MOT:$(JAW):)VCENT:SP PP")
+}

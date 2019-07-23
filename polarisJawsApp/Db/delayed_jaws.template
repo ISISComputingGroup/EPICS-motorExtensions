@@ -1,0 +1,71 @@
+# Delayed jawset
+#
+#  Records that provide a wrapper around an alias that will store values and only send them on to the jawset when a set PV is issued
+#  These values can only be sent to the underlying jaw when in manager mode
+#
+#  Macros:
+#    P - base name for ioc
+#    TOP_LEVEL_JAW - the pv for the top level jaw
+#    UNDERLYING_JAW - the pv for the underlying jaw
+
+record(ao, "$(P)$(TOP_LEVEL_JAW)VGAP") {
+  field(ASG, "MANAGER")
+  field(DESC, "Jaws 5 calculated height")
+  field(SCAN, "Passive")
+  field(PINI, "YES")
+  field(PREC, "3")
+  field(EGU, "")
+  info(archive, "VAL")
+}
+
+alias("$(P)$(TOP_LEVEL_JAW)VGAP", "$(P)$(TOP_LEVEL_JAW)VGAP:SP")
+
+record(ao, "$(P)$(TOP_LEVEL_JAW)HGAP") {
+  field(ASG, "MANAGER")
+  field(DESC, "Jaws 5 calculated width")
+  field(SCAN, "Passive")
+  field(PINI, "YES")
+  field(PREC, "3")
+  field(EGU, "")
+  info(archive, "VAL")
+}
+
+alias("$(P)$(TOP_LEVEL_JAW)HGAP", "$(P)$(TOP_LEVEL_JAW)HGAP:SP")
+
+record(ao, "$(P)$(TOP_LEVEL_JAW)VCENT") {
+  field(ASG, "MANAGER")
+  field(DESC, "Jaws 5 calculated verti centre")
+  field(SCAN, "Passive")
+  field(PINI, "YES")
+  field(PREC, "3")
+  field(EGU, "")
+  info(archive, "VAL")
+}
+
+alias("$(P)$(TOP_LEVEL_JAW)VCENT", "$(P)$(TOP_LEVEL_JAW)VCENT:SP")
+
+record(ao, "$(P)$(TOP_LEVEL_JAW)HCENT") {
+  field(ASG, "MANAGER")
+  field(DESC, "Jaws 5 calculated horiz centre")
+  field(SCAN, "Passive")
+  field(PINI, "YES")
+  field(PREC, "3")
+  field(EGU, "")
+  info(archive, "VAL")
+}
+ 
+alias("$(P)$(TOP_LEVEL_JAW)HCENT", "$(P)$(TOP_LEVEL_JAW)HCENT:SP")
+ 
+record(seq, "$(P)$(TOP_LEVEL_JAW)SET") {
+  field(ASG, "MANAGER")
+  
+  field(DOL1, "$(P)$(TOP_LEVEL_JAW)VGAP")
+  field(DOL2, "$(P)$(TOP_LEVEL_JAW)HGAP")
+  field(DOL3, "$(P)$(TOP_LEVEL_JAW)VCENT")
+  field(DOL4, "$(P)$(TOP_LEVEL_JAW)HCENT")
+  
+  field(LNK1, "$(P)$(UNDERLYING_JAW)VGAP:SP PP")
+  field(LNK2, "$(P)$(UNDERLYING_JAW)HGAP:SP PP")
+  field(LNK3, "$(P)$(UNDERLYING_JAW)VCENT:SP PP")
+  field(LNK4, "$(P)$(UNDERLYING_JAW)HCENT:SP PP")
+}

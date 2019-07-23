@@ -1,0 +1,59 @@
+# The top level records for the jaws manager
+#
+#  Records fan out to individual jaws to do the maths of gaps
+#
+#  Macros:
+#    P - base name for ioc
+#    DIR - the direction of the gap (H or V)
+#    SAMPLE_JAW - the pv for the (potentially imaginary) jawset at the sample
+#    MOD_JAW - the pv for the (potentially imaginary) jawset at the moderator
+#    INIT_MOD_GAP - the initial gap at the moderator
+
+record(ai, "$(P)$(MOD_JAW=JAWMAN:MOD):$(DIR)GAP:SP") {
+  field(DESC, "Set gap at the moderator")
+  field(PREC, "2")
+  field(VAL, "$(INIT_MOD_GAP=0)")
+  field(FLNK, "$(P)JAWMAN:$(DIR)GAP:_FAN")
+  field(EGU, "")
+  info(archive, "VAL")
+  info(INTEREST, "HIGH")
+  info(autosaveFields, "VAL")
+}
+
+record(ai, "$(P)$(SAMPLE_JAW=JAWMAN:SAMPLE):$(DIR)GAP:SP") {
+  field(DESC, "Set gap at the sample")
+  field(PREC, "2")
+  field(FLNK, "$(P)JAWMAN:$(DIR)GAP:_FAN")
+  field(EGU, "")
+  info(archive, "VAL")
+  info(INTEREST, "HIGH")
+  info(autosaveFields, "VAL")
+}
+
+record(fanout,"$(P)JAWMAN:$(DIR)GAP:_FAN") {
+  field(LNK1, "$(P)JAWMAN:JAWS1:$(DIR)GAP:_CALC.PROC PP")
+  field(LNK2, "$(P)JAWMAN:JAWS2:$(DIR)GAP:_CALC.PROC PP")
+  field(LNK3, "$(P)JAWMAN:JAWS3:$(DIR)GAP:_CALC.PROC PP")
+  field(LNK4, "$(P)JAWMAN:JAWS4:$(DIR)GAP:_CALC.PROC PP")
+  field(LNK5, "$(P)JAWMAN:JAWS5:$(DIR)GAP:_CALC.PROC PP")
+  field(LNK6, "$(P)JAWMAN:JAWS6:$(DIR)GAP:_CALC.PROC PP")
+}
+
+record(ao, "$(P)$(SAMPLE_JAW=JAWMAN):$(DIR)CENT:SP") {
+  field(DESC, "Global centre Setpoint")
+  field(FLNK, "$(P)JAWMAN:$(DIR)CENT:_FAN")
+  field(PREC, "2")
+  field(EGU, "")
+}
+
+record(dfanout,"$(P)JAWMAN:$(DIR)CENT:_FAN") {
+  field(DOL, "$(P)$(SAMPLE_JAW=JAWMAN):$(DIR)CENT:SP PP")
+  field(OMSL, "closed_loop")
+ 
+  field(OUTA, "$(P)JAWMAN:JAWS1:$(DIR)CENT:SP PP")
+  field(OUTB, "$(P)JAWMAN:JAWS2:$(DIR)CENT:SP PP")
+  field(OUTC, "$(P)JAWMAN:JAWS3:$(DIR)CENT:SP PP")
+  field(OUTD, "$(P)JAWMAN:JAWS4:$(DIR)CENT:SP PP")
+  field(OUTE, "$(P)JAWMAN:JAWS5:$(DIR)CENT:SP PP")
+  field(OUTF, "$(P)JAWMAN:JAWS6:$(DIR)CENT:SP PP")
+}
