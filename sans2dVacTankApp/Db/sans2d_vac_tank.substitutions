@@ -1,0 +1,5 @@
+global {P=\$(P)}
+
+file "$(TOP)/sans2dVacTankApp/Db/stop_motion.template" {
+	{FULL_PREFIX="\$(P)SANS2DVAC:"}
+}

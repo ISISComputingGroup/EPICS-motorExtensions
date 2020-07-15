@@ -1,0 +1,52 @@
+record(dfanout, "$(FULL_PREFIX)STOP_MOTORS:ALL") {
+    field(OUTA, "$(FULL_PREFIX)STOP_MOTORS:BAFFLES.PROC")
+    field(OUTB, "$(FULL_PREFIX)STOP_MOTORS:DETECTORS.PROC")
+    field(OUTC, "$(FULL_PREFIX)STOP_MOTORS:BEAMSTOPS.PROC")
+    field(OUTD, "$(FULL_PREFIX)STOP_MOTORS:JAWS.PROC")
+    field(OUTE, "$(FULL_PREFIX)STOP_MOTORS:STRIPS.PROC")
+    field(DOL, "1")
+    field(SELM, "All")
+}
+
+record(dfanout, "$(FULL_PREFIX)STOP_MOTORS:BAFFLES"){
+    field(OUTA, "$(P)REARBAFFLEZ:MTR.STOP PP")
+    field(OUTB, "$(P)FRONTBAFFLEZ:MTR.STOP PP")
+    field(DOL, "1")
+    field(SELM, "All")
+}
+
+record(dfanout, "$(FULL_PREFIX)STOP_MOTORS:DETECTORS"){
+    field(OUTA, "$(P)FRONTDETZ:MTR.STOP PP")
+    field(OUTB, "$(P)FRONTDETX:MTR.STOP PP")
+    field(OUTC, "$(P)FRONTDETROT:MTR.STOP PP")
+    field(OUTD, "$(P)REARDETZ:MTR.STOP PP")
+    field(OUTE, "$(P)REARDETX:MTR.STOP PP")
+    field(DOL, "1")
+    field(SELM, "All")
+}
+
+record(dfanout, "$(FULL_PREFIX)STOP_MOTORS:BEAMSTOPS"){
+    field(OUTA, "$(P)BEAMSTOPX:MTR.STOP PP")
+    field(OUTB, "$(P)BEAMSTOP2Y:MTR.STOP PP")
+    field(OUTC, "$(P)BEAMSTOP1Y:MTR.STOP PP")
+    field(OUTD, "$(P)BEAMSTOP3Y:MTR.STOP PP")
+    field(OUTE, "$(P)FRONTBEAMSTOP:MTR.STOP PP")
+    field(DOL, "1")
+    field(SELM, "All")
+}
+
+record(dfanout, "$(FULL_PREFIX)STOP_MOTORS:JAWS") {
+    field(OUTA, "$(P)JAWRIGHT:MTR.STOP PP")
+    field(OUTB, "$(P)JAWLEFT:MTR.STOP PP")
+    field(OUTC, "$(P)JAWUP:MTR.STOP PP")
+    field(OUTD, "$(P)JAWDOWN:MTR.STOP PP")
+    field(DOL, "1")
+    field(SELM, "All")
+}
+
+record(dfanout, "$(FULL_PREFIX)STOP_MOTORS:STRIPS") {
+    field(OUTA, "$(P)FRONTSTRIP:MTR.STOP PP")
+    field(OUTB, "$(P)REARSTRIP:MTR.STOP PP")
+    field(DOL, "1")
+    field(SELM, "All")
+}
