@@ -3,3 +3,7 @@ global {P=\$(P)}
 file "$(TOP)/sans2dVacTankApp/Db/stop_motion.template" {
 	{FULL_PREFIX="\$(P)SANS2DVAC:"}
 }
+
+file "$(TOP)/sans2dVacTankApp/Db/inhibit_beamstop.template" {
+	{FULL_PREFIX="\$(P)SANS2DVAC:"}
+}
