@@ -1,0 +1,33 @@
+record(calcout, "$(FULL_PREFIX)STOP_MOTORS:ALL") {
+    field(INPA, "$(MYPVPREFIX)FINS_VAC:GALIL_INTERLOCK")
+    field(CALC, "A")
+    field(OOPT, "When Non-zero")
+    field(OUT, "$(FULL_PREFIX)STOP_MOTORS:_ALL PP")
+}
+
+record(dfanout, "$(FULL_PREFIX)STOP_MOTORS:_ALL") {
+    field(OUTA, "$(FULL_PREFIX)STOP_MOTORS:APERTURES.PROC")
+    field(OUTB, "$(FULL_PREFIX)STOP_MOTORS:GUIDES.PROC")
+    field(DOL, "1")
+    field(SELM, "All")
+}
+
+record(dfanout, "$(FULL_PREFIX)STOP_MOTORS:APERTURES"){
+    field(OUTA, "$(P)APERTURE_1:MTR.STOP PP")
+    field(OUTB, "$(P)APERTURE_2:MTR.STOP PP")
+    field(OUTC, "$(P)APERTURE_3:MTR.STOP PP")
+    field(OUTD, "$(P)APERTURE_4:MTR.STOP PP")
+    field(OUTE, "$(P)APERTURE_5:MTR.STOP PP")
+    field(DOL, "1")
+    field(SELM, "All")
+}
+
+record(dfanout, "$(FULL_PREFIX)STOP_MOTORS:GUIDES"){
+    field(OUTA, "$(P)GUIDE_1:MTR.STOP PP")
+    field(OUTB, "$(P)GUIDE_2:MTR.STOP PP")
+    field(OUTC, "$(P)GUIDE_3:MTR.STOP PP")
+    field(OUTD, "$(P)GUIDE_4:MTR.STOP PP")
+    field(OUTE, "$(P)GUIDE_5:MTR.STOP PP")
+    field(DOL, "1")
+    field(SELM, "All")
+}
