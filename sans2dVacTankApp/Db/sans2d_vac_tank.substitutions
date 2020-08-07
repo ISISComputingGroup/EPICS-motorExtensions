@@ -3,3 +3,8 @@ global {P=\$(P)}
 file "$(TOP)/sans2dVacTankApp/Db/stop_motion.template" {
 	{FULL_PREFIX="\$(P)SANS2DVAC:"}
 }
+
+file "$(TOP)/sans2dVacTankApp/Db/inhibit.template" {
+	{FULL_PREFIX="\$(P)SANS2DVAC:", INHIBITED_AXIS="FRONTBEAMSTOP", INHIBITING_AXIS="FRONTDETROT"}
+	{FULL_PREFIX="\$(P)SANS2DVAC:", INHIBITED_AXIS="FRONTDETROT", INHIBITING_AXIS="FRONTBEAMSTOP"}
+}
