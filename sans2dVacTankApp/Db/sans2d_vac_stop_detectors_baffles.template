@@ -1,0 +1,14 @@
+## Distances (intervals) between baffles and detectors
+
+record(calcout, "$(FULL_PREFIX)STOP_$(INTERVAL_NAME):_CALC"){
+    field(DESC, "Stop $(MOVING_SHORT) if too close to $(STATIONARY_SHORT)")
+
+    field(INPA, "$(FULL_PREFIX)$(INTERVAL_NAME):INTERVAL")
+    field(INPB, "$(FULL_PREFIX)$(INTERVAL_NAME):MINIMUM_INTERVAL")
+    field(INPC, "$(P)$(MOVING_AXIS):MTR.TDIR")
+
+    field(CALC, "((a <= b) && (c == $(COLLISION_DIRECTION))) ? 1 : 0")
+
+    field(OOPT, "When Non-zero")
+    field(OUT, "$(FULL_PREFIX)STOP_MOTORS:DETECTORS_AND_BAFFLES.PROC")
+}

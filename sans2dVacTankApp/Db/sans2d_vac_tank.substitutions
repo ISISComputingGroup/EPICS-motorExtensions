@@ -23,3 +23,14 @@ file "$(TOP)/sans2dVacTankApp/Db/sans2d_vac_minimum_intervals.template" {
 	{FULL_PREFIX="\$(P)SANS2DVAC:"}
 }
 
+file "$(TOP)/sans2dVacTankApp/Db/sans2d_stop_detectors_baffles.template" {
+    pattern{ FULL_PREFIX, INTERVAL_NAME, MOVING_SHORT, STATIONARY_SHORT, MOVING_AXIS, COLLISION_DIRECTION }
+    { "\$(P)SANS2DVAC:", "FDFB", "FD", "FB", "FRONTDETZ", "1" }
+    { "\$(P)SANS2DVAC:", "FDFB", "FB", "FD", "FRONTBAFFLEZ", "0" }
+    { "\$(P)SANS2DVAC:", "FBRB", "FB", "RB", "FRONTBAFFLEZ", "1" }
+    { "\$(P)SANS2DVAC:", "FBRB", "RB", "FB", "REARBAFFLEZ", "0" }
+    { "\$(P)SANS2DVAC:", "RBRD", "RB", "RD", "REARBAFFLEZ", "1" }
+    { "\$(P)SANS2DVAC:", "RBRD", "RD", "RB", "REARDETZ", "0" }
+    
+}
+
