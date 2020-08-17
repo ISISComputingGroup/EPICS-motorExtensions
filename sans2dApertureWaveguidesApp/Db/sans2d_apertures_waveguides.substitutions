@@ -1,4 +1,4 @@
-global {P=\$(P)}
+global {P=\$(P),MYPVPREFIX=\$(MYPVPREFIX)}
 
 file "$(TOP)/sans2dApertureWaveguidesApp/Db/stop_motion.template" {
 	{FULL_PREFIX="\$(P)SANS2DAPWV:"}
