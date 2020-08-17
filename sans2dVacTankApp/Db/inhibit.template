@@ -1,0 +1,16 @@
+record(calcout, "$(FULL_PREFIX)INHIBIT_$(INHIBITED_AXIS)") {
+    field(DESC, "Inhibit axis move if -2>other axis<2")
+    field(INPA, "$(P)$(INHIBITING_AXIS) CP")
+    field(INPB, "$(P)$(INHIBITING_AXIS):SP CP")
+    field(CALC, "A < -2 || A > 2 || B < -2 || B > 2")
+    field(OUT, "$(FULL_PREFIX)_INHIBIT_$(INHIBITED_AXIS) PP MS")
+}
+
+record(dfanout, "$(FULL_PREFIX)_INHIBIT_$(INHIBITED_AXIS)") {
+    field(DESC, "Stop and inhibit axis movement")
+    field(DOL, "$(FULL_PREFIX)INHIBIT_$(INHIBITED_AXIS)")
+    field(OUTA, "$(P)$(INHIBITED_AXIS):MTR.STOP PP")
+    field(OUTB, "$(P)$(INHIBITED_AXIS):SP.DISP")
+    field(OUTC, "$(P)$(INHIBITED_AXIS).DISP")
+    field(SELM, "All")
+}
