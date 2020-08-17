@@ -25,6 +25,14 @@ record(dfanout, "$(FULL_PREFIX)STOP_MOTORS:DETECTORS"){
     field(SELM, "All")
 }
 
+record(dfanout, "$(FULL_PREFIX)STOP_MOTORS:DETECTORS_Z_AXIS_AND_BAFFLES"){
+    field(OUTA, "$(FULL_PREFIX)STOP_MOTORS:BAFFLES.PROC")
+    field(OUTB, "$(P)FRONTDETZ:MTR.STOP PP")
+    field(OUTD, "$(P)REARDETZ:MTR.STOP PP")
+    field(DOL, "1")
+    field(SELM, "All")
+}
+
 record(dfanout, "$(FULL_PREFIX)STOP_MOTORS:BEAMSTOPS"){
     field(OUTA, "$(P)BEAMSTOPX:MTR.STOP PP")
     field(OUTB, "$(P)BEAMSTOP2Y:MTR.STOP PP")
