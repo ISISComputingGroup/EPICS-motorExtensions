@@ -7,9 +7,9 @@ record(longin, "$(FULL_PREFIX)FDFB:MINIMUM_INTERVAL")
 	field(DESC, "Minimum interval between FD and FB")
 	field(DTYP, "Soft Channel")
 	field(EGU, "mm")
-	field(VAL, 150)
+	field(VAL, 1050)
 
-	field(PINI, "Yes")
+	field(PINI, "YES")
 
 	info(archive, "VAL")
 	info(autosaveFields, "VAL")
@@ -22,7 +22,7 @@ record(longin, "$(FULL_PREFIX)FBRB:MINIMUM_INTERVAL")
 	field(EGU, "mm")
 	field(VAL, 210)
 
-	field(PINI, "Yes")
+	field(PINI, "YES")
 
 	info(archive, "VAL")
 	info(autosaveFields, "VAL")
@@ -35,7 +35,7 @@ record(longin, "$(FULL_PREFIX)RBRD:MINIMUM_INTERVAL")
 	field(EGU, "mm")
 	field(VAL, 350)
 
-	field(PINI, "Yes")
+	field(PINI, "YES")
 
 	info(archive, "VAL")
 	info(autosaveFields, "VAL")
