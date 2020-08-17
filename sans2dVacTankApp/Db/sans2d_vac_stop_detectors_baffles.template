@@ -6,8 +6,9 @@ record(calcout, "$(FULL_PREFIX)STOP_$(MOVING_SHORT)$(STATIONARY_SHORT):_CALC"){
     field(INPA, "$(FULL_PREFIX)$(INTERVAL_NAME):INTERVAL CP")
     field(INPB, "$(FULL_PREFIX)$(INTERVAL_NAME):MINIMUM_INTERVAL CP")
     field(INPC, "$(P)$(MOVING_AXIS):MTR.TDIR CP")
+    field(INPD, "$(FULL_PREFIX)COLLISION_AVOIDANCE")
 
-    field(CALC, "((A <= B) && (C == $(COLLISION_DIRECTION))) ? 1 : 0")
+    field(CALC, "((A <= B) && (C == $(COLLISION_DIRECTION)) && (D == 0)) ? 1 : 0")
 
     field(OOPT, "When Non-zero")
     field(OUT, "$(P)$(MOVING_AXIS):MTR.STOP PP")
