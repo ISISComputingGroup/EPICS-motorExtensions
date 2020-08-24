@@ -1,0 +1,34 @@
+record(calcout, "$(P)$(M)_DIFF_") {
+    field(DESC, "Positional error calculate")
+    field(INPA, "$(P)$(M).DIFF CP")
+    field(INPB, "$(P)$(M)_THRESHOLD CP")
+    field(CALC, "A > B")
+}
+
+record(calcout, "$(P)$(M)_CALC_ERROR_") {
+    field(DESC, "Positional error calculate")
+    field(INPA, "$(P)$(M)_DIFF_ CP")
+    field(INPB, "$(P)$(M).DMOV CP")
+    field(CALC, "B")
+    field(OOPT, "When Non-zero")
+    field(DOPT, "Use OCAL")
+    field(OCAL, "A")
+    field(OUT, "$(P)$(M)_ERROR PP")
+}
+
+# Overwrite default threshold, it will be different for Aperture and Guide Motor
+record(calcout, "$(P)$(M)_DEFAULT_THRESHOLD")
+{
+    field(DESC, "Default threshold")
+    field(INPA, "$(P)$(M).MRES CP")
+    field(INPB, "$(P)$(M).ERES CP")
+    field(INPC, "$(P)$(M).RDBD")
+    field(CALC, "C")
+    field(OUT, "$(P)$(M)_THRESHOLD PP")
+    field(EGU, "mm")
+}
+
+record(ai, "$(P)$(M)_ERROR") {
+    field(DESC, "Positional error for individual motor")
+    info(archive, "VAL")
+}

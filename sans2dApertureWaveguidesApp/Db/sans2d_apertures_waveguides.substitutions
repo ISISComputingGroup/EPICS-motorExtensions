@@ -3,3 +3,18 @@ global {P=\$(P),MYPVPREFIX=\$(MYPVPREFIX)}
 file "$(TOP)/sans2dApertureWaveguidesApp/Db/stop_motion.template" {
 	{FULL_PREFIX="\$(P)SANS2DAPWV:"}
 }
+
+file "$(TOP)/sans2dApertureWaveguidesApp/Db/positional_error.template" {
+	pattern {P ,M}
+    {"\$(P)", "MTR\$(CCP_01)01"}
+    {"\$(P)", "MTR\$(CCP_01)02"}
+    {"\$(P)", "MTR\$(CCP_01)03"}
+    {"\$(P)", "MTR\$(CCP_01)04"}
+    {"\$(P)", "MTR\$(CCP_01)05"}
+    
+    {"\$(P)", "MTR\$(CCP_02)01"}
+    {"\$(P)", "MTR\$(CCP_02)02"}
+    {"\$(P)", "MTR\$(CCP_02)03"}
+    {"\$(P)", "MTR\$(CCP_02)04"}
+    {"\$(P)", "MTR\$(CCP_02)05"}
+}
