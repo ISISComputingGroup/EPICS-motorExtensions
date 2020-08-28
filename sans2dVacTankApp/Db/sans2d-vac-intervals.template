@@ -3,9 +3,9 @@
 record(calc, "$(FULL_PREFIX)$(ASHORT)$(BSHORT):INTERVAL"){
     field(DESC, "Dist between $(ASHORT) and $(BSHORT)")
     field(EGU, "mm")
-    field(INPA, "$(P)$(APV) CP")
-    field(INPB, "$(P)$(BPV) CP")
-    field(CALC, "b-a")
+    field(INPA, "$(P)$(APV) CP MSS")
+    field(INPB, "$(P)$(BPV) CP MSS")
+    field(CALC, "B-A")
     field(LOLO, "$(INTERVAL_MAJOR_WARNING)")
     field(LLSV, "MAJOR")
     field(LOW, "$(INTERVAL_MINOR_WARNING)")
