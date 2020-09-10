@@ -5,7 +5,7 @@ file "$(TOP)/sans2dVacTankApp/Db/stop_motion.template" {
 }
 
 file "$(TOP)/sans2dVacTankApp/Db/sans2d_enable_collision_avoidance.template" {
-	{FULL_PREFIX="\$(P)SANS2DVAC:"}
+	{PV_PREFIX="\$(PV_PREFIX)", FULL_PREFIX="\$(P)SANS2DVAC:"}
 }
 
 file "$(TOP)/sans2dVacTankApp/Db/inhibit.template" {

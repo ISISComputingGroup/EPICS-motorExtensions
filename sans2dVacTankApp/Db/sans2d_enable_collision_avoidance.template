@@ -13,3 +13,15 @@ record(bo, "$(FULL_PREFIX)COLLISION_AVOIDANCE")
 
 	info(archive, "VAL")
 }
+
+record(stringin, "$(FULL_PREFIX)_CURR_TIME") {
+    field(DTYP, "Soft Timestamp")
+    field(SCAN, ".1 second")
+    field(INP, "@%m/%d/%Y %H:%M:%S")
+}
+
+record(stringin, "$(FULL_PREFIX)_LAST_STOP_TIME") {
+    field(VAL, "Not stopped since IOC start")
+    field(INP, "$(FULL_PREFIX)_CURR_TIME")
+    info(autosaveFields, "VAL")
+}
