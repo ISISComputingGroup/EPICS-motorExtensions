@@ -1,0 +1,42 @@
+
+# Records to store the minimum interval thresholds between detectors and baffles in the SANS2D vac tank.
+# They have pre-determined values given by the instrument scientists, but they should be able to change them.
+
+record(longin, "$(FULL_PREFIX)FDFB:MINIMUM_INTERVAL")
+{
+	field(DESC, "Minimum interval between FD and FB")
+	field(DTYP, "Soft Channel")
+	field(EGU, "mm")
+	field(VAL, "1050")
+
+	field(PINI, "YES")
+
+	info(archive, "VAL")
+	info(autosaveFields, "VAL")
+}
+
+record(longin, "$(FULL_PREFIX)FBRB:MINIMUM_INTERVAL")
+{
+	field(DESC, "Minimum interval between FB and RB")
+	field(DTYP, "Soft Channel")
+	field(EGU, "mm")
+	field(VAL, "210")
+
+	field(PINI, "YES")
+
+	info(archive, "VAL")
+	info(autosaveFields, "VAL")
+}
+
+record(longin, "$(FULL_PREFIX)RBRD:MINIMUM_INTERVAL")
+{
+	field(DESC, "Minimum interval between RB and RD")
+	field(DTYP, "Soft Channel")
+	field(EGU, "mm")
+	field(VAL, "350")
+
+	field(PINI, "YES")
+
+	info(archive, "VAL")
+	info(autosaveFields, "VAL")
+}

@@ -1,0 +1,46 @@
+## Distances (intervals) between baffles and detectors
+
+record(calcout, "$(FULL_PREFIX)STOP_$(MOVING_SHORT)$(STATIONARY_SHORT):_CALC"){
+    field(DESC, "Stop $(MOVING_SHORT) if too close to $(STATIONARY_SHORT)")
+
+    field(INPA, "$(FULL_PREFIX)$(INTERVAL_NAME):INTERVAL CP")
+    field(INPB, "$(FULL_PREFIX)$(INTERVAL_NAME):MINIMUM_INTERVAL CP")
+    field(INPC, "$(P)$(MOVING_AXIS):MTR.TDIR CP")
+    field(INPD, "$(FULL_PREFIX)COLLISION_AVOIDANCE")
+
+    field(CALC, "((A <= B) && (C == $(COLLISION_DIRECTION)) && (D == 0)) ? 1 : 0")
+
+    field(OOPT, "When Non-zero")
+    field(OUT, "$(FULL_PREFIX)STOP_$(MOVING_SHORT)$(STATIONARY_SHORT):_FAN PP")
+}
+
+record(dfanout, "$(FULL_PREFIX)STOP_$(MOVING_SHORT)$(STATIONARY_SHORT):_FAN") {
+    field(OUTA, "$(P)$(MOVING_AXIS):MTR.STOP PP")
+    field(OUTB, "$(FULL_PREFIX)_LAST_STOP_TIME.PROC PP")
+}
+
+# Holds a circular buffer of error statuses from last 5s.
+record(compress, "$(FULL_PREFIX)$(INTERVAL_NAME):INTERVAL:_ERR_BUFF") {
+  field(INP, "$(FULL_PREFIX)$(INTERVAL_NAME):INTERVAL.SEVR")
+  field(ALG, "Circular Buffer")
+  field(NSAM, "50")
+  field(SCAN, ".1 second")
+}
+
+# Selects smallest error status from circular buffer above.
+# If >=3, there is a persistent comms error that has lasted >5 s
+record(compress, "$(FULL_PREFIX)$(INTERVAL_NAME):INTERVAL:_ERR_COMP") {
+  field(INP, "$(FULL_PREFIX)$(INTERVAL_NAME):INTERVAL:_ERR_BUFF CP MS")
+  field(ALG, "N to 1 Low Value")
+  field(NSAM, "1")
+  field(N, "50")
+}
+
+# True if there has been no comms error within the last 120 secs.
+record(calcout, "$(FULL_PREFIX)$(INTERVAL_NAME):INTERVAL:_ERR_CALC") {
+    field(INPA, "$(FULL_PREFIX)$(INTERVAL_NAME):INTERVAL:_ERR_COMP CP")
+    field(CALC, "A>=3")
+    info(archive, "VAL")
+    field(OOPT, "When Non-zero")
+    field(OUT, "$(FULL_PREFIX)STOP_$(MOVING_SHORT)$(STATIONARY_SHORT):_FAN PP")
+}
