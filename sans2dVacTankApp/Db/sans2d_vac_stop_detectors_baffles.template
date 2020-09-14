@@ -20,7 +20,7 @@ record(dfanout, "$(FULL_PREFIX)STOP_$(MOVING_SHORT)$(STATIONARY_SHORT):_FAN") {
 }
 
 # Holds a circular buffer of error statuses from last 5s.
-record(compress, "$(FULL_PREFIX)$(INTERVAL_NAME):INTERVAL:_ERR_BUFF") {
+record(compress, "$(FULL_PREFIX)$(MOVING_SHORT)$(STATIONARY_SHORT):INTERVAL:_ERR_BUFF") {
   field(INP, "$(FULL_PREFIX)$(INTERVAL_NAME):INTERVAL.SEVR")
   field(ALG, "Circular Buffer")
   field(NSAM, "50")
@@ -29,16 +29,16 @@ record(compress, "$(FULL_PREFIX)$(INTERVAL_NAME):INTERVAL:_ERR_BUFF") {
 
 # Selects smallest error status from circular buffer above.
 # If >=3, there is a persistent comms error that has lasted >5 s
-record(compress, "$(FULL_PREFIX)$(INTERVAL_NAME):INTERVAL:_ERR_COMP") {
-  field(INP, "$(FULL_PREFIX)$(INTERVAL_NAME):INTERVAL:_ERR_BUFF CP MS")
+record(compress, "$(FULL_PREFIX)$(MOVING_SHORT)$(STATIONARY_SHORT):INTERVAL:_ERR_COMP") {
+  field(INP, "$(FULL_PREFIX)$(MOVING_SHORT)$(STATIONARY_SHORT):INTERVAL:_ERR_BUFF CP MS")
   field(ALG, "N to 1 Low Value")
   field(NSAM, "1")
   field(N, "50")
 }
 
 # True if there has been no comms error within the last 120 secs.
-record(calcout, "$(FULL_PREFIX)$(INTERVAL_NAME):INTERVAL:_ERR_CALC") {
-    field(INPA, "$(FULL_PREFIX)$(INTERVAL_NAME):INTERVAL:_ERR_COMP CP")
+record(calcout, "$(FULL_PREFIX)$(MOVING_SHORT)$(STATIONARY_SHORT):INTERVAL:_ERR_CALC") {
+    field(INPA, "$(FULL_PREFIX)$(MOVING_SHORT)$(STATIONARY_SHORT):INTERVAL:_ERR_COMP CP")
     field(CALC, "A>=3")
     info(archive, "VAL")
     field(OOPT, "When Non-zero")
