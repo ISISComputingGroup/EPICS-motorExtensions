@@ -14,24 +14,18 @@ record(calcout, "$(FULL_PREFIX)STOP_$(MOVING_SHORT)$(STATIONARY_SHORT):_CALC"){
     field(OUT, "$(FULL_PREFIX)STOP_$(MOVING_SHORT)$(STATIONARY_SHORT):_SEQ.PROC PP")
 }
 
-# Record to store old acceleration while we send stop
-record(ai, "$(FULL_PREFIX)STOP_$(MOVING_SHORT)$(STATIONARY_SHORT):_OLDACEL") {}
-
 record(sseq, "$(FULL_PREFIX)STOP_$(MOVING_SHORT)$(STATIONARY_SHORT):_SEQ") {
     # Send normal stop first
     field(DO1, "1")
     field(LNK1, "$(P)$(MOVING_AXIS):MTR.STOP PP")
-    # field(WAIT1, "Wait")
     
     # Send fast stop (galil command)
     field(STR2, "$(ARB_CMD_VAL)")
     field(LNK2, "$(ARB_CMD_PV) PP")
-    # field(WAIT2, "After1")
     
     # Update last stop time
     field(DO3, "1")
     field(LNK3, "$(FULL_PREFIX)_LAST_STOP_TIME.PROC PP")
-    # field(WAIT3, "After2")
 }
 
 # Holds a circular buffer of error statuses from last 5s.
