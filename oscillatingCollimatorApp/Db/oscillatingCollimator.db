@@ -298,59 +298,6 @@ record(ai,"$(P)$(O):ANGLE:SP:RBV") {
     field(INP, "@asyn(Galil,0)USER_VAR angle")
 }
 
-record(calc, "$(P)$(O):CYCLE:TIME:HALF:SP") {
-    field(DESC, "Half cycle time, setpoint")
-    field(INPA, "$(P)$(O):FREQ:SP")
-    field(CALC, "1/(2*A)")
-    field(EGU, "s")
-    field(PREC, "2")
-    field(FLNK, "$(P)$(O):DIST:PART:SP")
-}
-
-record(calc, "$(P)$(O):DIST:PART:SP") {
-    field(DESC, "Swept distance, setpoint")
-    field(INPA, "$(P)$(O):RADIUS")  # Constant.
-    field(INPB, "$(P)$(O):STEPS")  # Constant.
-    field(INPC, "$(P)$(O):ANGLE:SP")
-    field(CALC, "2*A*B*TAN(C*D2R)")
-    field(EGU, "stp")
-    field(PREC, "0")
-    field(FLNK, "$(P)$(O):VEL:SP:DISC")
-}
-
-record(calc, "$(P)$(O):VEL:SP:DISC") {
-    field(DESC, "Velocity calculation discriminant")
-    field(INPA, "$(P)$(O):ACC:SP")  # Constant.
-    field(INPB, "$(P)$(O):DIST:PART:SP")
-    field(INPC, "$(P)$(O):CYCLE:TIME:HALF:SP")
-    field(CALC, "C*C-8*B/A")
-    field(EGU, "s^2")
-    field(PREC, "2")
-    field(FLNK, "$(P)$(O):VEL:SP:DISC:CHECK")
-}
-
-record(calc, "$(P)$(O):VEL:SP:DISC:CHECK") {
-    field(DESC, "0 if discriminant valid, else 1")
-    field(INPA, "$(P)$(O):VEL:SP:DISC")
-    field(CALC, "A<0")
-    field(EGU, "")
-    field(PREC, "0")
-    info(autosaveFields, "VAL")
-    field(FLNK, "$(P)$(O):VEL:SP:_CALC")
-}
-
-record(calcout, "$(P)$(O):VEL:SP:_CALC") {
-    field(INPA, "$(P)$(O):ACC:SP")  # Constant.
-    field(INPB, "$(P)$(O):DIST:PART:SP")
-    field(INPC, "$(P)$(O):CYCLE:TIME:HALF:SP")
-    field(INPD, "$(P)$(O):VEL:SP:DISC")
-    field(CALC, "A*(C-SQR(D))/4")
-    field(OUT, "$(P)$(O):VEL:SP PP")
-    field(EGU, "stp/s")
-    field(PREC, "0")
-    field(FLNK, "$(P)$(O):DIST:VEL:SP")
-}
-
 record(calc, "$(P)$(O):DIST:VEL:SP") {
     field(DESC, "Distance to velocity setpoint")
     field(INPA, "$(P)$(O):ACC:SP")

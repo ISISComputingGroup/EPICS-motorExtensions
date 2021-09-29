@@ -1,0 +1,108 @@
+record(ao,"$(P)$(O):MNTCYCLES:SP") {
+    field(DESC, "Num cycles between maintenance rotation")
+    field(DTYP, "$(OTYP)")
+    field(EGU, "")
+    field(PREC, "2")
+    field(OUT, "@asyn(Galil,0)USER_VAR cycles")
+    info(archive, "VAL")
+    info(autosaveFields, "VAL")
+}
+
+record(ai,"$(P)$(O):MNTCYCLES") {
+    field(DESC, "Num cycles between maintenance rotation")
+    field(SCAN, "1 second")
+    field(DTYP, "$(OTYP)")
+    field(INP, "@asyn(Galil,0)USER_VAR cycles")
+    field(EGU, "")
+    field(PREC, "2")
+    info(INTEREST, "HIGH")
+    info(archive, "VAL")
+}
+#TODO set the mntcycles val here 
+
+
+# Swept angle calcs
+
+#TODO macros for: 
+# full motor steps per rev $(STEPS_PER_REV)
+# microsteps per full motor step $(MICROSTEPS_PER_STEP)
+# motor revs per gearbox output shaft rev $(GEARBOX_RATIO) #TODO make ticket - these three are only set once and used once - could the scientist have this value worked out beforehand? ie one macro which is just steps per revolution
+# encoder counts per mm $(ENC_COUNTS_PER_MM)
+
+record(calc, "$(P)$(O):STEPS_PER_REV") {
+    field(DESC, "Motor steps per revolution")
+    field(INPA, "$(STEPS_PER_REV)")
+    field(INPB, "$(MICROSTEPS_PER_STEP)")
+    field(INPC, "$(GEARBOX_RATIO)")
+    field(CALC, "A*B*C")
+    field(EGU, "stp")
+    field(PINI, "YES")
+    field(FLNK, "$(P)$(O):STEPS_PER_DEG")
+}
+
+record(calc, "$(P)$(O):STEPS_PER_DEG") {
+    field(DESC, "Motor steps per degree")
+    field(INPA, "$(P)$(O):STEPS_PER_REV")
+    field(CALC, "A/360")
+    field(EGU, "stp/deg")
+}
+
+record(calc, "$(P)$(O):CIRCUMFERENCE") {
+    field(DESC, "Circumference of collimator")
+    field(EGU, "mm")
+    field(PREC, "3")
+    field(INPA, "$(P)$(O):RADIUS CA")
+    field(CALC, "A*PI*2")
+}
+
+record(calc, "$(P)$(O):STEPS_PER_MM") {
+    field(DESC, "Motor steps per mm")
+    field(INPA, "$(P)$(O):CIRCUMFERENCE CA")
+    field(INPB, "$(P)$(O):STEPS_PER_REV")
+    field(CALC, "A/B")
+    field(EGU, "stp/mm")
+}
+
+record(calc, "$(P)$(O):MM_PER_DEG") {
+    field(INPA, "$(P)$(O):CIRCUMFERENCE CA")
+    field(CALC, "A/360")
+    field(EGU, "mm/deg")
+    field(DESC, "Motor steps per degree")
+}
+
+record(calc, "$(P)$(O):SWEPT_DIST_MM") {
+    field(DESC, "Actual swept distance (mm)")
+    field(INPA, "$(P)$(O):ANGLE:SP:RBV CA")
+    field(INPB, "$(P)$(O):MM_PER_DEG CA")
+    field(CALC, "A*B")
+    field(EGU, "mm")
+}
+
+record(calc, "$(P)$(O):SWEPT_DIST_DEG") {
+    field(DESC, "Actual swept distance (degrees)")
+    field(INPB, "$(P)$(O):STEPS_PER_MM CA")
+    field(INPB, "$(P)$(O):SWEPT_DIST_MM CA")
+    field(CALC, "A*B")
+    field(EGU, "deg")
+}
+
+record(calc, "$(P)$(O):ENC_COUNTS_PER_DEG") {
+    field(DESC, "Encoder counts per degree")
+    field(INPA, "$(ENC_COUNTS_PER_MM)")
+    field(INPB, "$(P)$(O):CIRCUMFERENCE CA")
+    field(CALC, "A*B")
+    field(EGU, "")
+}
+
+record(calc, "$(P)$(O):DIST:PART:SP") {
+    field(DESC, "Swept distance, setpoint")
+    field(INPA, "$(P)$(O):STEPS_PER_MM CA")
+    field(INPB, "$(P)$(O):SWEPT_DIST_MM CA")
+    field(CALC, "A*B")
+    field(EGU, "stp")
+    field(PREC, "0")
+    field(FLNK, "$(P)$(O):VEL:SP:DISC")
+}
+
+
+
