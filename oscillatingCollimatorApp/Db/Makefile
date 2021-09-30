@@ -12,6 +12,9 @@ include $(TOP)/configure/CONFIG
 # databases, templates, substitutions like this
 #DB += xxx.db
 DB += oscillatingCollimator.db
+DB += oscillatingCollimator_Let.db
+DB += oscillatingCollimator_Wish.db
+
 
 #----------------------------------------------------
 # If <anyname>.db template is not named <anyname>*.template add

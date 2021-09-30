@@ -1,4 +1,14 @@
-# (LET) Radial oscillating collimator
+# Radial oscillating collimator common fields 
+
+# Thread
+
+record(stringin, "$(P)$(O):THREAD") {
+    field(DESC, "Thread col program will run on")
+    field(VAL, "$(THREADNUM=2)")
+    info(autosaveFields, "VAL")
+}
+alias("$(P)$(O):THREAD", "$(P)$(O):THREAD:SP")
+alias("$(P)$(O):THREAD", "$(P)$(O):THREAD:SP:RBV")
 
 # Start/stop
 
@@ -91,22 +101,76 @@ record(scalcout, "$(P)$(O):STOP:CMD") {
     field(OUT, "$(P)$(D):SEND_STR_CMD PP")
 }
 
-# Motor position
 
-record(calc, "$(P)$(O):POS:_CALC") {
-    field(SCAN, ".1 second")
-    field(INPA, "$(P)$(M).RBV MS")
-    field(INPB, "$(P)$(O):RADIUS CP MS")
-    field(CALC, "R2D*ATAN(A/B)")
-}
+# The fields set by the calculations
 
-record(ai, "$(P)$(O):POS") {
-    field(INP, "$(P)$(O):POS:_CALC CP MS")
-    field(DESC, "Current motor position")
+record(ao,"$(P)$(O):VEL:SP") {
+    field(DESC, "Velocity setpoint")
+    field(DTYP, "$(OTYP)")
+    field(EGU, "stp/s")
     field(PREC, "2")
-    field(EGU, "deg")
-    info(INTEREST, "MEDIUM")
+    field(OUT, "@asyn(Galil,0)USER_VAR vel")
+    info(archive, "VAL")
+    info(autosaveFields, "VAL")
 }
+
+record(ao,"$(P)$(O):ACC:SP") {
+    field(DESC, "Acceleration setpoint")
+    field(VAL, "49152")
+    field(PINI, "YES")
+    field(DTYP, "$(OTYP)")
+    field(EGU, "stp/s^2")
+    field(PREC, "2")
+    field(OUT, "@asyn(Galil,0)USER_VAR accel")
+    info(archive, "VAL")
+}
+
+record(ao,"$(P)$(O):DIST:SP") {
+    field(DESC, "Total swept distance setpoint")
+    field(DTYP, "$(OTYP)")
+    field(EGU, "stp")
+    field(PREC, "2")
+    field(OUT, "@asyn(Galil,0)USER_VAR dist")
+    info(archive, "VAL")
+    info(autosaveFields, "VAL")
+}
+
+# Recover the variables set in the Galil
+
+record(ai,"$(P)$(O):VEL") {
+    field(DESC,"Velocity")
+    field(SCAN,"1 second")
+    field(DTYP,"$(OTYP)")
+    field(INP, "@asyn(Galil,0)USER_VAR vel")
+    field(EGU, "stp/s")
+    field(PREC, "2")
+    info(INTEREST, "HIGH")
+    info(archive, "VAL")
+}
+
+record(ai,"$(P)$(O):ACC") {
+    field(DESC,"Acceleration")
+    field(SCAN,"1 second")
+    field(DTYP,"$(OTYP)")
+    field(INP, "@asyn(Galil,0)USER_VAR accel")
+    field(EGU, "stp/s^2")
+    field(PREC, "2")
+    info(INTEREST, "HIGH")
+}
+
+record(ai,"$(P)$(O):DIST") {
+    field(DESC, "Total swept distance")
+    field(SCAN, "1 second")
+    field(DTYP, "$(OTYP)")
+    field(INP, "@asyn(Galil,0)USER_VAR dist")
+    field(EGU, "stp")
+    field(PREC, "2")
+    info(INTEREST, "HIGH")
+    info(archive, "VAL")
+}
+
+
+
 
 # We want to know if we are oscillating but:
 # * It doesn't have an encoder we can read
@@ -196,30 +260,13 @@ record(ao, "$(P)$(O):FREQ:SP") {
     field(FLNK, "$(P)$(O):CYCLE:TIME:HALF:SP")
 }
 
-record(ai,"$(P)$(O):TIME") {
-    field(DESC,"Time between oscillations")
-    field(SCAN,"1 second")
-    field(EGU, "ms")
-    field(DTYP,"$(OTYP)")
-    field(INP, "@asyn(Galil,0)USER_VAR time")
-    info(INTEREST, "MEDIUM")
-    info(archive, "VAL")
-}
-
-record(calcout, "$(P)$(O):FREQ:_CALC") {
+record(calc, "$(P)$(O):CYCLE:TIME:HALF:SP") {
+    field(DESC, "Half cycle time, setpoint")
+    field(INPA, "$(P)$(O):FREQ:SP")
+    field(CALC, "1/(2*A)")
+    field(EGU, "s")
     field(PREC, "2")
-    field(EGU, "Hz")
-    field(INPA, "$(P)$(O):TIME CP MS")
-    field(CALC, "A==0?0:1000/A")
-    field(OUT, "$(P)$(O):FREQ PP")
-}
-
-record(ai, "$(P)$(O):FREQ") {
-    field(DESC, "Operating frequency")
-    field(PREC, "2")
-    field(EGU, "Hz")
-    info(INTEREST, "HIGH")
-    info(archive, "VAL")
+    field(FLNK, "$(P)$(O):DIST:PART:SP")
 }
 
 # Cycle
@@ -247,31 +294,39 @@ record(ai,"$(P)$(O):RADIUS") {
     info(archive, "VAL")
 }
 
-# Motor steps
 
-record(calcout, "$(P)$(O):STEPS:_CALC") {
-    field(SCAN, "1 second")
-    field(INPA, "$(P)$(M).MRES")
-    field(CALC, "1/A")
-    field(OUT, "$(P)$(O):STEPS PP")
-    field(EGU, "mm")
+record(calc, "$(P)$(O):VEL:SP:DISC") {
+    field(DESC, "Velocity calculation discriminant")
+    field(INPA, "$(P)$(O):ACC:SP")  # Constant.
+    field(INPB, "$(P)$(O):DIST:PART:SP")
+    field(INPC, "$(P)$(O):CYCLE:TIME:HALF:SP")
+    field(CALC, "C*C-8*B/A")
+    field(EGU, "s^2")
+    field(PREC, "2")
+    field(FLNK, "$(P)$(O):VEL:SP:DISC:CHECK")
 }
 
-record(ai, "$(P)$(O):STEPS") {
-    field(DESC, "Motor steps per mm")
-    field(EGU, "1/mm")
+record(calc, "$(P)$(O):VEL:SP:DISC:CHECK") {
+    field(DESC, "0 if discriminant valid, else 1")
+    field(INPA, "$(P)$(O):VEL:SP:DISC")
+    field(CALC, "A<0")
+    field(EGU, "")
     field(PREC, "0")
-}
-
-# Thread
-
-record(stringin, "$(P)$(O):THREAD") {
-    field(DESC, "Thread col program will run on")
-    field(VAL, "2")
     info(autosaveFields, "VAL")
+    field(FLNK, "$(P)$(O):VEL:SP:_CALC")
 }
-alias("$(P)$(O):THREAD", "$(P)$(O):THREAD:SP")
-alias("$(P)$(O):THREAD", "$(P)$(O):THREAD:SP:RBV")
+
+record(calcout, "$(P)$(O):VEL:SP:_CALC") {
+    field(INPA, "$(P)$(O):ACC:SP")  # Constant.
+    field(INPB, "$(P)$(O):DIST:PART:SP")
+    field(INPC, "$(P)$(O):CYCLE:TIME:HALF:SP")
+    field(INPD, "$(P)$(O):VEL:SP:DISC")
+    field(CALC, "A*(C-SQR(D))/4")
+    field(OUT, "$(P)$(O):VEL:SP PP")
+    field(EGU, "stp/s")
+    field(PREC, "0")
+    field(FLNK, "$(P)$(O):DIST:VEL:SP")
+}
 
 # Swept angle
 
@@ -366,71 +421,4 @@ record(calc, "$(P)$(O):FREQ:SP:RBV") {
     field(PREC, "2")
     field(INPA, "$(P)$(O):CYCLE:TIME:HALF CP MS")
     field(CALC, "1/(2*A)")
-}
-
-# The fields set by the calculations
-
-record(ao,"$(P)$(O):VEL:SP") {
-    field(DESC, "Velocity setpoint")
-    field(DTYP, "$(OTYP)")
-    field(EGU, "stp/s")
-    field(PREC, "2")
-    field(OUT, "@asyn(Galil,0)USER_VAR vel")
-    info(archive, "VAL")
-    info(autosaveFields, "VAL")
-}
-
-record(ao,"$(P)$(O):ACC:SP") {
-    field(DESC, "Acceleration setpoint")
-    field(VAL, "49152")
-    field(PINI, "YES")
-    field(DTYP, "$(OTYP)")
-    field(EGU, "stp/s^2")
-    field(PREC, "2")
-    field(OUT, "@asyn(Galil,0)USER_VAR accel")
-    info(archive, "VAL")
-}
-
-record(ao,"$(P)$(O):DIST:SP") {
-    field(DESC, "Total swept distance setpoint")
-    field(DTYP, "$(OTYP)")
-    field(EGU, "stp")
-    field(PREC, "2")
-    field(OUT, "@asyn(Galil,0)USER_VAR dist")
-    info(archive, "VAL")
-    info(autosaveFields, "VAL")
-}
-
-# Recover the variables set in the Galil
-
-record(ai,"$(P)$(O):VEL") {
-    field(DESC,"Velocity")
-    field(SCAN,"1 second")
-    field(DTYP,"$(OTYP)")
-    field(INP, "@asyn(Galil,0)USER_VAR vel")
-    field(EGU, "stp/s")
-    field(PREC, "2")
-    info(INTEREST, "HIGH")
-    info(archive, "VAL")
-}
-
-record(ai,"$(P)$(O):ACC") {
-    field(DESC,"Acceleration")
-    field(SCAN,"1 second")
-    field(DTYP,"$(OTYP)")
-    field(INP, "@asyn(Galil,0)USER_VAR accel")
-    field(EGU, "stp/s^2")
-    field(PREC, "2")
-    info(INTEREST, "HIGH")
-}
-
-record(ai,"$(P)$(O):DIST") {
-    field(DESC, "Total swept distance")
-    field(SCAN, "1 second")
-    field(DTYP, "$(OTYP)")
-    field(INP, "@asyn(Galil,0)USER_VAR dist")
-    field(EGU, "stp")
-    field(PREC, "2")
-    info(INTEREST, "HIGH")
-    info(archive, "VAL")
 }

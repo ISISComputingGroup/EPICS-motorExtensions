@@ -4,6 +4,8 @@ record(ao,"$(P)$(O):MNTCYCLES:SP") {
     field(EGU, "")
     field(PREC, "2")
     field(OUT, "@asyn(Galil,0)USER_VAR cycles")
+    field(VAL, "$(MNTCYCLES)")
+    field(PINI, "YES")
     info(archive, "VAL")
     info(autosaveFields, "VAL")
 }
@@ -18,16 +20,19 @@ record(ai,"$(P)$(O):MNTCYCLES") {
     info(INTEREST, "HIGH")
     info(archive, "VAL")
 }
-#TODO set the mntcycles val here 
+
+record(calc, "$(P)$(O):MNTTIME") {
+    field(DESC, "Time to maintenance rotation")
+    field(INPA, "$(P)$(O):FREQ:SP CP")
+    field(INPB, "$(P)$(O):MNTCYCLES CP")
+    field(INPC, "$(P)$(O):CYCLE CP")
+    field(CALC, "((1/A)*B)-((1/A)*C)")
+    field(EGU, "sec")
+    field(PINI, "YES")
+}
 
 
 # Swept angle calcs
-
-#TODO macros for: 
-# full motor steps per rev $(STEPS_PER_REV)
-# microsteps per full motor step $(MICROSTEPS_PER_STEP)
-# motor revs per gearbox output shaft rev $(GEARBOX_RATIO) #TODO make ticket - these three are only set once and used once - could the scientist have this value worked out beforehand? ie one macro which is just steps per revolution
-# encoder counts per mm $(ENC_COUNTS_PER_MM)
 
 record(calc, "$(P)$(O):STEPS_PER_REV") {
     field(DESC, "Motor steps per revolution")
@@ -51,20 +56,20 @@ record(calc, "$(P)$(O):CIRCUMFERENCE") {
     field(DESC, "Circumference of collimator")
     field(EGU, "mm")
     field(PREC, "3")
-    field(INPA, "$(P)$(O):RADIUS CA")
+    field(INPA, "$(P)$(O):RADIUS CP")
     field(CALC, "A*PI*2")
 }
 
-record(calc, "$(P)$(O):STEPS_PER_MM") {
+record(calc, "$(P)$(O):STEPS") {
     field(DESC, "Motor steps per mm")
-    field(INPA, "$(P)$(O):CIRCUMFERENCE CA")
+    field(INPA, "$(P)$(O):CIRCUMFERENCE CP")
     field(INPB, "$(P)$(O):STEPS_PER_REV")
     field(CALC, "A/B")
     field(EGU, "stp/mm")
 }
 
 record(calc, "$(P)$(O):MM_PER_DEG") {
-    field(INPA, "$(P)$(O):CIRCUMFERENCE CA")
+    field(INPA, "$(P)$(O):CIRCUMFERENCE CP")
     field(CALC, "A/360")
     field(EGU, "mm/deg")
     field(DESC, "Motor steps per degree")
@@ -72,16 +77,16 @@ record(calc, "$(P)$(O):MM_PER_DEG") {
 
 record(calc, "$(P)$(O):SWEPT_DIST_MM") {
     field(DESC, "Actual swept distance (mm)")
-    field(INPA, "$(P)$(O):ANGLE:SP:RBV CA")
-    field(INPB, "$(P)$(O):MM_PER_DEG CA")
+    field(INPA, "$(P)$(O):ANGLE:SP:RBV CP")
+    field(INPB, "$(P)$(O):MM_PER_DEG CP")
     field(CALC, "A*B")
     field(EGU, "mm")
 }
 
 record(calc, "$(P)$(O):SWEPT_DIST_DEG") {
     field(DESC, "Actual swept distance (degrees)")
-    field(INPB, "$(P)$(O):STEPS_PER_MM CA")
-    field(INPB, "$(P)$(O):SWEPT_DIST_MM CA")
+    field(INPB, "$(P)$(O):STEPS CP")
+    field(INPB, "$(P)$(O):SWEPT_DIST_MM CP")
     field(CALC, "A*B")
     field(EGU, "deg")
 }
@@ -89,15 +94,15 @@ record(calc, "$(P)$(O):SWEPT_DIST_DEG") {
 record(calc, "$(P)$(O):ENC_COUNTS_PER_DEG") {
     field(DESC, "Encoder counts per degree")
     field(INPA, "$(ENC_COUNTS_PER_MM)")
-    field(INPB, "$(P)$(O):CIRCUMFERENCE CA")
+    field(INPB, "$(P)$(O):CIRCUMFERENCE CP")
     field(CALC, "A*B")
     field(EGU, "")
 }
 
 record(calc, "$(P)$(O):DIST:PART:SP") {
     field(DESC, "Swept distance, setpoint")
-    field(INPA, "$(P)$(O):STEPS_PER_MM CA")
-    field(INPB, "$(P)$(O):SWEPT_DIST_MM CA")
+    field(INPA, "$(P)$(O):STEPS_PER_MM CP")
+    field(INPB, "$(P)$(O):SWEPT_DIST_MM CP")
     field(CALC, "A*B")
     field(EGU, "stp")
     field(PREC, "0")
@@ -105,4 +110,24 @@ record(calc, "$(P)$(O):DIST:PART:SP") {
 }
 
 
+# Operating Frequency - no readback from galil code so just use the set frequency 
+
+alias("$(P)$(O):FREQ:SP:RBV", "$(P)$(O):FREQ")
+
+
+# Motor position
+
+record(calc, "$(P)$(O):POS:_CALC") {
+    field(SCAN, ".1 second")
+    field(INPA, "$(P)$(M).RBV MS")
+    field(CALC, "(A<0)?A+360:A")
+}
+
+record(ai, "$(P)$(O):POS") {
+    field(INP, "$(P)$(O):POS:_CALC CP MS")
+    field(DESC, "Current motor position")
+    field(PREC, "2")
+    field(EGU, "deg")
+    info(INTEREST, "MEDIUM")
+}
 
