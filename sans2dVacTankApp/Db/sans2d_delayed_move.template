@@ -1,0 +1,128 @@
+record(dfanout, "$(FULL_PREFIX)SET_DELAYED_MOVE") {
+	field(DESC, "Sets Pause")
+	field(VAL, "1")
+	field(PINI, "YES")
+    field(OUTA, "$(P)FRONTDETZ:SPMG.VAL PP")
+	field(OUTB, "$(P)FRONTBAFFLEZ:SPMG.VAL PP")
+	field(OUTC, "$(P)REARBAFFLEZ:SPMG.VAL PP")
+	field(OUTD, "$(P)REARDETZ:SPMG.VAL PP")
+	field(OUTE, "$(P)FRONTBEAMSTOP:SPMG.VAL PP")
+	field(OUTF, "$(P)FRONTDETX:SPMG.VAL PP")
+	field(OUTG, "$(P)FRONTDETROT:SPMG.VAL PP")
+	field(OUTH, "$(P)REARDETX:SPMG.VAL PP")
+	field(FLNK, "$(P)SET_DELAYED_MOVE_EXT")
+}
+
+record(dfanout, "$(FULL_PREFIX)SET_DELAYED_MOVE_EXT") {
+	field(VAL, "1")
+	field(OUTA, "$(P)BEAMSTOP1Y:SPMG.VAL PP")
+	field(OUTB, "$(P)BEAMSTOP2Y:SPMG.VAL PP")
+	field(OUTC, "$(P)BEAMSTOP3Y:SPMG.VAL PP")
+	field(OUTD, "$(P)BEAMSTOPX:SPMG.VAL PP")
+}
+
+record(scalcout, "$(FULL_PREFIX)CAN_MOVE_CALC_FDFB") {
+	field(DESC, "calc")
+    field(INPA, "$(P)FRONTDETZ:SP")
+	field(INPB, "$(P)FRONTBAFFLEZ:SP")
+	field(INPC, "$(P)SANS2DVAC:FDFB:MINIMUM_INTERVAL")
+	field(AA, "Front Det & baffle collision detected")
+	field(BB, "")
+	field(CALC, "B-A > C ? BB:AA")
+	field(OUT, "$(P)FBFD_COLLISION.VAL PP")
+	field(FLNK, "$(FULL_PREFIX)CAN_MOVE_CALC_FBRB") 
+	
+}
+
+record(scalcout, "$(FULL_PREFIX)CAN_MOVE_CALC_FBRB") {
+	field(DESC, "calc")
+    field(INPA, "$(P)FRONTBAFFLEZ:SP")
+	field(INPB, "$(P)REARBAFFLEZ:SP")
+	field(INPC, "$(P)SANS2DVAC:FBRB:MINIMUM_INTERVAL")
+	field(AA, "Front & rear baffle collision detected")
+	field(BB, "")
+	field(CALC, "B-A > C ? BB:AA")
+	field(OUT, "$(P)FBRB_COLLISION.VAL PP")
+	field(FLNK, "$(FULL_PREFIX)CAN_MOVE_CALC_RBRD")
+	
+}
+
+record(scalcout, "$(FULL_PREFIX)CAN_MOVE_CALC_RBRD") {
+	field(DESC, "calc")
+    field(INPA, "$(P)REARBAFFLEZ:SP")
+	field(INPB, "$(P)REARDETZ:SP")
+	field(INPC, "$(P)SANS2DVAC:RBRD:MINIMUM_INTERVAL")
+	field(AA, "Rear baffle & det collision detected")
+	field(BB, "")
+	field(OUT, "$(P)RBRD_COLLISION.VAL PP")
+	field(CALC, "B-A > C ? BB:AA")
+	field(FLNK, "$(FULL_PREFIX)MOVE_ALL_CALC")
+}
+
+record(stringout, "$(FULL_PREFIX)FBFD_COLLISION") {	
+	field(DESC, "FB and FD collision")
+
+}
+
+record(stringout, "$(FULL_PREFIX)FBRB_COLLISION") {
+	field(DESC, "FB and RB collision")
+
+}
+
+record(stringout, "$(FULL_PREFIX)RBRD_COLLISION"){
+	field(DESC, "RB and RD collision")
+}
+
+record(scalcout, "$(FULL_PREFIX)MOVE_ALL_CALC") {
+	field(INAA, "$(FULL_PREFIX)FBFD_COLLISION")
+	field(INBB, "$(FULL_PREFIX)FBRB_COLLISION")
+	field(INCC, "$(FULL_PREFIX)RBRD_COLLISION")
+	field(DD, "")
+	field(CALC, "(AA == '') && (BB == '') && (CC == '') ? 1 : 0 ")
+	field(VAL, "1")
+	field(OOPT, "When Non-zero")
+	field(OUT, "$(FULL_PREFIX)MOVE_ALL.PROC")
+
+}
+
+record(dfanout, "$(FULL_PREFIX)MOVE_ALL") {
+	field(DESC, "Sets Pause")
+	field(VAL, "2")
+    field(OUTA, "$(P)FRONTDETZ:SPMG.VAL PP")
+	field(OUTB, "$(P)FRONTBAFFLEZ:SPMG.VAL PP")
+	field(OUTC, "$(P)REARBAFFLEZ:SPMG.VAL PP")
+	field(OUTD, "$(P)REARDETZ:SPMG.VAL PP")
+	field(OUTE, "$(P)FRONTBEAMSTOP:SPMG.VAL PP")
+	field(OUTF, "$(P)FRONTDETX:SPMG.VAL PP")
+	field(OUTG, "$(P)FRONTDETROT:SPMG.VAL PP")
+	field(OUTH, "$(P)REARDETX:SPMG.VAL PP")
+	field(FLNK, "$(FULL_PREFIX)TANK_MOVE_ALL_EXT")
+}
+
+record(dfanout, "$(FULL_PREFIX)TANK_MOVE_ALL_EXT") {
+	field(VAL, "2")
+	field(OUTA, "$(P)BEAMSTOP1Y:SPMG.VAL PP")
+	field(OUTB, "$(P)BEAMSTOP2Y:SPMG.VAL PP")
+	field(OUTC, "$(P)BEAMSTOP3Y:SPMG.VAL PP")
+	field(OUTD, "$(P)BEAMSTOPX:SPMG.VAL PP")
+}
+
+record(calcout, "$(FULL_PREFIX)DELAYED_MOVE_CALC") {
+	field(INPA, "$(P)FRONTDETZ:MTR.DMOV CP")
+	field(INPB, "$(P)FRONTBAFFLEZ:MTR.DMOV CP")
+	field(INPC, "$(P)REARBAFFLEZ:MTR.DMOV CP")
+	field(INPD, "$(P)REARDETZ:MTR.DMOV CP")
+	field(INPE, "$(P)FRONTBEAMSTOP:MTR.DMOV CP")
+	field(INPF, "$(P)FRONTDETX:MTR.DMOV CP")
+	field(INPG, "$(P)FRONTDETROT:MTR.DMOV CP")
+	field(INPH, "$(P)REARDETX:MTR.DMOV CP")
+	field(INPI, "$(P)BEAMSTOP1Y:MTR.DMOV CP")
+	field(INPJ, "$(P)BEAMSTOP2Y:MTR.DMOV CP")
+	field(INPK, "$(P)BEAMSTOP3Y:MTR.DMOV CP")
+	field(INPL, "$(P)BEAMSTOPX:MTR.DMOV CP")
+	field(CALC, "A && B && C && D && E && F && G && H && I && J && K && L")
+	field(OOPT, "When Non-zero")
+	field(OUT, "$(FULL_PREFIX)SET_DELAYED_MOVE.PROC")
+	
+}
+ 
