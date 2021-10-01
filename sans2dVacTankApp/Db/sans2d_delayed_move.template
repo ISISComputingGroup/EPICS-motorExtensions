@@ -1,24 +1,24 @@
 record(dfanout, "$(FULL_PREFIX)SET_DELAYED_MOVE") {
-	field(DESC, "Sets Pause")
+	field(DESC, "Set motor to pause")
 	field(VAL, "1")
 	field(PINI, "YES")
-    field(OUTA, "$(P)FRONTDETZ:SPMG.VAL PP")
-	field(OUTB, "$(P)FRONTBAFFLEZ:SPMG.VAL PP")
-	field(OUTC, "$(P)REARBAFFLEZ:SPMG.VAL PP")
-	field(OUTD, "$(P)REARDETZ:SPMG.VAL PP")
-	field(OUTE, "$(P)FRONTBEAMSTOP:SPMG.VAL PP")
-	field(OUTF, "$(P)FRONTDETX:SPMG.VAL PP")
-	field(OUTG, "$(P)FRONTDETROT:SPMG.VAL PP")
-	field(OUTH, "$(P)REARDETX:SPMG.VAL PP")
-	field(FLNK, "$(P)SET_DELAYED_MOVE_EXT")
+    field(OUTA, "$(P)FRONTDETZ:MTR.SPMG PP")
+	field(OUTB, "$(P)FRONTBAFFLEZ:MTR.SPMG PP")
+	field(OUTC, "$(P)REARBAFFLEZ:MTR.SPMG PP")
+	field(OUTD, "$(P)REARDETZ:MTR.SPMG PP")
+	field(OUTE, "$(P)FRONTBEAMSTOP:MTR.SPMG PP")
+	field(OUTF, "$(P)FRONTDETX:MTR.SPMG PP")
+	field(OUTG, "$(P)FRONTDETROT:MTR.SPMG PP")
+	field(OUTH, "$(P)REARDETX:MTR.SPMG PP")
+	field(FLNK, "$(FULL_PREFIX)SET_DELAYED_MOVE_EXT")
 }
 
 record(dfanout, "$(FULL_PREFIX)SET_DELAYED_MOVE_EXT") {
 	field(VAL, "1")
-	field(OUTA, "$(P)BEAMSTOP1Y:SPMG.VAL PP")
-	field(OUTB, "$(P)BEAMSTOP2Y:SPMG.VAL PP")
-	field(OUTC, "$(P)BEAMSTOP3Y:SPMG.VAL PP")
-	field(OUTD, "$(P)BEAMSTOPX:SPMG.VAL PP")
+	field(OUTA, "$(P)BEAMSTOP1Y:MTR.SPMG PP")
+	field(OUTB, "$(P)BEAMSTOP2Y:MTR.SPMG PP")
+	field(OUTC, "$(P)BEAMSTOP3Y:MTR.SPMG PP")
+	field(OUTD, "$(P)BEAMSTOPX:MTR.SPMG PP")
 }
 
 record(scalcout, "$(FULL_PREFIX)CAN_MOVE_CALC_FDFB") {
@@ -29,7 +29,7 @@ record(scalcout, "$(FULL_PREFIX)CAN_MOVE_CALC_FDFB") {
 	field(AA, "Front Det & baffle collision detected")
 	field(BB, "")
 	field(CALC, "B-A > C ? BB:AA")
-	field(OUT, "$(P)FBFD_COLLISION.VAL PP")
+	field(OUT, "$(FULL_PREFIX)FBFD_COLLISION.VAL PP")
 	field(FLNK, "$(FULL_PREFIX)CAN_MOVE_CALC_FBRB") 
 	
 }
@@ -42,7 +42,7 @@ record(scalcout, "$(FULL_PREFIX)CAN_MOVE_CALC_FBRB") {
 	field(AA, "Front & rear baffle collision detected")
 	field(BB, "")
 	field(CALC, "B-A > C ? BB:AA")
-	field(OUT, "$(P)FBRB_COLLISION.VAL PP")
+	field(OUT, "$(FULL_PREFIX)FBRB_COLLISION.VAL PP")
 	field(FLNK, "$(FULL_PREFIX)CAN_MOVE_CALC_RBRD")
 	
 }
@@ -54,7 +54,7 @@ record(scalcout, "$(FULL_PREFIX)CAN_MOVE_CALC_RBRD") {
 	field(INPC, "$(P)SANS2DVAC:RBRD:MINIMUM_INTERVAL")
 	field(AA, "Rear baffle & det collision detected")
 	field(BB, "")
-	field(OUT, "$(P)RBRD_COLLISION.VAL PP")
+	field(OUT, "$(FULL_PREFIX)RBRD_COLLISION.VAL PP")
 	field(CALC, "B-A > C ? BB:AA")
 	field(FLNK, "$(FULL_PREFIX)MOVE_ALL_CALC")
 }
@@ -86,7 +86,7 @@ record(scalcout, "$(FULL_PREFIX)MOVE_ALL_CALC") {
 }
 
 record(dfanout, "$(FULL_PREFIX)MOVE_ALL") {
-	field(DESC, "Sets Pause")
+	field(DESC, "Sets to move")
 	field(VAL, "2")
     field(OUTA, "$(P)FRONTDETZ:SPMG.VAL PP")
 	field(OUTB, "$(P)FRONTBAFFLEZ:SPMG.VAL PP")
@@ -108,6 +108,7 @@ record(dfanout, "$(FULL_PREFIX)TANK_MOVE_ALL_EXT") {
 }
 
 record(calcout, "$(FULL_PREFIX)DELAYED_MOVE_CALC") {
+	field(DESC, "set to pause once motor has moved")
 	field(INPA, "$(P)FRONTDETZ:MTR.DMOV CP")
 	field(INPB, "$(P)FRONTBAFFLEZ:MTR.DMOV CP")
 	field(INPC, "$(P)REARBAFFLEZ:MTR.DMOV CP")
@@ -123,6 +124,5 @@ record(calcout, "$(FULL_PREFIX)DELAYED_MOVE_CALC") {
 	field(CALC, "A && B && C && D && E && F && G && H && I && J && K && L")
 	field(OOPT, "When Non-zero")
 	field(OUT, "$(FULL_PREFIX)SET_DELAYED_MOVE.PROC")
-	
 }
  
