@@ -4,10 +4,6 @@ file "$(TOP)/sans2dVacTankApp/Db/stop_motion.template" {
 	{FULL_PREFIX="\$(P)SANS2DVAC:"}
 }
 
-file "$(TOP)/sans2dVacTankApp/Db/sans2d_enable_collision_avoidance.template" {
-	{PV_PREFIX="\$(PV_PREFIX)", FULL_PREFIX="\$(P)SANS2DVAC:"}
-}
-
 file "$(TOP)/sans2dVacTankApp/Db/inhibit.template" {
 	{FULL_PREFIX="\$(P)SANS2DVAC:", INHIBITED_AXIS="FRONTBEAMSTOP", INHIBITING_AXIS="FRONTDETROT"}
 	{FULL_PREFIX="\$(P)SANS2DVAC:", INHIBITED_AXIS="FRONTDETROT", INHIBITING_AXIS="FRONTBEAMSTOP"}
@@ -30,4 +26,15 @@ file "$(TOP)/sans2dVacTankApp/Db/sans2d_vac_minimum_intervals.template" {
 file "$(TOP)/sans2dVacTankApp/Db/sans2d_delayed_move.template" {
 	{FULL_PREFIX="\$(P)SANS2DVAC:"}
 
+}
+
+file "$(TOP)/sans2dVacTankApp/Db/sans2d_vac_stop_detectors_baffles.template" {
+    pattern{ FULL_PREFIX, INTERVAL_NAME, MOVING_SHORT, STATIONARY_SHORT, MOVING_AXIS, COLLISION_DIRECTION, ARB_CMD_PV, ARB_CMD_VAL }
+    { "\$(P)SANS2DVAC:", "FDFB", "FD", "FB", "FRONTDETZ", "1", "\$(P)DMC05:SEND_STR_CMD", "fastStopFD=1" }
+    { "\$(P)SANS2DVAC:", "FDFB", "FB", "FD", "FRONTBAFFLEZ", "0", "\$(P)DMC05:SEND_STR_CMD", "fastStopFB=1" }
+    { "\$(P)SANS2DVAC:", "FBRB", "FB", "RB", "FRONTBAFFLEZ", "1", "\$(P)DMC05:SEND_STR_CMD", "fastStopFB=1" }
+    { "\$(P)SANS2DVAC:", "FBRB", "RB", "FB", "REARBAFFLEZ", "0", "\$(P)DMC04:SEND_STR_CMD", "fastStopRB=1" }
+    { "\$(P)SANS2DVAC:", "RBRD", "RB", "RD", "REARBAFFLEZ", "1", "\$(P)DMC04:SEND_STR_CMD", "fastStopRB=1" }
+    { "\$(P)SANS2DVAC:", "RBRD", "RD", "RB", "REARDETZ", "0", "\$(P)DMC04:SEND_STR_CMD", "fastStopRD=1" }
+    
 }

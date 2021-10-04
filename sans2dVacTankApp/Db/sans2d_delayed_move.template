@@ -21,6 +21,10 @@ record(dfanout, "$(FULL_PREFIX)SET_DELAYED_MOVE_EXT") {
 	field(OUTD, "$(P)BEAMSTOPX:MTR.SPMG PP")
 }
 
+record(ao, "$(FULL_PREFIX)CALC_MOVE_ALL") {
+	field(FLNK, "$(FULL_PREFIX)CAN_MOVE_CALC_FDFB")
+}
+
 record(scalcout, "$(FULL_PREFIX)CAN_MOVE_CALC_FDFB") {
 	field(DESC, "calc")
     field(INPA, "$(P)FRONTDETZ:SP")
