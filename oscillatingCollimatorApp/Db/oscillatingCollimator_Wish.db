@@ -27,7 +27,7 @@ record(calc, "$(P)$(O):MNTTIME") {
     field(INPA, "$(P)$(O):FREQ:SP CP")
     field(INPB, "$(P)$(O):MNTCYCLES CP")
     field(INPC, "$(P)$(O):CYCLE CP")
-    field(CALC, "((1/A)*B)-((1/A)*C)")
+    field(CALC, "((1/A)*B)-((1/A)*C)*-1")
     field(EGU, "sec")
     field(PINI, "YES")
 }
