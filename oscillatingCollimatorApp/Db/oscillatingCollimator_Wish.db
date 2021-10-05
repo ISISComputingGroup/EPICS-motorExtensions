@@ -1,0 +1,167 @@
+
+record(ao,"$(P)$(O):MNTCYCLES:SP") {
+    field(DESC, "Num cycles between maintenance rotation")
+    field(DTYP, "$(OTYP)")
+    field(EGU, "")
+    field(PREC, "2")
+    field(OUT, "@asyn(Galil,0)USER_VAR cycles")
+    field(VAL, "$(MNTCYCLES)")
+    field(PINI, "YES")
+    info(archive, "VAL")
+    info(autosaveFields, "VAL")
+}
+
+record(ai,"$(P)$(O):MNTCYCLES") {
+    field(DESC, "Num cycles between maintenance rotation")
+    field(SCAN, "1 second")
+    field(DTYP, "$(OTYP)")
+    field(INP, "@asyn(Galil,0)USER_VAR cycles")
+    field(EGU, "")
+    field(PREC, "2")
+    info(INTEREST, "HIGH")
+    info(archive, "VAL")
+}
+
+record(calc, "$(P)$(O):MNTTIME") {
+    field(DESC, "Time to maintenance rotation")
+    field(INPA, "$(P)$(O):FREQ:SP CP")
+    field(INPB, "$(P)$(O):MNTCYCLES CP")
+    field(INPC, "$(P)$(O):CYCLE CP")
+    field(CALC, "((1/A)*B)-((1/A)*C)")
+    field(EGU, "sec")
+    field(PINI, "YES")
+}
+
+
+# Swept angle calcs
+
+record(ai, "$(P)$(O):_STEPS_PER_REV") {
+    field(DESC, "Full Motor Steps per Motor Rev")
+    field(VAL, "$(STEPS_PER_REV)")
+    field(PINI, "YES")
+    field(EGU, "stp")
+    field(PREC, "2")
+    info(INTEREST, "LOW")
+    info(archive, "VAL")
+}
+
+record(ai, "$(P)$(O):MICROSTEPS_PER_STEP") {
+    field(DESC, "Microsteps per Full Motor Step")
+    field(VAL, "$(MICROSTEPS_PER_STEP)")
+    field(PINI, "YES")
+    field(EGU, "stp")
+    field(PREC, "2")
+    info(INTEREST, "LOW")
+    info(archive, "VAL")
+}
+
+record(ai, "$(P)$(O):GEARBOX_RATIO") {
+    field(DESC, "MotorRevs per GearboxOutputShaftRev")
+    field(VAL, "$(GEARBOX_RATIO)")
+    field(PINI, "YES")
+    field(EGU, "")
+    field(PREC, "2")
+    info(INTEREST, "LOW")
+    info(archive, "VAL")
+}
+
+record(calc, "$(P)$(O):STEPS_PER_REV") {
+    field(DESC, "Motor steps per revolution")
+    field(INPA, "$(P)$(O):_STEPS_PER_REV CP")
+    field(INPB, "$(P)$(O):MICROSTEPS_PER_STEP CP")
+    field(INPC, "$(P)$(O):GEARBOX_RATIO CP")
+    field(CALC, "A*B*C")
+    field(EGU, "stp")
+    field(PINI, "YES")
+    field(FLNK, "$(P)$(O):STEPS_PER_DEG")
+}
+
+record(calc, "$(P)$(O):STEPS_PER_DEG") {
+    field(DESC, "Motor steps per degree")
+    field(INPA, "$(P)$(O):STEPS_PER_REV")
+    field(CALC, "A/360")
+    field(EGU, "stp/deg")
+}
+
+record(calc, "$(P)$(O):CIRCUMFERENCE") {
+    field(DESC, "Circumference of collimator")
+    field(EGU, "mm")
+    field(PREC, "3")
+    field(INPA, "$(P)$(O):RADIUS CP")
+    field(CALC, "2*PI*A")
+}
+
+record(calc, "$(P)$(O):STEPS") {
+    field(DESC, "Motor steps per mm")
+    field(INPA, "$(P)$(O):CIRCUMFERENCE CP")
+    field(INPB, "$(P)$(O):STEPS_PER_REV CP")
+    field(CALC, "B/A")
+    field(EGU, "stp/mm")
+}
+
+record(calc, "$(P)$(O):MM_PER_DEG") {
+    field(INPA, "$(P)$(O):CIRCUMFERENCE CP")
+    field(CALC, "A/360")
+    field(EGU, "mm/deg")
+    field(DESC, "mm per degree")
+}
+
+record(calc, "$(P)$(O):SWEPT_DIST_MM") {
+    field(DESC, "Actual swept distance (mm)")
+    field(INPA, "$(P)$(O):ANGLE:SP CP")
+    field(INPB, "$(P)$(O):MM_PER_DEG CP")
+    field(CALC, "A*B")
+    field(EGU, "mm")
+}
+
+record(ai,"$(P)$(O):ENC_COUNTS_PER_MM") {
+    field(DESC, "Encoder Counts per mm")
+    field(VAL, "$(ENC_COUNTS_PER_MM)")
+    field(PINI, "YES")
+    field(EGU, "")
+    field(PREC, "2")
+    info(INTEREST, "LOW")
+    info(archive, "VAL")
+}
+
+
+record(calc, "$(P)$(O):ENC_COUNTS_PER_DEG") {
+    field(DESC, "Encoder counts per degree")
+    field(INPA, "$(P)$(O):ENC_COUNTS_PER_MM CP")
+    field(INPB, "$(P)$(O):CIRCUMFERENCE CP")
+    field(CALC, "A*B")
+    field(EGU, "")
+}
+
+record(calc, "$(P)$(O):DIST:PART:SP") {
+    field(DESC, "Swept distance, setpoint")
+    field(INPA, "$(P)$(O):STEPS CP")
+    field(INPB, "$(P)$(O):SWEPT_DIST_MM CP")
+    field(CALC, "A*B")
+    field(EGU, "stp")
+    field(PREC, "0")
+    field(FLNK, "$(P)$(O):VEL:SP:DISC")
+}
+
+
+# Operating Frequency - no readback from galil code so just use the set frequency 
+
+alias("$(P)$(O):FREQ:SP:RBV", "$(P)$(O):FREQ")
+
+
+# Motor position
+
+record(calc, "$(P)$(O):POS:_CALC") {
+    field(SCAN, ".1 second")
+    field(INPA, "$(P)$(M).RBV MS")
+    field(CALC, "(A<0)?A+360:A")
+}
+
+record(ai, "$(P)$(O):POS") {
+    field(INP, "$(P)$(O):POS:_CALC CP MS")
+    field(DESC, "Current motor position")
+    field(PREC, "2")
+    field(EGU, "deg")
+    info(INTEREST, "MEDIUM")
+}
+
