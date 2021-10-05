@@ -22,26 +22,26 @@ record(dfanout, "$(FULL_PREFIX)SET_DELAYED_MOVE_EXT") {
 }
 
 record(ao, "$(FULL_PREFIX)CALC_MOVE_ALL") {
-	field(FLNK, "$(FULL_PREFIX)CAN_MOVE_CALC_FDFB")
+	field(FLNK, "$(FULL_PREFIX)MOVE_ALL")
 }
 
 record(scalcout, "$(FULL_PREFIX)CAN_MOVE_CALC_FDFB") {
 	field(DESC, "calc")
-    field(INPA, "$(P)FRONTDETZ:SP")
-	field(INPB, "$(P)FRONTBAFFLEZ:SP")
+    field(INPA, "$(P)FRONTDETZ:SP CP")
+	field(INPB, "$(P)FRONTBAFFLEZ:SP CP")
 	field(INPC, "$(P)SANS2DVAC:FDFB:MINIMUM_INTERVAL")
 	field(AA, "Front Det & baffle collision detected")
 	field(BB, "")
 	field(CALC, "B-A > C ? BB:AA")
-	field(OUT, "$(FULL_PREFIX)FBFD_COLLISION.VAL PP")
+	field(OUT, "$(FULL_PREFIX)FDFB_COLLISION.VAL PP")
 	field(FLNK, "$(FULL_PREFIX)CAN_MOVE_CALC_FBRB") 
 	
 }
 
 record(scalcout, "$(FULL_PREFIX)CAN_MOVE_CALC_FBRB") {
 	field(DESC, "calc")
-    field(INPA, "$(P)FRONTBAFFLEZ:SP")
-	field(INPB, "$(P)REARBAFFLEZ:SP")
+    field(INPA, "$(P)FRONTBAFFLEZ:SP CP")
+	field(INPB, "$(P)REARBAFFLEZ:SP CP")
 	field(INPC, "$(P)SANS2DVAC:FBRB:MINIMUM_INTERVAL")
 	field(AA, "Front & rear baffle collision detected")
 	field(BB, "")
@@ -53,8 +53,8 @@ record(scalcout, "$(FULL_PREFIX)CAN_MOVE_CALC_FBRB") {
 
 record(scalcout, "$(FULL_PREFIX)CAN_MOVE_CALC_RBRD") {
 	field(DESC, "calc")
-    field(INPA, "$(P)REARBAFFLEZ:SP")
-	field(INPB, "$(P)REARDETZ:SP")
+    field(INPA, "$(P)REARBAFFLEZ:SP CP")
+	field(INPB, "$(P)REARDETZ:SP CP")
 	field(INPC, "$(P)SANS2DVAC:RBRD:MINIMUM_INTERVAL")
 	field(AA, "Rear baffle & det collision detected")
 	field(BB, "")
@@ -63,7 +63,7 @@ record(scalcout, "$(FULL_PREFIX)CAN_MOVE_CALC_RBRD") {
 	field(FLNK, "$(FULL_PREFIX)MOVE_ALL_CALC")
 }
 
-record(stringout, "$(FULL_PREFIX)FBFD_COLLISION") {	
+record(stringout, "$(FULL_PREFIX)FDFB_COLLISION") {	
 	field(DESC, "FB and FD collision")
 
 }
@@ -78,14 +78,12 @@ record(stringout, "$(FULL_PREFIX)RBRD_COLLISION"){
 }
 
 record(scalcout, "$(FULL_PREFIX)MOVE_ALL_CALC") {
-	field(INAA, "$(FULL_PREFIX)FBFD_COLLISION")
-	field(INBB, "$(FULL_PREFIX)FBRB_COLLISION")
-	field(INCC, "$(FULL_PREFIX)RBRD_COLLISION")
+	field(INAA, "$(FULL_PREFIX)FDFB_COLLISION CP")
+	field(INBB, "$(FULL_PREFIX)FBRB_COLLISION CP")
+	field(INCC, "$(FULL_PREFIX)RBRD_COLLISION CP")
 	field(DD, "")
-	field(CALC, "(AA == '') && (BB == '') && (CC == '') ? 1 : 0 ")
-	field(VAL, "1")
-	field(OOPT, "When Non-zero")
-	field(OUT, "$(FULL_PREFIX)MOVE_ALL.PROC")
+	field(CALC, "(AA == '') && (BB == '') && (CC == '') ? 0 : 1 ")
+	field(OUT, "$(FULL_PREFIX)CALC_MOVE_ALL.DISP")
 
 }
 
