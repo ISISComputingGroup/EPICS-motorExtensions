@@ -4,6 +4,10 @@ file "$(TOP)/sans2dApertureWaveguidesApp/Db/stop_motion.template" {
 	{FULL_PREFIX="\$(P)SANS2DAPWV:"}
 }
 
+file "$(TOP)/sans2dApertureWaveguidesApp/Db/inhibit_motion.template" {
+	{FULL_PREFIX="\$(P)SANS2DAPWV:"}
+}
+
 file "$(TOP)/sans2dApertureWaveguidesApp/Db/positional_error.template" {
 	pattern {P ,M}
     {"\$(P)", "MTR\$(CCP_01)01"}
