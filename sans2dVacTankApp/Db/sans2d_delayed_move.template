@@ -21,10 +21,6 @@ record(dfanout, "$(FULL_PREFIX)SET_DELAYED_MOVE_EXT") {
 	field(OUTD, "$(P)BEAMSTOPX:MTR.SPMG PP")
 }
 
-record(ao, "$(FULL_PREFIX)CALC_MOVE_ALL") {
-	field(FLNK, "$(FULL_PREFIX)MOVE_ALL")
-}
-
 record(scalcout, "$(FULL_PREFIX)CAN_MOVE_CALC_FDFB") {
 	field(DESC, "calc")
     field(INPA, "$(P)FRONTDETZ:SP CP")
@@ -83,30 +79,30 @@ record(scalcout, "$(FULL_PREFIX)MOVE_ALL_CALC") {
 	field(INCC, "$(FULL_PREFIX)RBRD_COLLISION CP")
 	field(DD, "")
 	field(CALC, "(AA == '') && (BB == '') && (CC == '') ? 0 : 1 ")
-	field(OUT, "$(FULL_PREFIX)CALC_MOVE_ALL.DISP")
+	field(OUT, "$(FULL_PREFIX)MOVE_ALL.DISP")
 
 }
 
 record(dfanout, "$(FULL_PREFIX)MOVE_ALL") {
 	field(DESC, "Sets to move")
 	field(VAL, "2")
-    field(OUTA, "$(P)FRONTDETZ:SPMG.VAL PP")
-	field(OUTB, "$(P)FRONTBAFFLEZ:SPMG.VAL PP")
-	field(OUTC, "$(P)REARBAFFLEZ:SPMG.VAL PP")
-	field(OUTD, "$(P)REARDETZ:SPMG.VAL PP")
-	field(OUTE, "$(P)FRONTBEAMSTOP:SPMG.VAL PP")
-	field(OUTF, "$(P)FRONTDETX:SPMG.VAL PP")
-	field(OUTG, "$(P)FRONTDETROT:SPMG.VAL PP")
-	field(OUTH, "$(P)REARDETX:SPMG.VAL PP")
+    field(OUTA, "$(P)FRONTDETZ:MTR.SPMG PP")
+	field(OUTB, "$(P)FRONTBAFFLEZ:MTR.SPMG PP")
+	field(OUTC, "$(P)REARBAFFLEZ:MTR.SPMG PP")
+	field(OUTD, "$(P)REARDETZ:MTR.SPMG PP")
+	field(OUTE, "$(P)FRONTBEAMSTOP:MTR.SPMG PP")
+	field(OUTF, "$(P)FRONTDETX:MTR.SPMG PP")
+	field(OUTG, "$(P)FRONTDETROT:MTR.SPMG PP")
+	field(OUTH, "$(P)REARDETX:MTR.SPMG PP")
 	field(FLNK, "$(FULL_PREFIX)TANK_MOVE_ALL_EXT")
 }
 
 record(dfanout, "$(FULL_PREFIX)TANK_MOVE_ALL_EXT") {
 	field(VAL, "2")
-	field(OUTA, "$(P)BEAMSTOP1Y:SPMG.VAL PP")
-	field(OUTB, "$(P)BEAMSTOP2Y:SPMG.VAL PP")
-	field(OUTC, "$(P)BEAMSTOP3Y:SPMG.VAL PP")
-	field(OUTD, "$(P)BEAMSTOPX:SPMG.VAL PP")
+	field(OUTA, "$(P)BEAMSTOP1Y:MTR.SPMG PP")
+	field(OUTB, "$(P)BEAMSTOP2Y:MTR.SPMG PP")
+	field(OUTC, "$(P)BEAMSTOP3Y:MTR.SPMG PP")
+	field(OUTD, "$(P)BEAMSTOPX:MTR.SPMG PP")
 }
 
 record(calcout, "$(FULL_PREFIX)DELAYED_MOVE_CALC") {
