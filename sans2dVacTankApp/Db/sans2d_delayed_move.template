@@ -60,17 +60,17 @@ record(scalcout, "$(FULL_PREFIX)CAN_MOVE_CALC_RBRD") {
 }
 
 record(stringout, "$(FULL_PREFIX)FDFB_COLLISION") {	
-	field(DESC, "FB and FD collision")
+	field(DESC, "If there is a collision between FD & FB")
 
 }
 
 record(stringout, "$(FULL_PREFIX)FBRB_COLLISION") {
-	field(DESC, "FB and RB collision")
+	field(DESC, "If there is a collision between FB & RB")
 
 }
 
 record(stringout, "$(FULL_PREFIX)RBRD_COLLISION"){
-	field(DESC, "RB and RD collision")
+	field(DESC, "If there is a collision between RB & RD")
 }
 
 record(scalcout, "$(FULL_PREFIX)MOVE_ALL_CALC") {
