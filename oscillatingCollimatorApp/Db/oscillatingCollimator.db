@@ -242,6 +242,7 @@ record(mbbi, "$(P)$(O):MODE") {
     field(ONST, "Homing")
     field(TWST, "Oscillating")
     field(THST, "Stopped")
+    field(FRST, "Maintenance Rotation")
     info(INTEREST, "HIGH")
     info(archive, "VAL")
 }
