@@ -35,7 +35,7 @@ record(calc, "$(P)$(O):MNTTIME") {
 
 # Swept angle calcs
 
-record(ai, "$(P)$(O):_STEPS_PER_REV") {
+record(ai, "$(P)$(O):FULL_STEPS_PER_REV") {
     field(DESC, "Full Motor Steps per Motor Rev")
     field(VAL, "$(STEPS_PER_REV)")
     field(PINI, "YES")
@@ -67,7 +67,7 @@ record(ai, "$(P)$(O):GEARBOX_RATIO") {
 
 record(calc, "$(P)$(O):STEPS_PER_REV") {
     field(DESC, "Motor steps per revolution")
-    field(INPA, "$(P)$(O):_STEPS_PER_REV CP")
+    field(INPA, "$(P)$(O):FULL_STEPS_PER_REV CP")
     field(INPB, "$(P)$(O):MICROSTEPS_PER_STEP CP")
     field(INPC, "$(P)$(O):GEARBOX_RATIO CP")
     field(CALC, "A*B*C")
