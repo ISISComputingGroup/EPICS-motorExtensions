@@ -1,3 +1,18 @@
+record(ao, "$(P)$(O):FULLREV:SP") {
+    field(DTYP, "$(OTYP)")
+    field(EGU, "stp")
+    field(PREC, "2")
+    field(OUT, "@asyn(Galil,0)USER_VAR fullrev")
+    field(PINI, "YES")
+}
+
+record(ai, "$(P)$(O):FULLREV") {
+    field(DTYP, "$(OTYP)")
+    field(EGU, "stp")
+    field(PREC, "2")
+    field(INP, "@asyn(Galil,0)USER_VAR fullrev")
+    field(PREC, "2")
+}
 
 record(ao,"$(P)$(O):MNTCYCLES:SP") {
     field(DESC, "Num cycles between maintenance rotation")
