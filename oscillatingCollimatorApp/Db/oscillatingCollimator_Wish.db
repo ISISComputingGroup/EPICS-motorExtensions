@@ -4,6 +4,7 @@ record(ao, "$(P)$(O):FULLREV:SP") {
     field(PREC, "2")
     field(OUT, "@asyn(Galil,0)USER_VAR fullrev")
     field(PINI, "YES")
+    field(FLNK, "$(P)$(O):FULLREV")
 }
 
 record(ai, "$(P)$(O):FULLREV") {
