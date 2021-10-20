@@ -4,6 +4,7 @@ record(dfanout, "$(FULL_PREFIX)STOP_MOTORS:ALL") {
     field(OUTC, "$(FULL_PREFIX)STOP_MOTORS:BEAMSTOPS.PROC")
     field(OUTD, "$(FULL_PREFIX)STOP_MOTORS:JAWS.PROC")
     field(OUTE, "$(FULL_PREFIX)STOP_MOTORS:STRIPS.PROC")
+	field(OUTF, "$(FULL_PREFIX)SET_DELAYED_MOVE.PROC")
     field(DOL, "1")
     field(SELM, "All")
 }
