@@ -64,7 +64,7 @@ record(scalcout, "$(P)$(O):AXIS:CMD") {
 record(scalcout, "$(P)$(O):START:CMD") {
     field(DESC, "Galil command to start col program")
     field(INAA, "$(P)$(O):THREAD")
-    field(BB, "XQ #HOMER,")
+    field(BB, "XQ #StartORC,")
     field(CALC, "BB+AA")
     field(OUT, "$(P)$(D):SEND_STR_CMD PP")
 }
