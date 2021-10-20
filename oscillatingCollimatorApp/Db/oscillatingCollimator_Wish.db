@@ -80,7 +80,7 @@ record(ai, "$(P)$(O):GEARBOX_RATIO") {
     info(archive, "VAL")
 }
 
-record(calc, "$(P)$(O):STEPS_PER_REV") {
+record(calcout, "$(P)$(O):STEPS_PER_REV") {
     field(DESC, "Motor steps per revolution")
     field(INPA, "$(P)$(O):FULL_STEPS_PER_REV CP")
     field(INPB, "$(P)$(O):MICROSTEPS_PER_STEP CP")
@@ -88,7 +88,8 @@ record(calc, "$(P)$(O):STEPS_PER_REV") {
     field(CALC, "A*B*C")
     field(EGU, "stp")
     field(PINI, "YES")
-    field(FLNK, "$(P)$(O):STEPS_PER_DEG")
+    field(OUT, "$(P)$(O):STEPS_PER_DEG PP")
+    field(FLNK, "$(P)$(O):FULLREV:SP")
 }
 
 record(calc, "$(P)$(O):STEPS_PER_DEG") {
