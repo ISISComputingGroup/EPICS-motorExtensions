@@ -263,7 +263,7 @@ record(ao, "$(P)$(O):FREQ:SP") {
 
 record(calc, "$(P)$(O):CYCLE:TIME:HALF:SP") {
     field(DESC, "Half cycle time, setpoint")
-    field(INPA, "$(P)$(O):FREQ:SP")
+    field(INPA, "$(P)$(O):FREQ:SP CP")
     field(CALC, "1/(2*A)")
     field(EGU, "s")
     field(PREC, "2")
@@ -300,7 +300,7 @@ record(calc, "$(P)$(O):VEL:SP:DISC") {
     field(DESC, "Velocity calculation discriminant")
     field(INPA, "$(P)$(O):ACC:SP")  # Constant.
     field(INPB, "$(P)$(O):DIST:PART:SP")
-    field(INPC, "$(P)$(O):CYCLE:TIME:HALF:SP")
+    field(INPC, "$(P)$(O):CYCLE:TIME:HALF:SP CP")
     field(CALC, "C*C-8*B/A")
     field(EGU, "s^2")
     field(PREC, "2")
