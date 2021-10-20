@@ -20,7 +20,7 @@ record(ao,"$(P)$(O):MNTCYCLES:SP") {
     field(EGU, "")
     field(PREC, "2")
     field(OUT, "@asyn(Galil,0)USER_VAR cycles")
-    field(VAL, "$(MNTCYCLES)")
+    field(VAL, "5000")
     field(PINI, "YES")
     info(archive, "VAL")
     info(autosaveFields, "VAL")
