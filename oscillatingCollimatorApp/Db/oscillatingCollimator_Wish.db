@@ -88,8 +88,8 @@ record(calcout, "$(P)$(O):STEPS_PER_REV") {
     field(CALC, "A*B*C")
     field(EGU, "stp")
     field(PINI, "YES")
-    field(OUT, "$(P)$(O):STEPS_PER_DEG PP")
-    field(FLNK, "$(P)$(O):FULLREV:SP")
+    field(FLNK, "$(P)$(O):STEPS_PER_DEG")
+    field(OUT, "$(P)$(O):FULLREV:SP PP")
 }
 
 record(calc, "$(P)$(O):STEPS_PER_DEG") {
