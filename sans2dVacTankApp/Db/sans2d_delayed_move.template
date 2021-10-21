@@ -105,22 +105,86 @@ record(dfanout, "$(FULL_PREFIX)TANK_MOVE_ALL_EXT") {
 	field(OUTD, "$(P)BEAMSTOPX:MTR.SPMG PP")
 }
 
-record(calcout, "$(FULL_PREFIX)DELAYED_MOVE_CALC") {
-	field(DESC, "set to pause once motor has moved")
+record(calcout, "$(FULL_PREFIX)FRONTDETZ_DELAYED_MOVE_CALC") {
 	field(INPA, "$(P)FRONTDETZ:MTR.DMOV CP")
-	field(INPB, "$(P)FRONTBAFFLEZ:MTR.DMOV CP")
-	field(INPC, "$(P)REARBAFFLEZ:MTR.DMOV CP")
-	field(INPD, "$(P)REARDETZ:MTR.DMOV CP")
-	field(INPE, "$(P)FRONTBEAMSTOP:MTR.DMOV CP")
-	field(INPF, "$(P)FRONTDETX:MTR.DMOV CP")
-	field(INPG, "$(P)FRONTDETROT:MTR.DMOV CP")
-	field(INPH, "$(P)REARDETX:MTR.DMOV CP")
-	field(INPI, "$(P)BEAMSTOP1Y:MTR.DMOV CP")
-	field(INPJ, "$(P)BEAMSTOP2Y:MTR.DMOV CP")
-	field(INPK, "$(P)BEAMSTOP3Y:MTR.DMOV CP")
-	field(INPL, "$(P)BEAMSTOPX:MTR.DMOV CP")
-	field(CALC, "A && B && C && D && E && F && G && H && I && J && K && L")
+	field(INPB, "$(P)FRONTDETZ:MTR.SPMG CP")
+	field(CALC, "B == 3 && A == 1? 1 : 0")
 	field(OOPT, "When Non-zero")
-	field(OUT, "$(FULL_PREFIX)SET_DELAYED_MOVE.PROC")
+	field(OUT,  "$(P)FRONTDETZ:MTR.SPMG")
 }
- 
+
+
+record(calcout, "$(FULL_PREFIX)FRONTDETZ_SET_DISP_CALC") {
+	field(INPA, "$(P)FRONTDETZ:MTR.MOVN CP")
+	field(CALC, "A == 1")	
+}
+
+record(calcout, "$(FULL_PREFIX)FRONTBAFFLEZ_DELAYED_MOVE_CALC") {
+	field(INPA, "$(P)FRONTBAFFLEZ:MTR.DMOV CP")
+	field(INPB, "$(P)FRONTBAFFLEZ:MTR.SPMG CP")
+	field(CALC, "B == 3 && A == 1? 1 : 0")
+	field(OOPT, "When Non-zero")
+	field(OUT,  "$(P)FRONTBAFFLEZ:MTR.SPMG")
+}
+
+
+record(calcout, "$(FULL_PREFIX)FRONTBAFFLEZ_SET_DISP_CALC") {
+	field(INPA, "$(P)FRONTBAFFLEZ:MTR.MOVN CP")
+	field(CALC, "A == 1")	
+}
+
+record(calcout, "$(FULL_PREFIX)REARBAFFLEZ_DELAYED_MOVE_CALC") {
+	field(INPA, "$(P)REARBAFFLEZ:MTR.DMOV CP")
+	field(INPB, "$(P)REARBAFFLEZ:MTR.SPMG CP")
+	field(CALC, "B == 3 && A == 1? 1 : 0")
+	field(OOPT, "When Non-zero")
+	field(OUT,  "$(P)REARBAFFLEZ:MTR.SPMG")
+}
+
+
+record(calcout, "$(FULL_PREFIX)REARBAFFLEZ_SET_DISP_CALC") {
+	field(INPA, "$(P)REARBAFFLEZ:MTR.MOVN CP")
+	field(CALC, "A == 1")	
+}
+
+
+record(calcout, "$(FULL_PREFIX)REARDETZ_DELAYED_MOVE_CALC") {
+	field(INPA, "$(P)REARDETZ:MTR.DMOV CP")
+	field(INPB, "$(P)REARDETZ:MTR.SPMG CP")
+	field(CALC, "B == 3 && A == 1? 1 : 0")
+	field(OOPT, "When Non-zero")
+	field(OUT,  "$(P)REARDETZ:MTR.SPMG")
+}
+
+
+record(calcout, "$(FULL_PREFIX)REARDETZ_SET_DISP_CALC") {
+	field(INPA, "$(P)REARDETZ:MTR.MOVN CP")
+	field(CALC, "A == 1")	
+}
+
+record(seq, "$(FULL_PREFIX)FRONTDETZ_SET_DISP") {
+	field(DOL1, "$(FULL_PREFIX)FRONTDETZ_SET_DISP_CALC CP")
+	field(LNK1, "$(P)FRONTDETZ:SP.DISP")
+	
+	field(DOL2, "$(FULL_PREFIX)FRONTDETZ_SET_DISP_CALC CP")
+	field(LNK2, "$(P)FRONTDETZ:MTR.DISP")
+	
+	field(DOL3, "$(FULL_PREFIX)FRONTBAFFLEZ_SET_DISP_CALC CP")
+	field(LNK3, "$(P)FRONTBAFFLEZ:SP.DISP")
+	
+	field(DOL4, "$(FULL_PREFIX)FRONTBAFFLEZ_SET_DISP_CALC CP")
+	field(LNK4, "$(P)FRONTBAFFLEZ:MTR.DISP")
+	
+	field(DOL5, "$(FULL_PREFIX)REARBAFFLEZ_SET_DISP_CALC CP")
+	field(LNK5, "$(P)REARBAFFLEZ:SP.DISP")
+	
+	field(DOL6, "$(FULL_PREFIX)REARBAFFLEZ_SET_DISP_CALC CP")
+	field(LNK6, "$(P)REARBAFFLEZ:MTR.DISP")
+	
+	field(DOL7, "$(FULL_PREFIX)REARDETZ_SET_DISP_CALC CP")
+	field(LNK7, "$(P)REARDETZ:SP.DISP")
+	
+	field(DOL8, "$(FULL_PREFIX)REARDETZ_SET_DISP_CALC CP")
+	field(LNK8, "$(P)REARDETZ:MTR.DISP")
+
+}
