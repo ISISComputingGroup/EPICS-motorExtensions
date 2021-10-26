@@ -8,6 +8,7 @@ record(ao, "$(P)$(O):FULLREV:SP") {
 }
 
 record(ai, "$(P)$(O):FULLREV") {
+    field(SCAN, "1 second")
     field(DTYP, "$(OTYP)")
     field(EGU, "stp")
     field(PREC, "2")

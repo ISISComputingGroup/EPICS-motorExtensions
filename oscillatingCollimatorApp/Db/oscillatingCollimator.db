@@ -334,7 +334,7 @@ record(calcout, "$(P)$(O):VEL:SP:_CALC") {
 record(ao, "$(P)$(O):ANGLE:SP") {
     field(DESC, "Swept angle setpoint")
     field(EGU, "deg")
-    field(PREC, "2")
+    field(PREC, "3")
     field(DRVH, "2")
     field(DRVL, "0")
     field(DTYP,"$(OTYP)")
@@ -350,7 +350,7 @@ record(ai,"$(P)$(O):ANGLE:SP:RBV") {
     field(SCAN, "1 second")
     field(DTYP, "$(OTYP)")
     field(EGU, "deg")
-    field(PREC, "2")
+    field(PREC, "3")
     field(INP, "@asyn(Galil,0)USER_VAR angle")
 }
 
@@ -396,7 +396,7 @@ record(calc, "$(P)$(O):DIST:PART") {
 record(calc, "$(P)$(O):ANGLE") {
     field(DESC, "Actual swept angle")
     field(EGU, "deg")
-    field(PREC, "2")
+    field(PREC, "3")
     field(INPA, "$(P)$(O):DIST:PART CP MS")
     field(INPB, "$(P)$(O):RADIUS CP MS")
     field(INPC, "$(P)$(O):STEPS CP MS")
