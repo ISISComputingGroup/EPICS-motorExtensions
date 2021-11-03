@@ -21,64 +21,60 @@ record(dfanout, "$(FULL_PREFIX)SET_DELAYED_MOVE_EXT") {
 	field(OUTD, "$(P)BEAMSTOPX:MTR.SPMG PP")
 }
 
-record(scalcout, "$(FULL_PREFIX)CAN_MOVE_CALC_FDFB") {
+record(calcout, "$(FULL_PREFIX)CAN_MOVE_CALC_FDFB") {
 	field(DESC, "calc")
     field(INPA, "$(P)FRONTDETZ:SP CP")
 	field(INPB, "$(P)FRONTBAFFLEZ:SP CP")
 	field(INPC, "$(P)SANS2DVAC:FDFB:MINIMUM_INTERVAL")
-	field(AA, "Front Det & baffle collision detected")
-	field(BB, "")
-	field(CALC, "B-A > C ? BB:AA")
+	field(CALC, "B-A > C ? 0:1")
 	field(OUT, "$(FULL_PREFIX)FDFB_COLLISION.VAL PP")
 	field(FLNK, "$(FULL_PREFIX)CAN_MOVE_CALC_FBRB") 
 	
 }
 
-record(scalcout, "$(FULL_PREFIX)CAN_MOVE_CALC_FBRB") {
+record(calcout, "$(FULL_PREFIX)CAN_MOVE_CALC_FBRB") {
 	field(DESC, "calc")
     field(INPA, "$(P)FRONTBAFFLEZ:SP CP")
 	field(INPB, "$(P)REARBAFFLEZ:SP CP")
 	field(INPC, "$(P)SANS2DVAC:FBRB:MINIMUM_INTERVAL")
-	field(AA, "Front & rear baffle collision detected")
-	field(BB, "")
-	field(CALC, "B-A > C ? BB:AA")
+	field(CALC, "B-A > C ? 0:1")
 	field(OUT, "$(FULL_PREFIX)FBRB_COLLISION.VAL PP")
 	field(FLNK, "$(FULL_PREFIX)CAN_MOVE_CALC_RBRD")
 	
 }
 
-record(scalcout, "$(FULL_PREFIX)CAN_MOVE_CALC_RBRD") {
+record(calcout, "$(FULL_PREFIX)CAN_MOVE_CALC_RBRD") {
 	field(DESC, "calc")
     field(INPA, "$(P)REARBAFFLEZ:SP CP")
 	field(INPB, "$(P)REARDETZ:SP CP")
 	field(INPC, "$(P)SANS2DVAC:RBRD:MINIMUM_INTERVAL")
-	field(AA, "Rear baffle & det collision detected")
-	field(BB, "")
 	field(OUT, "$(FULL_PREFIX)RBRD_COLLISION.VAL PP")
-	field(CALC, "B-A > C ? BB:AA")
+	field(CALC, "B-A > C ? 0:1")
 	field(FLNK, "$(FULL_PREFIX)MOVE_ALL_CALC")
 }
 
-record(stringout, "$(FULL_PREFIX)FDFB_COLLISION") {	
+record(bi, "$(FULL_PREFIX)FDFB_COLLISION") {
 	field(DESC, "If there is a collision between FD & FB")
+	field(ONAM, "FDFB Collision")
 
 }
 
-record(stringout, "$(FULL_PREFIX)FBRB_COLLISION") {
+record(bi, "$(FULL_PREFIX)FBRB_COLLISION") {
 	field(DESC, "If there is a collision between FB & RB")
+	field(ONAM, "FBRB Collision")
 
 }
 
-record(stringout, "$(FULL_PREFIX)RBRD_COLLISION"){
+record(bi, "$(FULL_PREFIX)RBRD_COLLISION"){
 	field(DESC, "If there is a collision between RB & RD")
+	field(ONAM, "RBRD Collision")
 }
 
-record(scalcout, "$(FULL_PREFIX)MOVE_ALL_CALC") {
-	field(INAA, "$(FULL_PREFIX)FDFB_COLLISION CP")
-	field(INBB, "$(FULL_PREFIX)FBRB_COLLISION CP")
-	field(INCC, "$(FULL_PREFIX)RBRD_COLLISION CP")
-	field(DD, "")
-	field(CALC, "(AA == '') && (BB == '') && (CC == '') ? 0 : 1 ")
+record(calcout, "$(FULL_PREFIX)MOVE_ALL_CALC") {
+	field(INPA, "$(FULL_PREFIX)FDFB_COLLISION CP")
+	field(INPB, "$(FULL_PREFIX)FBRB_COLLISION CP")
+	field(INPC, "$(FULL_PREFIX)RBRD_COLLISION CP")
+	field(CALC, "A == 1 || B == 1 || C == 1")
 	field(OUT, "$(FULL_PREFIX)MOVE_ALL.DISP")
 
 }
