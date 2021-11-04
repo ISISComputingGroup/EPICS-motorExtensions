@@ -2,7 +2,8 @@ record(calcout, "$(FULL_PREFIX)INHIBIT_GUIDES_APERTURES_CALC") {
 	field(DESC, "Inhibit guides and aperutures calculate")
 	field(INPA, "$(MYPVPREFIX)FINS_VAC:GALIL_INTERLOCK CP")
 	field(CALC, "A == 0 ? 1: 0")
-	field(OUT, "$(FULL_PREFIX)INHIBIT_GUIDES_APERTURES.VAL PP MS")
+	field(OUT, "$(FULL_PREFIX)INHIBIT_GUIDES_APERTURES.VAL MS")
+	field(FLNK, "$(FULL_PREFIX)INHIBIT_GUIDES_APERTURES MS")
 
 }
 
