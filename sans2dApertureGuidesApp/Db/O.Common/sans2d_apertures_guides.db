@@ -1,0 +1,372 @@
+record(dfanout, "$(P)SANS2DAPWV:STOP_MOTORS:ALL") {
+    field(DESC, "If no interlock stop apertures + guides")
+    field(OUTA, "$(P)SANS2DAPWV:STOP_MOTORS:APERTURES PP")
+    field(OUTB, "$(P)SANS2DAPWV:STOP_MOTORS:GUIDES PP")
+    field(DOL, "$(MYPVPREFIX)FINS_VAC:GALIL_INTERLOCK")
+    field(OMSL, "closed_loop")
+    field(SELM, "All")
+}
+
+record(dfanout, "$(P)SANS2DAPWV:STOP_MOTORS:APERTURES"){
+    field(DESC, "If no interlock stop apertures")
+    field(OUTA, "$(P)APERTURE_1:MTR.STOP PP")
+    field(OUTB, "$(P)APERTURE_2:MTR.STOP PP")
+    field(OUTC, "$(P)APERTURE_3:MTR.STOP PP")
+    field(OUTD, "$(P)APERTURE_4:MTR.STOP PP")
+    field(OUTE, "$(P)APERTURE_5:MTR.STOP PP")
+    field(DOL, "$(MYPVPREFIX)FINS_VAC:GALIL_INTERLOCK")
+    field(OMSL, "closed_loop")
+    field(SELM, "All")
+}
+
+record(dfanout, "$(P)SANS2DAPWV:STOP_MOTORS:GUIDES"){
+    field(DESC, "If no interlock stop guides")
+    field(OUTA, "$(P)GUIDE_1:MTR.STOP PP")
+    field(OUTB, "$(P)GUIDE_2:MTR.STOP PP")
+    field(OUTC, "$(P)GUIDE_3:MTR.STOP PP")
+    field(OUTD, "$(P)GUIDE_4:MTR.STOP PP")
+    field(OUTE, "$(P)GUIDE_5:MTR.STOP PP")
+    field(DOL, "$(MYPVPREFIX)FINS_VAC:GALIL_INTERLOCK")
+    field(OMSL, "closed_loop")
+    field(SELM, "All")
+}
+record(calcout, "$(P)MTR$(CCP_01)01_DIFF_") {
+    field(DESC, "Positional error calculate")
+    field(INPA, "$(P)MTR$(CCP_01)01.DIFF CP")
+    field(INPB, "$(P)MTR$(CCP_01)01_THRESHOLD CP")
+    field(CALC, "A > B")
+}
+
+record(calcout, "$(P)MTR$(CCP_01)01_CALC_ERROR_") {
+    field(DESC, "Positional error calculate")
+    field(INPA, "$(P)MTR$(CCP_01)01_DIFF_ CP")
+    field(INPB, "$(P)MTR$(CCP_01)01.DMOV CP")
+    field(CALC, "B")
+    field(OOPT, "When Non-zero")
+    field(DOPT, "Use OCAL")
+    field(OCAL, "A")
+    field(OUT, "$(P)MTR$(CCP_01)01_ERROR PP")
+}
+
+# Overwrite default threshold, it will be different for Aperture and Guide Motor
+record(calcout, "$(P)MTR$(CCP_01)01_DEFAULT_THRESHOLD")
+{
+    field(DESC, "Default threshold")
+    field(INPA, "$(P)MTR$(CCP_01)01.MRES CP")
+    field(INPB, "$(P)MTR$(CCP_01)01.ERES CP")
+    field(INPC, "$(P)MTR$(CCP_01)01.RDBD")
+    field(CALC, "C")
+    field(OUT, "$(P)MTR$(CCP_01)01_THRESHOLD PP")
+    field(EGU, "mm")
+}
+
+record(ai, "$(P)MTR$(CCP_01)01_ERROR") {
+    field(DESC, "Positional error for individual motor")
+    info(archive, "VAL")
+}
+record(calcout, "$(P)MTR$(CCP_01)02_DIFF_") {
+    field(DESC, "Positional error calculate")
+    field(INPA, "$(P)MTR$(CCP_01)02.DIFF CP")
+    field(INPB, "$(P)MTR$(CCP_01)02_THRESHOLD CP")
+    field(CALC, "A > B")
+}
+
+record(calcout, "$(P)MTR$(CCP_01)02_CALC_ERROR_") {
+    field(DESC, "Positional error calculate")
+    field(INPA, "$(P)MTR$(CCP_01)02_DIFF_ CP")
+    field(INPB, "$(P)MTR$(CCP_01)02.DMOV CP")
+    field(CALC, "B")
+    field(OOPT, "When Non-zero")
+    field(DOPT, "Use OCAL")
+    field(OCAL, "A")
+    field(OUT, "$(P)MTR$(CCP_01)02_ERROR PP")
+}
+
+# Overwrite default threshold, it will be different for Aperture and Guide Motor
+record(calcout, "$(P)MTR$(CCP_01)02_DEFAULT_THRESHOLD")
+{
+    field(DESC, "Default threshold")
+    field(INPA, "$(P)MTR$(CCP_01)02.MRES CP")
+    field(INPB, "$(P)MTR$(CCP_01)02.ERES CP")
+    field(INPC, "$(P)MTR$(CCP_01)02.RDBD")
+    field(CALC, "C")
+    field(OUT, "$(P)MTR$(CCP_01)02_THRESHOLD PP")
+    field(EGU, "mm")
+}
+
+record(ai, "$(P)MTR$(CCP_01)02_ERROR") {
+    field(DESC, "Positional error for individual motor")
+    info(archive, "VAL")
+}
+record(calcout, "$(P)MTR$(CCP_01)03_DIFF_") {
+    field(DESC, "Positional error calculate")
+    field(INPA, "$(P)MTR$(CCP_01)03.DIFF CP")
+    field(INPB, "$(P)MTR$(CCP_01)03_THRESHOLD CP")
+    field(CALC, "A > B")
+}
+
+record(calcout, "$(P)MTR$(CCP_01)03_CALC_ERROR_") {
+    field(DESC, "Positional error calculate")
+    field(INPA, "$(P)MTR$(CCP_01)03_DIFF_ CP")
+    field(INPB, "$(P)MTR$(CCP_01)03.DMOV CP")
+    field(CALC, "B")
+    field(OOPT, "When Non-zero")
+    field(DOPT, "Use OCAL")
+    field(OCAL, "A")
+    field(OUT, "$(P)MTR$(CCP_01)03_ERROR PP")
+}
+
+# Overwrite default threshold, it will be different for Aperture and Guide Motor
+record(calcout, "$(P)MTR$(CCP_01)03_DEFAULT_THRESHOLD")
+{
+    field(DESC, "Default threshold")
+    field(INPA, "$(P)MTR$(CCP_01)03.MRES CP")
+    field(INPB, "$(P)MTR$(CCP_01)03.ERES CP")
+    field(INPC, "$(P)MTR$(CCP_01)03.RDBD")
+    field(CALC, "C")
+    field(OUT, "$(P)MTR$(CCP_01)03_THRESHOLD PP")
+    field(EGU, "mm")
+}
+
+record(ai, "$(P)MTR$(CCP_01)03_ERROR") {
+    field(DESC, "Positional error for individual motor")
+    info(archive, "VAL")
+}
+record(calcout, "$(P)MTR$(CCP_01)04_DIFF_") {
+    field(DESC, "Positional error calculate")
+    field(INPA, "$(P)MTR$(CCP_01)04.DIFF CP")
+    field(INPB, "$(P)MTR$(CCP_01)04_THRESHOLD CP")
+    field(CALC, "A > B")
+}
+
+record(calcout, "$(P)MTR$(CCP_01)04_CALC_ERROR_") {
+    field(DESC, "Positional error calculate")
+    field(INPA, "$(P)MTR$(CCP_01)04_DIFF_ CP")
+    field(INPB, "$(P)MTR$(CCP_01)04.DMOV CP")
+    field(CALC, "B")
+    field(OOPT, "When Non-zero")
+    field(DOPT, "Use OCAL")
+    field(OCAL, "A")
+    field(OUT, "$(P)MTR$(CCP_01)04_ERROR PP")
+}
+
+# Overwrite default threshold, it will be different for Aperture and Guide Motor
+record(calcout, "$(P)MTR$(CCP_01)04_DEFAULT_THRESHOLD")
+{
+    field(DESC, "Default threshold")
+    field(INPA, "$(P)MTR$(CCP_01)04.MRES CP")
+    field(INPB, "$(P)MTR$(CCP_01)04.ERES CP")
+    field(INPC, "$(P)MTR$(CCP_01)04.RDBD")
+    field(CALC, "C")
+    field(OUT, "$(P)MTR$(CCP_01)04_THRESHOLD PP")
+    field(EGU, "mm")
+}
+
+record(ai, "$(P)MTR$(CCP_01)04_ERROR") {
+    field(DESC, "Positional error for individual motor")
+    info(archive, "VAL")
+}
+record(calcout, "$(P)MTR$(CCP_01)05_DIFF_") {
+    field(DESC, "Positional error calculate")
+    field(INPA, "$(P)MTR$(CCP_01)05.DIFF CP")
+    field(INPB, "$(P)MTR$(CCP_01)05_THRESHOLD CP")
+    field(CALC, "A > B")
+}
+
+record(calcout, "$(P)MTR$(CCP_01)05_CALC_ERROR_") {
+    field(DESC, "Positional error calculate")
+    field(INPA, "$(P)MTR$(CCP_01)05_DIFF_ CP")
+    field(INPB, "$(P)MTR$(CCP_01)05.DMOV CP")
+    field(CALC, "B")
+    field(OOPT, "When Non-zero")
+    field(DOPT, "Use OCAL")
+    field(OCAL, "A")
+    field(OUT, "$(P)MTR$(CCP_01)05_ERROR PP")
+}
+
+# Overwrite default threshold, it will be different for Aperture and Guide Motor
+record(calcout, "$(P)MTR$(CCP_01)05_DEFAULT_THRESHOLD")
+{
+    field(DESC, "Default threshold")
+    field(INPA, "$(P)MTR$(CCP_01)05.MRES CP")
+    field(INPB, "$(P)MTR$(CCP_01)05.ERES CP")
+    field(INPC, "$(P)MTR$(CCP_01)05.RDBD")
+    field(CALC, "C")
+    field(OUT, "$(P)MTR$(CCP_01)05_THRESHOLD PP")
+    field(EGU, "mm")
+}
+
+record(ai, "$(P)MTR$(CCP_01)05_ERROR") {
+    field(DESC, "Positional error for individual motor")
+    info(archive, "VAL")
+}
+record(calcout, "$(P)MTR$(CCP_02)01_DIFF_") {
+    field(DESC, "Positional error calculate")
+    field(INPA, "$(P)MTR$(CCP_02)01.DIFF CP")
+    field(INPB, "$(P)MTR$(CCP_02)01_THRESHOLD CP")
+    field(CALC, "A > B")
+}
+
+record(calcout, "$(P)MTR$(CCP_02)01_CALC_ERROR_") {
+    field(DESC, "Positional error calculate")
+    field(INPA, "$(P)MTR$(CCP_02)01_DIFF_ CP")
+    field(INPB, "$(P)MTR$(CCP_02)01.DMOV CP")
+    field(CALC, "B")
+    field(OOPT, "When Non-zero")
+    field(DOPT, "Use OCAL")
+    field(OCAL, "A")
+    field(OUT, "$(P)MTR$(CCP_02)01_ERROR PP")
+}
+
+# Overwrite default threshold, it will be different for Aperture and Guide Motor
+record(calcout, "$(P)MTR$(CCP_02)01_DEFAULT_THRESHOLD")
+{
+    field(DESC, "Default threshold")
+    field(INPA, "$(P)MTR$(CCP_02)01.MRES CP")
+    field(INPB, "$(P)MTR$(CCP_02)01.ERES CP")
+    field(INPC, "$(P)MTR$(CCP_02)01.RDBD")
+    field(CALC, "C")
+    field(OUT, "$(P)MTR$(CCP_02)01_THRESHOLD PP")
+    field(EGU, "mm")
+}
+
+record(ai, "$(P)MTR$(CCP_02)01_ERROR") {
+    field(DESC, "Positional error for individual motor")
+    info(archive, "VAL")
+}
+record(calcout, "$(P)MTR$(CCP_02)02_DIFF_") {
+    field(DESC, "Positional error calculate")
+    field(INPA, "$(P)MTR$(CCP_02)02.DIFF CP")
+    field(INPB, "$(P)MTR$(CCP_02)02_THRESHOLD CP")
+    field(CALC, "A > B")
+}
+
+record(calcout, "$(P)MTR$(CCP_02)02_CALC_ERROR_") {
+    field(DESC, "Positional error calculate")
+    field(INPA, "$(P)MTR$(CCP_02)02_DIFF_ CP")
+    field(INPB, "$(P)MTR$(CCP_02)02.DMOV CP")
+    field(CALC, "B")
+    field(OOPT, "When Non-zero")
+    field(DOPT, "Use OCAL")
+    field(OCAL, "A")
+    field(OUT, "$(P)MTR$(CCP_02)02_ERROR PP")
+}
+
+# Overwrite default threshold, it will be different for Aperture and Guide Motor
+record(calcout, "$(P)MTR$(CCP_02)02_DEFAULT_THRESHOLD")
+{
+    field(DESC, "Default threshold")
+    field(INPA, "$(P)MTR$(CCP_02)02.MRES CP")
+    field(INPB, "$(P)MTR$(CCP_02)02.ERES CP")
+    field(INPC, "$(P)MTR$(CCP_02)02.RDBD")
+    field(CALC, "C")
+    field(OUT, "$(P)MTR$(CCP_02)02_THRESHOLD PP")
+    field(EGU, "mm")
+}
+
+record(ai, "$(P)MTR$(CCP_02)02_ERROR") {
+    field(DESC, "Positional error for individual motor")
+    info(archive, "VAL")
+}
+record(calcout, "$(P)MTR$(CCP_02)03_DIFF_") {
+    field(DESC, "Positional error calculate")
+    field(INPA, "$(P)MTR$(CCP_02)03.DIFF CP")
+    field(INPB, "$(P)MTR$(CCP_02)03_THRESHOLD CP")
+    field(CALC, "A > B")
+}
+
+record(calcout, "$(P)MTR$(CCP_02)03_CALC_ERROR_") {
+    field(DESC, "Positional error calculate")
+    field(INPA, "$(P)MTR$(CCP_02)03_DIFF_ CP")
+    field(INPB, "$(P)MTR$(CCP_02)03.DMOV CP")
+    field(CALC, "B")
+    field(OOPT, "When Non-zero")
+    field(DOPT, "Use OCAL")
+    field(OCAL, "A")
+    field(OUT, "$(P)MTR$(CCP_02)03_ERROR PP")
+}
+
+# Overwrite default threshold, it will be different for Aperture and Guide Motor
+record(calcout, "$(P)MTR$(CCP_02)03_DEFAULT_THRESHOLD")
+{
+    field(DESC, "Default threshold")
+    field(INPA, "$(P)MTR$(CCP_02)03.MRES CP")
+    field(INPB, "$(P)MTR$(CCP_02)03.ERES CP")
+    field(INPC, "$(P)MTR$(CCP_02)03.RDBD")
+    field(CALC, "C")
+    field(OUT, "$(P)MTR$(CCP_02)03_THRESHOLD PP")
+    field(EGU, "mm")
+}
+
+record(ai, "$(P)MTR$(CCP_02)03_ERROR") {
+    field(DESC, "Positional error for individual motor")
+    info(archive, "VAL")
+}
+record(calcout, "$(P)MTR$(CCP_02)04_DIFF_") {
+    field(DESC, "Positional error calculate")
+    field(INPA, "$(P)MTR$(CCP_02)04.DIFF CP")
+    field(INPB, "$(P)MTR$(CCP_02)04_THRESHOLD CP")
+    field(CALC, "A > B")
+}
+
+record(calcout, "$(P)MTR$(CCP_02)04_CALC_ERROR_") {
+    field(DESC, "Positional error calculate")
+    field(INPA, "$(P)MTR$(CCP_02)04_DIFF_ CP")
+    field(INPB, "$(P)MTR$(CCP_02)04.DMOV CP")
+    field(CALC, "B")
+    field(OOPT, "When Non-zero")
+    field(DOPT, "Use OCAL")
+    field(OCAL, "A")
+    field(OUT, "$(P)MTR$(CCP_02)04_ERROR PP")
+}
+
+# Overwrite default threshold, it will be different for Aperture and Guide Motor
+record(calcout, "$(P)MTR$(CCP_02)04_DEFAULT_THRESHOLD")
+{
+    field(DESC, "Default threshold")
+    field(INPA, "$(P)MTR$(CCP_02)04.MRES CP")
+    field(INPB, "$(P)MTR$(CCP_02)04.ERES CP")
+    field(INPC, "$(P)MTR$(CCP_02)04.RDBD")
+    field(CALC, "C")
+    field(OUT, "$(P)MTR$(CCP_02)04_THRESHOLD PP")
+    field(EGU, "mm")
+}
+
+record(ai, "$(P)MTR$(CCP_02)04_ERROR") {
+    field(DESC, "Positional error for individual motor")
+    info(archive, "VAL")
+}
+record(calcout, "$(P)MTR$(CCP_02)05_DIFF_") {
+    field(DESC, "Positional error calculate")
+    field(INPA, "$(P)MTR$(CCP_02)05.DIFF CP")
+    field(INPB, "$(P)MTR$(CCP_02)05_THRESHOLD CP")
+    field(CALC, "A > B")
+}
+
+record(calcout, "$(P)MTR$(CCP_02)05_CALC_ERROR_") {
+    field(DESC, "Positional error calculate")
+    field(INPA, "$(P)MTR$(CCP_02)05_DIFF_ CP")
+    field(INPB, "$(P)MTR$(CCP_02)05.DMOV CP")
+    field(CALC, "B")
+    field(OOPT, "When Non-zero")
+    field(DOPT, "Use OCAL")
+    field(OCAL, "A")
+    field(OUT, "$(P)MTR$(CCP_02)05_ERROR PP")
+}
+
+# Overwrite default threshold, it will be different for Aperture and Guide Motor
+record(calcout, "$(P)MTR$(CCP_02)05_DEFAULT_THRESHOLD")
+{
+    field(DESC, "Default threshold")
+    field(INPA, "$(P)MTR$(CCP_02)05.MRES CP")
+    field(INPB, "$(P)MTR$(CCP_02)05.ERES CP")
+    field(INPC, "$(P)MTR$(CCP_02)05.RDBD")
+    field(CALC, "C")
+    field(OUT, "$(P)MTR$(CCP_02)05_THRESHOLD PP")
+    field(EGU, "mm")
+}
+
+record(ai, "$(P)MTR$(CCP_02)05_ERROR") {
+    field(DESC, "Positional error for individual motor")
+    info(archive, "VAL")
+}
