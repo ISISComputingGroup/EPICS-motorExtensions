@@ -1,0 +1,237 @@
+record(dfanout, "$(FULL_PREFIX)SET_DELAYED_MOVE") {
+	field(DESC, "Set motor to pause")
+	field(VAL, "1")
+	field(PINI, "YES")
+    field(OUTA, "$(P)FRONTDETZ:MTR.SPMG PP")
+	field(OUTB, "$(P)FRONTBAFFLEZ:MTR.SPMG PP")
+	field(OUTC, "$(P)REARBAFFLEZ:MTR.SPMG PP")
+	field(OUTD, "$(P)REARDETZ:MTR.SPMG PP")
+	field(OUTE, "$(P)FRONTBEAMSTOP:MTR.SPMG PP")
+	field(OUTF, "$(P)FRONTDETX:MTR.SPMG PP")
+	field(OUTG, "$(P)FRONTDETROT:MTR.SPMG PP")
+	field(OUTH, "$(P)REARDETX:MTR.SPMG PP")
+	field(FLNK, "$(FULL_PREFIX)SET_DELAYED_MOVE_EXT")
+}
+
+record(dfanout, "$(FULL_PREFIX)SET_DELAYED_MOVE_EXT") {
+	field(VAL, "1")
+	field(OUTA, "$(P)BEAMSTOP1Y:MTR.SPMG PP")
+	field(OUTB, "$(P)BEAMSTOP2Y:MTR.SPMG PP")
+	field(OUTC, "$(P)BEAMSTOP3Y:MTR.SPMG PP")
+	field(OUTD, "$(P)BEAMSTOPX:MTR.SPMG PP")
+}
+
+record(calcout, "$(FULL_PREFIX)CAN_MOVE_CALC_FDFB") {
+	field(DESC, "calc")
+    field(INPA, "$(P)FRONTDETZ:SP CP")
+	field(INPB, "$(P)FRONTBAFFLEZ:SP CP")
+	field(INPC, "$(P)SANS2DVAC:FDFB:MINIMUM_INTERVAL")
+	field(CALC, "B-A > C ? 0:1")
+	field(OUT, "$(FULL_PREFIX)FDFB_COLLISION.VAL PP")
+	field(FLNK, "$(FULL_PREFIX)CAN_MOVE_CALC_FBRB") 
+	
+}
+
+record(calcout, "$(FULL_PREFIX)CAN_MOVE_CALC_FBRB") {
+	field(DESC, "calc")
+    field(INPA, "$(P)FRONTBAFFLEZ:SP CP")
+	field(INPB, "$(P)REARBAFFLEZ:SP CP")
+	field(INPC, "$(P)SANS2DVAC:FBRB:MINIMUM_INTERVAL")
+	field(CALC, "B-A > C ? 0:1")
+	field(OUT, "$(FULL_PREFIX)FBRB_COLLISION.VAL PP")
+	field(FLNK, "$(FULL_PREFIX)CAN_MOVE_CALC_RBRD")
+	
+}
+
+record(calcout, "$(FULL_PREFIX)CAN_MOVE_CALC_RBRD") {
+	field(DESC, "calc")
+    field(INPA, "$(P)REARBAFFLEZ:SP CP")
+	field(INPB, "$(P)REARDETZ:SP CP")
+	field(INPC, "$(P)SANS2DVAC:RBRD:MINIMUM_INTERVAL")
+	field(OUT, "$(FULL_PREFIX)RBRD_COLLISION.VAL PP")
+	field(CALC, "B-A > C ? 0:1")
+	field(FLNK, "$(FULL_PREFIX)MOVE_ALL_CALC")
+}
+
+record(bi, "$(FULL_PREFIX)FDFB_COLLISION") {
+	field(DESC, "If there is a collision between FD & FB")
+	field(ONAM, "FDFB Collision")
+
+}
+
+record(bi, "$(FULL_PREFIX)FBRB_COLLISION") {
+	field(DESC, "If there is a collision between FB & RB")
+	field(ONAM, "FBRB Collision")
+
+}
+
+record(bi, "$(FULL_PREFIX)RBRD_COLLISION"){
+	field(DESC, "If there is a collision between RB & RD")
+	field(ONAM, "RBRD Collision")
+}
+
+record(calcout, "$(FULL_PREFIX)MOVE_ALL_CALC") {
+	field(INPA, "$(FULL_PREFIX)FDFB_COLLISION CP")
+	field(INPB, "$(FULL_PREFIX)FBRB_COLLISION CP")
+	field(INPC, "$(FULL_PREFIX)RBRD_COLLISION CP")
+	field(CALC, "A == 1 || B == 1 || C == 1")
+	field(OUT, "$(FULL_PREFIX)MOVE_ALL.DISP")
+
+}
+
+record(dfanout, "$(FULL_PREFIX)MOVE_ALL") {
+	field(DESC, "Sets to move")
+	field(VAL, "2")
+    field(OUTA, "$(P)FRONTDETZ:MTR.SPMG PP")
+	field(OUTB, "$(P)FRONTBAFFLEZ:MTR.SPMG PP")
+	field(OUTC, "$(P)REARBAFFLEZ:MTR.SPMG PP")
+	field(OUTD, "$(P)REARDETZ:MTR.SPMG PP")
+	field(OUTE, "$(P)FRONTBEAMSTOP:MTR.SPMG PP")
+	field(OUTF, "$(P)FRONTDETX:MTR.SPMG PP")
+	field(OUTG, "$(P)FRONTDETROT:MTR.SPMG PP")
+	field(OUTH, "$(P)REARDETX:MTR.SPMG PP")
+	field(FLNK, "$(FULL_PREFIX)TANK_MOVE_ALL_EXT")
+}
+
+record(dfanout, "$(FULL_PREFIX)TANK_MOVE_ALL_EXT") {
+	field(VAL, "2")
+	field(OUTA, "$(P)BEAMSTOP1Y:MTR.SPMG PP")
+	field(OUTB, "$(P)BEAMSTOP2Y:MTR.SPMG PP")
+	field(OUTC, "$(P)BEAMSTOP3Y:MTR.SPMG PP")
+	field(OUTD, "$(P)BEAMSTOPX:MTR.SPMG PP")
+}
+
+record(calcout, "$(FULL_PREFIX)FRONTDETZ_DELAYED_MOVE_CALC") {
+	field(DESC, "Set motor to Pause if move has finished")
+	field(INPA, "$(P)FRONTDETZ:MTR.DMOV CP")
+	field(INPB, "$(P)FRONTDETZ:MTR.SPMG CP")
+	field(CALC, "(B == 3 && A == 1) || (B == 2 && A == 1) ? 1 : 0")
+	field(OOPT, "When Non-zero")
+	field(OUT,  "$(P)FRONTDETZ:MTR.SPMG")
+}
+
+record(calcout, "$(FULL_PREFIX)FRONTBAFFLEZ_DELAYED_MOVE_CALC") {
+	field(DESC, "Set motor to Pause if move has finished")
+	field(INPA, "$(P)FRONTBAFFLEZ:MTR.DMOV CP")
+	field(INPB, "$(P)FRONTBAFFLEZ:MTR.SPMG CP")
+	field(CALC, "(B == 3 && A == 1) || (B == 2 && A == 1) ? 1 : 0")
+	field(OOPT, "When Non-zero")
+	field(OUT,  "$(P)FRONTBAFFLEZ:MTR.SPMG")
+}
+
+record(calcout, "$(FULL_PREFIX)REARBAFFLEZ_DELAYED_MOVE_CALC") {
+	field(DESC, "Set motor to Pause if move has finished")
+	field(INPA, "$(P)REARBAFFLEZ:MTR.DMOV CP")
+	field(INPB, "$(P)REARBAFFLEZ:MTR.SPMG CP")
+	field(CALC, "(B == 3 && A == 1) || (B == 2 && A == 1) ? 1 : 0")
+	field(OOPT, "When Non-zero")
+	field(OUT,  "$(P)REARBAFFLEZ:MTR.SPMG")
+}
+
+record(calcout, "$(FULL_PREFIX)REARDETZ_DELAYED_MOVE_CALC") {
+	field(DESC, "Set motor to Pause if move has finished")
+	field(INPA, "$(P)REARDETZ:MTR.DMOV CP")
+	field(INPB, "$(P)REARDETZ:MTR.SPMG CP")
+	field(CALC, "(B == 3 && A == 1) || (B == 2 && A == 1) ? 1 : 0")
+	field(OOPT, "When Non-zero")
+	field(OUT,  "$(P)REARDETZ:MTR.SPMG")
+}
+
+record(calcout, "$(FULL_PREFIX)FRONTBEAMSTOP_DELAYED_MOVE_CALC") {
+	field(DESC, "Set motor to Pause if move has finished")
+	field(INPA, "$(P)FRONTBEAMSTOP:MTR.DMOV CP")
+	field(INPB, "$(P)FRONTBEAMSTOP:MTR.SPMG CP")
+	field(CALC, "(B == 3 && A == 1) || (B == 2 && A == 1) ? 1 : 0")
+	field(OOPT, "When Non-zero")
+	field(OUT,  "$(P)FRONTBEAMSTOP:MTR.SPMG")
+}
+
+record(calcout, "$(FULL_PREFIX)FRONTDETX_DELAYED_MOVE_CALC") {
+	field(DESC, "Set motor to Pause if move has finished")
+	field(INPA, "$(P)FRONTDETX:MTR.DMOV CP")
+	field(INPB, "$(P)FRONTDETX:MTR.SPMG CP")
+	field(CALC, "(B == 3 && A == 1) || (B == 2 && A == 1) ? 1 : 0")
+	field(OOPT, "When Non-zero")
+	field(OUT,  "$(P)FRONTDETX:MTR.SPMG")
+}
+
+record(calcout, "$(FULL_PREFIX)FRONTDETROT_DELAYED_MOVE_CALC") {
+	field(DESC, "Set motor to Pause if move has finished")
+	field(INPA, "$(P)FRONTDETROT:MTR.DMOV CP")
+	field(INPB, "$(P)FRONTDETROT:MTR.SPMG CP")
+	field(CALC, "(B == 3 && A == 1) || (B == 2 && A == 1) ? 1 : 0")
+	field(OOPT, "When Non-zero")
+	field(OUT,  "$(P)FRONTDETROT:MTR.SPMG")
+}
+
+record(calcout, "$(FULL_PREFIX)REARDETX_DELAYED_MOVE_CALC") {
+	field(DESC, "Set motor to Pause if move has finished")
+	field(INPA, "$(P)REARDETX:MTR.DMOV CP")
+	field(INPB, "$(P)REARDETX:MTR.SPMG CP")
+	field(CALC, "(B == 3 && A == 1) || (B == 2 && A == 1) ? 1 : 0")
+	field(OOPT, "When Non-zero")
+	field(OUT,  "$(P)REARDETX:MTR.SPMG")
+}
+
+record(calcout, "$(FULL_PREFIX)BEAMSTOP1Y_DELAYED_MOVE_CALC") {
+	field(DESC, "Set motor to Pause if move has finished")
+	field(INPA, "$(P)BEAMSTOP1Y:MTR.DMOV CP")
+	field(INPB, "$(P)BEAMSTOP1Y:MTR.SPMG CP")
+	field(CALC, "(B == 3 && A == 1) || (B == 2 && A == 1) ? 1 : 0")
+	field(OOPT, "When Non-zero")
+	field(OUT,  "$(P)BEAMSTOP1Y:MTR.SPMG")
+}
+
+record(calcout, "$(FULL_PREFIX)BEAMSTOP2Y_DELAYED_MOVE_CALC") {
+	field(DESC, "Set motor to Pause if move has finished")
+	field(INPA, "$(P)BEAMSTOP2Y:MTR.DMOV CP")
+	field(INPB, "$(P)BEAMSTOP2Y:MTR.SPMG CP")
+	field(CALC, "(B == 3 && A == 1) || (B == 2 && A == 1) ? 1 : 0")
+	field(OOPT, "When Non-zero")
+	field(OUT,  "$(P)BEAMSTOP2Y:MTR.SPMG")
+}
+
+record(calcout, "$(FULL_PREFIX)BEAMSTOP3Y_DELAYED_MOVE_CALC") {
+	field(DESC, "Set motor to Pause if move has finished")
+	field(INPA, "$(P)BEAMSTOP3Y:MTR.DMOV CP")
+	field(INPB, "$(P)BEAMSTOP3Y:MTR.SPMG CP")
+	field(CALC, "(B == 3 && A == 1) || (B == 2 && A == 1) ? 1 : 0")
+	field(OOPT, "When Non-zero")
+	field(OUT,  "$(P)BEAMSTOP3Y:MTR.SPMG")
+}
+
+record(calcout, "$(FULL_PREFIX)BEAMSTOPX_DELAYED_MOVE_CALC") {
+	field(DESC, "Set motor to Pause if move has finished")
+	field(INPA, "$(P)BEAMSTOPX:MTR.DMOV CP")
+	field(INPB, "$(P)BEAMSTOPX:MTR.SPMG CP")
+	field(CALC, "(B == 3 && A == 1) || (B == 2 && A == 1) ? 1 : 0")
+	field(OOPT, "When Non-zero")
+	field(OUT,  "$(P)BEAMSTOPX:MTR.SPMG")
+}
+
+record(seq, "$(FULL_PREFIX)FRONTDETZ_SET_DISP") {
+	field(DOL1, "$(P)FRONTDETZ:MTR.MOVN CP")
+	field(LNK1, "$(P)FRONTDETZ:SP.DISP")
+	
+	field(DOL2, "$(P)FRONTDETZ:MTR.MOVN CP")
+	field(LNK2, "$(P)FRONTDETZ:MTR.DISP")
+	
+	field(DOL3, "$(P)FRONTBAFFLEZ:MTR.MOVN CP")
+	field(LNK3, "$(P)FRONTBAFFLEZ:SP.DISP")
+	
+	field(DOL4, "$(P)FRONTBAFFLEZ:MTR.MOVN CP")
+	field(LNK4, "$(P)FRONTBAFFLEZ:MTR.DISP")
+	
+	field(DOL5, "$(P)REARBAFFLEZ:MTR.MOVN CP")
+	field(LNK5, "$(P)REARBAFFLEZ:SP.DISP")
+	
+	field(DOL6, "$(P)REARBAFFLEZ:MTR.MOVN CP")
+	field(LNK6, "$(P)REARBAFFLEZ:MTR.DISP")
+	
+	field(DOL7, "$(P)REARDETZ:MTR.MOVN CP")
+	field(LNK7, "$(P)REARDETZ:SP.DISP")
+	
+	field(DOL8, "$(P)REARDETZ:MTR.MOVN CP")
+	field(LNK8, "$(P)REARDETZ:MTR.DISP")
+
+}
