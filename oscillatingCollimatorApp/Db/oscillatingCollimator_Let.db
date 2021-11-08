@@ -1,0 +1,74 @@
+
+
+
+record(calc, "$(P)$(O):DIST:PART:SP") {
+    field(DESC, "Swept distance, setpoint")
+    field(INPA, "$(P)$(O):RADIUS")  # Constant.
+    field(INPB, "$(P)$(O):STEPS")  # Constant.
+    field(INPC, "$(P)$(O):ANGLE:SP")
+    field(CALC, "2*A*B*TAN(C*D2R)")
+    field(EGU, "stp")
+    field(PREC, "0")
+    field(FLNK, "$(P)$(O):VEL:SP:DISC")
+}
+
+# Frequency 
+
+record(ai,"$(P)$(O):TIME") {
+    field(DESC,"Time between oscillations")
+    field(SCAN,"1 second")
+    field(EGU, "ms")
+    field(DTYP,"$(OTYP)")
+    field(INP, "@asyn(Galil,0)USER_VAR time")
+    info(INTEREST, "MEDIUM")
+    info(archive, "VAL")
+}
+
+record(calcout, "$(P)$(O):FREQ:_CALC") {
+    field(PREC, "2")
+    field(EGU, "Hz")
+    field(INPA, "$(P)$(O):TIME CP MS")
+    field(CALC, "A==0?0:1000/A")
+    field(OUT, "$(P)$(O):FREQ PP")
+}
+
+record(ai, "$(P)$(O):FREQ") {
+    field(DESC, "Operating frequency")
+    field(PREC, "2")
+    field(EGU, "Hz")
+    info(INTEREST, "HIGH")
+    info(archive, "VAL")
+}
+
+# Motor steps
+
+record(calcout, "$(P)$(O):STEPS:_CALC") {
+    field(SCAN, "1 second")
+    field(INPA, "$(P)$(M).MRES")
+    field(CALC, "1/A")
+    field(OUT, "$(P)$(O):STEPS PP")
+    field(EGU, "mm")
+}
+
+record(ai, "$(P)$(O):STEPS") {
+    field(DESC, "Motor steps per mm")
+    field(EGU, "1/mm")
+    field(PREC, "0")
+}
+
+# Motor position
+
+record(calc, "$(P)$(O):POS:_CALC") {
+    field(SCAN, ".1 second")
+    field(INPA, "$(P)$(M).RBV MS")
+    field(INPB, "$(P)$(O):RADIUS CP MS")
+    field(CALC, "R2D*ATAN(A/B)")
+}
+
+record(ai, "$(P)$(O):POS") {
+    field(INP, "$(P)$(O):POS:_CALC CP MS")
+    field(DESC, "Current motor position")
+    field(PREC, "2")
+    field(EGU, "deg")
+    info(INTEREST, "MEDIUM")
+}
