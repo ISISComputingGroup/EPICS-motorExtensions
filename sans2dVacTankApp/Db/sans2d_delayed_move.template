@@ -209,7 +209,8 @@ record(calcout, "$(FULL_PREFIX)BEAMSTOPX_DELAYED_MOVE_CALC") {
 	field(OUT,  "$(P)BEAMSTOPX:MTR.SPMG")
 }
 
-record(seq, "$(FULL_PREFIX)FRONTDETZ_SET_DISP") {
+record(seq, "$(FULL_PREFIX)SET_DISP_ANY_AXIS_MOVING") {
+	field(DESC, "Axes moving should have DISP = 1")
 	field(DOL1, "$(P)FRONTDETZ:MTR.MOVN CP")
 	field(LNK1, "$(P)FRONTDETZ:SP.DISP")
 	
