@@ -1,3 +1,20 @@
+record(ao, "$(P)$(O):FULLREV:SP") {
+    field(DTYP, "$(OTYP)")
+    field(EGU, "stp")
+    field(PREC, "2")
+    field(OUT, "@asyn(Galil,0)USER_VAR fullrev")
+    field(PINI, "YES")
+    field(FLNK, "$(P)$(O):FULLREV")
+}
+
+record(ai, "$(P)$(O):FULLREV") {
+    field(SCAN, "1 second")
+    field(DTYP, "$(OTYP)")
+    field(EGU, "stp")
+    field(PREC, "2")
+    field(INP, "@asyn(Galil,0)USER_VAR fullrev")
+    field(PREC, "2")
+}
 
 record(ao,"$(P)$(O):MNTCYCLES:SP") {
     field(DESC, "Num cycles between maintenance rotation")
@@ -5,7 +22,7 @@ record(ao,"$(P)$(O):MNTCYCLES:SP") {
     field(EGU, "")
     field(PREC, "2")
     field(OUT, "@asyn(Galil,0)USER_VAR cycles")
-    field(VAL, "$(MNTCYCLES)")
+    field(VAL, "5000")
     field(PINI, "YES")
     info(archive, "VAL")
     info(autosaveFields, "VAL")
@@ -35,7 +52,7 @@ record(calc, "$(P)$(O):MNTTIME") {
 
 # Swept angle calcs
 
-record(ai, "$(P)$(O):_STEPS_PER_REV") {
+record(ai, "$(P)$(O):FULL_STEPS_PER_REV") {
     field(DESC, "Full Motor Steps per Motor Rev")
     field(VAL, "$(STEPS_PER_REV)")
     field(PINI, "YES")
@@ -65,15 +82,16 @@ record(ai, "$(P)$(O):GEARBOX_RATIO") {
     info(archive, "VAL")
 }
 
-record(calc, "$(P)$(O):STEPS_PER_REV") {
+record(calcout, "$(P)$(O):STEPS_PER_REV") {
     field(DESC, "Motor steps per revolution")
-    field(INPA, "$(P)$(O):_STEPS_PER_REV CP")
+    field(INPA, "$(P)$(O):FULL_STEPS_PER_REV CP")
     field(INPB, "$(P)$(O):MICROSTEPS_PER_STEP CP")
     field(INPC, "$(P)$(O):GEARBOX_RATIO CP")
     field(CALC, "A*B*C")
     field(EGU, "stp")
     field(PINI, "YES")
     field(FLNK, "$(P)$(O):STEPS_PER_DEG")
+    field(OUT, "$(P)$(O):FULLREV:SP PP")
 }
 
 record(calc, "$(P)$(O):STEPS_PER_DEG") {

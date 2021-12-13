@@ -64,7 +64,7 @@ record(scalcout, "$(P)$(O):AXIS:CMD") {
 record(scalcout, "$(P)$(O):START:CMD") {
     field(DESC, "Galil command to start col program")
     field(INAA, "$(P)$(O):THREAD")
-    field(BB, "XQ #HOMER,")
+    field(BB, "XQ #StartORC,")
     field(CALC, "BB+AA")
     field(OUT, "$(P)$(D):SEND_STR_CMD PP")
 }
@@ -242,6 +242,7 @@ record(mbbi, "$(P)$(O):MODE") {
     field(ONST, "Homing")
     field(TWST, "Oscillating")
     field(THST, "Stopped")
+    field(FRST, "Maintenance Rotation")
     info(INTEREST, "HIGH")
     info(archive, "VAL")
 }
@@ -262,7 +263,7 @@ record(ao, "$(P)$(O):FREQ:SP") {
 
 record(calc, "$(P)$(O):CYCLE:TIME:HALF:SP") {
     field(DESC, "Half cycle time, setpoint")
-    field(INPA, "$(P)$(O):FREQ:SP")
+    field(INPA, "$(P)$(O):FREQ:SP CP")
     field(CALC, "1/(2*A)")
     field(EGU, "s")
     field(PREC, "2")
@@ -299,7 +300,7 @@ record(calc, "$(P)$(O):VEL:SP:DISC") {
     field(DESC, "Velocity calculation discriminant")
     field(INPA, "$(P)$(O):ACC:SP")  # Constant.
     field(INPB, "$(P)$(O):DIST:PART:SP")
-    field(INPC, "$(P)$(O):CYCLE:TIME:HALF:SP")
+    field(INPC, "$(P)$(O):CYCLE:TIME:HALF:SP CP")
     field(CALC, "C*C-8*B/A")
     field(EGU, "s^2")
     field(PREC, "2")
@@ -333,7 +334,7 @@ record(calcout, "$(P)$(O):VEL:SP:_CALC") {
 record(ao, "$(P)$(O):ANGLE:SP") {
     field(DESC, "Swept angle setpoint")
     field(EGU, "deg")
-    field(PREC, "2")
+    field(PREC, "3")
     field(DRVH, "2")
     field(DRVL, "0")
     field(DTYP,"$(OTYP)")
@@ -349,7 +350,7 @@ record(ai,"$(P)$(O):ANGLE:SP:RBV") {
     field(SCAN, "1 second")
     field(DTYP, "$(OTYP)")
     field(EGU, "deg")
-    field(PREC, "2")
+    field(PREC, "3")
     field(INP, "@asyn(Galil,0)USER_VAR angle")
 }
 
@@ -395,7 +396,7 @@ record(calc, "$(P)$(O):DIST:PART") {
 record(calc, "$(P)$(O):ANGLE") {
     field(DESC, "Actual swept angle")
     field(EGU, "deg")
-    field(PREC, "2")
+    field(PREC, "3")
     field(INPA, "$(P)$(O):DIST:PART CP MS")
     field(INPB, "$(P)$(O):RADIUS CP MS")
     field(INPC, "$(P)$(O):STEPS CP MS")
