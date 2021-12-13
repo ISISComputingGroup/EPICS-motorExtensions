@@ -1,0 +1,75 @@
+record(calcout, "$(FULL_PREFIX)INHIBIT_GUIDES_APERTURES_CALC") {
+	field(DESC, "Inhibit guides and aperutures calculate")
+	field(INPA, "$(MYPVPREFIX)FINS_VAC:GALIL_INTERLOCK CP")
+	field(CALC, "A == 0 ? 1: 0")
+	field(OUT, "$(FULL_PREFIX)INHIBIT_GUIDES_APERTURES.VAL MS")
+	field(FLNK, "$(FULL_PREFIX)INHIBIT_GUIDES_APERTURES MS")
+
+}
+
+record(dfanout, "$(FULL_PREFIX)INHIBIT_GUIDES_APERTURES") {
+	field(DESC, "Inhibit guides and aperutures")
+	field(OUTA, "$(FULL_PREFIX)INHIBIT_MOTORS:APERTURES.VAL PP")
+	field(OUTB, "$(FULL_PREFIX)INHIBIT_MOTORS:APERTURES_EXT.VAL PP")
+	
+	field(OUTC, "$(FULL_PREFIX)INHIBIT_MOTORS:GUIDES.VAL PP")
+	field(OUTD, "$(FULL_PREFIX)INHIBIT_MOTORS:GUIDES_EXT.VAL PP")
+
+}
+
+record(dfanout, "$(FULL_PREFIX)INHIBIT_MOTORS:APERTURES"){
+    field(DESC, "Inhibit when galil is interlocked")
+	field(OUTA, "$(P)APERTURE_1:SP.DISP")
+	field(OUTB, "$(P)APERTURE_1:MTR.DISP")
+	
+	field(OUTC, "$(P)APERTURE_2:SP.DISP")
+	field(OUTD, "$(P)APERTURE_2:MTR.DISP")
+	
+	field(OUTE, "$(P)APERTURE_3:SP.DISP")
+	field(OUTF, "$(P)APERTURE_3:MTR.DISP")
+	
+	field(OUTG, "$(P)APERTURE_4:SP.DISP")
+	field(OUTH, "$(P)APERTURE_4:MTR.DISP")
+	
+    field(OMSL, "closed_loop")
+    field(SELM, "All")
+}
+
+record(dfanout, "$(FULL_PREFIX)INHIBIT_MOTORS:APERTURES_EXT"){
+    field(DESC, "Inhibit when galil is interlocked")
+
+	field(OUTA, "$(P)APERTURE_5:SP.DISP")
+	field(OUTB, "$(P)APERTURE_5:MTR.DISP")
+	
+    field(OMSL, "closed_loop")
+    field(SELM, "All")
+}
+
+record(dfanout, "$(FULL_PREFIX)INHIBIT_MOTORS:GUIDES"){
+    field(DESC, "Inhibit when galil is interlocked")
+	field(OUTA, "$(P)GUIDE_1:SP.DISP")
+	field(OUTB, "$(P)GUIDE_1:MTR.DISP")
+	
+	field(OUTC, "$(P)GUIDE_2:SP.DISP")
+	field(OUTD, "$(P)GUIDE_2:MTR.DISP")
+	
+	field(OUTE, "$(P)GUIDE_3:SP.DISP")
+	field(OUTF, "$(P)GUIDE_3:MTR.DISP")
+	
+	field(OUTG, "$(P)GUIDE_4:SP.DISP")
+	field(OUTH, "$(P)GUIDE_4:MTR.DISP")
+	
+    field(OMSL, "closed_loop")
+    field(SELM, "All")
+}
+
+record(dfanout, "$(FULL_PREFIX)INHIBIT_MOTORS:GUIDES_EXT"){
+    field(DESC, "Inhibit when galil is interlocked")
+	
+	field(OUTA, "$(P)GUIDE_5:SP.DISP")
+	field(OUTB, "$(P)GUIDE_5:MTR.DISP")
+	
+    field(OMSL, "closed_loop")
+    field(SELM, "All")
+}
+
