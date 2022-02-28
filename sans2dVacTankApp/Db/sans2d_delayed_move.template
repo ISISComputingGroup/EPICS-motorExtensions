@@ -90,15 +90,6 @@ record(dfanout, "$(FULL_PREFIX)MOVE_ALL") {
 	field(OUTF, "$(P)FRONTDETX:MTR.SPMG PP")
 	field(OUTG, "$(P)FRONTDETROT:MTR.SPMG PP")
 	field(OUTH, "$(P)REARDETX:MTR.SPMG PP")
-	field(FLNK, "$(FULL_PREFIX)TANK_MOVE_ALL_EXT")
-}
-
-record(dfanout, "$(FULL_PREFIX)TANK_MOVE_ALL_EXT") {
-	field(VAL, "2")
-	field(OUTA, "$(P)BEAMSTOP1Y:MTR.SPMG PP")
-	field(OUTB, "$(P)BEAMSTOP2Y:MTR.SPMG PP")
-	field(OUTC, "$(P)BEAMSTOP3Y:MTR.SPMG PP")
-	field(OUTD, "$(P)BEAMSTOPX:MTR.SPMG PP")
 }
 
 record(calcout, "$(FULL_PREFIX)FRONTDETZ_DELAYED_MOVE_CALC") {
@@ -171,42 +162,6 @@ record(calcout, "$(FULL_PREFIX)REARDETX_DELAYED_MOVE_CALC") {
 	field(CALC, "(B == 3 && A == 1) || (B == 2 && A == 1) ? 1 : 0")
 	field(OOPT, "When Non-zero")
 	field(OUT,  "$(P)REARDETX:MTR.SPMG")
-}
-
-record(calcout, "$(FULL_PREFIX)BEAMSTOP1Y_DELAYED_MOVE_CALC") {
-	field(DESC, "Set motor to Pause if move has finished")
-	field(INPA, "$(P)BEAMSTOP1Y:MTR.DMOV CP")
-	field(INPB, "$(P)BEAMSTOP1Y:MTR.SPMG CP")
-	field(CALC, "(B == 3 && A == 1) || (B == 2 && A == 1) ? 1 : 0")
-	field(OOPT, "When Non-zero")
-	field(OUT,  "$(P)BEAMSTOP1Y:MTR.SPMG")
-}
-
-record(calcout, "$(FULL_PREFIX)BEAMSTOP2Y_DELAYED_MOVE_CALC") {
-	field(DESC, "Set motor to Pause if move has finished")
-	field(INPA, "$(P)BEAMSTOP2Y:MTR.DMOV CP")
-	field(INPB, "$(P)BEAMSTOP2Y:MTR.SPMG CP")
-	field(CALC, "(B == 3 && A == 1) || (B == 2 && A == 1) ? 1 : 0")
-	field(OOPT, "When Non-zero")
-	field(OUT,  "$(P)BEAMSTOP2Y:MTR.SPMG")
-}
-
-record(calcout, "$(FULL_PREFIX)BEAMSTOP3Y_DELAYED_MOVE_CALC") {
-	field(DESC, "Set motor to Pause if move has finished")
-	field(INPA, "$(P)BEAMSTOP3Y:MTR.DMOV CP")
-	field(INPB, "$(P)BEAMSTOP3Y:MTR.SPMG CP")
-	field(CALC, "(B == 3 && A == 1) || (B == 2 && A == 1) ? 1 : 0")
-	field(OOPT, "When Non-zero")
-	field(OUT,  "$(P)BEAMSTOP3Y:MTR.SPMG")
-}
-
-record(calcout, "$(FULL_PREFIX)BEAMSTOPX_DELAYED_MOVE_CALC") {
-	field(DESC, "Set motor to Pause if move has finished")
-	field(INPA, "$(P)BEAMSTOPX:MTR.DMOV CP")
-	field(INPB, "$(P)BEAMSTOPX:MTR.SPMG CP")
-	field(CALC, "(B == 3 && A == 1) || (B == 2 && A == 1) ? 1 : 0")
-	field(OOPT, "When Non-zero")
-	field(OUT,  "$(P)BEAMSTOPX:MTR.SPMG")
 }
 
 record(seq, "$(FULL_PREFIX)SET_DISP_ANY_AXIS_MOVING") {
