@@ -10,15 +10,6 @@ record(dfanout, "$(FULL_PREFIX)SET_DELAYED_MOVE") {
 	field(OUTF, "$(P)FRONTDETX:MTR.SPMG PP")
 	field(OUTG, "$(P)FRONTDETROT:MTR.SPMG PP")
 	field(OUTH, "$(P)REARDETX:MTR.SPMG PP")
-	field(FLNK, "$(FULL_PREFIX)SET_DELAYED_MOVE_EXT")
-}
-
-record(dfanout, "$(FULL_PREFIX)SET_DELAYED_MOVE_EXT") {
-	field(VAL, "1")
-	field(OUTA, "$(P)BEAMSTOP1Y:MTR.SPMG PP")
-	field(OUTB, "$(P)BEAMSTOP2Y:MTR.SPMG PP")
-	field(OUTC, "$(P)BEAMSTOP3Y:MTR.SPMG PP")
-	field(OUTD, "$(P)BEAMSTOPX:MTR.SPMG PP")
 }
 
 record(calcout, "$(FULL_PREFIX)CAN_MOVE_CALC_FDFB") {
