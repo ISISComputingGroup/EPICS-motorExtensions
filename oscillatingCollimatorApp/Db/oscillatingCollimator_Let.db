@@ -1,4 +1,8 @@
 
+record(ao, "$(P)$(O):STEPS_PER_REV") {
+    field(DESC, "Unused - here for common FLNK")
+    field(FLNK, "$(P)$(O):DIST:PART:SP")
+}
 
 
 record(calc, "$(P)$(O):DIST:PART:SP") {

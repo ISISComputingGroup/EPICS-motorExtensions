@@ -255,6 +255,7 @@ record(ao, "$(P)$(O):FREQ:SP") {
     field(EGU, "Hz")
     field(DRVH, "0.5")
     field(DRVL, "0")
+	field(PINI, "YES")
     info(INTEREST, "MEDIUM")
     info(archive, "VAL")
     info(autosaveFields, "VAL")
@@ -263,11 +264,11 @@ record(ao, "$(P)$(O):FREQ:SP") {
 
 record(calc, "$(P)$(O):CYCLE:TIME:HALF:SP") {
     field(DESC, "Half cycle time, setpoint")
-    field(INPA, "$(P)$(O):FREQ:SP CP")
+    field(INPA, "$(P)$(O):FREQ:SP")
     field(CALC, "1/(2*A)")
     field(EGU, "s")
     field(PREC, "2")
-    field(FLNK, "$(P)$(O):DIST:PART:SP")
+    field(FLNK, "$(P)$(O):STEPS_PER_REV")
 }
 
 # Cycle
@@ -300,7 +301,7 @@ record(calc, "$(P)$(O):VEL:SP:DISC") {
     field(DESC, "Velocity calculation discriminant")
     field(INPA, "$(P)$(O):ACC:SP")  # Constant.
     field(INPB, "$(P)$(O):DIST:PART:SP")
-    field(INPC, "$(P)$(O):CYCLE:TIME:HALF:SP CP")
+    field(INPC, "$(P)$(O):CYCLE:TIME:HALF:SP")
     field(CALC, "C*C-8*B/A")
     field(EGU, "s^2")
     field(PREC, "2")
