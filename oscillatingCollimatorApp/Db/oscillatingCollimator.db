@@ -183,7 +183,8 @@ record(calcout, "$(P)$(O):MOVING_CALC") {
     field(SCAN, ".1 second")
     field(INPA, "$(P)$(O):MOVING:_STABILITY:LOW")
     field(INPB, "$(P)$(O):MOVING:_STABILITY:HIGH")
-    field(CALC, "(B-A)>0.1")  # Tolerance of 0.1 degrees, when collimator moves intentionally it is ~2 deg.
+    field(INPC, "$(P)$(O):MODE:_READ")
+    field(CALC, "(B-A)>0.1&&C==2")  # Tolerance of 0.1 degrees, when collimator moves intentionally it is ~2 deg.
     field(OUT, "$(P)$(O):MOVING PP")
     field(FLNK, "$(P)$(O):LAST:POS")
 }
@@ -343,7 +344,7 @@ record(ao, "$(P)$(O):ANGLE:SP") {
     info(INTEREST, "MEDIUM")
     info(archive, "VAL")
     info(autosaveFields, "VAL")
-    field(FLNK, "$(P)$(O):CYCLE:TIME:HALF:SP")
+    field(FLNK, "$(P)$(O):ANGLE:SP:RBV")
 }
 
 record(ai,"$(P)$(O):ANGLE:SP:RBV") {
@@ -353,6 +354,7 @@ record(ai,"$(P)$(O):ANGLE:SP:RBV") {
     field(EGU, "deg")
     field(PREC, "3")
     field(INP, "@asyn(Galil,0)USER_VAR angle")
+    field(FLNK, "$(P)$(O):CYCLE:TIME:HALF:SP")
 }
 
 record(calc, "$(P)$(O):DIST:VEL:SP") {
