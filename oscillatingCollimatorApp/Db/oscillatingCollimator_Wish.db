@@ -3,7 +3,6 @@ record(ao, "$(P)$(O):FULLREV:SP") {
     field(EGU, "stp")
     field(PREC, "2")
     field(OUT, "@asyn(Galil,0)USER_VAR fullrev")
-    field(PINI, "YES")
     field(FLNK, "$(P)$(O):FULLREV")
 }
 
@@ -17,7 +16,7 @@ record(ai, "$(P)$(O):FULLREV") {
 }
 
 record(ao,"$(P)$(O):MNTCYCLES:SP") {
-    field(DESC, "Num cycles between maintenance rotation")
+    field(DESC, "Num cycles between maint rot")
     field(DTYP, "$(OTYP)")
     field(EGU, "")
     field(PREC, "2")
@@ -29,7 +28,7 @@ record(ao,"$(P)$(O):MNTCYCLES:SP") {
 }
 
 record(ai,"$(P)$(O):MNTCYCLES") {
-    field(DESC, "Num cycles between maintenance rotation")
+    field(DESC, "Num cycles between maint rot")
     field(SCAN, "1 second")
     field(DTYP, "$(OTYP)")
     field(INP, "@asyn(Galil,0)USER_VAR cycles")
@@ -46,7 +45,6 @@ record(calc, "$(P)$(O):MNTTIME") {
     field(INPC, "$(P)$(O):CYCLE CP")
     field(CALC, "((1/A)*B)-((1/A)*C)")
     field(EGU, "sec")
-    field(PINI, "YES")
 }
 
 
@@ -73,7 +71,7 @@ record(ai, "$(P)$(O):MICROSTEPS_PER_STEP") {
 }
 
 record(ai, "$(P)$(O):GEARBOX_RATIO") {
-    field(DESC, "MotorRevs per GearboxOutputShaftRev")
+    field(DESC, "Mot Revs per GboxOutShaftRev")
     field(VAL, "$(GEARBOX_RATIO)")
     field(PINI, "YES")
     field(EGU, "")
@@ -84,14 +82,13 @@ record(ai, "$(P)$(O):GEARBOX_RATIO") {
 
 record(calcout, "$(P)$(O):STEPS_PER_REV") {
     field(DESC, "Motor steps per revolution")
-    field(INPA, "$(P)$(O):FULL_STEPS_PER_REV CP")
-    field(INPB, "$(P)$(O):MICROSTEPS_PER_STEP CP")
-    field(INPC, "$(P)$(O):GEARBOX_RATIO CP")
+    field(INPA, "$(P)$(O):FULL_STEPS_PER_REV")
+    field(INPB, "$(P)$(O):MICROSTEPS_PER_STEP")
+    field(INPC, "$(P)$(O):GEARBOX_RATIO")
     field(CALC, "A*B*C")
     field(EGU, "stp")
-    field(PINI, "YES")
-    field(FLNK, "$(P)$(O):STEPS_PER_DEG")
     field(OUT, "$(P)$(O):FULLREV:SP PP")
+    field(FLNK, "$(P)$(O):STEPS_PER_DEG")
 }
 
 record(calc, "$(P)$(O):STEPS_PER_DEG") {
@@ -99,63 +96,69 @@ record(calc, "$(P)$(O):STEPS_PER_DEG") {
     field(INPA, "$(P)$(O):STEPS_PER_REV")
     field(CALC, "A/360")
     field(EGU, "stp/deg")
+	field(FLNK, "$(P)$(O):CIRCUMFERENCE")
 }
 
 record(calc, "$(P)$(O):CIRCUMFERENCE") {
-    field(DESC, "Circumference of collimator")
+    field(DESC, "Circumfer of collimator")
     field(EGU, "mm")
     field(PREC, "3")
-    field(INPA, "$(P)$(O):RADIUS CP")
+    field(INPA, "$(P)$(O):RADIUS")
     field(CALC, "2*PI*A")
+	field(FLNK, "$(P)$(O):STEPS")
 }
 
 record(calc, "$(P)$(O):STEPS") {
     field(DESC, "Motor steps per mm")
-    field(INPA, "$(P)$(O):CIRCUMFERENCE CP")
-    field(INPB, "$(P)$(O):STEPS_PER_REV CP")
+    field(INPA, "$(P)$(O):CIRCUMFERENCE")
+    field(INPB, "$(P)$(O):STEPS_PER_REV")
     field(CALC, "B/A")
     field(EGU, "stp/mm")
+	field(FLNK, "$(P)$(O):MM_PER_DEG")
 }
 
 record(calc, "$(P)$(O):MM_PER_DEG") {
-    field(INPA, "$(P)$(O):CIRCUMFERENCE CP")
+    field(INPA, "$(P)$(O):CIRCUMFERENCE")
     field(CALC, "A/360")
     field(EGU, "mm/deg")
     field(DESC, "mm per degree")
+	field(FLNK, "$(P)$(O):SWEPT_DIST_MM")
 }
 
 record(calc, "$(P)$(O):SWEPT_DIST_MM") {
     field(DESC, "Actual swept distance (mm)")
-    field(INPA, "$(P)$(O):ANGLE:SP CP")
-    field(INPB, "$(P)$(O):MM_PER_DEG CP")
+    field(INPA, "$(P)$(O):ANGLE:SP")
+    field(INPB, "$(P)$(O):MM_PER_DEG")
     field(CALC, "A*B")
     field(EGU, "mm")
+	field(FLNK, "$(P)$(O):ENC_COUNTS_PER_MM")
 }
 
 record(ai,"$(P)$(O):ENC_COUNTS_PER_MM") {
     field(DESC, "Encoder Counts per mm")
     field(VAL, "$(ENC_COUNTS_PER_MM)")
-    field(PINI, "YES")
     field(EGU, "")
     field(PREC, "2")
     info(INTEREST, "LOW")
     info(archive, "VAL")
+	field(FLNK, "$(P)$(O):ENC_COUNTS_PER_DEG")
 }
 
 
 record(calc, "$(P)$(O):ENC_COUNTS_PER_DEG") {
     field(DESC, "Encoder counts per degree")
-    field(INPA, "$(P)$(O):ENC_COUNTS_PER_MM CP")
-    field(INPB, "$(P)$(O):CIRCUMFERENCE CP")
+    field(INPA, "$(P)$(O):ENC_COUNTS_PER_MM")
+    field(INPB, "$(P)$(O):CIRCUMFERENCE")
     field(CALC, "A*B")
     field(EGU, "")
+	field(FLNK, "$(P)$(O):DIST:PART:SP")
 }
 
 record(calc, "$(P)$(O):DIST:PART:SP") {
     field(DESC, "Swept distance, setpoint")
-    field(INPA, "$(P)$(O):STEPS CP")
-    field(INPB, "$(P)$(O):SWEPT_DIST_MM CP")
-    field(CALC, "A*B")
+    field(INPA, "$(P)$(O):STEPS")
+    field(INPB, "$(P)$(O):SWEPT_DIST_MM")
+    field(CALC, "A*B*2")
     field(EGU, "stp")
     field(PREC, "0")
     field(FLNK, "$(P)$(O):VEL:SP:DISC")
