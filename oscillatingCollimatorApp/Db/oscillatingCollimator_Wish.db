@@ -47,6 +47,7 @@ record(calc, "$(P)$(O):MNTTIME") {
     field(EGU, "sec")
 }
 
+alias("$(P)$(O):ANGLE:SP", "$(P)$(O):ANGLE")
 
 # Swept angle calcs
 
@@ -108,7 +109,7 @@ record(calc, "$(P)$(O):SWEPT_DIST_MM") {
 record(calc, "$(P)$(O):ENC_COUNTS_PER_DEG") {
     field(DESC, "Encoder counts per degree")
     field(INPA, "$(ENC_COUNTS_PER_MM)")
-    field(INPB, "$(P)$(O):CIRCUMFERENCE")
+    field(INPB, "$(P)$(O):MM_PER_DEG")
     field(CALC, "A*B")
     field(EGU, "")
 	field(FLNK, "$(P)$(O):DIST:PART:SP")
