@@ -56,7 +56,7 @@ record(calcout, "$(P)$(O):STEPS:_CALC") {
 
 record(ai, "$(P)$(O):STEPS") {
     field(DESC, "Motor steps per mm")
-    field(EGU, "1/mm")
+    field(EGU, "stp/mm")
     field(PREC, "0")
 }
 
