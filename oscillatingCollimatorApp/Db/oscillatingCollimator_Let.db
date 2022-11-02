@@ -8,7 +8,7 @@ record(ao, "$(P)$(O):STEPS_PER_REV") {
 record(calc, "$(P)$(O):DIST:PART:SP") {
     field(DESC, "Swept distance, setpoint")
     field(INPA, "$(P)$(O):RADIUS")  # Constant.
-    field(INPB, "$(P)$(O):STEPS")  # Constant.
+    field(INPB, "$(P)$(O):STEPS") 
     field(INPC, "$(P)$(O):ANGLE:SP")
     field(CALC, "2*A*B*TAN(C*D2R)")
     field(EGU, "stp")
@@ -26,12 +26,13 @@ record(ai,"$(P)$(O):TIME") {
     field(INP, "@asyn(Galil,0)USER_VAR time")
     info(INTEREST, "MEDIUM")
     info(archive, "VAL")
+    field(FLNK, "$(P)$(O):FREQ:_CALC")
 }
 
 record(calcout, "$(P)$(O):FREQ:_CALC") {
     field(PREC, "2")
     field(EGU, "Hz")
-    field(INPA, "$(P)$(O):TIME CP MS")
+    field(INPA, "$(P)$(O):TIME MS")
     field(CALC, "A==0?0:1000/A")
     field(OUT, "$(P)$(O):FREQ PP")
 }
@@ -50,13 +51,14 @@ record(calcout, "$(P)$(O):STEPS:_CALC") {
     field(SCAN, "1 second")
     field(INPA, "$(P)$(M).MRES")
     field(CALC, "1/A")
-    field(OUT, "$(P)$(O):STEPS PP")
+    field(OUT, "$(P)$(O):STEPS")
     field(EGU, "mm")
+    field(FLNK, "$(P)$(O):STEPS")
 }
 
 record(ai, "$(P)$(O):STEPS") {
     field(DESC, "Motor steps per mm")
-    field(EGU, "1/mm")
+    field(EGU, "stp/mm")
     field(PREC, "0")
 }
 
@@ -76,3 +78,17 @@ record(ai, "$(P)$(O):POS") {
     field(EGU, "deg")
     info(INTEREST, "MEDIUM")
 }
+
+record(calc, "$(P)$(O):ANGLE") {
+    field(DESC, "Actual swept angle")
+    field(EGU, "deg")
+    field(PREC, "3")
+    field(INPA, "$(P)$(O):DIST:PART CP MS")
+    field(INPB, "$(P)$(O):RADIUS CP MS")
+    field(INPC, "$(P)$(O):STEPS CP MS")
+    field(CALC, "R2D*ATAN(A/(2*B*C))")
+    info(INTEREST, "HIGH")
+    info(archive, "VAL")
+    field(ASG, "READONLY")
+}
+

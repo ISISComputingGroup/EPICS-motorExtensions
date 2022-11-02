@@ -297,7 +297,6 @@ record(ai,"$(P)$(O):RADIUS") {
     info(archive, "VAL")
 }
 
-
 record(calc, "$(P)$(O):VEL:SP:DISC") {
     field(DESC, "Velocity calculation discriminant")
     field(INPA, "$(P)$(O):ACC:SP")  # Constant.
@@ -396,18 +395,7 @@ record(calc, "$(P)$(O):DIST:PART") {
     field(CALC, "A-2*B")
 }
 
-record(calc, "$(P)$(O):ANGLE") {
-    field(DESC, "Actual swept angle")
-    field(EGU, "deg")
-    field(PREC, "3")
-    field(INPA, "$(P)$(O):DIST:PART CP MS")
-    field(INPB, "$(P)$(O):RADIUS CP MS")
-    field(INPC, "$(P)$(O):STEPS CP MS")
-    field(CALC, "R2D*ATAN(A/(2*B*C))")
-    info(INTEREST, "HIGH")
-    info(archive, "VAL")
-    field(ASG, "READONLY")
-}
+
 
 record(calc, "$(P)$(O):CYCLE:TIME:HALF") {
     field(DESC, "Actual half cycle time")

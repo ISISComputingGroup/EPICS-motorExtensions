@@ -47,44 +47,15 @@ record(calc, "$(P)$(O):MNTTIME") {
     field(EGU, "sec")
 }
 
+alias("$(P)$(O):ANGLE:SP", "$(P)$(O):ANGLE")
 
 # Swept angle calcs
 
-record(ai, "$(P)$(O):FULL_STEPS_PER_REV") {
-    field(DESC, "Full Motor Steps per Motor Rev")
-    field(VAL, "$(STEPS_PER_REV)")
-    field(PINI, "YES")
-    field(EGU, "stp")
-    field(PREC, "2")
-    info(INTEREST, "LOW")
-    info(archive, "VAL")
-}
-
-record(ai, "$(P)$(O):MICROSTEPS_PER_STEP") {
-    field(DESC, "Microsteps per Full Motor Step")
-    field(VAL, "$(MICROSTEPS_PER_STEP)")
-    field(PINI, "YES")
-    field(EGU, "stp")
-    field(PREC, "2")
-    info(INTEREST, "LOW")
-    info(archive, "VAL")
-}
-
-record(ai, "$(P)$(O):GEARBOX_RATIO") {
-    field(DESC, "Mot Revs per GboxOutShaftRev")
-    field(VAL, "$(GEARBOX_RATIO)")
-    field(PINI, "YES")
-    field(EGU, "")
-    field(PREC, "2")
-    info(INTEREST, "LOW")
-    info(archive, "VAL")
-}
-
 record(calcout, "$(P)$(O):STEPS_PER_REV") {
     field(DESC, "Motor steps per revolution")
-    field(INPA, "$(P)$(O):FULL_STEPS_PER_REV")
-    field(INPB, "$(P)$(O):MICROSTEPS_PER_STEP")
-    field(INPC, "$(P)$(O):GEARBOX_RATIO")
+    field(INPA, "$(STEPS_PER_REV)")
+    field(INPB, "$(MICROSTEPS_PER_STEP)")
+    field(INPC, "$(GEARBOX_RATIO)")
     field(CALC, "A*B*C")
     field(EGU, "stp")
     field(OUT, "$(P)$(O):FULLREV:SP PP")
@@ -131,24 +102,14 @@ record(calc, "$(P)$(O):SWEPT_DIST_MM") {
     field(INPB, "$(P)$(O):MM_PER_DEG")
     field(CALC, "A*B")
     field(EGU, "mm")
-	field(FLNK, "$(P)$(O):ENC_COUNTS_PER_MM")
-}
-
-record(ai,"$(P)$(O):ENC_COUNTS_PER_MM") {
-    field(DESC, "Encoder Counts per mm")
-    field(VAL, "$(ENC_COUNTS_PER_MM)")
-    field(EGU, "")
-    field(PREC, "2")
-    info(INTEREST, "LOW")
-    info(archive, "VAL")
-	field(FLNK, "$(P)$(O):ENC_COUNTS_PER_DEG")
+    field(FLNK, "$(P)$(O):ENC_COUNTS_PER_DEG")
 }
 
 
 record(calc, "$(P)$(O):ENC_COUNTS_PER_DEG") {
     field(DESC, "Encoder counts per degree")
-    field(INPA, "$(P)$(O):ENC_COUNTS_PER_MM")
-    field(INPB, "$(P)$(O):CIRCUMFERENCE")
+    field(INPA, "$(ENC_COUNTS_PER_MM)")
+    field(INPB, "$(P)$(O):MM_PER_DEG")
     field(CALC, "A*B")
     field(EGU, "")
 	field(FLNK, "$(P)$(O):DIST:PART:SP")
@@ -158,7 +119,7 @@ record(calc, "$(P)$(O):DIST:PART:SP") {
     field(DESC, "Swept distance, setpoint")
     field(INPA, "$(P)$(O):STEPS")
     field(INPB, "$(P)$(O):SWEPT_DIST_MM")
-    field(CALC, "A*B*2")
+    field(CALC, "A*B")
     field(EGU, "stp")
     field(PREC, "0")
     field(FLNK, "$(P)$(O):VEL:SP:DISC")
