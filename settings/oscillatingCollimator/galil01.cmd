@@ -11,4 +11,8 @@ GalilCreateAxis("Galil","F",0,"",1)
 GalilCreateAxis("Galil","G",0,"",1)
 GalilCreateAxis("Galil","H",0,"",1)
 
+$(IFNEWGALIL=#) GalilCreateCSAxes("Galil")
+
 GalilStartController("Galil","$(GALIL)/gmc/galil_Default_Header.gmc;$(GALIL)/gmc/galil_Home_Dummy_Do_Nothing.gmc!$(GALIL)/gmc/galil_Home_Dummy_Do_Nothing.gmc!$(GALIL)/gmc/galil_Home_Dummy_Do_Nothing.gmc!$(GALIL)/gmc/galil_Home_Dummy_Do_Nothing.gmc!$(GALIL)/gmc/galil_Home_Dummy_Do_Nothing.gmc!$(GALIL)/gmc/galil_Home_Dummy_Do_Nothing.gmc!$(GALIL)/gmc/galil_Home_Dummy_Do_Nothing.gmc!$(GALIL)/gmc/galil_Home_Dummy_Do_Nothing.gmc;$(GALIL)/gmc/galil_Default_Footer.gmc!$(GALIL)/gmc/galil_Oscillating_Collimator.gmc",0,0,3)
+
+$(IFNEWGALIL=#) GalilCreateProfile("Galil", 2000)

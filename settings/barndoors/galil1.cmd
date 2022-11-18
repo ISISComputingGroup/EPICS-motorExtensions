@@ -26,7 +26,11 @@ GalilCreateAxis("Galil","F",0,"",1)
 GalilCreateAxis("Galil","G",0,"",1)
 GalilCreateAxis("Galil","H",0,"",1)
 
+$(IFNEWGALIL=#) GalilCreateCSAxes("Galil")
+
 #G21X3StartCard($(GCID),"$(GALIL)/db/galil_Default_Header.gmc;$(GALIL)/db/galil_Piezo_Home.gmc!$(GALIL)/db/galil_Piezo_Home.gmc!$(GALIL)/db/galil_Piezo_Home.gmc!$(GALIL)/db/galil_Piezo_Home.gmc!$(GALIL)/db/galil_Piezo_Home.gmc!$(GALIL)/db/galil_Piezo_Home.gmc!$(GALIL)/db/galil_Piezo_Home.gmc!$(GALIL)/db/galil_Piezo_Home.gmc;$(GALIL)/db/galil_Default_Footer.gmc",0,0)
 
 # The Galil controller is started with just the code for controlling the slits
 GalilStartController("Galil","$(GALIL)/gmc/galil_Muon_Slits.gmc",0,0,3)
+
+$(IFNEWGALIL=#) GalilCreateProfile("Galil", 2000)
