@@ -11,8 +11,7 @@ include $(TOP)/configure/CONFIG
 # Create and install (or just install) into <top>/db
 # databases, templates, substitutions like this
 #DB += xxx.db
-DB += sans2d_apertures_guides.db
-DB += sans2d_beckhoff_axis_extras.db
+DB += larmor_beckhoff_extras.db
 
 #----------------------------------------------------
 # If <anyname>.db template is not named <anyname>*.template add
