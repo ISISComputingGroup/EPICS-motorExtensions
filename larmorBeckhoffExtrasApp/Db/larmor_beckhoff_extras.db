@@ -1,9 +1,9 @@
-record(longin,"$(P):BBUMPSTRIP") {
+record(longin,"$(P)BBUMPSTRIP") {
 	field(SCAN,"I/O Intr")
 	field(DTYP,"asynInt32")
  	field(INP,"@asyn($(PORT) 0 0) BOOL R P=$(ADSPORT) V=AUX.bBumpstrip")
 }
-record(longin,"$(P):BAIRPLC") {
+record(longin,"$(P)BAIRPLC") {
 	field(SCAN,"I/O Intr")
 	field(DTYP,"asynInt32")
  	field(INP,"@asyn($(PORT) 0 0) BOOL R P=$(ADSPORT) V=AUX.bAirPLC")
