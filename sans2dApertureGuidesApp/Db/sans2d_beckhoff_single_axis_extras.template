@@ -1,15 +1,15 @@
 record(ai,"$(P):FTORQUEACTUALAXIS$(MN)") {
 	field(SCAN,"I/O Intr")
 	field(DTYP,"asynFloat64")
-	field(OUT,"@asyn($(PORT) 0 0) LREAL W P=$(ADSPORT) V=AXIS_$(MN).fTorqueActualAxis$(MN)")
+	field(INP,"@asyn($(PORT) 0 0) LREAL W P=$(ADSPORT) V=AXIS_$(MN).fTorqueActualAxis$(MN)")
 }
 record(ai,"$(P):FTEMPERATUREGEARBOXAXIS$(MN)") {
 	field(SCAN,"I/O Intr")
 	field(DTYP,"asynFloat64")
-	field(OUT,"@asyn($(PORT) 0 0) LREAL W P=$(ADSPORT) V=AXIS_$(MN).fTemperatureGearboxAxis$(MN)")
+	field(INP,"@asyn($(PORT) 0 0) LREAL W P=$(ADSPORT) V=AXIS_$(MN).fTemperatureGearboxAxis$(MN)")
 }
 record(ai,"$(P):FTEMPERATUREMOTORAXIS$(MN)") {
 	field(SCAN,"I/O Intr")
 	field(DTYP,"asynFloat64")
-	field(OUT,"@asyn($(PORT) 0 0) LREAL W P=$(ADSPORT) V=AXIS_$(MN).fTemperatureMotorAxis$(MN)")
+	field(INP,"@asyn($(PORT) 0 0) LREAL W P=$(ADSPORT) V=AXIS_$(MN).fTemperatureMotorAxis$(MN)")
 }
