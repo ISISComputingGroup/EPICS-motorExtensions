@@ -1,0 +1,8 @@
+file "$(TOP)/sans2dApertureGuidesApp/Db/sans2d_beckhoff_single_axis_extras.template" {
+    pattern {P, MN, PORT, ADSPORT}
+    {"\$(P)", "1", "\$(PORT)", "\$(ADSPORT)"}
+    {"\$(P)", "2", "\$(PORT)", "\$(ADSPORT)"}
+    {"\$(P)", "3", "\$(PORT)", "\$(ADSPORT)"}
+    {"\$(P)", "4", "\$(PORT)", "\$(ADSPORT)"}
+    {"\$(P)", "5", "\$(PORT)", "\$(ADSPORT)"}
+}
