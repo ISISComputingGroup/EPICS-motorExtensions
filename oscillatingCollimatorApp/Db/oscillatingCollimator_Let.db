@@ -92,3 +92,15 @@ record(calc, "$(P)$(O):ANGLE") {
     field(ASG, "READONLY")
 }
 
+record(bi, "$(P)$(O):COLLIM_MOVING")
+{
+	field(DESC, "Whether the collimator is moving")
+	field(INP, "$(P)STAB:IS_STABLE CP MS")
+	field(ZNAM, "MOVING")
+	field(ONAM, "STOPPED")
+}
+
+record(ao, "$(P)$(O):_MOVINGSCAN") {
+    field(SCAN, ".1 second")
+	field(FLNK, "$(P)STAB:SCANNOW")
+}
