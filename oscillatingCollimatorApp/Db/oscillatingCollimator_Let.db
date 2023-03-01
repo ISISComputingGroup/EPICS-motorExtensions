@@ -92,6 +92,11 @@ record(calc, "$(P)$(O):ANGLE") {
     field(ASG, "READONLY")
 }
 
+record(bo, "$(P)$(O):USES_LSR")
+{
+	field(DESC, "Whether the inst. uses the laser")
+	field(VAL, "1")
+}
 record(bi, "$(P)$(O):COLLIM_MOVING")
 {
 	field(DESC, "Whether the collimator is moving")
