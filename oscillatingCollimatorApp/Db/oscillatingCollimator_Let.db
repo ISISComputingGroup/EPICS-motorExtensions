@@ -97,12 +97,12 @@ record(bo, "$(P)$(O):USES_LSR")
 	field(DESC, "Whether the inst. uses the laser")
 	field(VAL, "1")
 }
-record(bi, "$(P)$(O):COLLIM_MOVING")
+record(bi, "$(P)$(O):MOVING")
 {
-	field(DESC, "Whether the collimator is moving")
+	field(DESC, "Is the collimator moving")
 	field(INP, "$(P)STAB:IS_STABLE CP MS")
-	field(ZNAM, "MOVING")
-	field(ONAM, "STOPPED")
+	field(ZNAM, "Moving")
+	field(ONAM, "Not Moving")
 }
 
 record(ao, "$(P)$(O):_MOVINGSCAN") {

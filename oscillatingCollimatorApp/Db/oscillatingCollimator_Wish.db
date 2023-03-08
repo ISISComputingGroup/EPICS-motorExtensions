@@ -1,3 +1,61 @@
+
+# We want to know if we are oscillating but:
+# * It doesn't have an encoder we can read
+# * If the thread is stopped the mode from the gmc will not change
+# * We can't just look at the MOVN of the motor as it does stop occasionally
+# 
+# So instead, check that (largest motor position in last 10s) != (smallest motor position in last 10s)
+record(calcout, "$(P)$(O):MOVING_CALC") {
+    field(DESC, "Calculates if moving")
+    field(SCAN, ".1 second")
+    field(INPA, "$(P)$(O):MOVING:_STABILITY:LOW")
+    field(INPB, "$(P)$(O):MOVING:_STABILITY:HIGH")
+    field(INPC, "$(P)$(O):MODE:_READ")
+    field(CALC, "(B-A)>0.1&&C==2")  # Tolerance of 0.1 degrees, when collimator moves intentionally it is ~2 deg.
+    field(OUT, "$(P)$(O):MOVING PP")
+    field(FLNK, "$(P)$(O):LAST:POS")
+}
+
+record(compress, "$(P)$(O):MOVING:_STABILITY:BUF") {
+    field(INP, "$(P)$(O):POS")
+    field(ALG, "Circular Buffer")
+    field(SCAN, ".1 second")
+    field(NSAM, "50")  # 5s at 10Hz = 50 samples
+    field(FLNK, "$(P)$(O):MOVING:_STABILITY:LOW")
+}
+
+# Smallest motor position value in the last 10 seconds
+record(compress, "$(P)$(O):MOVING:_STABILITY:LOW") {
+    field(INP, "$(P)$(O):MOVING:_STABILITY:BUF")
+    field(ALG, "N to 1 Low Value")
+    field(NSAM, "1")
+    field(N, "50")  # Should match NSAM in _STABILITY:BUF
+    field(FLNK, "$(P)$(O):MOVING:_STABILITY:HIGH")
+}
+
+# Largest motor position value in the last 10 seconds
+record(compress, "$(P)$(O):MOVING:_STABILITY:HIGH") {
+    field(INP, "$(P)$(O):MOVING:_STABILITY:BUF")
+    field(ALG, "N to 1 High Value")
+    field(NSAM, "1")
+    field(N, "50")  # Should match NSAM in _STABILITY:BUF
+}
+
+record(bi, "$(P)$(O):MOVING") {
+    field(DESC, "Is the collimator moving")
+    field(ZNAM, "Not Moving")
+    field(ONAM, "Moving")
+    info(INTEREST, "MEDIUM")
+}
+
+record(bo, "$(P)$(O):USES_LSR")
+{
+	field(DESC, "Whether the inst. uses the laser")
+	field(VAL, "0")
+}
+
+
+
 record(ao, "$(P)$(O):FULLREV:SP") {
     field(DTYP, "$(OTYP)")
     field(EGU, "stp")
@@ -145,11 +203,5 @@ record(ai, "$(P)$(O):POS") {
     field(PREC, "2")
     field(EGU, "deg")
     info(INTEREST, "MEDIUM")
-}
-
-record(bo, "$(P)$(O):USES_LSR")
-{
-	field(DESC, "Whether the inst. uses the laser")
-	field(VAL, "0")
 }
 
