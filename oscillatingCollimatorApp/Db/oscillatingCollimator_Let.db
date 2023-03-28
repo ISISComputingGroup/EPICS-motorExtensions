@@ -97,10 +97,23 @@ record(bo, "$(P)$(O):USES_LSR")
 	field(DESC, "Whether the inst. uses the laser")
 	field(VAL, "1")
 }
+
+record(bi, "$(P)$(O):LSR_ALARM") {
+    field(INP, "$(P)STAB:HAS_RECENT_ALARM CP")
+	field(ZSV, "NO_ALARM")
+	field(OSV, "INVALID")
+}
+
+record(calc, "$(P)$(O):MOVING_ALARM") {
+    field(INPA, "$(P)STAB:IS_STABLE CP MSS")
+    field(INPB, "$(P)$(O):LSR_ALARM CP MSS")
+	field(CALC, "A")
+}
+
 record(bi, "$(P)$(O):MOVING")
 {
 	field(DESC, "Is the collimator moving")
-	field(INP, "$(P)STAB:IS_STABLE CP MS")
+	field(INP, "$(P)$(O):MOVING_ALARM CP MSS")
 	field(ZNAM, "Moving")
 	field(ONAM, "Not Moving")
 }

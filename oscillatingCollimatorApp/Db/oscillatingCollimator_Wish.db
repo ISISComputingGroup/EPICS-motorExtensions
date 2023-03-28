@@ -1,4 +1,3 @@
-
 # We want to know if we are oscillating but:
 # * It doesn't have an encoder we can read
 # * If the thread is stopped the mode from the gmc will not change
