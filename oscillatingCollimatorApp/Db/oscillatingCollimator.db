@@ -184,7 +184,8 @@ record(ai, "$(P)$(O):MODE:_READ") {
 record(calc, "$(P)$(O):MODE:_CALC") {
     field(INPA, "$(P)$(O):MODE:_READ CP MS")
     field(INPB, "$(P)$(O):MOVING CP MS")
-    field(CALC, "(A=2&&B=0)?3:A")
+    field(INPC, "$(P)$(O):USES_LSR CP MS")
+    field(CALC, "(A=2&&B=0&&C=0)?3:A")
 }
 
 record(mbbi, "$(P)$(O):MODE") {
