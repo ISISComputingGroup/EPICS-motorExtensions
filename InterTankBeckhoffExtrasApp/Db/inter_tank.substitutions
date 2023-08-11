@@ -1,0 +1,17 @@
+file "$(TOP)/beckhoffExtrasApp/beckhoff_write_pv.template" {
+    pattern {P, NAME, PORT, ADSPORT, V, RECTYPE, EPICSDTYP, ADS_TYPE}
+    {"\$(P)", "1", "\$(PORT)", "\$(ADSPORT)"}
+    {"\$(P)", "2", "\$(PORT)", "\$(ADSPORT)"}
+    {"\$(P)", "3", "\$(PORT)", "\$(ADSPORT)"}
+    {"\$(P)", "4", "\$(PORT)", "\$(ADSPORT)"}
+    {"\$(P)", "5", "\$(PORT)", "\$(ADSPORT)"}
+}
+
+file "$(TOP)/beckhoffExtrasApp/beckhoff_read_pv.template" {
+    pattern {P, NAME, PORT, ADSPORT, V, RECTYPE, EPICSDTYP, ADS_TYPE}
+    {"\$(P)", "1", "\$(PORT)", "\$(ADSPORT)"}
+    {"\$(P)", "2", "\$(PORT)", "\$(ADSPORT)"}
+    {"\$(P)", "3", "\$(PORT)", "\$(ADSPORT)"}
+    {"\$(P)", "4", "\$(PORT)", "\$(ADSPORT)"}
+    {"\$(P)", "5", "\$(PORT)", "\$(ADSPORT)"}
+}
