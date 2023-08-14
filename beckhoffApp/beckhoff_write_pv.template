@@ -1,0 +1,4 @@
+record($(RECTYPE),"$(P)$(NAME)") {
+	field(DTYP,$(EPICSDTYP))
+	field(OUT,"@asyn($(PORT) 0 0) $(ADS_TYPE) W P=$(ADSPORT) V=$(V)")
+}
