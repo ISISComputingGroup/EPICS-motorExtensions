@@ -1,5 +1,5 @@
 record($(RECTYPE),"$(P)$(NAME)") {
 	field(SCAN,"I/O Intr")
-	field(DTYP,$(EPICSDTYP))
+	field(DTYP,"$(EPICSDTYP)")
 	field(INP,"@asyn($(PORT) 0 0) $(ADS_TYPE) R P=$(ADSPORT) V=$(V)")
 }
