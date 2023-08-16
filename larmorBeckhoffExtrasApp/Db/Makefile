@@ -12,7 +12,6 @@ include $(TOP)/configure/CONFIG
 # databases, templates, substitutions like this
 #DB += xxx.db
 DB += larmor_beckhoff_extras.db
-DB += oldlarmor_beckhoff_extras.db
 
 #----------------------------------------------------
 # If <anyname>.db template is not named <anyname>*.template add
