@@ -1,0 +1,43 @@
+file "$(TOP)/beckhoffApp/beckhoff_write_pv.template" {
+    pattern {P, NAME, PORT, ADSPORT, V, RECTYPE, EPICSDTYP, ADS_TYPE}
+    {"\$(P)", "ASTAXES_\$(AXIS_NUM):STCONTROL-BEXECUTE", "\$(PORT)", "\$(ADSPORT)", "GVL.astAxes[\$(AXIS_NUM)].stControl.bExecute", longout, "asynInt32", "BOOL"}
+    {"\$(P)", "ASTAXES_\$(AXIS_NUM):STCONTROL-BRESET", "\$(PORT)", "\$(ADSPORT)", "GVL.astAxes[\$(AXIS_NUM)].stControl.bReset", longout, "asynInt32", "BOOL"}
+    {"\$(P)", "ASTAXES_\$(AXIS_NUM):STCONTROL-BSTOP", "\$(PORT)", "\$(ADSPORT)", "GVL.astAxes[\$(AXIS_NUM)].stControl.bStop", longout, "asynInt32", "BOOL"}
+    {"\$(P)", "ASTAXES_\$(AXIS_NUM):STCONTROL-BHALT", "\$(PORT)", "\$(ADSPORT)", "GVL.astAxes[\$(AXIS_NUM)].stControl.bHalt", longout, "asynInt32", "BOOL"}
+    {"\$(P)", "ASTAXES_\$(AXIS_NUM):STCONTROL-BENABLE", "\$(PORT)", "\$(ADSPORT)", "GVL.astAxes[\$(AXIS_NUM)].stControl.bEnable", longout, "asynInt32", "BOOL"}
+    {"\$(P)", "ASTAXES_\$(AXIS_NUM):STCONTROL-BJOGFWD", "\$(PORT)", "\$(ADSPORT)", "GVL.astAxes[\$(AXIS_NUM)].stControl.bJogFwd", longout, "asynInt32", "BOOL"}
+    {"\$(P)", "ASTAXES_\$(AXIS_NUM):STCONTROL-BJOGBWD", "\$(PORT)", "\$(ADSPORT)", "GVL.astAxes[\$(AXIS_NUM)].stControl.bJogBwd", longout, "asynInt32", "BOOL"}
+    {"\$(P)", "ASTAXES_\$(AXIS_NUM):STINPUTS-BLIMITFWD", "\$(PORT)", "\$(ADSPORT)", "GVL.astAxes[\$(AXIS_NUM)].stInputs.bLimitFwd", longout, "asynInt32", "BOOL"}
+    {"\$(P)", "ASTAXES_\$(AXIS_NUM):STINPUTS-BLIMITBWD", "\$(PORT)", "\$(ADSPORT)", "GVL.astAxes[\$(AXIS_NUM)].stInputs.bLimitBwd", longout, "asynInt32", "BOOL"}
+
+    {"\$(P)", "ASTAXES_\$(AXIS_NUM):STCONTROL-ECOMMAND", "\$(PORT)", "\$(ADSPORT)", "GVL.astAxes[\$(AXIS_NUM)].stControl.eCommand", longout, "asynInt32", "BOOL"}
+
+    {"\$(P)", "ASTAXES_\$(AXIS_NUM):STCONTROL-FVELOCITY", "\$(PORT)", "\$(ADSPORT)", "GVL.astAxes[\$(AXIS_NUM)].stControl.fVelocity", ao, "asynFloat64", "LREAL"}
+    {"\$(P)", "ASTAXES_\$(AXIS_NUM):STCONTROL-FJOGVELOCITY", "\$(PORT)", "\$(ADSPORT)", "GVL.astAxes[\$(AXIS_NUM)].stControl.fJogVelocity", ao, "asynFloat64", "LREAL"}
+    {"\$(P)", "ASTAXES_\$(AXIS_NUM):STCONTROL-FACCELERATION", "\$(PORT)", "\$(ADSPORT)", "GVL.astAxes[\$(AXIS_NUM)].stControl.fAcceleration", ao, "asynFloat64", "LREAL"}
+    {"\$(P)", "ASTAXES_\$(AXIS_NUM):STCONTROL-FDECELERATION", "\$(PORT)", "\$(ADSPORT)", "GVL.astAxes[\$(AXIS_NUM)].stControl.fDeceleration", ao, "asynFloat64", "LREAL"}
+    {"\$(P)", "ASTAXES_\$(AXIS_NUM):STCONTROL-FPOSITION", "\$(PORT)", "\$(ADSPORT)", "GVL.astAxes[\$(AXIS_NUM)].stControl.fPosition", ao, "asynFloat64", "LREAL"}
+}
+
+file "$(TOP)/beckhoffApp/beckhoff_read_pv.template" {
+    pattern {P, NAME, PORT, ADSPORT, V, RECTYPE, EPICSDTYP, ADS_TYPE}
+    {"\$(P)", "AXIS_NUM", "\$(PORT)", "\$(ADSPORT)", "GVL_APP.nAXIS_NUM", "longin", "asynInt32", "BOOL"}
+    {"\$(P)", "ASTAXES_\$(AXIS_NUM):STSTATUS-BENABLED", "\$(PORT)", "\$(ADSPORT)", "GVL.astAxes[\$(AXIS_NUM)].stStatus.bEnabled", longin, "asynInt32", "BOOL"}
+    {"\$(P)", "ASTAXES_\$(AXIS_NUM):STSTATUS-BCOMMANDABORTED", "\$(PORT)", "\$(ADSPORT)", "GVL.astAxes[\$(AXIS_NUM)].stStatus.bCommandAborted", longin, "asynInt32", "BOOL"}
+    {"\$(P)", "ASTAXES_\$(AXIS_NUM):STSTATUS-BBUSY", "\$(PORT)", "\$(ADSPORT)", "GVL.astAxes[\$(AXIS_NUM)].stStatus.bBusy", longin, "asynInt32", "BOOL"}
+    {"\$(P)", "ASTAXES_\$(AXIS_NUM):STSTATUS-BDONE", "\$(PORT)", "\$(ADSPORT)", "GVL.astAxes[\$(AXIS_NUM)].stStatus.bDone", longin, "asynInt32", "BOOL"}
+    {"\$(P)", "ASTAXES_\$(AXIS_NUM):STSTATUS-BHOMED", "\$(PORT)", "\$(ADSPORT)", "GVL.astAxes[\$(AXIS_NUM)].stStatus.bHomed", longin, "asynInt32", "BOOL"}
+    {"\$(P)", "ASTAXES_\$(AXIS_NUM):STSTATUS-BMOVING", "\$(PORT)", "\$(ADSPORT)", "GVL.astAxes[\$(AXIS_NUM)].stStatus.bMoving", longin, "asynInt32", "BOOL"}
+    {"\$(P)", "ASTAXES_\$(AXIS_NUM):STSTATUS-BMOVINGFORWARD", "\$(PORT)", "\$(ADSPORT)", "GVL.astAxes[\$(AXIS_NUM)].stStatus.bMovingForward", longin, "asynInt32", "BOOL"}
+    {"\$(P)", "ASTAXES_\$(AXIS_NUM):STSTATUS-BMOVINGBACKWARD", "\$(PORT)", "\$(ADSPORT)", "GVL.astAxes[\$(AXIS_NUM)].stStatus.bMovingBackward", longin, "asynInt32", "BOOL"}
+    {"\$(P)", "ASTAXES_\$(AXIS_NUM):STSTATUS-BFWENABLED", "\$(PORT)", "\$(ADSPORT)", "GVL.astAxes[\$(AXIS_NUM)].stStatus.bFwEnabled", longin, "asynInt32", "BOOL"}
+    {"\$(P)", "ASTAXES_\$(AXIS_NUM):STSTATUS-BBWENABLED", "\$(PORT)", "\$(ADSPORT)", "GVL.astAxes[\$(AXIS_NUM)].stStatus.bBwEnabled", longin, "asynInt32", "BOOL"}
+    {"\$(P)", "ASTAXES_\$(AXIS_NUM):STSTATUS-BERROR", "\$(PORT)", "\$(ADSPORT)", "GVL.astAxes[\$(AXIS_NUM)].stStatus.bError", longin, "asynInt32", "BOOL"}
+
+    {"\$(P)", "ASTAXES_\$(AXIS_NUM):STSTATUS-FACTPOSITION", "\$(PORT)", "\$(ADSPORT)", "GVL.astAxes[\$(AXIS_NUM)].stStatus.fActPosition", ai, "asynFloat64", "LREAL"}
+    {"\$(P)", "ASTAXES_\$(AXIS_NUM):STSTATUS-FACTVELOCITY", "\$(PORT)", "\$(ADSPORT)", "GVL.astAxes[\$(AXIS_NUM)].stStatus.fActVelocity", ai, "asynFloat64", "LREAL"}
+
+    {"\$(P)", "ASTAXES_\$(AXIS_NUM):STSTATUS-NERRORID", "\$(PORT)", "\$(ADSPORT)", "GVL.astAxes[\$(AXIS_NUM)].stStatus.nErrorID", ai, "asynInt64", "UDINT"}
+
+    {"\$(P)", "ASTAXES_\$(AXIS_NUM):STSTATUS-FVELOCITY:RBV", "\$(PORT)", "\$(ADSPORT)", "GVL.astAxes[\$(AXIS_NUM)].stControl.fVelocity", ai, "asynFloat64", "LREAL"}
+}

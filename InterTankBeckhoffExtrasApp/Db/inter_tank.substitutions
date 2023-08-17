@@ -43,7 +43,6 @@ file "$(TOP)/beckhoffApp/beckhoff_read_pv.template" {
     {"\$(P)", "SETVELO_HORIZONTAL", "\$(PORT)", "\$(ADSPORT)", "GVL_INTER.SETVELO_HORIZONTAL", "ai", "asynFloat64", "LREAL"} 
     {"\$(P)", "SETVELO_ROTATION", "\$(PORT)", "\$(ADSPORT)", "GVL_INTER.SETVELO_ROTATION", "ai", "asynFloat64", "LREAL"} 
 
-    # RBVs for writable PVs
     {"\$(P)", "ACK_LOGIC_ERR:RBV", "\$(PORT)", "\$(ADSPORT)", "GVL_INTER.ACKNOWLEDGE_LOGIC_ERROR", longout, "asynInt32", "BOOL"}
     {"\$(P)", "CLEAR_ALL_DEFAULTS:RBV", "\$(PORT)", "\$(ADSPORT)", "GVL_INTER.CLEAR_ALL_DEFAULTS", longout, "asynInt32", "BOOL"}
     {"\$(P)", "CLEAR_ALL_DEFAULTS:RBV", "\$(PORT)", "\$(ADSPORT)", "GVL_INTER.CLEAR_ALL_DEFAULTS", longout, "asynInt32", "BOOL"}
