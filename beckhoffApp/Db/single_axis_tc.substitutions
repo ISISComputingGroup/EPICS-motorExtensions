@@ -40,4 +40,5 @@ file "$(TOP)/beckhoffApp/beckhoff_read_pv.template" {
     {"\$(P)", "ASTAXES_\$(AXIS_NUM):STSTATUS-NERRORID", "\$(PORT)", "\$(ADSPORT)", "GVL.astAxes[\$(AXIS_NUM)].stStatus.nErrorID", ai, "asynInt64", "UDINT"}
 
     {"\$(P)", "ASTAXES_\$(AXIS_NUM):STSTATUS-FVELOCITY:RBV", "\$(PORT)", "\$(ADSPORT)", "GVL.astAxes[\$(AXIS_NUM)].stControl.fVelocity", ai, "asynFloat64", "LREAL"}
+    {"\$(P)", "ASTAXES_\$(AXIS_NUM):STSTATUS-FJOGVELOCITY:RBV", "\$(PORT)", "\$(ADSPORT)", "GVL.astAxes[\$(AXIS_NUM)].stControl.fJogVelocity", ai, "asynFloat64", "LREAL"}
 }
