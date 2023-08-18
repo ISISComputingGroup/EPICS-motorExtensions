@@ -57,5 +57,3 @@ file "$(TOP)/beckhoffApp/beckhoff_read_pv.template" {
     {"\$(P)", "UPDATE_DEFAULTS:RBV", "\$(PORT)", "\$(ADSPORT)", "GVL_INTER.UPDATE_DEFAULTS", longout, "asynInt32", "BOOL"}
 
 }
-
-# todo LOGIC_STATE and LOGIC_STATE_ERROR enums
