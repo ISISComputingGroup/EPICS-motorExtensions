@@ -1,0 +1,23 @@
+file "$(TOP)/beckhoffApp/beckhoff_write_pv.template" {
+    pattern {P, NAME, PORT, ADSPORT, V, RECTYPE, EPICSDTYP, ADS_TYPE}
+    {"\$(P)", "BSHUTTEROPEN", "\$(PORT)", "\$(ADSPORT)", "SHUTTER_AND_FILTER_CONTROL.bShutterOpen", longout, "asynInt32", "BOOL"}
+    {"\$(P)", "BSHUTTERCLOSE", "\$(PORT)", "\$(ADSPORT)", "SHUTTER_AND_FILTER_CONTROL.bShutterClose", longout, "asynInt32", "BOOL"}
+
+    {"\$(P)", "BFILTER1OPEN", "\$(PORT)", "\$(ADSPORT)", "SHUTTER_AND_FILTER_CONTROL.bFilter1Open", longout, "asynInt32", "BOOL"}
+    {"\$(P)", "BFILTER1CLOSE", "\$(PORT)", "\$(ADSPORT)", "SHUTTER_AND_FILTER_CONTROL.bFilter1Close", longout, "asynInt32", "BOOL"}
+
+    {"\$(P)", "BFILTER2OPEN", "\$(PORT)", "\$(ADSPORT)", "SHUTTER_AND_FILTER_CONTROL.bFilter2Open", longout, "asynInt32", "BOOL"}
+    {"\$(P)", "BFILTER2CLOSE", "\$(PORT)", "\$(ADSPORT)", "SHUTTER_AND_FILTER_CONTROL.bFilter2Close", longout, "asynInt32", "BOOL"}
+}
+
+file "$(TOP)/beckhoffApp/beckhoff_read_pv.template" {
+    pattern {P, NAME, PORT, ADSPORT, V, RECTYPE, EPICSDTYP, ADS_TYPE}
+    {"\$(P)", "BSHUTTEROPENPOS", "\$(PORT)", "\$(ADSPORT)", "SHUTTER_AND_FILTER_CONTROL.bShutterOpenPos", "longin", "asynInt32", "BOOL"}
+    {"\$(P)", "BSHUTTERCLOSEDPOS", "\$(PORT)", "\$(ADSPORT)", "SHUTTER_AND_FILTER_CONTROL.bShutterClosedPos", "longin", "asynInt32", "BOOL"}
+
+    {"\$(P)", "BFILTER1OPENPOS", "\$(PORT)", "\$(ADSPORT)", "SHUTTER_AND_FILTER_CONTROL.bFilter1OpenPos", "longin", "asynInt32", "BOOL"}
+    {"\$(P)", "BFILTER1CLOSEDPOS", "\$(PORT)", "\$(ADSPORT)", "SHUTTER_AND_FILTER_CONTROL.bFilter1ClosedPos", "longin", "asynInt32", "BOOL"}
+
+    {"\$(P)", "BFILTER2OPENPOS", "\$(PORT)", "\$(ADSPORT)", "SHUTTER_AND_FILTER_CONTROL.bFilter2OpenPos", "longin", "asynInt32", "BOOL"}
+    {"\$(P)", "BFILTER2CLOSEDPOS", "\$(PORT)", "\$(ADSPORT)", "SHUTTER_AND_FILTER_CONTROL.bFilter2ClosedPos", "longin", "asynInt32", "BOOL"}
+}

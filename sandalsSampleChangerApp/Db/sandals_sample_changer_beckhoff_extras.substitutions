@@ -1,0 +1,6 @@
+file "$(TOP)/beckhoffApp/beckhoff_read_pv_with_units.template" {
+    pattern {P, NAME, PORT, ADSPORT, V, RECTYPE, EPICSDTYP, ADS_TYPE, UNITS}
+    {"\$(P)", "FPT100_04", "\$(PORT)", "\$(ADSPORT)", "Sample_Changer.fPt100_04", "ai", "asynFloat64", "LREAL", "C"}
+    {"\$(P)", "FPT100_10", "\$(PORT)", "\$(ADSPORT)", "Sample_Changer.fPt100_10", "ai", "asynFloat64", "LREAL", "C"}
+    {"\$(P)", "FPT100_14", "\$(PORT)", "\$(ADSPORT)", "Sample_Changer.fPt100_14", "ai", "asynFloat64", "LREAL", "C"}
+}

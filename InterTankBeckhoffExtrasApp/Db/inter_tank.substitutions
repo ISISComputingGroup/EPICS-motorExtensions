@@ -1,0 +1,57 @@
+file "$(TOP)/beckhoffApp/beckhoff_write_pv.template" {
+    pattern {P, NAME, PORT, ADSPORT, V, RECTYPE, EPICSDTYP, ADS_TYPE}
+    {"\$(P)", "ACK_LOGIC_ERR", "\$(PORT)", "\$(ADSPORT)", "GVL_INTER.ACKNOWLEDGE_LOGIC_ERROR", longout, "asynInt32", "BOOL"}
+    {"\$(P)", "CLEAR_ALL_DEFAULTS", "\$(PORT)", "\$(ADSPORT)", "GVL_INTER.CLEAR_ALL_DEFAULTS", longout, "asynInt32", "BOOL"}
+    {"\$(P)", "DECOUPLE_VERTICAL_AXES", "\$(PORT)", "\$(ADSPORT)", "GVL_INTER.DECOUPLE_VERTICAL_AXES", longout, "asynInt32", "BOOL"}
+    {"\$(P)", "REINITIALISE", "\$(PORT)", "\$(ADSPORT)", "GVL_INTER.FINISH_REINITIALISE", longout, "asynInt32", "BOOL"}
+    {"\$(P)", "FINISH_REINITIALISE", "\$(PORT)", "\$(ADSPORT)", "GVL_INTER.FINISH_REINITIALISE", longout, "asynInt32", "BOOL"}
+    {"\$(P)", "RESET_ALL", "\$(PORT)", "\$(ADSPORT)", "GVL_INTER.RESET_ALL", longout, "asynInt32", "BOOL"}
+    {"\$(P)", "RESET_REQUESTED", "\$(PORT)", "\$(ADSPORT)", "GVL_INTER.RESET_REQUESTED", longout, "asynInt32", "BOOL"}
+    {"\$(P)", "RUN_COUPLED_VERTICAL", "\$(PORT)", "\$(ADSPORT)", "GVL_INTER.RUN_COUPLED_VERTICAL", longout, "asynInt32", "BOOL"}
+    {"\$(P)", "RUN_KINEMATICS", "\$(PORT)", "\$(ADSPORT)", "GVL_INTER.RUN_KINEMATICS", longout, "asynInt32", "BOOL"}
+    {"\$(P)", "START_RECOVERY", "\$(PORT)", "\$(ADSPORT)", "GVL_INTER.START_RECOVERY", longout, "asynInt32", "BOOL"}
+    {"\$(P)", "UPDATE_DEFAULTS", "\$(PORT)", "\$(ADSPORT)", "GVL_INTER.UPDATE_DEFAULTS", longout, "asynInt32", "BOOL"}
+
+}
+
+file "$(TOP)/beckhoffApp/beckhoff_read_pv.template" {
+    pattern {P, NAME, PORT, ADSPORT, V, RECTYPE, EPICSDTYP, ADS_TYPE}
+    {"\$(P)", "KINEMATIC_SPG_ALL_DISABLED", "\$(PORT)", "\$(ADSPORT)", "GVL_INTER.KINEMATIC_SPG_ALL_DISABLED", "longin", "asynInt32", "BOOL"}
+    {"\$(P)", "KINEMATIC_SPG_ALL_ENABLED", "\$(PORT)", "\$(ADSPORT)", "GVL_INTER.KINEMATIC_SPG_ALL_ENABLED", "longin", "asynInt32", "BOOL"}
+    {"\$(P)", "LIMIT_HIT", "\$(PORT)", "\$(ADSPORT)", "GVL_INTER.LIMIT_HIT", "longin", "asynInt32", "BOOL"}
+    {"\$(P)", "LOGIC_ERROR", "\$(PORT)", "\$(ADSPORT)", "GVL_INTER.LOGIC_ERROR", "longin", "asynInt32", "BOOL"}
+    {"\$(P)", "NC_AXIS_ERROR", "\$(PORT)", "\$(ADSPORT)", "GVL_INTER.NC_AXIS_ERROR", "longin", "asynInt32", "BOOL"}
+    {"\$(P)", "OPERATIONAL", "\$(PORT)", "\$(ADSPORT)", "GVL_INTER.OPERATIONAL", "longin", "asynInt32", "BOOL"}
+    {"\$(P)", "REAL_AXES_NOT_MOVING", "\$(PORT)", "\$(ADSPORT)", "GVL_INTER.REAL_AXES_NOT_MOVING", "longin", "asynInt32", "BOOL"}
+    {"\$(P)", "VIRTUAL_AXES_NOT_MOVING", "\$(PORT)", "\$(ADSPORT)", "GVL_INTER.VIRTUAL_AXES_NOT_MOVING", "longin", "asynInt32", "BOOL"}
+    {"\$(P)", "RECOVERY_IN_PROGRESS", "\$(PORT)", "\$(ADSPORT)", "GVL_INTER.RECOVERY_IN_PROGRESS", "longin", "asynInt32", "BOOL"} 
+    {"\$(P)", "REINITIALISE_IN_PROGRESS", "\$(PORT)", "\$(ADSPORT)", "GVL_INTER.REINITIALISE_IN_PROGRESS", "longin", "asynInt32", "BOOL"} 
+    {"\$(P)", "SAFETY_ACK_REQUESTED", "\$(PORT)", "\$(ADSPORT)", "GVL_INTER.SAFETY_ACK_REQUESTED", "longin", "asynInt32", "BOOL"} 
+    {"\$(P)", "SPEED_LIMITING", "\$(PORT)", "\$(ADSPORT)", "GVL_INTER.SPEED_LIMITING", "longin", "asynInt32", "BOOL"} 
+
+    {"\$(P)", "SETDIR_COMBINED_VERTICAL", "\$(PORT)", "\$(ADSPORT)", "GVL_INTER.SETDIR_COMBINED_VERTICAL", "longin", "asynInt32", "DINT"} 
+    {"\$(P)", "SETDIR_HORIZONTAL", "\$(PORT)", "\$(ADSPORT)", "GVL_INTER.SETDIR_HORIZONTAL", "longin", "asynInt32", "DINT"} 
+    {"\$(P)", "SETDIR_ROTATION", "\$(PORT)", "\$(ADSPORT)", "GVL_INTER.SETDIR_ROTATION", "longin", "asynInt32", "DINT"} 
+    
+    {"\$(P)", "TARGET_MEASUREMENT_ANGLE", "\$(PORT)", "\$(ADSPORT)", "GVL_INTER.TARGET_MEASUREMENT_ANGLE", "ai", "asynFloat64", "LREAL"} 
+
+    {"\$(P)", "SETPOS_COMBINED_VERTICAL", "\$(PORT)", "\$(ADSPORT)", "GVL_INTER.SETPOS_COMBINED_VERTICAL", "ai", "asynFloat64", "LREAL"} 
+    {"\$(P)", "SETPOS_HORIZONTAL", "\$(PORT)", "\$(ADSPORT)", "GVL_INTER.SETPOS_HORIZONTAL", "ai", "asynFloat64", "LREAL"} 
+    {"\$(P)", "SETPOS_ROTATION", "\$(PORT)", "\$(ADSPORT)", "GVL_INTER.SETPOS_ROTATION", "ai", "asynFloat64", "LREAL"} 
+    {"\$(P)", "SETVELO_COMBINED_VERTICAL", "\$(PORT)", "\$(ADSPORT)", "GVL_INTER.SETVELO_COMBINED_VERTICAL", "ai", "asynFloat64", "LREAL"} 
+    {"\$(P)", "SETVELO_HORIZONTAL", "\$(PORT)", "\$(ADSPORT)", "GVL_INTER.SETVELO_HORIZONTAL", "ai", "asynFloat64", "LREAL"} 
+    {"\$(P)", "SETVELO_ROTATION", "\$(PORT)", "\$(ADSPORT)", "GVL_INTER.SETVELO_ROTATION", "ai", "asynFloat64", "LREAL"} 
+
+    {"\$(P)", "ACK_LOGIC_ERR:RBV", "\$(PORT)", "\$(ADSPORT)", "GVL_INTER.ACKNOWLEDGE_LOGIC_ERROR", longout, "asynInt32", "BOOL"}
+    {"\$(P)", "CLEAR_ALL_DEFAULTS:RBV", "\$(PORT)", "\$(ADSPORT)", "GVL_INTER.CLEAR_ALL_DEFAULTS", longout, "asynInt32", "BOOL"}
+    {"\$(P)", "DECOUPLE_VERTICAL_AXES:RBV", "\$(PORT)", "\$(ADSPORT)", "GVL_INTER.DECOUPLE_VERTICAL_AXES", longout, "asynInt32", "BOOL"}
+    {"\$(P)", "REINITIALISE:RBV", "\$(PORT)", "\$(ADSPORT)", "GVL_INTER.FINISH_REINITIALISE", longout, "asynInt32", "BOOL"}
+    {"\$(P)", "FINISH_REINITIALISE:RBV", "\$(PORT)", "\$(ADSPORT)", "GVL_INTER.FINISH_REINITIALISE", longout, "asynInt32", "BOOL"}
+    {"\$(P)", "RESET_ALL:RBV", "\$(PORT)", "\$(ADSPORT)", "GVL_INTER.RESET_ALL", longout, "asynInt32", "BOOL"}
+    {"\$(P)", "RESET_REQUESTED:RBV", "\$(PORT)", "\$(ADSPORT)", "GVL_INTER.RESET_REQUESTED", longout, "asynInt32", "BOOL"}
+    {"\$(P)", "RUN_COUPLED_VERTICAL:RBV", "\$(PORT)", "\$(ADSPORT)", "GVL_INTER.RUN_COUPLED_VERTICAL", longout, "asynInt32", "BOOL"}
+    {"\$(P)", "RUN_KINEMATICS:RBV", "\$(PORT)", "\$(ADSPORT)", "GVL_INTER.RUN_KINEMATICS", longout, "asynInt32", "BOOL"}
+    {"\$(P)", "START_RECOVERY:RBV", "\$(PORT)", "\$(ADSPORT)", "GVL_INTER.START_RECOVERY", longout, "asynInt32", "BOOL"}
+    {"\$(P)", "UPDATE_DEFAULTS:RBV", "\$(PORT)", "\$(ADSPORT)", "GVL_INTER.UPDATE_DEFAULTS", longout, "asynInt32", "BOOL"}
+
+}

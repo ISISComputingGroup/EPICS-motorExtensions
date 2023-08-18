@@ -1,0 +1,5 @@
+file "$(TOP)/beckhoffApp/beckhoff_read_pv.template" {
+    pattern {P, NAME, PORT, ADSPORT, V, RECTYPE, EPICSDTYP, ADS_TYPE}
+    {"\$(P)", "BBUMPSTRIP", "\$(PORT)", "\$(ADSPORT)", "AUX.bBumpstrip", "longin", "asynInt32", "BOOL"}
+    {"\$(P)", "BAIRPLC", "\$(PORT)", "\$(ADSPORT)", "AUX.bAirPLC", "longin", "asynInt32", "BOOL"}
+}
