@@ -42,16 +42,16 @@ file "$(TOP)/beckhoffApp/beckhoff_read_pv.template" {
     {"\$(P)", "SETVELO_HORIZONTAL", "\$(PORT)", "\$(ADSPORT)", "GVL_INTER.SETVELO_HORIZONTAL", "ai", "asynFloat64", "LREAL"} 
     {"\$(P)", "SETVELO_ROTATION", "\$(PORT)", "\$(ADSPORT)", "GVL_INTER.SETVELO_ROTATION", "ai", "asynFloat64", "LREAL"} 
 
-    {"\$(P)", "ACK_LOGIC_ERR:RBV", "\$(PORT)", "\$(ADSPORT)", "GVL_INTER.ACKNOWLEDGE_LOGIC_ERROR", longout, "asynInt32", "BOOL"}
-    {"\$(P)", "CLEAR_ALL_DEFAULTS:RBV", "\$(PORT)", "\$(ADSPORT)", "GVL_INTER.CLEAR_ALL_DEFAULTS", longout, "asynInt32", "BOOL"}
-    {"\$(P)", "DECOUPLE_VERTICAL_AXES:RBV", "\$(PORT)", "\$(ADSPORT)", "GVL_INTER.DECOUPLE_VERTICAL_AXES", longout, "asynInt32", "BOOL"}
-    {"\$(P)", "REINITIALISE:RBV", "\$(PORT)", "\$(ADSPORT)", "GVL_INTER.FINISH_REINITIALISE", longout, "asynInt32", "BOOL"}
-    {"\$(P)", "FINISH_REINITIALISE:RBV", "\$(PORT)", "\$(ADSPORT)", "GVL_INTER.FINISH_REINITIALISE", longout, "asynInt32", "BOOL"}
-    {"\$(P)", "RESET_ALL:RBV", "\$(PORT)", "\$(ADSPORT)", "GVL_INTER.RESET_ALL", longout, "asynInt32", "BOOL"}
-    {"\$(P)", "RESET_REQUESTED:RBV", "\$(PORT)", "\$(ADSPORT)", "GVL_INTER.RESET_REQUESTED", longout, "asynInt32", "BOOL"}
-    {"\$(P)", "RUN_COUPLED_VERTICAL:RBV", "\$(PORT)", "\$(ADSPORT)", "GVL_INTER.RUN_COUPLED_VERTICAL", longout, "asynInt32", "BOOL"}
-    {"\$(P)", "RUN_KINEMATICS:RBV", "\$(PORT)", "\$(ADSPORT)", "GVL_INTER.RUN_KINEMATICS", longout, "asynInt32", "BOOL"}
-    {"\$(P)", "START_RECOVERY:RBV", "\$(PORT)", "\$(ADSPORT)", "GVL_INTER.START_RECOVERY", longout, "asynInt32", "BOOL"}
-    {"\$(P)", "UPDATE_DEFAULTS:RBV", "\$(PORT)", "\$(ADSPORT)", "GVL_INTER.UPDATE_DEFAULTS", longout, "asynInt32", "BOOL"}
+    {"\$(P)", "ACK_LOGIC_ERR:RBV", "\$(PORT)", "\$(ADSPORT)", "GVL_INTER.ACKNOWLEDGE_LOGIC_ERROR", longin, "asynInt32", "BOOL"}
+    {"\$(P)", "CLEAR_ALL_DEFAULTS:RBV", "\$(PORT)", "\$(ADSPORT)", "GVL_INTER.CLEAR_ALL_DEFAULTS", longin, "asynInt32", "BOOL"}
+    {"\$(P)", "DECOUPLE_VERTICAL_AXES:RBV", "\$(PORT)", "\$(ADSPORT)", "GVL_INTER.DECOUPLE_VERTICAL_AXES", longin, "asynInt32", "BOOL"}
+    {"\$(P)", "REINITIALISE:RBV", "\$(PORT)", "\$(ADSPORT)", "GVL_INTER.FINISH_REINITIALISE", longin, "asynInt32", "BOOL"}
+    {"\$(P)", "FINISH_REINITIALISE:RBV", "\$(PORT)", "\$(ADSPORT)", "GVL_INTER.FINISH_REINITIALISE", longin, "asynInt32", "BOOL"}
+    {"\$(P)", "RESET_ALL:RBV", "\$(PORT)", "\$(ADSPORT)", "GVL_INTER.RESET_ALL", longin, "asynInt32", "BOOL"}
+    {"\$(P)", "RESET_REQUESTED:RBV", "\$(PORT)", "\$(ADSPORT)", "GVL_INTER.RESET_REQUESTED", longin, "asynInt32", "BOOL"}
+    {"\$(P)", "RUN_COUPLED_VERTICAL:RBV", "\$(PORT)", "\$(ADSPORT)", "GVL_INTER.RUN_COUPLED_VERTICAL", longin, "asynInt32", "BOOL"}
+    {"\$(P)", "RUN_KINEMATICS:RBV", "\$(PORT)", "\$(ADSPORT)", "GVL_INTER.RUN_KINEMATICS", longin, "asynInt32", "BOOL"}
+    {"\$(P)", "START_RECOVERY:RBV", "\$(PORT)", "\$(ADSPORT)", "GVL_INTER.START_RECOVERY", longin, "asynInt32", "BOOL"}
+    {"\$(P)", "UPDATE_DEFAULTS:RBV", "\$(PORT)", "\$(ADSPORT)", "GVL_INTER.UPDATE_DEFAULTS", longin, "asynInt32", "BOOL"}
 
 }
