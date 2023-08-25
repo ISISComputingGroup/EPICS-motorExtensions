@@ -39,6 +39,8 @@ file "$(TOP)/beckhoffApp/beckhoff_read_pv.template" {
 
     {"\$(P)", "ASTAXES_\$(AXIS_NUM):STSTATUS-NERRORID", "\$(PORT)", "\$(ADSPORT)", "GVL.astAxes[\$(AXIS_NUM)].stStatus.nErrorID", longin, "asynInt64", "UDINT"}
 
+    {"\$(P)", "ASTAXES_\$(AXIS_NUM):STDESC-SAXISNAME", "\$(PORT)", "\$(ADSPORT)", "GVL.astAxes[\$(AXIS_NUM)].stDescription.sAxisName", stringin, "asynOctetRead", "STRING N=32"}
+
     {"\$(P)", "ASTAXES_\$(AXIS_NUM):STSTATUS-FVELOCITY:RBV", "\$(PORT)", "\$(ADSPORT)", "GVL.astAxes[\$(AXIS_NUM)].stControl.fVelocity", ai, "asynFloat64", "LREAL"}
     {"\$(P)", "ASTAXES_\$(AXIS_NUM):STSTATUS-FJOGVELOCITY:RBV", "\$(PORT)", "\$(ADSPORT)", "GVL.astAxes[\$(AXIS_NUM)].stControl.fJogVelocity", ai, "asynFloat64", "LREAL"}
 }
