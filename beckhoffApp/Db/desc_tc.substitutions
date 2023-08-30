@@ -1,0 +1,4 @@
+file "$(TOP)/beckhoffApp/beckhoff_read_pv.template" {
+    pattern {P, NAME, PORT, ADSPORT, V, RECTYPE, EPICSDTYP, ADS_TYPE}
+    {"\$(P)", "ASTAXES_\$(AXIS_NUM):STDESC-SAXISNAME", "\$(PORT)", "\$(ADSPORT)", "GVL.astAxes[\$(AXIS_NUM)].stDescription.sAxisName", stringin, "asynOctetRead", "STRING N=32"}
+}
