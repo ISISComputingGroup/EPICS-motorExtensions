@@ -12,6 +12,7 @@ include $(TOP)/configure/CONFIG
 # databases, templates, substitutions like this
 #DB += xxx.db
 DB += single_axis_tc.db
+DB += desc_tc.db
 
 #----------------------------------------------------
 # If <anyname>.db template is not named <anyname>*.template add

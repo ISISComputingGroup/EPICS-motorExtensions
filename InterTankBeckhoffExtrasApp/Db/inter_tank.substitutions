@@ -12,6 +12,16 @@ file "$(TOP)/beckhoffApp/beckhoff_write_pv.template" {
     {"\$(P)", "START_RECOVERY", "\$(PORT)", "\$(ADSPORT)", "GVL_INTER.START_RECOVERY", longout, "asynInt32", "BOOL"}
     {"\$(P)", "UPDATE_DEFAULTS", "\$(PORT)", "\$(ADSPORT)", "GVL_INTER.UPDATE_DEFAULTS", longout, "asynInt32", "BOOL"}
 
+    {"\$(P)", "SETDIR_COMBINED_VERTICAL:SP", "\$(PORT)", "\$(ADSPORT)", "GVL_INTER.SETDIR_COMBINED_VERTICAL", "longout", "asynInt32", "DINT"} 
+    {"\$(P)", "SETDIR_HORIZONTAL:SP", "\$(PORT)", "\$(ADSPORT)", "GVL_INTER.SETDIR_HORIZONTAL", "longout", "asynInt32", "DINT"} 
+    {"\$(P)", "SETDIR_ROTATION:SP", "\$(PORT)", "\$(ADSPORT)", "GVL_INTER.SETDIR_ROTATION", "longout", "asynInt32", "DINT"} 
+    {"\$(P)", "TARGET_MEASUREMENT_ANGLE:SP", "\$(PORT)", "\$(ADSPORT)", "GVL_INTER.TARGET_MEASUREMENT_ANGLE", "ao", "asynFloat64", "LREAL"} 
+    {"\$(P)", "SETPOS_COMBINED_VERTICAL:SP", "\$(PORT)", "\$(ADSPORT)", "GVL_INTER.SETPOS_COMBINED_VERTICAL", "ao", "asynFloat64", "LREAL"} 
+    {"\$(P)", "SETPOS_HORIZONTAL:SP", "\$(PORT)", "\$(ADSPORT)", "GVL_INTER.SETPOS_HORIZONTAL", "ao", "asynFloat64", "LREAL"} 
+    {"\$(P)", "SETPOS_ROTATION:SP", "\$(PORT)", "\$(ADSPORT)", "GVL_INTER.SETPOS_ROTATION", "ao", "asynFloat64", "LREAL"} 
+    {"\$(P)", "SETVELO_COMBINED_VERTICAL:SP", "\$(PORT)", "\$(ADSPORT)", "GVL_INTER.SETVELO_COMBINED_VERTICAL", "ao", "asynFloat64", "LREAL"} 
+    {"\$(P)", "SETVELO_HORIZONTAL:SP", "\$(PORT)", "\$(ADSPORT)", "GVL_INTER.SETVELO_HORIZONTAL", "ao", "asynFloat64", "LREAL"} 
+    {"\$(P)", "SETVELO_ROTATION:SP", "\$(PORT)", "\$(ADSPORT)", "GVL_INTER.SETVELO_ROTATION", "ao", "asynFloat64", "LREAL"} 
 }
 
 file "$(TOP)/beckhoffApp/beckhoff_read_pv.template" {
@@ -41,6 +51,9 @@ file "$(TOP)/beckhoffApp/beckhoff_read_pv.template" {
     {"\$(P)", "SETVELO_COMBINED_VERTICAL", "\$(PORT)", "\$(ADSPORT)", "GVL_INTER.SETVELO_COMBINED_VERTICAL", "ai", "asynFloat64", "LREAL"} 
     {"\$(P)", "SETVELO_HORIZONTAL", "\$(PORT)", "\$(ADSPORT)", "GVL_INTER.SETVELO_HORIZONTAL", "ai", "asynFloat64", "LREAL"} 
     {"\$(P)", "SETVELO_ROTATION", "\$(PORT)", "\$(ADSPORT)", "GVL_INTER.SETVELO_ROTATION", "ai", "asynFloat64", "LREAL"} 
+
+    {"\$(P)", "LOGIC_STATE", "\$(PORT)", "\$(ADSPORT)", "GVL_INTER.LOGIC_STATE_STR", "stringin", "asynOctetRead", "STRING N=81"} 
+    {"\$(P)", "LOGIC_STATE_ERROR", "\$(PORT)", "\$(ADSPORT)", "GVL_INTER.LOGIC_STATE_ERROR_STR", "stringin", "asynOctetRead", "STRING N=81"} 
 
     {"\$(P)", "ACK_LOGIC_ERR:RBV", "\$(PORT)", "\$(ADSPORT)", "GVL_INTER.ACKNOWLEDGE_LOGIC_ERROR", longin, "asynInt32", "BOOL"}
     {"\$(P)", "CLEAR_ALL_DEFAULTS:RBV", "\$(PORT)", "\$(ADSPORT)", "GVL_INTER.CLEAR_ALL_DEFAULTS", longin, "asynInt32", "BOOL"}
