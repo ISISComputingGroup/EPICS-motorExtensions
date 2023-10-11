@@ -21,7 +21,6 @@ file "$(TOP)/beckhoffApp/beckhoff_write_pv.template" {
 
 file "$(TOP)/beckhoffApp/beckhoff_read_pv.template" {
     pattern {P, NAME, PORT, ADSPORT, V, RECTYPE, EPICSDTYP, ADS_TYPE}
-    {"\$(P)", "AXIS_NUM", "\$(PORT)", "\$(ADSPORT)", "GVL_APP.nAXIS_NUM", "longin", "asynInt32", "BOOL"}
     {"\$(P)", "ASTAXES_\$(AXIS_NUM):STSTATUS-BENABLED", "\$(PORT)", "\$(ADSPORT)", "GVL.astAxes[\$(AXIS_NUM)].stStatus.bEnabled", longin, "asynInt32", "BOOL"}
     {"\$(P)", "ASTAXES_\$(AXIS_NUM):STSTATUS-BCOMMANDABORTED", "\$(PORT)", "\$(ADSPORT)", "GVL.astAxes[\$(AXIS_NUM)].stStatus.bCommandAborted", longin, "asynInt32", "BOOL"}
     {"\$(P)", "ASTAXES_\$(AXIS_NUM):STSTATUS-BBUSY", "\$(PORT)", "\$(ADSPORT)", "GVL.astAxes[\$(AXIS_NUM)].stStatus.bBusy", longin, "asynInt32", "BOOL"}

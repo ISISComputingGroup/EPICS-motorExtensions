@@ -1,0 +1,3 @@
+record($(RECTYPE),"$(P)$(NAME)") {
+    field(VAL, "$(VALUE)")
+}
