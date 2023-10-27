@@ -1,8 +1,8 @@
 global {P=\$(P), MOD_TO_SAMPLE=\$(MOD_TO_SAMPLE)}
 
 file "$(TOP)/jawsManagerApp/Db/common.template" {
-	{DIR=H, INIT_MOD_GAP=\$(MOD_GAP_WIDTH)}
-	{DIR=V, INIT_MOD_GAP=\$(MOD_GAP_HEIGHT)}
+	{DIR=H, INIT_MOD_GAP=\$(MOD_GAP_WIDTH), EGU="mm"}
+	{DIR=V, INIT_MOD_GAP=\$(MOD_GAP_HEIGHT), EGU="mm"}
 }
 
 file "$(TOP)/jawsManagerApp/Db/jaws_manager_single.template" {

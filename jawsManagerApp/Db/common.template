@@ -14,7 +14,7 @@ record(ai, "$(P)$(MOD_JAW=JAWMAN:MOD):$(DIR)GAP:SP") {
   field(PREC, "2")
   field(VAL, "$(INIT_MOD_GAP=0)")
   field(FLNK, "$(P)JAWMAN:$(DIR)GAP:_FAN")
-  field(EGU, "")
+  field(EGU, "$(EGU=)")
   info(archive, "VAL")
   info(INTEREST, "HIGH")
   info(autosaveFields, "VAL")
@@ -24,7 +24,7 @@ record(ai, "$(P)$(SAMPLE_JAW=JAWMAN:SAMPLE):$(DIR)GAP:SP") {
   field(DESC, "Set gap at the sample")
   field(PREC, "2")
   field(FLNK, "$(P)JAWMAN:$(DIR)GAP:_FAN")
-  field(EGU, "")
+  field(EGU, "$(EGU=)")
   info(archive, "VAL")
   info(INTEREST, "HIGH")
   info(autosaveFields, "VAL")
@@ -43,7 +43,7 @@ record(ao, "$(P)$(SAMPLE_JAW=JAWMAN):$(DIR)CENT:SP") {
   field(DESC, "Global centre Setpoint")
   field(FLNK, "$(P)JAWMAN:$(DIR)CENT:_FAN")
   field(PREC, "2")
-  field(EGU, "")
+  field(EGU, "$(EGU=)")
 }
 
 record(dfanout,"$(P)JAWMAN:$(DIR)CENT:_FAN") {
