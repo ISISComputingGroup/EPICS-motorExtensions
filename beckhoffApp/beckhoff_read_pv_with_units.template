@@ -3,4 +3,5 @@ record($(RECTYPE),"$(P)$(NAME)") {
 	field(DTYP,"$(EPICSDTYP)")
 	field(INP,"@asyn($(PORT) 0 0) $(ADS_TYPE) R P=$(ADSPORT) V=$(V)")
     field(EGU, "$(UNITS)")
+	$(ARCHIVE=#)info(archive, "VAL")
 }
