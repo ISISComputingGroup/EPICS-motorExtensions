@@ -1,0 +1,95 @@
+
+### CHIPIR Collimator
+
+## User variables
+# User facing
+record(ao, "$(P)$(O):TARGET_POS:SP") {
+    field(DTYP, "asynFloat64")
+    field(PREC, "1")
+    field(OUT, "@asyn(Galil,0)USER_VAR targ_pos")
+    field(FLNK, "$(P)$(O):MOVE:CMD") # TODO xq move
+    field(LOPR, 0)
+    field(HOPR, 6)
+    field(EGU, "")
+}
+
+record(ai, "$(P)$(O):TARGET_POS:SP:RBV") {
+    field(DTYP, "asynFloat64")
+    field(PREC, "1")
+    field(INP, "@asyn(Galil,0)USER_VAR targ_pos")
+    field(PREC, "1")
+    field(EGU, "")
+}
+
+record(ai, "$(P)$(O):CURR_POS") {
+    field(SCAN, "1 second")
+    field(DTYP, "asynFloat64")
+    field(PREC, "1")
+    field(EGU, "")
+    field(INP, "@asyn(Galil,0)USER_VAR curr_pos")
+}
+
+record(ai, "$(P)$(O):PREV_POS") {
+    field(SCAN, "1 second")
+    field(DTYP, "asynFloat64")
+    field(PREC, "1")
+    field(EGU, "")
+    field(INP, "@asyn(Galil,0)USER_VAR prev_pos")
+}
+
+record(ai, "$(P)$(O):TARGET_SWITCH") {
+    field(SCAN, "1 second")
+    field(DTYP, "asynFloat64")
+    field(PREC, "1")
+    field(EGU, "")
+    field(INP, "@asyn(Galil,0)USER_VAR targ_sw")
+}
+
+# For debugging
+record(ai, "$(P)$(O):_MODE") {
+    field(SCAN,"1 second")
+    field(DTYP,"asynFloat64")
+    field(EGU, "")
+    field(INP, "@asyn(Galil,0)USER_VAR mode")
+}
+
+
+record(ai, "$(P)$(O):_POSN_POS") {
+    field(SCAN,"1 second")
+    field(DTYP,"asynFloat64")
+    field(EGU, "")
+    field(INP, "@asyn(Galil,0)USER_VAR posn_pos")
+}
+
+record(ai, "$(P)$(O):_POSN_NEG") {
+    field(SCAN,"1 second")
+    field(DTYP,"asynFloat64")
+    field(EGU, "")
+    field(INP, "@asyn(Galil,0)USER_VAR posn_neg")
+}
+
+record(ai, "$(P)$(O):_TARGET_DIRECTION") {
+    field(SCAN, "1 second")
+    field(DTYP, "asynFloat64")
+    field(PREC, "1")
+    field(EGU, "")
+    field(INP, "@asyn(Galil,0)USER_VAR targ_dir")
+}
+
+
+## execution
+record(scalcout, "$(P)$(O):MOVE:CMD") {
+    field(DESC, "Galil command to start MOVE program")
+    field(AA, "$(MOVE_THREAD=1)")
+    field(BB, "XQ #MOVE,")
+    field(CALC, "BB+AA")
+    field(OUT, "$(P)$(D):SEND_STR_CMD PP")
+}
+
+record(scalcout, "$(P)$(O):MOVE:CMD") {
+    field(DESC, "Galil command to start MOVE program")
+    field(AA, "$(HOME_THREAD=2)")
+    field(BB, "XQ #HOME_SW,")
+    field(CALC, "BB+AA")
+    field(OUT, "$(P)$(D):SEND_STR_CMD PP")
+}
