@@ -1,11 +1,9 @@
 file "$(TOP)/beckhoffApp/beckhoff_write_pv.template" {
     pattern {P, NAME, PORT, ADSPORT, V, RECTYPE, EPICSDTYP, ADS_TYPE}
-    {"\$(P)", "RUN_SAFETY:SP", "\$(PORT)", "\$(ADSPORT)", "GVL_SAFETY.RUN_SAFETY", longout, "asynInt32", "BOOL"}
     {"\$(P)", "ERROR_ACK:SP", "\$(PORT)", "\$(ADSPORT)", "GVL_SAFETY.ERROR_ACK", longout, "asynInt32", "BOOL"}
 }
 
 file "$(TOP)/beckhoffApp/beckhoff_read_pv.template" {
     pattern {P, NAME, PORT, ADSPORT, V, RECTYPE, EPICSDTYP, ADS_TYPE}
-    {"\$(P)", "RUN_SAFETY", "\$(PORT)", "\$(ADSPORT)", "GVL_SAFETY.RUN_SAFETY", "longin", "asynInt32", "BOOL"}
     {"\$(P)", "ERROR_ACK", "\$(PORT)", "\$(ADSPORT)", "GVL_SAFETY.ERROR_ACK", "longin", "asynInt32", "BOOL"}
 }
