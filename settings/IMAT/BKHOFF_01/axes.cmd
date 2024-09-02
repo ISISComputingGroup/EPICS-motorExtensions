@@ -1,0 +1,3 @@
+
+dbLoadRecords("$(AXIS)/db/axis.db","P=$(MYPVPREFIX)MOT:,AXIS=STACK:Z,mAXIS=MTR0902")
+dbLoadRecords("$(AXIS)/db/axis.db","P=$(MYPVPREFIX)MOT:,AXIS=STACK:LARGETHETA,mAXIS=MTR0901")
