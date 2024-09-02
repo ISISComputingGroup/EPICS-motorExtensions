@@ -1,0 +1,1 @@
+GALIL Setup as used on SURF - previous config files are stored in "backup" folder

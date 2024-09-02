@@ -1,0 +1,37 @@
+$(IFIOC_GALIL_01) epicsEnvSet "LOOKUPFILE1" "$(ICPCONFIGROOT)/motionSetPoints/aperture.txt"
+
+$(IFIOC_GALIL_01) epicsEnvSet "LOOKUPFILE2" "$(ICPCONFIGROOT)/motionSetPoints/sample_changer.txt"
+
+$(IFIOC_GALIL_01) epicsEnvSet "LOOKUPFILE3" "$(ICPCONFIGROOT)/motionSetPoints/height_stage.txt"
+
+$(IFIOC_GALIL_01) epicsEnvSet "LOOKUPFILE4" "$(ICPCONFIGROOT)/motionSetPoints/transmission_monitor.txt"
+
+$(IFIOC_GALIL_01) epicsEnvSet "LOOKUPFILE5" "$(ICPCONFIGROOT)/motionSetPoints/dls_sample_changer.txt"
+
+$(IFIOC_GALIL_01) motionSetPointsConfigure("LOOKUPFILE1","LOOKUPFILE1")
+
+$(IFIOC_GALIL_01) motionSetPointsConfigure("LOOKUPFILE2","LOOKUPFILE2")
+
+$(IFIOC_GALIL_01) motionSetPointsConfigure("LOOKUPFILE3","LOOKUPFILE3")
+
+$(IFIOC_GALIL_01) motionSetPointsConfigure("LOOKUPFILE4","LOOKUPFILE4")
+
+$(IFIOC_GALIL_01) motionSetPointsConfigure("LOOKUPFILE5","LOOKUPFILE5")
+
+# The tolerance must be large to make sure that LOCN always points to the closest setpoint
+$(IFIOC_GALIL_01) dbLoadRecords("$(MOTIONSETPOINTS)/db/motionSetPoints.db","P=$(MYPVPREFIX)LKUP:APERTURE:,NAME1=APERTURE,AXIS1=$(MYPVPREFIX)MOT:APERTURE,TOL=10,LOOKUP=LOOKUPFILE1")
+
+# Load the records which control closing the aperture
+$(IFIOC_GALIL_01) dbLoadRecords("$(MOTOREXT)/db/loqAperture.db", "P=$(MYPVPREFIX), SETPTAXIS=$(MYPVPREFIX)LKUP:APERTURE:")
+
+$(IFIOC_GALIL_01) dbLoadRecordsLoop("$(MOTIONSETPOINTS)/db/inPos.db","P=$(MYPVPREFIX)LKUP:APERTURE:,NAME1=APERTURE,AXIS1=$(MYPVPREFIX)MOT:APERTURE,TOL=10,LOOKUP=LOOKUPFILE1","NUMPOS", 0, 30)
+
+# Set up the other axes
+$(IFIOC_GALIL_01) dbLoadRecords("$(MOTIONSETPOINTS)/db/motionSetPoints.db","P=$(MYPVPREFIX)LKUP:SAMPLE:,NAME1=SAMPLE,AXIS1=$(MYPVPREFIX)MOT:SAMPLE,TOL=1,LOOKUP=LOOKUPFILE2")
+
+$(IFIOC_GALIL_01) dbLoadRecords("$(MOTIONSETPOINTS)/db/motionSetPoints.db","P=$(MYPVPREFIX)LKUP:HEIGHT:,NAME1=HEIGHT,AXIS1=$(MYPVPREFIX)MOT:HEIGHT,TOL=1,LOOKUP=LOOKUPFILE3")
+
+$(IFIOC_GALIL_01) dbLoadRecords("$(MOTIONSETPOINTS)/db/motionSetPoints.db","P=$(MYPVPREFIX)LKUP:TRANS_MON:,NAME1=TRANS_MON,AXIS1=$(MYPVPREFIX)MOT:TRANS_MON,TOL=1,LOOKUP=LOOKUPFILE4")
+
+$(IFIOC_GALIL_01) dbLoadRecords("$(MOTIONSETPOINTS)/db/motionSetPoints.db","P=$(MYPVPREFIX)LKUP:DLS:,NAME1=DLS,AXIS1=$(MYPVPREFIX)MOT:DLS,TOL=1,LOOKUP=LOOKUPFILE5")
+
