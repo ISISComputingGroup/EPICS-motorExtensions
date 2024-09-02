@@ -1,0 +1,542 @@
+record(bo,"IN:LARMOR:TC_01:BBUMPSTRIP") {
+	field(SCAN,"Passive")
+	field(DTYP,"tcat")
+	field(OUT,"@tc://172.18.211.3.1.1:852/61472/538892:1")
+	field(TSE,"-2")
+	field(PINI,"0")
+}
+record(bo,"IN:LARMOR:TC_01:BAIRPLC") {
+	field(SCAN,"Passive")
+	field(DTYP,"tcat")
+	field(OUT,"@tc://172.18.211.3.1.1:852/61472/538893:1")
+	field(TSE,"-2")
+	field(PINI,"0")
+}
+record(longin,"IN:LARMOR:TC_01:NAXIS_NUM") {
+	field(SCAN,"I/O Intr")
+	field(DTYP,"tcat")
+	field(INP,"@tc://172.18.211.3.1.1:852/16448/543488:2")
+	field(TSE,"-2")
+	field(PINI,"0")
+}
+record(bo,"IN:LARMOR:TC_01:ASTAXES_1:STCONTROL-BEXECUTE") {
+	field(SCAN,"Passive")
+	field(DTYP,"tcat")
+	field(OUT,"@tc://172.18.211.3.1.1:852/16448/543512:1")
+	field(TSE,"-2")
+	field(PINI,"0")
+}
+record(bo,"IN:LARMOR:TC_01:ASTAXES_1:STCONTROL-BRESET") {
+	field(SCAN,"Passive")
+	field(DTYP,"tcat")
+	field(OUT,"@tc://172.18.211.3.1.1:852/16448/543513:1")
+	field(TSE,"-2")
+	field(PINI,"0")
+}
+record(bo,"IN:LARMOR:TC_01:ASTAXES_1:STCONTROL-BSTOP") {
+	field(SCAN,"Passive")
+	field(DTYP,"tcat")
+	field(OUT,"@tc://172.18.211.3.1.1:852/16448/543514:1")
+	field(TSE,"-2")
+	field(PINI,"0")
+}
+record(bo,"IN:LARMOR:TC_01:ASTAXES_1:STCONTROL-BHALT") {
+	field(SCAN,"Passive")
+	field(DTYP,"tcat")
+	field(OUT,"@tc://172.18.211.3.1.1:852/16448/543515:1")
+	field(TSE,"-2")
+	field(PINI,"0")
+}
+record(bo,"IN:LARMOR:TC_01:ASTAXES_1:STCONTROL-BENABLE") {
+	field(SCAN,"Passive")
+	field(DTYP,"tcat")
+	field(OUT,"@tc://172.18.211.3.1.1:852/16448/543516:1")
+	field(TSE,"-2")
+	field(PINI,"0")
+}
+record(bo,"IN:LARMOR:TC_01:ASTAXES_1:STCONTROL-BJOGFWD") {
+	field(SCAN,"Passive")
+	field(DTYP,"tcat")
+	field(OUT,"@tc://172.18.211.3.1.1:852/16448/543517:1")
+	field(TSE,"-2")
+	field(PINI,"0")
+}
+record(bo,"IN:LARMOR:TC_01:ASTAXES_1:STCONTROL-BJOGBWD") {
+	field(SCAN,"Passive")
+	field(DTYP,"tcat")
+	field(OUT,"@tc://172.18.211.3.1.1:852/16448/543518:1")
+	field(TSE,"-2")
+	field(PINI,"0")
+}
+record(bo,"IN:LARMOR:TC_01:ASTAXES_1:STCONTROL-BINTERLOCKFWD") {
+	field(SCAN,"Passive")
+	field(DTYP,"tcat")
+	field(OUT,"@tc://172.18.211.3.1.1:852/16448/543519:1")
+	field(TSE,"-2")
+	field(PINI,"0")
+}
+record(bo,"IN:LARMOR:TC_01:ASTAXES_1:STCONTROL-BINTERLOCKBWD") {
+	field(SCAN,"Passive")
+	field(DTYP,"tcat")
+	field(OUT,"@tc://172.18.211.3.1.1:852/16448/543520:1")
+	field(TSE,"-2")
+	field(PINI,"0")
+}
+record(longout,"IN:LARMOR:TC_01:ASTAXES_1:STCONTROL-ECOMMAND") {
+	field(SCAN,"Passive")
+	field(DTYP,"tcat")
+	field(OUT,"@tc://172.18.211.3.1.1:852/16448/543522:2")
+	field(TSE,"-2")
+	field(PINI,"0")
+	field(HOPR,"50")
+	field(LOPR,"0")
+}
+record(ao,"IN:LARMOR:TC_01:ASTAXES_1:STCONTROL-FVELOCITY") {
+	field(SCAN,"Passive")
+	field(DTYP,"tcat")
+	field(OUT,"@tc://172.18.211.3.1.1:852/16448/543528:8")
+	field(TSE,"-2")
+	field(PINI,"0")
+}
+record(ao,"IN:LARMOR:TC_01:ASTAXES_1:STCONTROL-FJOGVELOCITY") {
+	field(SCAN,"Passive")
+	field(DTYP,"tcat")
+	field(OUT,"@tc://172.18.211.3.1.1:852/16448/543536:8")
+	field(TSE,"-2")
+	field(PINI,"0")
+}
+record(ao,"IN:LARMOR:TC_01:ASTAXES_1:STCONTROL-FACCELERATION") {
+	field(SCAN,"Passive")
+	field(DTYP,"tcat")
+	field(OUT,"@tc://172.18.211.3.1.1:852/16448/543544:8")
+	field(TSE,"-2")
+	field(PINI,"0")
+}
+record(ao,"IN:LARMOR:TC_01:ASTAXES_1:STCONTROL-FDECELERATION") {
+	field(SCAN,"Passive")
+	field(DTYP,"tcat")
+	field(OUT,"@tc://172.18.211.3.1.1:852/16448/543552:8")
+	field(TSE,"-2")
+	field(PINI,"0")
+}
+record(ao,"IN:LARMOR:TC_01:ASTAXES_1:STCONTROL-FPOSITION") {
+	field(SCAN,"Passive")
+	field(DTYP,"tcat")
+	field(OUT,"@tc://172.18.211.3.1.1:852/16448/543560:8")
+	field(TSE,"-2")
+	field(PINI,"0")
+}
+record(bo,"IN:LARMOR:TC_01:ASTAXES_1:STSTATUS-BENABLED") {
+	field(SCAN,"Passive")
+	field(DTYP,"tcat")
+	field(OUT,"@tc://172.18.211.3.1.1:852/16448/543568:1")
+	field(TSE,"-2")
+	field(PINI,"0")
+}
+record(bo,"IN:LARMOR:TC_01:ASTAXES_1:STSTATUS-BCOMMANDABORTED") {
+	field(SCAN,"Passive")
+	field(DTYP,"tcat")
+	field(OUT,"@tc://172.18.211.3.1.1:852/16448/543569:1")
+	field(TSE,"-2")
+	field(PINI,"0")
+}
+record(bo,"IN:LARMOR:TC_01:ASTAXES_1:STSTATUS-BBUSY") {
+	field(SCAN,"Passive")
+	field(DTYP,"tcat")
+	field(OUT,"@tc://172.18.211.3.1.1:852/16448/543570:1")
+	field(TSE,"-2")
+	field(PINI,"0")
+}
+record(bo,"IN:LARMOR:TC_01:ASTAXES_1:STSTATUS-BDONE") {
+	field(SCAN,"Passive")
+	field(DTYP,"tcat")
+	field(OUT,"@tc://172.18.211.3.1.1:852/16448/543571:1")
+	field(TSE,"-2")
+	field(PINI,"0")
+}
+record(bo,"IN:LARMOR:TC_01:ASTAXES_1:STSTATUS-BHOMED") {
+	field(SCAN,"Passive")
+	field(DTYP,"tcat")
+	field(OUT,"@tc://172.18.211.3.1.1:852/16448/543572:1")
+	field(TSE,"-2")
+	field(PINI,"0")
+}
+record(bo,"IN:LARMOR:TC_01:ASTAXES_1:STSTATUS-BMOVING") {
+	field(SCAN,"Passive")
+	field(DTYP,"tcat")
+	field(OUT,"@tc://172.18.211.3.1.1:852/16448/543573:1")
+	field(TSE,"-2")
+	field(PINI,"0")
+}
+record(bo,"IN:LARMOR:TC_01:ASTAXES_1:STSTATUS-BMOVINGFORWARD") {
+	field(SCAN,"Passive")
+	field(DTYP,"tcat")
+	field(OUT,"@tc://172.18.211.3.1.1:852/16448/543574:1")
+	field(TSE,"-2")
+	field(PINI,"0")
+}
+record(bo,"IN:LARMOR:TC_01:ASTAXES_1:STSTATUS-BMOVINGBACKWARD") {
+	field(SCAN,"Passive")
+	field(DTYP,"tcat")
+	field(OUT,"@tc://172.18.211.3.1.1:852/16448/543575:1")
+	field(TSE,"-2")
+	field(PINI,"0")
+}
+record(bo,"IN:LARMOR:TC_01:ASTAXES_1:STSTATUS-BFWENABLED") {
+	field(SCAN,"Passive")
+	field(DTYP,"tcat")
+	field(OUT,"@tc://172.18.211.3.1.1:852/16448/543576:1")
+	field(TSE,"-2")
+	field(PINI,"0")
+}
+record(bo,"IN:LARMOR:TC_01:ASTAXES_1:STSTATUS-BBWENABLED") {
+	field(SCAN,"Passive")
+	field(DTYP,"tcat")
+	field(OUT,"@tc://172.18.211.3.1.1:852/16448/543577:1")
+	field(TSE,"-2")
+	field(PINI,"0")
+}
+record(bo,"IN:LARMOR:TC_01:ASTAXES_1:STSTATUS-BINTERLOCKEDFWD") {
+	field(SCAN,"Passive")
+	field(DTYP,"tcat")
+	field(OUT,"@tc://172.18.211.3.1.1:852/16448/543578:1")
+	field(TSE,"-2")
+	field(PINI,"0")
+}
+record(bo,"IN:LARMOR:TC_01:ASTAXES_1:STSTATUS-BINTERLOCKEDBWD") {
+	field(SCAN,"Passive")
+	field(DTYP,"tcat")
+	field(OUT,"@tc://172.18.211.3.1.1:852/16448/543579:1")
+	field(TSE,"-2")
+	field(PINI,"0")
+}
+record(bo,"IN:LARMOR:TC_01:ASTAXES_1:STSTATUS-BGEARED") {
+	field(SCAN,"Passive")
+	field(DTYP,"tcat")
+	field(OUT,"@tc://172.18.211.3.1.1:852/16448/543580:1")
+	field(TSE,"-2")
+	field(PINI,"0")
+}
+record(bo,"IN:LARMOR:TC_01:ASTAXES_1:STSTATUS-BCOUPLEDGEAR1") {
+	field(SCAN,"Passive")
+	field(DTYP,"tcat")
+	field(OUT,"@tc://172.18.211.3.1.1:852/16448/543581:1")
+	field(TSE,"-2")
+	field(PINI,"0")
+}
+record(bo,"IN:LARMOR:TC_01:ASTAXES_1:STSTATUS-BCOUPLEDGEAR2") {
+	field(SCAN,"Passive")
+	field(DTYP,"tcat")
+	field(OUT,"@tc://172.18.211.3.1.1:852/16448/543582:1")
+	field(TSE,"-2")
+	field(PINI,"0")
+}
+record(bo,"IN:LARMOR:TC_01:ASTAXES_1:STSTATUS-BCOUPLEDGEAR3") {
+	field(SCAN,"Passive")
+	field(DTYP,"tcat")
+	field(OUT,"@tc://172.18.211.3.1.1:852/16448/543583:1")
+	field(TSE,"-2")
+	field(PINI,"0")
+}
+record(bo,"IN:LARMOR:TC_01:ASTAXES_1:STSTATUS-BCOUPLEDGEAR4") {
+	field(SCAN,"Passive")
+	field(DTYP,"tcat")
+	field(OUT,"@tc://172.18.211.3.1.1:852/16448/543584:1")
+	field(TSE,"-2")
+	field(PINI,"0")
+}
+record(ao,"IN:LARMOR:TC_01:ASTAXES_1:STSTATUS-FACTPOSITION") {
+	field(SCAN,"Passive")
+	field(DTYP,"tcat")
+	field(OUT,"@tc://172.18.211.3.1.1:852/16448/543592:8")
+	field(TSE,"-2")
+	field(PINI,"0")
+}
+record(ao,"IN:LARMOR:TC_01:ASTAXES_1:STSTATUS-FACTVELOCITY") {
+	field(SCAN,"Passive")
+	field(DTYP,"tcat")
+	field(OUT,"@tc://172.18.211.3.1.1:852/16448/543600:8")
+	field(TSE,"-2")
+	field(PINI,"0")
+}
+record(bo,"IN:LARMOR:TC_01:ASTAXES_1:STSTATUS-BERROR") {
+	field(SCAN,"Passive")
+	field(DTYP,"tcat")
+	field(OUT,"@tc://172.18.211.3.1.1:852/16448/543608:1")
+	field(TSE,"-2")
+	field(PINI,"0")
+}
+record(longout,"IN:LARMOR:TC_01:ASTAXES_1:STSTATUS-NERRORID") {
+	field(SCAN,"Passive")
+	field(DTYP,"tcat")
+	field(OUT,"@tc://172.18.211.3.1.1:852/16448/543612:4")
+	field(TSE,"-2")
+	field(PINI,"0")
+}
+record(ao,"IN:LARMOR:TC_01:ASTAXES_1:STCONFIG-FOVERRIDE") {
+	field(SCAN,"Passive")
+	field(DTYP,"tcat")
+	field(OUT,"@tc://172.18.211.3.1.1:852/16448/543616:8")
+	field(TSE,"-2")
+	field(PINI,"0")
+}
+record(ao,"IN:LARMOR:TC_01:ASTAXES_1:STCONFIG-FHOMEPOSITION") {
+	field(SCAN,"Passive")
+	field(DTYP,"tcat")
+	field(OUT,"@tc://172.18.211.3.1.1:852/16448/543624:8")
+	field(TSE,"-2")
+	field(PINI,"0")
+}
+record(ao,"IN:LARMOR:TC_01:ASTAXES_1:STCONFIG-FHOMEFINISHDISTANCE") {
+	field(SCAN,"Passive")
+	field(DTYP,"tcat")
+	field(OUT,"@tc://172.18.211.3.1.1:852/16448/543632:8")
+	field(TSE,"-2")
+	field(PINI,"0")
+}
+record(longout,"IN:LARMOR:TC_01:ASTAXES_1:STCONFIG-EHOMESEQ") {
+	field(SCAN,"Passive")
+	field(DTYP,"tcat")
+	field(OUT,"@tc://172.18.211.3.1.1:852/16448/543640:2")
+	field(TSE,"-2")
+	field(PINI,"0")
+	field(HOPR,"90")
+	field(LOPR,"0")
+}
+record(mbbo,"IN:LARMOR:TC_01:ASTAXES_1:STCONFIG-ERESTOREPOSITION") {
+	field(SCAN,"Passive")
+	field(DTYP,"tcat")
+	field(OUT,"@tc://172.18.211.3.1.1:852/16448/543642:2")
+	field(TSE,"-2")
+	field(PINI,"0")
+	field(ZRVL,"0")
+	field(ZRST,"eDontRestore")
+	field(ONVL,"1")
+	field(ONST,"eRestoreWithoutHome")
+}
+record(longout,"IN:LARMOR:TC_01:ASTAXES_1:STCONFIG-EAXISPARAMETERS") {
+	field(SCAN,"Passive")
+	field(DTYP,"tcat")
+	field(OUT,"@tc://172.18.211.3.1.1:852/16448/543644:2")
+	field(TSE,"-2")
+	field(PINI,"0")
+	field(HOPR,"4001")
+	field(LOPR,"1")
+}
+record(ao,"IN:LARMOR:TC_01:ASTAXES_1:STCONFIG-FWRITEAXISPARAMETER") {
+	field(SCAN,"Passive")
+	field(DTYP,"tcat")
+	field(OUT,"@tc://172.18.211.3.1.1:852/16448/543648:8")
+	field(TSE,"-2")
+	field(PINI,"0")
+}
+record(ao,"IN:LARMOR:TC_01:ASTAXES_1:STCONFIG-FREADAXISPARAMETER") {
+	field(SCAN,"Passive")
+	field(DTYP,"tcat")
+	field(OUT,"@tc://172.18.211.3.1.1:852/16448/543656:8")
+	field(TSE,"-2")
+	field(PINI,"0")
+}
+record(longout,"IN:LARMOR:TC_01:ASTAXES_1:STCONFIG-STMASTERAXIS_NINDEX") {
+	field(SCAN,"Passive")
+	field(DTYP,"tcat")
+	field(OUT,"@tc://172.18.211.3.1.1:852/16448/543672:2")
+	field(TSE,"-2")
+	field(PINI,"0")
+}
+record(ao,"IN:LARMOR:TC_01:ASTAXES_1:STCONFIG-STMASTERAXIS_FRATIO") {
+	field(SCAN,"Passive")
+	field(DTYP,"tcat")
+	field(OUT,"@tc://172.18.211.3.1.1:852/16448/543680:8")
+	field(TSE,"-2")
+	field(PINI,"0")
+}
+record(ao,"IN:LARMOR:TC_01:ASTAXES_1:STCONFIG-AFSLAVEAXISRATIO_1") {
+	field(SCAN,"Passive")
+	field(DTYP,"tcat")
+	field(OUT,"@tc://172.18.211.3.1.1:852/16448/543688:8")
+	field(TSE,"-2")
+	field(PINI,"0")
+}
+record(ao,"IN:LARMOR:TC_01:ASTAXES_1:STCONFIG-FHOMINGVELTOCAM") {
+	field(SCAN,"Passive")
+	field(DTYP,"tcat")
+	field(OUT,"@tc://172.18.211.3.1.1:852/16448/543856:8")
+	field(TSE,"-2")
+	field(PINI,"0")
+}
+record(ao,"IN:LARMOR:TC_01:ASTAXES_1:STCONFIG-FHOMINGVELFROMCAM") {
+	field(SCAN,"Passive")
+	field(DTYP,"tcat")
+	field(OUT,"@tc://172.18.211.3.1.1:852/16448/543864:8")
+	field(TSE,"-2")
+	field(PINI,"0")
+}
+record(ao,"IN:LARMOR:TC_01:ASTAXES_1:STCONFIG-FVELOMAX") {
+	field(SCAN,"Passive")
+	field(DTYP,"tcat")
+	field(OUT,"@tc://172.18.211.3.1.1:852/16448/543872:8")
+	field(TSE,"-2")
+	field(PINI,"0")
+}
+record(ao,"IN:LARMOR:TC_01:ASTAXES_1:STCONFIG-FDEFAULTACC") {
+	field(SCAN,"Passive")
+	field(DTYP,"tcat")
+	field(OUT,"@tc://172.18.211.3.1.1:852/16448/543880:8")
+	field(TSE,"-2")
+	field(PINI,"0")
+}
+record(ao,"IN:LARMOR:TC_01:ASTAXES_1:STCONFIG-FDEFAULTDEC") {
+	field(SCAN,"Passive")
+	field(DTYP,"tcat")
+	field(OUT,"@tc://172.18.211.3.1.1:852/16448/543888:8")
+	field(TSE,"-2")
+	field(PINI,"0")
+}
+record(bo,"IN:LARMOR:TC_01:ASTAXES_1:STCONFIG-BENMINSOFTPOSLIMIT") {
+	field(SCAN,"Passive")
+	field(DTYP,"tcat")
+	field(OUT,"@tc://172.18.211.3.1.1:852/16448/543896:1")
+	field(TSE,"-2")
+	field(PINI,"0")
+}
+record(ao,"IN:LARMOR:TC_01:ASTAXES_1:STCONFIG-FMINSOFTPOSLIMIT") {
+	field(SCAN,"Passive")
+	field(DTYP,"tcat")
+	field(OUT,"@tc://172.18.211.3.1.1:852/16448/543904:8")
+	field(TSE,"-2")
+	field(PINI,"0")
+}
+record(bo,"IN:LARMOR:TC_01:ASTAXES_1:STCONFIG-BENMAXSOFTPOSLIMIT") {
+	field(SCAN,"Passive")
+	field(DTYP,"tcat")
+	field(OUT,"@tc://172.18.211.3.1.1:852/16448/543912:1")
+	field(TSE,"-2")
+	field(PINI,"0")
+}
+record(ao,"IN:LARMOR:TC_01:ASTAXES_1:STCONFIG-FMAXSOFTPOSLIMIT") {
+	field(SCAN,"Passive")
+	field(DTYP,"tcat")
+	field(OUT,"@tc://172.18.211.3.1.1:852/16448/543920:8")
+	field(TSE,"-2")
+	field(PINI,"0")
+}
+record(ao,"IN:LARMOR:TC_01:ASTAXES_1:STCONFIG-FMAXPOSLAGVALUE") {
+	field(SCAN,"Passive")
+	field(DTYP,"tcat")
+	field(OUT,"@tc://172.18.211.3.1.1:852/16448/543936:8")
+	field(TSE,"-2")
+	field(PINI,"0")
+}
+record(longout,"IN:LARMOR:TC_01:ASTAXES_1:STERROR-NPOWERERRORID") {
+	field(SCAN,"Passive")
+	field(DTYP,"tcat")
+	field(OUT,"@tc://172.18.211.3.1.1:852/16448/543960:4")
+	field(TSE,"-2")
+	field(PINI,"0")
+}
+record(longout,"IN:LARMOR:TC_01:ASTAXES_1:STERROR-NMOVEABSOLUTEERRORID") {
+	field(SCAN,"Passive")
+	field(DTYP,"tcat")
+	field(OUT,"@tc://172.18.211.3.1.1:852/16448/543964:4")
+	field(TSE,"-2")
+	field(PINI,"0")
+}
+record(longout,"IN:LARMOR:TC_01:ASTAXES_1:STERROR-NMOVERELATIVEERRORID") {
+	field(SCAN,"Passive")
+	field(DTYP,"tcat")
+	field(OUT,"@tc://172.18.211.3.1.1:852/16448/543968:4")
+	field(TSE,"-2")
+	field(PINI,"0")
+}
+record(longout,"IN:LARMOR:TC_01:ASTAXES_1:STERROR-NMOVEVELOCITYERRORID") {
+	field(SCAN,"Passive")
+	field(DTYP,"tcat")
+	field(OUT,"@tc://172.18.211.3.1.1:852/16448/543972:4")
+	field(TSE,"-2")
+	field(PINI,"0")
+}
+record(longout,"IN:LARMOR:TC_01:ASTAXES_1:STERROR-NMOVEMODULOERRORID") {
+	field(SCAN,"Passive")
+	field(DTYP,"tcat")
+	field(OUT,"@tc://172.18.211.3.1.1:852/16448/543976:4")
+	field(TSE,"-2")
+	field(PINI,"0")
+}
+record(longout,"IN:LARMOR:TC_01:ASTAXES_1:STERROR-NJOGERRORID") {
+	field(SCAN,"Passive")
+	field(DTYP,"tcat")
+	field(OUT,"@tc://172.18.211.3.1.1:852/16448/543980:4")
+	field(TSE,"-2")
+	field(PINI,"0")
+}
+record(longout,"IN:LARMOR:TC_01:ASTAXES_1:STERROR-NHOMEERRORID") {
+	field(SCAN,"Passive")
+	field(DTYP,"tcat")
+	field(OUT,"@tc://172.18.211.3.1.1:852/16448/543984:4")
+	field(TSE,"-2")
+	field(PINI,"0")
+}
+record(longout,"IN:LARMOR:TC_01:ASTAXES_1:STERROR-NHALTERRORID") {
+	field(SCAN,"Passive")
+	field(DTYP,"tcat")
+	field(OUT,"@tc://172.18.211.3.1.1:852/16448/543988:4")
+	field(TSE,"-2")
+	field(PINI,"0")
+}
+record(longout,"IN:LARMOR:TC_01:ASTAXES_1:STERROR-NRESETERRORID") {
+	field(SCAN,"Passive")
+	field(DTYP,"tcat")
+	field(OUT,"@tc://172.18.211.3.1.1:852/16448/543992:4")
+	field(TSE,"-2")
+	field(PINI,"0")
+}
+record(longout,"IN:LARMOR:TC_01:ASTAXES_1:STERROR-NSTOPERRORID") {
+	field(SCAN,"Passive")
+	field(DTYP,"tcat")
+	field(OUT,"@tc://172.18.211.3.1.1:852/16448/543996:4")
+	field(TSE,"-2")
+	field(PINI,"0")
+}
+record(longout,"IN:LARMOR:TC_01:ASTAXES_1:STERROR-NGEARINERRORID") {
+	field(SCAN,"Passive")
+	field(DTYP,"tcat")
+	field(OUT,"@tc://172.18.211.3.1.1:852/16448/544000:4")
+	field(TSE,"-2")
+	field(PINI,"0")
+}
+record(longout,"IN:LARMOR:TC_01:ASTAXES_1:STERROR-NGEAROUTERRORID") {
+	field(SCAN,"Passive")
+	field(DTYP,"tcat")
+	field(OUT,"@tc://172.18.211.3.1.1:852/16448/544008:4")
+	field(TSE,"-2")
+	field(PINI,"0")
+}
+record(longout,"IN:LARMOR:TC_01:ASTAXES_1:STERROR-NNCERRORID") {
+	field(SCAN,"Passive")
+	field(DTYP,"tcat")
+	field(OUT,"@tc://172.18.211.3.1.1:852/16448/544020:4")
+	field(TSE,"-2")
+	field(PINI,"0")
+}
+record(bo,"IN:LARMOR:TC_01:ASTAXES_1:STINPUTS-BLIMITFWD") {
+	field(SCAN,"Passive")
+	field(DTYP,"tcat")
+	field(OUT,"@tc://172.18.211.3.1.1:852/16448/544024:1")
+	field(TSE,"-2")
+	field(PINI,"0")
+}
+record(bo,"IN:LARMOR:TC_01:ASTAXES_1:STINPUTS-BLIMITBWD") {
+	field(SCAN,"Passive")
+	field(DTYP,"tcat")
+	field(OUT,"@tc://172.18.211.3.1.1:852/16448/544025:1")
+	field(TSE,"-2")
+	field(PINI,"0")
+}
+record(bo,"IN:LARMOR:TC_01:ASTAXES_1:STINPUTS-BHOMESENSOR") {
+	field(SCAN,"Passive")
+	field(DTYP,"tcat")
+	field(OUT,"@tc://172.18.211.3.1.1:852/16448/544026:1")
+	field(TSE,"-2")
+	field(PINI,"0")
+}
