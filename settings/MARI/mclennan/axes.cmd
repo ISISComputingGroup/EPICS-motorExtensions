@@ -1,0 +1,1 @@
+$(IFIOC_MCLEN_01) dbLoadRecords("$(AXIS)/db/axis.db","P=$(MYPVPREFIX)MOT:,AXIS=MOT:SC,mAXIS=MTR0301")
