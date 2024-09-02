@@ -1,0 +1,8 @@
+epicsEnvSet "LOOKUPFILE1" "$(ICPCONFIGROOT)/motionSetPoints/low_temp_sample_changer.txt"
+
+motionSetPointsConfigure("LOOKUPFILE1","LOOKUPFILE1", 1)
+
+dbLoadRecords("$(MOTIONSETPOINTS)/db/motionSetPoints.db","P=$(MYPVPREFIX)LKUP:SAMPLE:,NAME1=linear,AXIS1=$(MYPVPREFIX)MOT:SAMPLE:LIN,LOOKUP=LOOKUPFILE1,TOL=0.1")
+
+dbLoadRecordsLoop("$(MOTIONSETPOINTS)/db/inPos.db","P=$(MYPVPREFIX)LKUP:SAMPLE:,NAME1=linear,AXIS1=$(MYPVPREFIX)MOT:SAMPLE:LIN,LOOKUP=LOOKUPFILE1", "NUMPOS", 0, 3)
+

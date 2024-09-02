@@ -1,0 +1,4 @@
+# Low temperature sample changer nset points
+bottom 11.0
+middle 68.0
+top    125.0
