@@ -1,0 +1,5 @@
+$(IFIOC_TC_01) dbLoadRecords("$(AXIS)/db/axis.db","P=$(MYPVPREFIX)MOT:,AXIS=GUIDE_1,mAXIS=MTR0601")
+$(IFIOC_TC_01) dbLoadRecords("$(AXIS)/db/axis.db","P=$(MYPVPREFIX)MOT:,AXIS=GUIDE_2,mAXIS=MTR0602")
+$(IFIOC_TC_01) dbLoadRecords("$(AXIS)/db/axis.db","P=$(MYPVPREFIX)MOT:,AXIS=GUIDE_3,mAXIS=MTR0603")
+$(IFIOC_TC_01) dbLoadRecords("$(AXIS)/db/axis.db","P=$(MYPVPREFIX)MOT:,AXIS=GUIDE_4,mAXIS=MTR0604")
+$(IFIOC_TC_01) dbLoadRecords("$(AXIS)/db/axis.db","P=$(MYPVPREFIX)MOT:,AXIS=GUIDE_5,mAXIS=MTR0605")
