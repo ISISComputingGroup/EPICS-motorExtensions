@@ -1,0 +1,5 @@
+# Define jaw sets 1 to 3 on sencond and third controller (if present)
+$(IFIOC_GALIL_02) dbLoadRecords("$(JAWS)/db/jaws.db","P=$(MYPVPREFIX)MOT:,JAWS=JAWS1:,mXN=MTR0201,mXS=MTR0202,mXE=MTR0203,mXW=MTR0204")
+$(IFIOC_GALIL_02) dbLoadRecords("$(JAWS)/db/jaws.db","P=$(MYPVPREFIX)MOT:,JAWS=JAWS2:,mXN=MTR0205,mXS=MTR0206,mXE=MTR0207,mXW=MTR0208")
+$(IFIOC_GALIL_03) dbLoadRecords("$(JAWS)/db/jaws.db","P=$(MYPVPREFIX)MOT:,JAWS=JAWS3:,mXN=MTR0301,mXS=MTR0302,mXE=MTR0303,mXW=MTR0304")
+$(IFIOC_GALIL_03) dbLoadRecords("$(JAWS)/db/jaws.db","P=$(MYPVPREFIX)MOT:,JAWS=JAWS4:,mXN=MTR0305,mXS=MTR0306,mXE=MTR0307,mXW=MTR0308")

@@ -1,0 +1,5 @@
+epicsEnvSet "LOOKUPFILEDLS" "$(ICPCONFIGROOT)/motionSetPoints/dls_sample_changer.txt"
+
+motionSetPointsConfigure("LOOKUPFILEDLS","LOOKUPFILEDLS")
+
+dbLoadRecords("$(MOTIONSETPOINTS)/db/motionSetPoints.db","P=$(MYPVPREFIX)LKUP:DLS:,NAME1=DLS,AXIS1=$(MYPVPREFIX)MOT:DLS,TOL=1,LOOKUP=LOOKUPFILEDLS")
