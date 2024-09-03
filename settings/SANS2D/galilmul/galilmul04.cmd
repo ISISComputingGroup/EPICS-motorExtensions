@@ -10,7 +10,7 @@ GalilCreateAxis("Galil1","G",1,"",1)
 GalilCreateAxis("Galil1","H",1,"",1)
 
 epicsEnvSet "HOME_HEADER" "$(GALIL)/gmc/galil_Default_Header.gmc"
-epicsEnvSet "HOME_HEADER_2" "$(ICPCONFIGROOT)/galil/galil_Home_sans2d_rear_detector.gmc"
+epicsEnvSet "HOME_HEADER_2" "$(MOTOREXT)/settings/SANS2D/galil/galil_Home_sans2d_rear_detector.gmc"
 epicsEnvSet "HOME_MODE_1" "$(GALIL)/gmc/galil_Home_sans2d_rear_detector.gmc"
 epicsEnvSet "HOME_MODE_2" "$(GALIL)/gmc/galil_Home_Home.gmc"
 epicsEnvSet "HOME_MODE_3" "$(GALIL)/gmc/galil_Home_Home.gmc"
