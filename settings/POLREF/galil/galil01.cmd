@@ -37,7 +37,7 @@ epicsEnvSet "HOME_MODE_6" "$(GALIL)/gmc/galil_Home_Dummy_Do_Nothing.gmc"
 epicsEnvSet "HOME_MODE_7" "$(GALIL)/gmc/galil_Home_Dummy_Do_Nothing.gmc"
 epicsEnvSet "HOME_MODE_8" "$(GALIL)/gmc/galil_Home_Dummy_Do_Nothing.gmc"
 epicsEnvSet "HOME_FOOTER" "$(GALIL)/gmc/galil_Default_Footer.gmc"
-epicsEnvSet "POLREF_SPECIAL" "C:/Instrument/Settings/config/NDXPOLREF/configurations/galil/combined_header.gmc"
+epicsEnvSet "POLREF_SPECIAL" "$(MOTOREXT)/settings/POLREF/galil/combined_header.gmc"
 
 GalilStartController("Galil","$(HOME_HEADER);$(POLREF_SPECIAL);$(HOME_MODE_1)!$(HOME_MODE_2)!$(HOME_MODE_3)!$(HOME_MODE_4)!$(HOME_MODE_5)!$(HOME_MODE_6)!$(HOME_MODE_7)!$(HOME_MODE_8);$(HOME_FOOTER)",0,0,3)
 
