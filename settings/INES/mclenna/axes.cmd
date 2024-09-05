@@ -1,1 +1,0 @@
-$(IFMTRCTRL3)$(IFAXIS1) dbLoadRecords("$(AXIS)/db/axis.db","P=$(MYPVPREFIX)MOT:,AXIS=SAMPLE,mAXIS=MTR0201")
