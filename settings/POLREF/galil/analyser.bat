@@ -4,8 +4,7 @@ caput IN:POLREF:MOT:MTR0508_WLP_CMD  0
 caput IN:POLREF:MOT:MTR0508_OFFDELAY_SP 2
 caput IN:POLREF:MOT:MTR0508_ONDELAY_SP 0
 caput IN:POLREF:MOT:MTR0508_JAH_CMD No
-						  8
-						  8
+
 REM Axis specific values5 8
 REM Check on the Limits!5!8
 caput IN:POLREF:MOT:MTR0508.DESC "Analyser Rot"
