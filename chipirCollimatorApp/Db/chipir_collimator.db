@@ -45,8 +45,7 @@ record(ai, "$(P)TARGET_SWITCH") {
     field(INP, "@asyn(Galil,0)USER_VAR targ_sw")
 }
 
-# For debugging
-record(ai, "$(P)_MODE") {
+record(ai, "$(P)MODE") {
     field(SCAN,"1 second")
     field(DTYP,"asynFloat64")
     field(EGU, "")
@@ -86,7 +85,7 @@ record(scalcout, "$(P)MOVE:CMD") {
     field(OUT, "$(P)$(D):SEND_STR_CMD PP")
 }
 
-record(scalcout, "$(P)MOVE:CMD") {
+record(scalcout, "$(P)HOME:CMD") {
     field(DESC, "Galil command to start MOVE program")
     field(AA, "$(HOME_THREAD=2)")
     field(BB, "XQ #HOME_SW,")
