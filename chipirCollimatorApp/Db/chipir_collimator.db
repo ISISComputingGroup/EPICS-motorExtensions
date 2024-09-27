@@ -86,7 +86,7 @@ record(scalcout, "$(P)MOVE:CMD") {
 }
 
 record(scalcout, "$(P)HOME:CMD") {
-    field(DESC, "Galil command to start MOVE program")
+    field(DESC, "Galil command to start HOME program")
     field(AA, "$(HOME_THREAD=2)")
     field(BB, "XQ #HOME_SW,")
     field(CALC, "BB+AA")
