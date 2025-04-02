@@ -54,6 +54,8 @@ file "$(TOP)/beckhoffApp/beckhoff_read_pv.template" {
     {"\$(P)", "SETVELO_HORIZONTAL", "\$(PORT)", "\$(ADSPORT)", "GVL_INTER.SETVELO_HORIZONTAL", "ai", "asynFloat64", "LREAL"} 
     {"\$(P)", "SETVELO_ROTATION", "\$(PORT)", "\$(ADSPORT)", "GVL_INTER.SETVELO_ROTATION", "ai", "asynFloat64", "LREAL"} 
 
+    {"\$(P)", "INCLINOMETER_ANGLE", "\$(PORT)", "\$(ADSPORT)", "GVL_INTER.INCLINOMETER_ANGLE", "ai", "asynFloat64", "LREAL"}
+
     {"\$(P)", "LOGIC_STATE", "\$(PORT)", "\$(ADSPORT)", "GVL_INTER.LOGIC_STATE_STR", "stringin", "asynOctetRead", "STRING N=81"} 
     {"\$(P)", "LOGIC_STATE_ERROR", "\$(PORT)", "\$(ADSPORT)", "GVL_INTER.LOGIC_STATE_ERROR_STR", "stringin", "asynOctetRead", "STRING N=81"} 
 
