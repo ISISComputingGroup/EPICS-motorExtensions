@@ -38,6 +38,8 @@ file "$(TOP)/beckhoffApp/beckhoff_read_pv.template" {
     {"\$(P)", "REINITIALISE_IN_PROGRESS", "\$(PORT)", "\$(ADSPORT)", "GVL_INTER.REINITIALISE_IN_PROGRESS", "longin", "asynInt32", "BOOL"} 
     {"\$(P)", "SAFETY_ACK_REQUESTED", "\$(PORT)", "\$(ADSPORT)", "GVL_INTER.SAFETY_ACK_REQUESTED", "longin", "asynInt32", "BOOL"} 
     {"\$(P)", "SPEED_LIMITING", "\$(PORT)", "\$(ADSPORT)", "GVL_INTER.SPEED_LIMITING", "longin", "asynInt32", "BOOL"} 
+    {"\$(P)", "STOP_MOTION", "\$(PORT)", "\$(ADSPORT)", "GVL_SAFETY.stSafetyData.bStopAllMotion", "longin", "asynInt32", "BOOL"} 
+
 
     {"\$(P)", "SETDIR_COMBINED_VERTICAL", "\$(PORT)", "\$(ADSPORT)", "GVL_INTER.SETDIR_COMBINED_VERTICAL", "longin", "asynInt32", "DINT"} 
     {"\$(P)", "SETDIR_HORIZONTAL", "\$(PORT)", "\$(ADSPORT)", "GVL_INTER.SETDIR_HORIZONTAL", "longin", "asynInt32", "DINT"} 
@@ -51,6 +53,8 @@ file "$(TOP)/beckhoffApp/beckhoff_read_pv.template" {
     {"\$(P)", "SETVELO_COMBINED_VERTICAL", "\$(PORT)", "\$(ADSPORT)", "GVL_INTER.SETVELO_COMBINED_VERTICAL", "ai", "asynFloat64", "LREAL"} 
     {"\$(P)", "SETVELO_HORIZONTAL", "\$(PORT)", "\$(ADSPORT)", "GVL_INTER.SETVELO_HORIZONTAL", "ai", "asynFloat64", "LREAL"} 
     {"\$(P)", "SETVELO_ROTATION", "\$(PORT)", "\$(ADSPORT)", "GVL_INTER.SETVELO_ROTATION", "ai", "asynFloat64", "LREAL"} 
+
+    {"\$(P)", "INCLINOMETER_ANGLE", "\$(PORT)", "\$(ADSPORT)", "GVL_INTER.INCLINOMETER_ANGLE", "ai", "asynFloat64", "LREAL"}
 
     {"\$(P)", "LOGIC_STATE", "\$(PORT)", "\$(ADSPORT)", "GVL_INTER.LOGIC_STATE_STR", "stringin", "asynOctetRead", "STRING N=81"} 
     {"\$(P)", "LOGIC_STATE_ERROR", "\$(PORT)", "\$(ADSPORT)", "GVL_INTER.LOGIC_STATE_ERROR_STR", "stringin", "asynOctetRead", "STRING N=81"} 
