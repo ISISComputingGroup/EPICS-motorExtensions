@@ -17,7 +17,6 @@ file "$(TOP)/beckhoffApp/beckhoff_write_pv.template" {
     {"\$(P)", "ASTAXES_\$(AXIS_NUM):STCONTROL-FACCELERATION", "\$(PORT)", "\$(ADSPORT)", "GVL.astAxes[\$(AXIS_NUM)].stControl.fAcceleration", ao, "asynFloat64", "LREAL"}
     {"\$(P)", "ASTAXES_\$(AXIS_NUM):STCONTROL-FDECELERATION", "\$(PORT)", "\$(ADSPORT)", "GVL.astAxes[\$(AXIS_NUM)].stControl.fDeceleration", ao, "asynFloat64", "LREAL"}
     {"\$(P)", "ASTAXES_\$(AXIS_NUM):STCONTROL-FPOSITION", "\$(PORT)", "\$(ADSPORT)", "GVL.astAxes[\$(AXIS_NUM)].stControl.fPosition", ao, "asynFloat64", "LREAL"}
-    {"\$(P)", "ASTAXES_\$(AXIS_NUM):STCONTROL-FSETPOSITION", "\$(PORT)", "\$(ADSPORT)", "GVL.astAxes[\$(AXIS_NUM)].stControl.fSetPosition", ao, "asynFloat64", "LREAL"}
 }
 
 file "$(TOP)/beckhoffApp/beckhoff_read_pv.template" {
