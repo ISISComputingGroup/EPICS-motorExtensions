@@ -1,0 +1,9 @@
+file "$(TOP)/beckhoffApp/beckhoff_write_pv.template" {
+    pattern {P, NAME, PORT, ADSPORT, V, RECTYPE, EPICSDTYP, ADS_TYPE}
+    {"\$(P)", "ASTAXES_\$(AXIS_NUM):STCONTROL-BAUTOENABLEDISABLE", "\$(PORT)", "\$(ADSPORT)", "GVL.astAxes[\$(AXIS_NUM)].stControl.bAutoEnableDisable", longout, "asynInt32", "BOOL"}
+}
+
+file "$(TOP)/beckhoffApp/beckhoff_read_pv.template" {
+    pattern {P, NAME, PORT, ADSPORT, V, RECTYPE, EPICSDTYP, ADS_TYPE, ARCHIVE}
+    {"\$(P)", "ASTAXES_\$(AXIS_NUM):STCONTROL-BAUTOENABLEDISABLE:RBV", "\$(PORT)", "\$(ADSPORT)", "GVL.astAxes[\$(AXIS_NUM)].stControl.bAutoEnableDisable", longin, "asynInt32", "BOOL"}
+}
