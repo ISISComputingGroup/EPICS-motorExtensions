@@ -7,7 +7,7 @@ record(ao, "$(P)TARGET_POS:SP") {
     field(DTYP, "asynFloat64")
     field(PREC, "1")
     field(OUT, "@asyn(Galil,0)USER_VAR targ_pos")
-    field(FLNK, "$(P)MOVE:CMD")
+    field(FLNK, "$(P)MOVE:CMD.PROC")
     field(LOPR, 0)
     field(HOPR, 6)
     field(EGU, "")
@@ -79,6 +79,7 @@ record(ai, "$(P)_TARGET_DIRECTION") {
 
 ## execution
 record(scalcout, "$(P)MOVE:CMD") {
+    field(DESC, "Galil command to start MOVE program")
     field(AA, "$(MOVE_THREAD=3)")
     field(BB, "XQ #MOVE,")
     field(CALC, "BB+AA")
@@ -86,6 +87,7 @@ record(scalcout, "$(P)MOVE:CMD") {
 }
 
 record(scalcout, "$(P)HOME:CMD") {
+    field(DESC, "Galil command to start HOME program")
     field(AA, "$(HOME_THREAD=2)")
     field(BB, "XQ #HOME_SW,")
     field(CALC, "BB+AA")
