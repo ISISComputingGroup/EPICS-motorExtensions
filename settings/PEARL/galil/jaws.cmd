@@ -1,0 +1,2 @@
+# Define jaw set 3 on third motor controller
+$(IFIOC_GALIL_01) dbLoadRecords("$(JAWS)/db/jaws.db","P=$(MYPVPREFIX)MOT:,JAWS=JAWS1:,mXN=,mXS=,mXE=MTR0302,mXW=MTR0301,IFINIT_FROM_AS=$(IFINIT_JAWS_FROM_AS=#),IFNOTINIT_FROM_AS=$(IFNOTINIT_JAWS_FROM_AS=),EGU=mm")

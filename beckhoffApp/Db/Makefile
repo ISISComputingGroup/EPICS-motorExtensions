@@ -14,6 +14,8 @@ include $(TOP)/configure/CONFIG
 DB += single_axis_tc.db
 DB += desc_tc.db
 DB += per_controller.db
+DB += frozen_offsets.db
+DB += autoonoff.db
 
 #----------------------------------------------------
 # If <anyname>.db template is not named <anyname>*.template add

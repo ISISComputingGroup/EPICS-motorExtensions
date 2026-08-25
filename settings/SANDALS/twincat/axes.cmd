@@ -1,0 +1,2 @@
+$(IFIOC_TC_01) dbLoadRecords("$(AXIS)/db/axis.db","P=$(MYPVPREFIX)MOT:,AXIS=SAMPLE:LIN,mAXIS=MTR0113")
+$(IFIOC_TC_01) dbLoadRecords("$(AXIS)/db/axis.db","P=$(MYPVPREFIX)MOT:,AXIS=SAMPLE:ROT,mAXIS=MTR0114")

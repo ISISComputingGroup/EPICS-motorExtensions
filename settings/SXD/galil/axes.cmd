@@ -1,0 +1,4 @@
+$(IFIOC_GALIL_01=#) dbLoadRecords("$(AXIS)/db/axis.db","P=$(MYPVPREFIX)MOT:,AXIS=STACK:Z,mAXIS=MTR0601")
+$(IFIOC_GALIL_01=#) dbLoadRecords("$(AXIS)/db/axis.db","P=$(MYPVPREFIX)MOT:,AXIS=STACK:Y,mAXIS=MTR0602")
+$(IFIOC_GALIL_01=#) dbLoadRecords("$(AXIS)/db/axis.db","P=$(MYPVPREFIX)MOT:,AXIS=STACK:X,mAXIS=MTR0603")
+$(IFIOC_GALIL_01=#) dbLoadRecords("$(AXIS)/db/axis.db","P=$(MYPVPREFIX)MOT:,AXIS=STACK:ROT,mAXIS=MTR0604")

@@ -1,0 +1,44 @@
+NO*****************AXIS ${AXIS}********************
+NO*********HOME - FE, PR, FE************
+#HOME${AXIS}
+IF (home${AXIS}=1)
+    inhome${AXIS}=1
+	IF ((home${AXIS}=1) & (hjog${AXIS}=0))
+	    slimfl${AXIS}=_FL${AXIS};FL${AXIS}=2147483647
+		slimbl${AXIS}=_BL${AXIS};BL${AXIS}=-2147483648
+		hjog${AXIS}=1
+	ENDIF
+	IF ((_LR${AXIS}=0) & (_LF${AXIS}=0) & (home${AXIS}=1))
+		home${AXIS}=0;MG "home${AXIS}", home${AXIS};ENDIF
+	IF ((hjog${AXIS}=1) & (_BG${AXIS}=1) & (home${AXIS}=1))
+		ST${AXIS};ENDIF
+	IF ((hjog${AXIS}=1) & (_BG${AXIS}=0) & (home${AXIS}=1))
+    STS${AXIS} = _SP${AXIS}; SP${AXIS} = 1000; SH${AXIS}
+    #GTEDG${AXIS}1
+    PTP${AXIS} = _TP${AXIS}; FE${AXIS}; BG${AXIS}; AM ${AXIS}
+    IF (_TP${AXIS}<>PTP${AXIS})
+      JP #GTEDG${AXIS}1
+    ENDIF
+    PR${AXIS} = -5000; BG${AXIS}; AM ${AXIS}
+    #GTEDG${AXIS}2
+    PTP${AXIS} = _TP${AXIS}; FE${AXIS}; BG${AXIS}; AM ${AXIS}
+    IF (_TP${AXIS}<>PTP${AXIS})
+      JP #GTEDG${AXIS}2
+    ENDIF
+    SP${AXIS} = STS${AXIS}; MO${AXIS}; hjog${AXIS}=2
+	ENDIF
+	IF ((hjog${AXIS}=2) & (_BG${AXIS}=0) & (home${AXIS}=1) & (_SC${AXIS}=1))
+		hjog${AXIS}=0;home${AXIS}=0;homed${AXIS}=1
+		MG "home${AXIS}", home${AXIS};MG "homed${AXIS}", homed${AXIS}
+	ENDIF
+ELSE
+	hjog${AXIS}=0
+ENDIF
+IF ((home${AXIS}=0) & (inhome${AXIS}=1))
+    FL${AXIS}=slimfl${AXIS}
+	BL${AXIS}=slimbl${AXIS}
+	inhome${AXIS}=0
+ENDIF
+IF (mlock=1)
+	II ,,dpon,dvalues
+ENDIF

@@ -1,0 +1,3 @@
+# Load records for an aliased full jawset
+
+$(IFIOC_TWINCAT_01=#) dbLoadRecords("$(JAWS)/db/jaws_alias.db","P=$(MYPVPREFIX)MOT:,JAWS=JAWS5:,mXN=MTR0701,mXS=MTR0702,mXE=MTR0703,mXW=MTR0704,mVGAP=MTR0705,mVCENT=MTR0706,mHGAP=MTR0707,mHCENT=MTR0708,EGU=mm")
