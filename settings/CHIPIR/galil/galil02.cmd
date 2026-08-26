@@ -33,7 +33,7 @@ epicsEnvSet "HOME_MODE_8" "$(GALIL)/gmc/galil_Home_Dummy_Do_Nothing.gmc"
 epicsEnvSet "HOME_FOOTER" "$(GALIL)/gmc/galil_Default_Footer.gmc"
 epicsEnvSet "COL" "$(GALIL)/gmc/galil_CHIPIR_Collimator.gmc"
 
-GalilStartController("Galil","$(HOME_HEADER)!$(COL);$(HOME_MODE_1)!$(HOME_MODE_2)!$(HOME_MODE_3)!$(HOME_MODE_4)!$(HOME_MODE_5)!$(HOME_MODE_6)!$(HOME_MODE_7)!$(HOME_MODE_8);$(HOME_FOOTER)",0,0,15)
+GalilStartController("Galil","$(HOME_HEADER)!$(COL);$(HOME_MODE_1)!$(HOME_MODE_2)!$(HOME_MODE_3)!$(HOME_MODE_4)!$(HOME_MODE_5)!$(HOME_MODE_6)!$(HOME_MODE_7)!$(HOME_MODE_8);$(HOME_FOOTER)",0,0,3)
 
 $(IFNEWGALIL=#) GalilCreateProfile("Galil", 2000)
 
