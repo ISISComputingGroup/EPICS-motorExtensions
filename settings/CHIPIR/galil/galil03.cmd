@@ -20,8 +20,8 @@ GalilCreateAxis("Galil","H",1,"",1)
 $(IFNEWGALIL=#) GalilCreateCSAxes("Galil")
 
 epicsEnvSet "HOME_HEADER" "$(GALIL)/gmc/galil_Default_Header.gmc"
-epicsEnvSet "HOME_MODE_1" "$(GALIL)/gmc/galil_Home_Dummy_Do_Nothing.gmc"
-epicsEnvSet "HOME_MODE_2" "$(GALIL)/gmc/galil_Home_Dummy_Do_Nothing.gmc"
+epicsEnvSet "HOME_MODE_1" "$(GALIL)/gmc/galil_Home_RevLimit.gmc"
+epicsEnvSet "HOME_MODE_2" "$(GALIL)/gmc/galil_Home_RevLimit.gmc"
 epicsEnvSet "HOME_MODE_3" "$(GALIL)/gmc/galil_Home_Dummy_Do_Nothing.gmc"
 epicsEnvSet "HOME_MODE_4" "$(GALIL)/gmc/galil_Home_Dummy_Do_Nothing.gmc"
 epicsEnvSet "HOME_MODE_5" "$(GALIL)/gmc/galil_Home_ForwLimit.gmc"
