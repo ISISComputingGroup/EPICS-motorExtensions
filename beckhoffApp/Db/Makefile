@@ -15,6 +15,7 @@ DB += single_axis_tc.db
 DB += desc_tc.db
 DB += frozen_offsets.db
 DB += autoonoff.db
+DB += units_tc.db
 
 #----------------------------------------------------
 # If <anyname>.db template is not named <anyname>*.template add
