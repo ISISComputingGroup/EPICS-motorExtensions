@@ -13,7 +13,7 @@ include $(TOP)/configure/CONFIG
 #DB += xxx.db
 DB += single_axis_tc.db
 DB += desc_tc.db
-DB += per_controller.db
+DB += per_controller_tc.db
 DB += frozen_offsets.db
 DB += autoonoff.db
 
