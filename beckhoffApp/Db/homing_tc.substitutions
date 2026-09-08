@@ -1,0 +1,28 @@
+file "$(TOP)/beckhoffApp/beckhoff_write_pv.template" {
+    pattern {P, NAME, PORT, ADSPORT, V, RECTYPE, EPICSDTYP, ADS_TYPE}
+
+    {"\$(P)", "ASTAXES_\$(AXIS_NUM):STHOMING-BGOTOFWDFIRST", "\$(PORT)", "\$(ADSPORT)", "GVL.astAxes[\$(AXIS_NUM)].stHomingConfig.bGoToFwdFirst", longin, "asynInt32", "BOOL"}
+    {"\$(P)", "ASTAXES_\$(AXIS_NUM):STHOMING-BGOTOBWDFIRST", "\$(PORT)", "\$(ADSPORT)", "GVL.astAxes[\$(AXIS_NUM)].stHomingConfig.bGoToBwdFirst", longin, "asynInt32", "BOOL"}
+    {"\$(P)", "ASTAXES_\$(AXIS_NUM):STHOMING-BABSMOVATEND", "\$(PORT)", "\$(ADSPORT)", "GVL.astAxes[\$(AXIS_NUM)].stHomingConfig.bDoAbsoluteMoveAtEnd", longin, "asynInt32", "BOOL"}
+
+    {"\$(P)", "ASTAXES_\$(AXIS_NUM):STHOMING-FHOMEPOS", "\$(PORT)", "\$(ADSPORT)", "GVL.astAxes[\$(AXIS_NUM)].stHomingConfig.fHomePosition", ai, "asynFloat64", "LREAL"}
+    {"\$(P)", "ASTAXES_\$(AXIS_NUM):STHOMING-FHOMEFNSHDIST", "\$(PORT)", "\$(ADSPORT)", "GVL.astAxes[\$(AXIS_NUM)].stHomingConfig.fHomeFinishDistance", ai, "asynFloat64", "LREAL"}
+    {"\$(P)", "ASTAXES_\$(AXIS_NUM):STHOMING-FHOMEABSPOS", "\$(PORT)", "\$(ADSPORT)", "GVL.astAxes[\$(AXIS_NUM)].stHomingConfig.fHomeAbsPosition", ai, "asynFloat64", "LREAL"}
+    {"\$(P)", "ASTAXES_\$(AXIS_NUM):STHOMING-FMIDRELMOV", "\$(PORT)", "\$(ADSPORT)", "GVL.astAxes[\$(AXIS_NUM)].stHomingConfig.fHomeMidRelativeMove", ai, "asynFloat64", "LREAL"}
+
+    {"\$(P)", "ASTAXES_\$(AXIS_NUM):STHOMING-EHOMESEQ", "\$(PORT)", "\$(ADSPORT)", "GVL.astAxes[\$(AXIS_NUM)].stHomingConfig.eHomeSeq", longin, "asynInt64", "UDINT"}
+}
+
+file "$(TOP)/beckhoffApp/beckhoff_read_pv.template" {
+    pattern {P, NAME, PORT, ADSPORT, V, RECTYPE, EPICSDTYP, ADS_TYPE, ARCHIVE}
+    {"\$(P)", "ASTAXES_\$(AXIS_NUM):STHOMING-BGOTOFWDFIRST:RBV", "\$(PORT)", "\$(ADSPORT)", "GVL.astAxes[\$(AXIS_NUM)].stHomingConfig.bGoToFwdFirst", longin, "asynInt32", "BOOL", ""}
+    {"\$(P)", "ASTAXES_\$(AXIS_NUM):STHOMING-BGOTOBWDFIRST:RBV", "\$(PORT)", "\$(ADSPORT)", "GVL.astAxes[\$(AXIS_NUM)].stHomingConfig.bGoToBwdFirst", longin, "asynInt32", "BOOL", ""}
+    {"\$(P)", "ASTAXES_\$(AXIS_NUM):STHOMING-BABSMOVATEND:RBV", "\$(PORT)", "\$(ADSPORT)", "GVL.astAxes[\$(AXIS_NUM)].stHomingConfig.bDoAbsoluteMoveAtEnd", longin, "asynInt32", "BOOL", ""}
+
+    {"\$(P)", "ASTAXES_\$(AXIS_NUM):STHOMING-FHOMEPOS:RBV", "\$(PORT)", "\$(ADSPORT)", "GVL.astAxes[\$(AXIS_NUM)].stHomingConfig.fHomePosition", ai, "asynFloat64", "LREAL", ""}
+    {"\$(P)", "ASTAXES_\$(AXIS_NUM):STHOMING-FHOMEFNSHDIST:RBV", "\$(PORT)", "\$(ADSPORT)", "GVL.astAxes[\$(AXIS_NUM)].stHomingConfig.fHomeFinishDistance", ai, "asynFloat64", "LREAL", ""}
+    {"\$(P)", "ASTAXES_\$(AXIS_NUM):STHOMING-FHOMEABSPOS:RBV", "\$(PORT)", "\$(ADSPORT)", "GVL.astAxes[\$(AXIS_NUM)].stHomingConfig.fHomeAbsPosition", ai, "asynFloat64", "LREAL", ""}
+    {"\$(P)", "ASTAXES_\$(AXIS_NUM):STHOMING-FMIDRELMOV:RBV", "\$(PORT)", "\$(ADSPORT)", "GVL.astAxes[\$(AXIS_NUM)].stHomingConfig.fHomeMidRelativeMove", ai, "asynFloat64", "LREAL", ""}
+
+    {"\$(P)", "ASTAXES_\$(AXIS_NUM):STHOMING-EHOMESEQ:RBV", "\$(PORT)", "\$(ADSPORT)", "GVL.astAxes[\$(AXIS_NUM)].stHomingConfig.eHomeSeq", longin, "asynInt64", "UDINT", ""}
+}

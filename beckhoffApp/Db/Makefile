@@ -16,6 +16,7 @@ DB += desc_tc.db
 DB += frozen_offsets.db
 DB += autoonoff.db
 DB += units_tc.db
+DB += homing_tc.db
 
 #----------------------------------------------------
 # If <anyname>.db template is not named <anyname>*.template add
