@@ -1,6 +1,6 @@
 file "$(TOP)/beckhoffApp/beckhoff_read_pv.template" {
     pattern {P, NAME, PORT, ADSPORT, V, RECTYPE, EPICSDTYP, ADS_TYPE, ARCHIVE}
-    {"\$(P)", "BANNERMESSAGE", "\$(PORT)", "\$(ADSPORT)", "SAFETY.BannerMessage", stringin, "asynOctetRead", "STRING N=32", ""}
+    {"\$(P)", "BANNERMESSAGE", "\$(PORT)", "\$(ADSPORT)", "SAFETY.BannerMessage", stringin, "asynOctetRead", "STRING N=39", ""}
     {"\$(P)", "ESTOPSHEALTHY", "\$(PORT)", "\$(ADSPORT)", "SAFETY.EstopsHealthy", "longin", "asynInt32", "BOOL"}
 
     {"\$(P)", "INMODEMAINTENANCE", "\$(PORT)", "\$(ADSPORT)", "SAFETY.inMode_Maintenance", "longin", "asynInt32", "BOOL"}
