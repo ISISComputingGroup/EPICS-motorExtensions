@@ -1,4 +1,4 @@
-## configure galil crate 7
+## configure galil crate 8
 
 ## passed parameters
 ##   GCID - galil crate software index. Numbering starts at 0 - will always be 0 if there is one to one galil crate <-> galil IOC mapping

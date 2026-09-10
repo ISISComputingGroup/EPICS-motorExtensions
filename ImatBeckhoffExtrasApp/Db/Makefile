@@ -11,12 +11,7 @@ include $(TOP)/configure/CONFIG
 # Create and install (or just install) into <top>/db
 # databases, templates, substitutions like this
 #DB += xxx.db
-DB += single_axis_tc.db
-DB += desc_tc.db
-DB += frozen_offsets.db
-DB += autoonoff.db
-DB += units_tc.db
-DB += homing_tc.db
+DB += imat_beckhoff_extras.db
 
 #----------------------------------------------------
 # If <anyname>.db template is not named <anyname>*.template add
