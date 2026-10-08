@@ -17,5 +17,5 @@ GalilCreateAxis("Galil","F",1,"",1)
 GalilCreateAxis("Galil","G",1,"",1)
 GalilCreateAxis("Galil","H",1,"",1)
 
-GalilStartController("Galil","$(GALIL)/gmc/galil_Default_Header.gmc;$(GALIL)/gmc/galil_Home_FIpos.gmc!$(GALIL)/gmc/galil_Home_FIpos.gmc!$(GALIL)/gmc/galil_Home_FIpos.gmc;$(GALIL)/gmc/galil_Default_Footer.gmc",0,0,3)
+GalilStartController("Galil","$(GALIL)/gmc/galil_Default_Header.gmc;$(GALIL)/gmc/galil_Home_FIpos.gmc!$(GALIL)/gmc/galil_Home_FIpos.gmc!$(GALIL)/gmc/galil_Home_FIpos.gmc!$(GALIL)/gmc/galil_Home_Dummy_Do_Nothing.gmc;$(GALIL)/gmc/galil_Default_Footer.gmc",0,0,3)
 
