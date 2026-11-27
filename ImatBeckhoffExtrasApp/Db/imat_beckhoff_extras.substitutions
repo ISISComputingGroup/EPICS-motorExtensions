@@ -1,0 +1,26 @@
+file "$(TOP)/beckhoffApp/beckhoff_read_pv.template" {
+    pattern {P, NAME, PORT, ADSPORT, V, RECTYPE, EPICSDTYP, ADS_TYPE, ARCHIVE}
+    {"\$(P)", "BANNERMESSAGE", "\$(PORT)", "\$(ADSPORT)", "SAFETY.BannerMessage", stringin, "asynOctetRead", "STRING N=39", ""}
+    {"\$(P)", "ESTOPSHEALTHY", "\$(PORT)", "\$(ADSPORT)", "SAFETY.EstopsHealthy", "longin", "asynInt32", "BOOL"}
+
+    {"\$(P)", "INMODEMAINTENANCE", "\$(PORT)", "\$(ADSPORT)", "SAFETY.inMode_Maintenance", "longin", "asynInt32", "BOOL"}
+    {"\$(P)", "INMODELOCAL", "\$(PORT)", "\$(ADSPORT)", "SAFETY.inMode_Local", "longin", "asynInt32", "BOOL"}
+    {"\$(P)", "INMODESEARCHEDANDLOCKED", "\$(PORT)", "\$(ADSPORT)", "SAFETY.inMode_SearchedAndLocked", "longin", "asynInt32", "BOOL"}
+
+    {"\$(P)", "INCSLITSSWITCH", "\$(PORT)", "\$(ADSPORT)", "SAFETY.IncidentSlitsSwitch", "longin", "asynInt32", "BOOL"}
+
+    {"\$(P)", "SAMPAREASEARCHEDDS", "\$(PORT)", "\$(ADSPORT)", "SAFETY.SampleAreaSearched_Downstream", "longin", "asynInt32", "BOOL"}
+    {"\$(P)", "SAMPAREASEARCHEDUS", "\$(PORT)", "\$(ADSPORT)", "SAFETY.SampleAreaSearched_Upstream", "longin", "asynInt32", "BOOL"}
+
+    {"\$(P)", "UPSTREAMSEARCHREQ", "\$(PORT)", "\$(ADSPORT)", "SAFETY.upstreamSearchReq", "longin", "asynInt32", "BOOL"}
+    {"\$(P)", "DOWNSTREAMSEARCHREQ", "\$(PORT)", "\$(ADSPORT)", "SAFETY.downstreamSearchReq", "longin", "asynInt32", "BOOL"}
+
+    {"\$(P)", "MOTIONISOLATED", "\$(PORT)", "\$(ADSPORT)", "SAFETY.MotionIsolator", "longin", "asynInt32", "BOOL"}
+
+    {"\$(P)", "STOPMOTION", "\$(PORT)", "\$(ADSPORT)", "SAFETY.STOP_MOTION", "longin", "asynInt32", "BOOL"}
+    {"\$(P)", "NONSAMPLEPERMIT", "\$(PORT)", "\$(ADSPORT)", "SAFETY.NON_SAMPLE_PERMIT", "longin", "asynInt32", "BOOL"}
+    {"\$(P)", "SAMPLEPERMIT", "\$(PORT)", "\$(ADSPORT)", "SAFETY.SAMPLE_PERMIT", "longin", "asynInt32", "BOOL"}
+    {"\$(P)", "STOPNONSAMPLEMOTION", "\$(PORT)", "\$(ADSPORT)", "SAFETY.STOP_NON_SAMPLE_MOTION", "longin", "asynInt32", "BOOL"}
+
+    {"\$(P)", "COLLISIONDETECTED", "\$(PORT)", "\$(ADSPORT)", "SAFETY.CollisionDetected", "longin", "asynInt32", "BOOL"}
+}
